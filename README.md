@@ -1,6 +1,10 @@
 # Champions Data Search
 
-A static data/search tool for Pokemon Champions sets, moves, abilities, items, and saved Box configurations.
+A little tool from a little tool. Pokemon Champions database search and team builder, all the stuff that should've been in the game already.
+Showdown export/import, be sure to use the Champions format.
+
+Watch me on Twitch! https://www.twitch.com/phantomsafe
+Join my Discord! https://discord.gg/HBr2zJHz2
 
 ## Local Use
 
