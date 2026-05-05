@@ -7,7 +7,7 @@ const state = {
   items: [],
   formOverrides: {},
   speedDrawerOpen: false,
-  activeTab: "set",
+  activeTab: "help",
   setlist: [],
   box: {
     configs: [],
@@ -15,15 +15,18 @@ const state = {
   },
   editingBoxConfigId: null,
   pendingBoxConfig: null,
-  pendingImportConfig: null
+  pendingImportConfig: null,
+  pendingMoveSlotSelection: null
 };
 
 const elements = {
   status: document.getElementById("status"),
+  helpTab: document.getElementById("help-tab"),
   setTab: document.getElementById("set-tab"),
   moveTab: document.getElementById("move-tab"),
   abilityTab: document.getElementById("ability-tab"),
   boxTab: document.getElementById("box-tab"),
+  helpPanel: document.getElementById("help-panel"),
   setPanel: document.getElementById("set-panel"),
   movePanel: document.getElementById("move-panel"),
   abilityPanel: document.getElementById("ability-panel"),
@@ -31,7 +34,6 @@ const elements = {
   speciesInput: document.getElementById("species-input"),
   speciesOptions: document.getElementById("species-options"),
   clearSpeciesButton: document.getElementById("clear-species-button"),
-  speciesStatus: document.getElementById("species-status"),
   moveInputs: [
     document.getElementById("move-input-1"),
     document.getElementById("move-input-2"),
@@ -51,7 +53,6 @@ const elements = {
   promptInput: document.getElementById("prompt-input"),
   applyPromptButton: document.getElementById("apply-prompt-button"),
   clearPromptButton: document.getElementById("clear-prompt-button"),
-  promptStatus: document.getElementById("prompt-status"),
   speedDrawer: document.getElementById("speed-drawer"),
   speedDrawerTab: document.getElementById("speed-drawer-tab"),
   speedDrawerStatus: document.getElementById("speed-drawer-status"),
@@ -90,6 +91,7 @@ const elements = {
   boxSaveCancelButton: document.getElementById("box-save-cancel-button"),
   moveSlotModal: document.getElementById("move-slot-modal"),
   moveSlotModalGrid: document.getElementById("move-slot-modal-grid"),
+  moveSlotConfirmButton: document.getElementById("move-slot-confirm-button"),
   moveSlotCancelButton: document.getElementById("move-slot-cancel-button"),
   showdownText: document.getElementById("showdown-text"),
   showdownCopyButton: document.getElementById("showdown-copy-button"),
@@ -145,6 +147,7 @@ const SORT_LABELS = {
 
 const SETLIST_STORAGE_KEY = "championsDataSearch.setlist";
 const BOX_STORAGE_KEY = "championsDataSearch.box";
+const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
@@ -159,6 +162,7 @@ const CHAMPIONS_LEVEL = 50;
 const CHAMPIONS_IV = 31;
 const CHAMPIONS_MAX_EVS_PER_STAT = 32;
 const CHAMPIONS_MAX_TOTAL_EVS = 66;
+const SHOWDOWN_MAX_EVS_PER_STAT = 252;
 
 const STAT_ROWS = [
   ["HP", "hp"],
@@ -536,14 +540,6 @@ function setStatus(text) {
   elements.status.textContent = text;
 }
 
-function setPromptStatus(text) {
-  elements.promptStatus.textContent = text;
-}
-
-function setSpeciesStatus(text) {
-  elements.speciesStatus.textContent = text;
-}
-
 function setSpeedDrawerStatus(text) {
   elements.speedDrawerStatus.textContent = text;
 }
@@ -675,6 +671,7 @@ function populateOptions() {
     option.textContent = abilityName;
     elements.abilitySelect.appendChild(option);
   }
+  syncSelectPlaceholder(elements.abilitySelect);
 
   populateSelect(elements.moveTypeSearch, state.metadata.moveFilters.types, "Any type");
   populateSelect(elements.moveCategorySearch, state.metadata.moveFilters.categories.filter(name => name !== "Unknown"), "Any category");
@@ -691,6 +688,10 @@ function populateSelect(select, options, defaultText) {
     option.textContent = optionName;
     select.appendChild(option);
   }
+}
+
+function syncSelectPlaceholder(select) {
+  select.classList.toggle("placeholder-selected", !select.value);
 }
 
 function renderAbilityToggles() {
@@ -1350,7 +1351,7 @@ function getNatureModifier(statKey, nature) {
 function calculateChampionsStat(base, statKey, evs, nature) {
   const safeBase = Number(base) || 0;
   const safeEvs = Math.max(0, Math.min(CHAMPIONS_MAX_EVS_PER_STAT, Number(evs) || 0));
-  const baseValue = Math.floor(((2 * safeBase + CHAMPIONS_IV + Math.floor(safeEvs / 4)) * CHAMPIONS_LEVEL) / 100);
+  const baseValue = Math.floor(((2 * safeBase + CHAMPIONS_IV + (safeEvs * 2)) * CHAMPIONS_LEVEL) / 100);
   if (statKey === "hp") {
     return baseValue + CHAMPIONS_LEVEL + 10;
   }
@@ -1481,26 +1482,47 @@ function fillExpandedSetFromSearch(card, species, displayForm) {
 
 function addLearnpoolMoveToConfig(card, moveName) {
   const moveInputs = [...card.querySelectorAll(".expanded-move-input, .box-edit-move")];
+  state.pendingMoveSlotSelection = {
+    moveName,
+    moveInputs,
+    selectedIndex: null
+  };
   elements.moveSlotModalGrid.innerHTML = moveInputs.map((input, index) => `
     <button type="button" class="move-slot-choice" data-index="${index}">
       <span>Move ${index + 1}</span>
       <strong>${input.value || "-"}</strong>
     </button>
   `).join("");
+  elements.moveSlotConfirmButton.disabled = true;
   elements.moveSlotModal.hidden = false;
 
   for (const button of elements.moveSlotModalGrid.querySelectorAll(".move-slot-choice")) {
     button.addEventListener("click", () => {
-      const targetInput = moveInputs[Number(button.dataset.index)];
-      if (targetInput) {
-        targetInput.value = moveName;
+      state.pendingMoveSlotSelection.selectedIndex = Number(button.dataset.index);
+      for (const choice of elements.moveSlotModalGrid.querySelectorAll(".move-slot-choice")) {
+        const selected = choice === button;
+        choice.classList.toggle("selected", selected);
+        choice.querySelector("strong").textContent = selected
+          ? state.pendingMoveSlotSelection.moveName
+          : moveInputs[Number(choice.dataset.index)]?.value || "-";
       }
-      closeMoveSlotPrompt();
+      elements.moveSlotConfirmButton.disabled = false;
     });
   }
 }
 
+function confirmMoveSlotPrompt() {
+  const selection = state.pendingMoveSlotSelection;
+  const targetInput = selection?.moveInputs?.[selection.selectedIndex];
+  if (targetInput) {
+    targetInput.value = selection.moveName;
+  }
+  closeMoveSlotPrompt();
+}
+
 function closeMoveSlotPrompt() {
+  state.pendingMoveSlotSelection = null;
+  elements.moveSlotConfirmButton.disabled = true;
   elements.moveSlotModal.hidden = true;
   elements.moveSlotModalGrid.innerHTML = "";
 }
@@ -1756,10 +1778,6 @@ function getBoxSortStatValue(config, statKey) {
   if (statKey === "total") {
     return STAT_ROWS.reduce((total, [, key]) => total + getBoxSortStatValue(config, key), 0);
   }
-  const savedValue = Number(config.finalStats?.[statKey]);
-  if (Number.isFinite(savedValue)) {
-    return savedValue;
-  }
   return calculateChampionsStat(
     config.species?.baseStats?.[statKey],
     statKey,
@@ -1876,7 +1894,7 @@ function formatSavedStatTable(config) {
       ${STAT_ROWS.map(([label, key]) => {
         const evs = Number(config.evs?.[key]) || 0;
         const baseValue = Number(config.species?.baseStats?.[key]) || 0;
-        const finalValue = Number(config.finalStats?.[key]) || calculateChampionsStat(baseValue, key, evs, nature);
+        const finalValue = calculateChampionsStat(baseValue, key, evs, nature);
         return `
           <div class="expanded-stat-row">
             <span class="expanded-stat-name">${label}</span>
@@ -1988,10 +2006,26 @@ function formatEvLine(evs = {}) {
     ["SpA", "specialAttack"],
     ["SpD", "specialDefense"],
     ["Spe", "speed"]
-  ].map(([label, key]) => [label, Number(evs[key]) || 0])
+  ].map(([label, key]) => [label, championsEvToShowdownEv(Number(evs[key]) || 0)])
     .filter(([, value]) => value > 0)
     .map(([label, value]) => `${value} ${label}`);
   return parts.length ? `EVs: ${parts.join(" / ")}` : "";
+}
+
+function championsEvToShowdownEv(value) {
+  const championsEv = Math.max(0, Math.min(CHAMPIONS_MAX_EVS_PER_STAT, Math.floor(Number(value) || 0)));
+  if (championsEv >= CHAMPIONS_MAX_EVS_PER_STAT) {
+    return SHOWDOWN_MAX_EVS_PER_STAT;
+  }
+  return Math.round((championsEv / CHAMPIONS_MAX_EVS_PER_STAT) * SHOWDOWN_MAX_EVS_PER_STAT);
+}
+
+function showdownEvToChampionsEv(value) {
+  const showdownEv = Math.max(0, Math.min(SHOWDOWN_MAX_EVS_PER_STAT, Math.floor(Number(value) || 0)));
+  if (showdownEv >= SHOWDOWN_MAX_EVS_PER_STAT) {
+    return CHAMPIONS_MAX_EVS_PER_STAT;
+  }
+  return Math.round((showdownEv / SHOWDOWN_MAX_EVS_PER_STAT) * CHAMPIONS_MAX_EVS_PER_STAT);
 }
 
 function formatShowdownConfig(config) {
@@ -2050,12 +2084,16 @@ function parseShowdownSet(text) {
   const evLine = lines.find(line => line.toLowerCase().startsWith("evs:"));
   const evAliases = { hp: "hp", atk: "attack", def: "defense", spa: "specialAttack", spd: "specialDefense", spe: "speed" };
   if (evLine) {
+    let totalEvs = 0;
     for (const part of evLine.replace(/^EVs:\s*/i, "").split("/")) {
       const match = part.trim().match(/^(\d+)\s+([A-Za-z.]+)/);
       if (match) {
         const key = evAliases[normalizeName(match[2]).replace(/\./g, "")];
         if (key) {
-          evs[key] = Math.max(0, Math.min(CHAMPIONS_MAX_EVS_PER_STAT, Number(match[1]) || 0));
+          const championsEv = showdownEvToChampionsEv(Number(match[1]) || 0);
+          const remainingEvs = Math.max(0, CHAMPIONS_MAX_TOTAL_EVS - totalEvs);
+          evs[key] = Math.min(championsEv, remainingEvs);
+          totalEvs += evs[key];
         }
       }
     }
@@ -2166,6 +2204,8 @@ function renderBox() {
   const matches = getBoxMatches();
   const inTeamView = Boolean(elements.boxTeamFilter.value);
   elements.boxResultsTitle.textContent = inTeamView ? elements.boxTeamFilter.value : "Box";
+  elements.boxViewExportButton.hidden = !inTeamView;
+  elements.boxViewExportButton.textContent = "Export Team";
   elements.boxResultCount.textContent = `${matches.length} saved set${matches.length === 1 ? "" : "s"}`;
   elements.boxResults.innerHTML = matches.map(config => {
     const isEditing = state.editingBoxConfigId === config.id;
@@ -2284,15 +2324,15 @@ function renderBox() {
 }
 
 function getSpeedStat(baseSpeed, evs, nature) {
-  return Math.floor((Math.floor(((2 * baseSpeed + 31 + Math.floor(evs / 4)) * 50) / 100) + 5) * nature);
+  return Math.floor((Math.floor(((2 * baseSpeed + CHAMPIONS_IV + (evs * 2)) * CHAMPIONS_LEVEL) / 100) + 5) * nature);
 }
 
 function getSpeedTierRows() {
   const entries = state.dataset.species.flatMap(species =>
     getAvailableForms(species).map(form => {
       const baseSpeed = form.stats?.speed || 0;
-      const max = getSpeedStat(baseSpeed, 252, 1.1);
-      const neutral = getSpeedStat(baseSpeed, 252, 1.0);
+      const max = getSpeedStat(baseSpeed, CHAMPIONS_MAX_EVS_PER_STAT, 1.1);
+      const neutral = getSpeedStat(baseSpeed, CHAMPIONS_MAX_EVS_PER_STAT, 1.0);
       const zeroEv = getSpeedStat(baseSpeed, 0, 1.0);
       const negative = getSpeedStat(baseSpeed, 0, 0.9);
       return {
@@ -2387,6 +2427,7 @@ function saveSetlist() {
 }
 
 async function loadBoxData() {
+  const seedBox = await loadSeedBoxData();
   const storageKeys = [BOX_STORAGE_KEY, ...LEGACY_BOX_STORAGE_KEYS];
   let fallbackBox = null;
   try {
@@ -2396,6 +2437,7 @@ async function loadBoxData() {
         const normalized = normalizeBoxData(saved);
         if (normalized.configs.length || normalized.teams.length) {
           state.box = normalized;
+          mergeSeedBoxData(seedBox);
           saveBoxData();
           return;
         }
@@ -2406,21 +2448,16 @@ async function loadBoxData() {
     }
     if (fallbackBox) {
       state.box = fallbackBox;
+      mergeSeedBoxData(seedBox);
+      saveBoxData();
       return;
     }
   } catch {
     state.box = { configs: [], teams: [] };
   }
 
-  try {
-    const response = await fetch(BOX_DATA_FILE, { cache: "no-store" });
-    if (response.ok) {
-      state.box = normalizeBoxData(await response.json());
-      saveBoxData();
-    }
-  } catch {
-    state.box = { configs: [], teams: [] };
-  }
+  state.box = seedBox;
+  saveBoxData();
 }
 
 function normalizeBoxData(data) {
@@ -2439,6 +2476,50 @@ function normalizeBoxData(data) {
 
 function saveBoxData() {
   localStorage.setItem(BOX_STORAGE_KEY, JSON.stringify(state.box));
+}
+
+async function loadSeedBoxData() {
+  try {
+    const response = await fetch(BOX_DATA_FILE, { cache: "no-store" });
+    return response.ok ? normalizeBoxData(await response.json()) : { configs: [], teams: [] };
+  } catch {
+    return { configs: [], teams: [] };
+  }
+}
+
+function mergeSeedBoxData(seedBox) {
+  if (!seedBox.configs.length && !seedBox.teams.length) {
+    return false;
+  }
+
+  let importedSeedIds = [];
+  try {
+    importedSeedIds = JSON.parse(localStorage.getItem(BOX_SEED_STORAGE_KEY) || "[]");
+  } catch {
+    importedSeedIds = [];
+  }
+  const importedSeeds = new Set(Array.isArray(importedSeedIds) ? importedSeedIds : []);
+  const existingIds = new Set(state.box.configs.map(config => config.id));
+  let changed = false;
+
+  for (const config of seedBox.configs) {
+    if (!importedSeeds.has(config.id) && !existingIds.has(config.id)) {
+      state.box.configs.push(config);
+      changed = true;
+    }
+    importedSeeds.add(config.id);
+  }
+
+  for (const team of seedBox.teams) {
+    if (!state.box.teams.includes(team)) {
+      state.box.teams.push(team);
+      changed = true;
+    }
+  }
+
+  state.box = normalizeBoxData(state.box);
+  localStorage.setItem(BOX_SEED_STORAGE_KEY, JSON.stringify([...importedSeeds]));
+  return changed;
 }
 
 function getTeamMembers(teamName) {
@@ -2529,6 +2610,7 @@ function addSetlistToSearch() {
     input.value = selectedMoves[index]?.name || "";
   });
   elements.abilitySelect.value = selectedAbility?.name || "";
+  syncSelectPlaceholder(elements.abilitySelect);
   setActiveTab("set");
   render();
 }
@@ -2536,6 +2618,7 @@ function addSetlistToSearch() {
 function setActiveTab(tab) {
   state.activeTab = tab;
   for (const [key, tabButton, panel] of [
+    ["help", elements.helpTab, elements.helpPanel],
     ["set", elements.setTab, elements.setPanel],
     ["move", elements.moveTab, elements.movePanel],
     ["ability", elements.abilityTab, elements.abilityPanel],
@@ -2845,42 +2928,9 @@ function inferSortsFromPrompt(promptText) {
   return sorts.slice(0, 3);
 }
 
-function describePromptPlan(plan) {
-  const parts = [];
-  if (plan.moves.length) {
-    parts.push(`moves: ${plan.moves.join(", ")}`);
-  }
-  if (plan.types.length) {
-    parts.push(`types: ${plan.types.join(", ")}`);
-  }
-  if (plan.ability) {
-    parts.push(`ability: ${plan.ability}`);
-  }
-  if (plan.sorts.length) {
-    parts.push(`sort: ${plan.sorts.map(sort => `${SORT_LABELS[sort.key] || sort.key} (${statDirectionForKey(sort.key, sort.direction)})`).join(", then ")}`);
-  }
-  if (plan.relations?.length) {
-    parts.push(`related: ${plan.relations.map(filter => {
-      const relationParts = [];
-      if (filter.abilities.length) {
-        relationParts.push(`abilities: ${filter.abilities.join(", ")}`);
-      }
-      if (filter.moves.length) {
-        relationParts.push(`moves: ${filter.moves.join(", ")}`);
-      }
-      return `${filter.label} (${relationParts.join("; ")})`;
-    }).join(" | ")}`);
-  }
-  if (plan.sorts.length > 1) {
-    parts.push("showing a focused group instead of the full roster");
-  }
-  return parts.length ? `Applied prompt -> ${parts.join(" | ")}` : "Prompt didn't map to filters, so current controls were left as-is.";
-}
-
 function applyPromptSearch() {
   const promptText = elements.promptInput.value.trim();
   if (!promptText) {
-    setPromptStatus("Prompt search is off.");
     state.promptPlan = null;
     render();
     return;
@@ -2897,21 +2947,18 @@ function applyPromptSearch() {
   };
 
   setPromptMatches(plan);
-  setPromptStatus(describePromptPlan(plan));
   render();
 }
 
 function clearPromptSearch() {
   elements.promptInput.value = "";
   state.promptPlan = null;
-  setPromptStatus("Prompt search is off.");
   render();
 }
 
 function clearSpeciesSearch() {
   elements.speciesInput.value = "";
   state.expandedKey = null;
-  setSpeciesStatus("Search by base species, Mega form, or regional form.");
   renderResults();
 }
 
@@ -2929,10 +2976,6 @@ function renderResults() {
   } else {
     elements.resultCount.textContent = `${matches.length} match${matches.length === 1 ? "" : "es"}`;
   }
-
-  setSpeciesStatus(activeSpeciesQuery
-    ? `Filtering species and forms matching "${activeSpeciesQuery}".`
-    : "Search by base species, Mega form, or regional form.");
 
   if (!matches.length) {
     const empty = document.createElement("div");
@@ -3081,13 +3124,12 @@ function clearFilters() {
   }
   elements.speciesInput.value = "";
   elements.abilitySelect.value = "";
+  syncSelectPlaceholder(elements.abilitySelect);
   elements.sortSelect.value = "alphabetical";
   elements.sortDirectionSelect.value = "asc";
   state.promptPlan = null;
   state.formOverrides = {};
   state.expandedKey = null;
-  setPromptStatus("Prompt search is off.");
-  setSpeciesStatus("Search by base species, Mega form, or regional form.");
   render();
 }
 
@@ -3131,7 +3173,10 @@ for (const input of [...elements.moveInputs, ...elements.typeInputs]) {
   input.addEventListener("change", render);
 }
 
-elements.abilitySelect.addEventListener("change", render);
+elements.abilitySelect.addEventListener("change", () => {
+  syncSelectPlaceholder(elements.abilitySelect);
+  render();
+});
 elements.sortSelect.addEventListener("change", render);
 elements.sortDirectionSelect.addEventListener("change", render);
 elements.clearButton.addEventListener("click", clearFilters);
@@ -3147,6 +3192,7 @@ elements.clearSpeciesButton.addEventListener("click", clearSpeciesSearch);
 elements.applyPromptButton.addEventListener("click", applyPromptSearch);
 elements.clearPromptButton.addEventListener("click", clearPromptSearch);
 elements.speedDrawerTab.addEventListener("click", toggleSpeedDrawer);
+elements.helpTab.addEventListener("click", () => setActiveTab("help"));
 elements.setTab.addEventListener("click", () => setActiveTab("set"));
 elements.moveTab.addEventListener("click", () => setActiveTab("move"));
 elements.abilityTab.addEventListener("click", () => setActiveTab("ability"));
@@ -3198,6 +3244,7 @@ elements.showdownCopyButton.addEventListener("click", async () => {
     document.execCommand("copy");
   }
 });
+elements.moveSlotConfirmButton.addEventListener("click", confirmMoveSlotPrompt);
 elements.moveSlotCancelButton.addEventListener("click", closeMoveSlotPrompt);
 elements.moveSlotModal.addEventListener("click", event => {
   if (event.target === elements.moveSlotModal) {
