@@ -22,22 +22,6 @@ Local URL:
 http://127.0.0.1:8000/Champions%20Move%20Finder/index.html
 ```
 
-## Help
-
-The app opens on the Help tab. This tab explains the main workflows without changing any saved data.
-
-## Setlist
-
-The Setlist appears on the right side of the app.
-
-- Move Search and Ability Search add entries with Send to Setlist.
-- Moves and abilities are kept under separate headers.
-- On Set Search, each saved entry has a checkbox.
-- Up to four checked moves and one checked ability can be sent into Set Search.
-- Add to Search clears the Set Search move and ability fields, then fills them with the checked Setlist entries.
-- Clear removes the saved Setlist entries.
-- The Setlist is saved in browser storage until Clear is pressed.
-
 ## Set Search
 
 Set Search finds Pokemon that match move, type, ability, species, and prompt filters.
@@ -52,6 +36,18 @@ Set Search finds Pokemon that match move, type, ability, species, and prompt fil
 Each result starts as a compact card. Use the triangle arrow in the lower-right corner to expand it.
 
 ![Set Search example with Belly Drum, Aqua Jet, Huge Power, and toggled Setlist entries](screenshots/set-search-belly-drum-aqua-jet.png)
+
+## Setlist
+
+The Setlist appears on the right side of the app.
+
+- Move Search and Ability Search add entries with Send to Setlist.
+- Moves and abilities are kept under separate headers.
+- On Set Search, each saved entry has a checkbox.
+- Up to four checked moves and one checked ability can be sent into Set Search.
+- Add to Search clears the Set Search move and ability fields, then fills them with the checked Setlist entries.
+- Clear removes the saved Setlist entries.
+- The Setlist is saved in browser storage until Clear is pressed.
 
 ## Expanded Details
 
