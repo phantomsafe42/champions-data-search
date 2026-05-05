@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Champions Data Search</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="speed-drawer" id="speed-drawer" data-open="false">
+    <button class="speed-drawer-tab" id="speed-drawer-tab" type="button" aria-expanded="false">Speed Tiers</button>
+    <div class="speed-drawer-panel">
+      <div class="speed-drawer-header">
+        <div>
+          <h2>Speed Tiers</h2>
+          <p>Level 50 speed table for base and Mega forms.</p>
+        </div>
+        <div class="speed-drawer-status" id="speed-drawer-status">Loading...</div>
+      </div>
+      <div class="speed-drawer-body">
+        <table class="speed-table">
+          <thead>
+            <tr>
+              <th>Base</th>
+              <th>Pokemon</th>
+              <th>Max</th>
+              <th>Neu</th>
+              <th>0 EV</th>
+              <th>Neg</th>
+              <th>Max Scarf</th>
+              <th>Neu Scarf</th>
+            </tr>
+          </thead>
+          <tbody id="speed-table-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </aside>
+  <main class="app-shell">
+    <section class="toolbar">
+      <div class="title-block">
+        <div class="title-row">
+          <h1>Champions Data Search</h1>
+          <img class="title-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/normal/cyndaquil.gif" alt="Cyndaquil animated sprite">
+        </div>
+        <p>Search Champions sets, moves, and abilities, then save useful pieces to the setlist.</p>
+        <div class="watermark" aria-label="twitch.tv/phantomsafe">twitch.tv/phantomsafe</div>
+      </div>
+      <div class="status" id="status">Loading data...</div>
+    </section>
+
+    <section class="workspace-panel">
+      <div class="search-tabs" role="tablist" aria-label="Data search mode">
+        <button id="set-tab" class="search-tab active" type="button" role="tab" aria-selected="true" aria-controls="set-panel">Set Search</button>
+        <button id="move-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="move-panel">Move Search</button>
+        <button id="ability-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="ability-panel">Ability Search</button>
+        <button id="box-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="box-panel">Box</button>
+      </div>
+
+      <div class="workspace-grid">
+        <div class="tab-main">
+          <section id="set-panel" class="search-panel active" role="tabpanel" aria-labelledby="set-tab">
+            <div class="controls">
+              <div class="input-row">
+                <label for="prompt-input">Prompt Search</label>
+                <div class="input-group prompt-group">
+                  <input id="prompt-input" type="text" placeholder="Try: sun abilities, slowest Pokemon with Baton Pass">
+                  <button id="apply-prompt-button" type="button">Apply Prompt</button>
+                  <button id="clear-prompt-button" type="button" class="secondary">Clear Prompt</button>
+                </div>
+                <div class="prompt-status" id="prompt-status">Prompt search is off.</div>
+              </div>
+
+              <div class="input-row">
+                <label for="species-input">Species Name</label>
+                <div class="input-group prompt-group">
+                  <input id="species-input" list="species-options" type="text" placeholder="Search Venusaur, Mega Charizard, Hisuian Zoroark...">
+                  <button id="clear-species-button" type="button" class="secondary">Clear Species</button>
+                  <datalist id="species-options"></datalist>
+                </div>
+                <div class="prompt-status" id="species-status">Search by base species, Mega form, or regional form.</div>
+              </div>
+
+              <div class="input-row">
+                <label>Moves</label>
+                <div class="slot-grid">
+                  <input id="move-input-1" list="move-options" type="text" placeholder="Move 1">
+                  <input id="move-input-2" list="move-options" type="text" placeholder="Move 2">
+                  <input id="move-input-3" list="move-options" type="text" placeholder="Move 3">
+                  <input id="move-input-4" list="move-options" type="text" placeholder="Move 4">
+                  <datalist id="move-options"></datalist>
+                </div>
+              </div>
+
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label>Types</label>
+                  <div class="slot-grid type-grid">
+                    <input id="type-input-1" list="type-options" type="text" placeholder="Type 1">
+                    <input id="type-input-2" list="type-options" type="text" placeholder="Type 2">
+                    <datalist id="type-options"></datalist>
+                  </div>
+                </div>
+
+                <div class="filter-block">
+                  <label for="ability-select">Ability</label>
+                  <div class="input-group">
+                    <select id="ability-select">
+                      <option value="">Any ability</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-row filter-row sort-row">
+                <div class="filter-block">
+                  <label for="sort-select">Sort By</label>
+                  <div class="input-group">
+                    <select id="sort-select">
+                      <option value="alphabetical">Alphabetical</option>
+                      <option value="dex">Pokedex Number</option>
+                      <option value="hp">HP</option>
+                      <option value="attack">Attack</option>
+                      <option value="defense">Defense</option>
+                      <option value="specialAttack">Special Attack</option>
+                      <option value="specialDefense">Special Defense</option>
+                      <option value="speed">Speed</option>
+                      <option value="total">Base Stat Total</option>
+                      <option value="offenseTotal">Offensive Total</option>
+                      <option value="defenseTotal">Defensive Total</option>
+                    </select>
+                    <select id="sort-direction-select">
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                    <button id="clear-button" type="button" class="secondary">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <section class="results-panel">
+              <div class="results-header">
+                <h2>Set Matches</h2>
+                <div class="result-count" id="result-count"></div>
+              </div>
+              <div class="results" id="results"></div>
+            </section>
+          </section>
+
+          <section id="move-panel" class="search-panel" role="tabpanel" aria-labelledby="move-tab" hidden>
+            <div class="controls">
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label for="move-name-search">Move Name</label>
+                  <input id="move-name-search" type="text" placeholder="Search move name">
+                </div>
+                <div class="filter-block">
+                  <label for="move-type-search">Type</label>
+                  <select id="move-type-search"><option value="">Any type</option></select>
+                </div>
+              </div>
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label for="move-category-search">Category</label>
+                  <select id="move-category-search"><option value="">Any category</option></select>
+                </div>
+                <div class="filter-block">
+                  <label for="move-priority-search">Priority</label>
+                  <select id="move-priority-search">
+                    <option value="">Any priority</option>
+                    <option value="positive">Positive priority</option>
+                    <option value="zero">Normal priority</option>
+                    <option value="negative">Negative priority</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label for="move-field-search">Weather / Terrain</label>
+                  <select id="move-field-search"><option value="">Any field state</option></select>
+                </div>
+                <div class="filter-block">
+                  <label for="move-classification-search">Classification</label>
+                  <select id="move-classification-search"><option value="">Any classification</option></select>
+                </div>
+              </div>
+            </div>
+            <section class="results-panel">
+              <div class="results-header">
+                <h2>Move Matches</h2>
+                <div class="result-count" id="move-result-count"></div>
+              </div>
+              <div class="row-results" id="move-results"></div>
+            </section>
+          </section>
+
+          <section id="ability-panel" class="search-panel" role="tabpanel" aria-labelledby="ability-tab" hidden>
+            <div class="controls">
+              <div class="input-row">
+                <label for="ability-name-search">Ability Name</label>
+                <input id="ability-name-search" type="text" placeholder="Search ability name">
+              </div>
+              <div class="toggle-grid" id="ability-toggle-grid"></div>
+            </div>
+            <section class="results-panel">
+              <div class="results-header">
+                <h2>Ability Matches</h2>
+                <div class="result-count" id="ability-result-count"></div>
+              </div>
+              <div class="row-results" id="ability-results"></div>
+            </section>
+          </section>
+
+          <section id="box-panel" class="search-panel" role="tabpanel" aria-labelledby="box-tab" hidden>
+            <div class="controls">
+              <h2>Box Search</h2>
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label for="box-name-search">Name</label>
+                  <input id="box-name-search" type="text" placeholder="Search saved Pokemon">
+                </div>
+                <div class="filter-block">
+                  <label for="box-team-filter">Team</label>
+                  <select id="box-team-filter">
+                    <option value="">Entire box</option>
+                  </select>
+                </div>
+                <div class="filter-block">
+                  <label for="box-sort-select">Sort By</label>
+                  <div class="input-group">
+                    <select id="box-sort-select">
+                      <option value="recent">Recently Added</option>
+                      <option value="alphabetical">Alphabetical</option>
+                      <option value="dex">Pokedex Number</option>
+                      <option value="hp">HP</option>
+                      <option value="attack">Attack</option>
+                      <option value="defense">Defense</option>
+                      <option value="specialAttack">Special Attack</option>
+                      <option value="specialDefense">Special Defense</option>
+                      <option value="speed">Speed</option>
+                      <option value="total">Base Stat Total</option>
+                      <option value="offenseTotal">Offensive Total</option>
+                      <option value="defenseTotal">Defensive Total</option>
+                    </select>
+                    <select id="box-sort-direction-select">
+                      <option value="desc">Descending</option>
+                      <option value="asc">Ascending</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section class="results-panel">
+              <div class="results-header">
+                <h2 id="box-results-title">Box</h2>
+                <div class="box-header-actions">
+                  <button id="box-view-export-button" type="button" class="secondary">Export</button>
+                  <div class="result-count" id="box-result-count"></div>
+                </div>
+              </div>
+              <div class="box-results" id="box-results"></div>
+            </section>
+          </section>
+        </div>
+
+        <aside class="setlist-panel">
+          <div class="setlist-header">
+            <h2>Setlist</h2>
+            <div class="setlist-actions">
+              <button id="add-setlist-button" type="button">Add to Search</button>
+              <button id="clear-setlist-button" type="button" class="secondary">Clear</button>
+            </div>
+          </div>
+          <div class="setlist-items" id="setlist-items"></div>
+          <section class="showdown-tool-panel">
+            <h2>Showdown Tool</h2>
+            <textarea id="showdown-text" rows="10" placeholder="Exported sets appear here, or paste a Showdown set to import."></textarea>
+            <div class="showdown-actions">
+              <button id="showdown-copy-button" type="button" class="secondary">Copy</button>
+              <button id="showdown-import-button" type="button">Import</button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="box-save-modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="box-save-title">
+      <h2 id="box-save-title">Add to Box</h2>
+      <div class="input-row">
+        <label for="box-save-nickname-input">Nickname</label>
+        <input id="box-save-nickname-input" type="text" placeholder="Optional nickname">
+      </div>
+      <div class="input-row">
+        <label for="box-save-team-select">Save to Team</label>
+        <select id="box-save-team-select">
+          <option value="">No team</option>
+          <option value="__new">Create new team...</option>
+        </select>
+      </div>
+      <div class="input-row" id="box-save-new-team-row" hidden>
+        <label for="box-save-new-team-input">New Team Name</label>
+        <input id="box-save-new-team-input" type="text" placeholder="Team name">
+      </div>
+      <div class="modal-actions">
+        <button id="box-save-confirm-button" type="button">Save</button>
+        <button id="box-save-cancel-button" type="button" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="move-slot-modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="move-slot-title">
+      <h2 id="move-slot-title">Choose Move Slot</h2>
+      <div class="move-slot-modal-grid" id="move-slot-modal-grid"></div>
+      <div class="modal-actions">
+        <button id="move-slot-cancel-button" type="button" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="showdown-import-modal" hidden>
+    <div class="modal-panel import-preview-panel" role="dialog" aria-modal="true" aria-labelledby="showdown-import-title">
+      <h2 id="showdown-import-title">Confirm Import</h2>
+      <div id="showdown-import-preview"></div>
+      <div class="modal-actions">
+        <button id="showdown-import-confirm-button" type="button">Confirm</button>
+        <button id="showdown-import-cancel-button" type="button" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

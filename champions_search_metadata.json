@@ -1,0 +1,6709 @@
+{
+  "generatedAt": "2026-05-05T07:41:52.208Z",
+  "moves": [
+    {
+      "name": "Accelerock",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user smashes into the target at high speed. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Acid Armor",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Acid Spray",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet",
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Def stat by 2 stages.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Acrobatics",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user isn't holding an item.",
+      "power": 55,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Acupressure",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the Attack Defense Sp. Atk Sp. Def Speed accuracy or evasiveness of the user or an ally by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Aerial Ace",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move never misses.",
+      "power": 60,
+      "accuracy": 101,
+      "pp": 20
+    },
+    {
+      "name": "After You",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Makes the target move immediately after the user.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Agility",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Air Cutter",
+      "type": "Flying",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "slicing",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 60,
+      "accuracy": 95,
+      "pp": 20
+    },
+    {
+      "name": "Air Slash",
+      "type": "Flying",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of making the target flinch.",
+      "power": 75,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Alluring Voice",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "Confuses the target if its stats were boosted during the turn this move is used.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Ally Switch",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user switches spots with one of its allies. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Amnesia",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Def stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Ancient Power",
+      "type": "Rock",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of boosting the user's Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Apple Acid",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Def stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Aqua Cutter",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Aqua Jet",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user lunges at the target to inflict damage, moving at blinding speed. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Aqua Ring",
+      "type": "Water",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Aqua Ring status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Aqua Step",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Aqua Tail",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks by swinging its tail as if it were a vicious wave in a raging storm.",
+      "power": 90,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Armor Cannon",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Aromatic Mist",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts an ally's Sp. Def stat by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Assurance",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the target has already taken damage during the turn this move is used.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Attract",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Infatuated status. This move will fail against a target that is the same gender as the user or whose gender is unknown.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Aura Sphere",
+      "type": "Fighting",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "This move never misses.",
+      "power": 80,
+      "accuracy": 101,
+      "pp": 20
+    },
+    {
+      "name": "Aura Wheel",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 1 stage. This move's type depends on Morpeko's form.",
+      "power": 110,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Aurora Veil",
+      "type": "Ice",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "snow"
+      ],
+      "description": "Gives the user's side the Aurora Veil status for 5 turns. This move can be used only in snow.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Avalanche",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": -4,
+      "classification": [
+        "contact",
+        "conditional power",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the target has already dealt damage to the user with a move in the same turn.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Axe Kick",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "crash"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of confusing the target. If this move misses or fails the user takes damage equal to 1/2 of its max HP.",
+      "power": 120,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Baby-Doll Eyes",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 1,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 1 stage.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Baneful Bunker",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself from incoming moves for the turn. Any attackers that use contact moves against the user during this turn become poisoned. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Baton Pass",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user switches out of battle to be replaced by another party Pokémon. If the user had any stat changes a substitute or other such effects they will be passed on to the Pokémon switching in.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Beak Blast",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": -3,
+      "classification": [
+        "bullet",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "If the user is hit by a contact move before it uses this move the attacker will be burned.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Beat Up",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The target is attacked as many times as the number of Pokémon in the user's party. Pokémon that have fainted or have a status condition are not counted. This move's power is calculated based on the Attack stats of the party Pokémon.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Belch",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move fails unless the user has eaten a Berry during the battle.",
+      "power": 120,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Belly Drum",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user loses 1/2 of its max HP to boost its Attack stat to its sixth stage. This move fails if the user doesn't have enough remaining HP.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Bind",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 15,
+      "accuracy": 85,
+      "pp": 20
+    },
+    {
+      "name": "Bite",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of making the target flinch.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Bitter Blade",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Bitter Malice",
+      "type": "Ghost",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 1 stage.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Blast Burn",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Blaze Kick",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target. This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 85,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Blizzard",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [
+        "snow"
+      ],
+      "description": "Has a 10% chance of freezing targets. This move never misses in snow.",
+      "power": 110,
+      "accuracy": 70,
+      "pp": 8
+    },
+    {
+      "name": "Block",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Can't Escape status.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Body Press",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The damage dealt by this move is calculated using the user's Defense stat instead of its Attack stat.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Body Slam",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of paralyzing the target. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Bone Rush",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 30,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Boomburst",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks everything around it with the destructive power of a terrible explosive sound.",
+      "power": 140,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Bounce",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn. This move has a 30% chance of paralyzing the target.",
+      "power": 85,
+      "accuracy": 85,
+      "pp": 8
+    },
+    {
+      "name": "Brave Bird",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Breaking Swipe",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Attack stats by 1 stage.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Brick Break",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "ignores screens"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Brutal Swing",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user swings its body around violently to inflict damage on everything in its vicinity.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Bug Bite",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "If the target is holding a Berry the user eats that Berry and gains its effect.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Bug Buzz",
+      "type": "Bug",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Bulk Up",
+      "type": "Fighting",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Attack and Defense stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Bulldoze",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Speed stats by 1 stage. When Grassy Terrain is active this move's power is halved.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Bullet Punch",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "punch",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user strikes the target with tough punches as fast as bullets. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Bullet Seed",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "bullet",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 25,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Burn Up",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user loses the Fire type. Cures the user of being frozen. This move fails unless it is used by a Fire type.",
+      "power": 130,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Burning Jealousy",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Burns targets if their stats were boosted during the turn this move is used.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Calm Mind",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Atk and Sp. Def stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Ceaseless Edge",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Spikes status.",
+      "power": 65,
+      "accuracy": 90,
+      "pp": 16
+    },
+    {
+      "name": "Charge",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Def stat by 1 stage. The user gains the Electric Boost status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Charge Beam",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 70% chance of boosting the user's Sp. Atk stat by 1 stage.",
+      "power": 50,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Charm",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 2 stages.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Chilling Water",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Chilly Reception",
+      "type": "Ice",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Summons snow for 5 turns. The user switches out of battle to be replaced by another party Pokémon.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Circle Throw",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": -6,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "If there are other Pokémon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokémon at random.",
+      "power": 60,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Clanging Scales",
+      "type": "Dragon",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Defense stat by 1 stage.",
+      "power": 110,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Clangorous Soul",
+      "type": "Dragon",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user loses 1/3 of its max HP to boost its Attack Defense Sp. Atk Sp. Def and Speed stats by 1 stage. This move fails if the user doesn't have enough remaining HP.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Clear Smog",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Removes all stat changes from the target. This move never misses.",
+      "power": 50,
+      "accuracy": 101,
+      "pp": 16
+    },
+    {
+      "name": "Close Combat",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Coaching",
+      "type": "Fighting",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts allies' Attack and Defense stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Coil",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Attack and Defense stats as well as its accuracy by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Comeuppance",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "counter"
+      ],
+      "weatherTerrain": [],
+      "description": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
+      "power": null,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Confuse Ray",
+      "type": "Ghost",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Confuses the target.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Copycat",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user mimics the move that was last used. This move fails if no other move has been used yet.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Corrosive Gas",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Causes all other Pokémon on the field to lose their held items.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Cosmic Power",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense and Sp. Def stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Cotton Guard",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense stat by 3 stages.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Cotton Spore",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Speed stats by 2 stages.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Counter",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": -5,
+      "classification": [
+        "contact",
+        "counter",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user retaliates to deal double the damage it took from an opponent's physical move during the turn this move is used.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Covet",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "If the user is not already holding an item it steals the target's held item.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Crabhammer",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 100,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Cross Chop",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 100,
+      "accuracy": 80,
+      "pp": 8
+    },
+    {
+      "name": "Cross Poison",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of poisoning the target. This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Crunch",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of lowering the target's Defense stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Crush Claw",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 50% chance of lowering the target's Defense stat by 1 stage.",
+      "power": 75,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Curse",
+      "type": "Ghost",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Ghost-type: The user loses 1/2 of its max HP to give the target the Cursed status. Non-Ghost-type: Lowers the user's Speed stat by 1 stage and boosts its Attack and Defense stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Dark Pulse",
+      "type": "Dark",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of making the target flinch.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Darkest Lariat",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "ignores defense boosts"
+      ],
+      "weatherTerrain": [],
+      "description": "This move ignores the target's stat changes when dealing damage.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Dazzling Gleam",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user damages opposing Pokémon by emitting a powerful flash.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Decorate",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the target's Attack and Sp. Atk stats by 2 stages.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Defog",
+      "type": "Flying",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's evasiveness by 1 stage. Removes statuses such as Reflect Spikes and Safeguard as well as any terrain.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Destiny Bond",
+      "type": "Ghost",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Destiny Bound status. This move fails if used in succession.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Detect",
+      "type": "Fighting",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself from incoming moves for the turn. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Dig",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Underground status on the turn this move is used then attacks on the following turn.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Dire Claw",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of leaving the target poisoned paralyzed or asleep.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Disable",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Move Disabled status for 4 turns.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Discharge",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of paralyzing targets.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Dive",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Submerged status on the turn this move is used then attacks on the following turn.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Double Hit",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks twice in a row.",
+      "power": 35,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Double Team",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's evasiveness by 1 stage.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Double-Edge",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Draco Meteor",
+      "type": "Dragon",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Sp. Atk stat by 2 stages.",
+      "power": 130,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Dragon Cheer",
+      "type": "Dragon",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives allies a Critical-Hit Ratio Boost. Dragon types receive a 2-stage boost. All other types receive a 1-stage boost.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 16
+    },
+    {
+      "name": "Dragon Claw",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "The user slashes the target with huge, sharp claws to inflict damage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Dragon Dance",
+      "type": "Dragon",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Attack and Speed stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Dragon Darts",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks twice in a row. If there are 2 opposing Pokémon each of them is attacked once.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Dragon Pulse",
+      "type": "Dragon",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The target is attacked with a shock wave generated by the user's gaping mouth.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Dragon Rush",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of making the target flinch. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "power": 100,
+      "accuracy": 75,
+      "pp": 12
+    },
+    {
+      "name": "Dragon Tail",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": -6,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "If there are other Pokémon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokémon at random.",
+      "power": 60,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Drain Punch",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Draining Kiss",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 3/4 of the damage dealt by this move.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Drill Peck",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "A corkscrewing attack that strikes the target with a sharp beak acting as a drill.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Drill Run",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 80,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Dual Wingbeat",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks twice in a row.",
+      "power": 40,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Dynamic Punch",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Confuses the target.",
+      "power": 100,
+      "accuracy": 50,
+      "pp": 8
+    },
+    {
+      "name": "Earth Power",
+      "type": "Ground",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Earthquake",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled against targets that have the Underground status. When Grassy Terrain is active this move's power is halved.",
+      "power": 100,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Eerie Impulse",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Atk stat by 2 stages.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Eerie Spell",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Removes 3 PP from the move last used by the target.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Electric Terrain",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "electric terrain"
+      ],
+      "description": "Turns the entire field into Electric Terrain for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Electrify",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "If this move hits the target before it uses a move its move becomes Electric type for that turn.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Electro Ball",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "The higher the user's Speed stat compared to the target's the greater this move's power (ranging between 40 and 150).",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Electro Shot",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In rain the user does not gain the Charging status and can attack immediately. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
+      "power": 130,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Electroweb",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Speed stats by 1 stage.",
+      "power": 55,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Encore",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Encore status.",
+      "accuracy": 100,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Endeavor",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Deals damage to the target equal to its remaining HP minus the user's remaining HP. This move fails if the target's HP is the same as or lower than the user's.",
+      "accuracy": 100,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Endure",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "During the turn this move is used if the user takes damage from a move that would knock it out it will endure the hit with 1 HP. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Energy Ball",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Entrainment",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the target's Ability to be the same as the user's.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Eruption",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
+      "power": 150,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Expanding Force",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "psychic terrain"
+      ],
+      "description": "If the user is under the effect of Psychic Terrain this move's power is boosted by 50% and its range extends to all opponents.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Explosion",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user faints upon using this move.",
+      "power": 250,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Extrasensory",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of making the target flinch.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Extreme Speed",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 2,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user charges the target at blinding speed. This move always goes first.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Facade",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user is poisoned badly poisoned burned or paralyzed. Although this move is a physical move the damage it deals is not halved when the user is burned.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Fairy Lock",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives all Pokémon on the field the Fairy Locked status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Fake Out",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 3,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "Makes the target flinch. This move fails unless it is the first move used by the user after it enters a battle.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Fake Tears",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Def stat by 2 stages.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Feather Dance",
+      "type": "Flying",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 2 stages.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Feint",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 2,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "This move can hit a target using a move such as Protect or Detect and removes the effects of those moves.",
+      "power": 30,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Fell Stinger",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Attack stat by 3 stages if this move knocks out the target.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Fickle Beam",
+      "type": "Dragon",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 30% chance of its power being doubled.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Fiery Dance",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 50% chance of boosting the user's Sp. Atk stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Final Gambit",
+      "type": "Fighting",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user faints. This move deals damage to the target equal to the user's remaining HP at the time this move was used.",
+      "accuracy": 100,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Fire Blast",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target.",
+      "power": 110,
+      "accuracy": 85,
+      "pp": 8
+    },
+    {
+      "name": "Fire Fang",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target and a 10% chance of making the target flinch.",
+      "power": 65,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Fire Lash",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Defense stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Fire Punch",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Fire Spin",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 35,
+      "accuracy": 85,
+      "pp": 16
+    },
+    {
+      "name": "First Impression",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 2,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "This move fails unless it is the first move used by the user after it enters a battle.",
+      "power": 100,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Fissure",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "OHKO"
+      ],
+      "weatherTerrain": [],
+      "description": "Knocks out the target. The accuracy of this move is fixed at 30%.",
+      "accuracy": 30,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Flail",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The less HP the user has left the greater this move's power (ranging between 20 and 200).",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Flame Charge",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Flamethrower",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Flare Blitz",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning the target. Cures the user of being frozen. The user also takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Flash Cannon",
+      "type": "Steel",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Flatter",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the target's Sp. Atk stat by 1 stage and confuses it.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Fling",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move's power and effects depend on the user's held item. The held item is lost after this move is used.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Flip Turn",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "After attacking the user switches out of battle to be replaced by another party Pokémon.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Flower Trick",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move never misses and is always a critical hit.",
+      "power": 70,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Fly",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Sky-High status on the turn this move is used then attacks on the following turn.",
+      "power": 90,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Flying Press",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The damage dealt by this move is calculated by combining the effectiveness of the move's own type with that of the Flying type. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "power": 100,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Focus Blast",
+      "type": "Fighting",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 120,
+      "accuracy": 70,
+      "pp": 8
+    },
+    {
+      "name": "Focus Energy",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains a 2-stage Critical-Hit Ratio Boost.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Focus Punch",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": -3,
+      "classification": [
+        "contact",
+        "punch",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "This move fails if the user has already taken damage from a move in the same turn.",
+      "power": 150,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Follow Me",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 2,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user redirects opponents' moves toward itself. This effect works only on single-target moves.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Forest's Curse",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Forest Cursed status.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Foul Play",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The damage dealt by this move is calculated using the target's Attack stat instead of the user's Attack stat.",
+      "power": 95,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Freeze-Dry",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move is also super effective against Water-type Pokémon.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Frenzy Plant",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Frost Breath",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Always a critical hit.",
+      "power": 60,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Future Sight",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target's spot the Future Attack status.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Gastro Acid",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the No Ability status.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Giga Drain",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Giga Impact",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Gigaton Hammer",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move can't be used twice in a row.",
+      "power": 160,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Glare",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Paralyzes the target.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Grass Knot",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The heavier the target the greater this move's power (ranging between 20 and 120).",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Grassy Glide",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [
+        "grassy terrain"
+      ],
+      "description": "If the user is under the effect of Grassy Terrain this move's priority becomes +1.",
+      "power": 55,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Grassy Terrain",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "grassy terrain"
+      ],
+      "description": "Turns the entire field into Grassy Terrain for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Grav Apple",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Defense stat by 1 stage. This move's power is boosted by 50% when the Gravity status is active.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Gravity",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the entire field the Gravity status for 5 turns.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Growth",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "Boosts the user's Attack and Sp. Atk stats by 1 stage. In harsh sunlight these stats will be boosted by 2 stages instead.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Guard Split",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user adds its Defense stat to the target's Defense stat then splits the total in half for them to share. It does the same with each of their Sp. Def stats.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Guard Swap",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user swaps the changes to its Defense and Sp. Def stats with the changes to the target's Defense and Sp. Def stats.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Guillotine",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "OHKO"
+      ],
+      "weatherTerrain": [],
+      "description": "Knocks out the target. The accuracy of this move is fixed at 30%.",
+      "accuracy": 30,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Gunk Shot",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of poisoning the target.",
+      "power": 120,
+      "accuracy": 80,
+      "pp": 8
+    },
+    {
+      "name": "Gyro Ball",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "The lower the user's Speed stat compared to the target's the greater this move's power (ranging between 1 and 150).",
+      "accuracy": 100,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Hammer Arm",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Speed stat by 1 stage.",
+      "power": 100,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Hard Press",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The more HP the target has left the greater this move's power (ranging between 1 and 100).",
+      "power": null,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Haze",
+      "type": "Ice",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Eliminates every stat change on the entire field.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Head Smash",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/2 of the damage dealt by this move.",
+      "power": 150,
+      "accuracy": 80,
+      "pp": 8
+    },
+    {
+      "name": "Headlong Rush",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Defense and Sp. Def stats by 1 stage.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Heal Bell",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user cures the status conditions of all the Pokémon in its party including itself as well as its allies.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Heal Pulse",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "healing"
+      ],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the target's max HP.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Healing Wish",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user faints. The Pokémon taking its place will have its HP fully restored and its status conditions cured.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Heat Crash",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Heat Wave",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of burning targets.",
+      "power": 95,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Heavy Slam",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The more the user outweighs the target the greater this move's power (ranging between 40 and 120). If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Helping Hand",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 5,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the power of an ally's move by 50% during the turn this move is used.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Hex",
+      "type": "Ghost",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the target has a status condition.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "High Horsepower",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user fiercely attacks the target using its entire body.",
+      "power": 95,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "High Jump Kick",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "crash"
+      ],
+      "weatherTerrain": [],
+      "description": "If this move misses or fails the user takes damage equal to 1/2 of its max HP.",
+      "power": 130,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Horn Drill",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "OHKO"
+      ],
+      "weatherTerrain": [],
+      "description": "Knocks out the target. The accuracy of this move is fixed at 30%.",
+      "accuracy": 30,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Horn Leech",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Howl",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the Attack stats of the user and its allies by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Hurricane",
+      "type": "Flying",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "rain"
+      ],
+      "description": "Has a 30% chance of confusing the target. This move never misses in rain and can hit a target that has the Sky-High status.",
+      "power": 110,
+      "accuracy": 70,
+      "pp": 12
+    },
+    {
+      "name": "Hydro Cannon",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Hydro Pump",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The target is blasted by a huge volume of water launched under great pressure.",
+      "power": 110,
+      "accuracy": 80,
+      "pp": 8
+    },
+    {
+      "name": "Hyper Beam",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Hyper Voice",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks by letting loose a horribly loud, resounding cry.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Hypnosis",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Puts the target to sleep.",
+      "accuracy": 60,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Ice Beam",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of freezing the target.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Ice Fang",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of freezing the target and a 10% chance of making the target flinch.",
+      "power": 65,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Ice Hammer",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Speed stat by 1 stage.",
+      "power": 100,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Ice Punch",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of freezing the target.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Ice Shard",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user flash-freezes chunks of ice and hurls them at the target. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Ice Spinner",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes any terrain.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Icicle Crash",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of making the target flinch.",
+      "power": 85,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Icicle Spear",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 25,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Icy Wind",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Speed stats by 1 stage.",
+      "power": 55,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Imprison",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Sealing Off status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Infernal Parade",
+      "type": "Ghost",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of burning the target. This move's power is doubled if the target has a status condition.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Inferno",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Burns the target.",
+      "power": 100,
+      "accuracy": 50,
+      "pp": 8
+    },
+    {
+      "name": "Infestation",
+      "type": "Bug",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Ingrain",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Ingrained status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Instruct",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user makes the target reuse the last move it used.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Iron Defense",
+      "type": "Steel",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Iron Head",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of making the target flinch.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Iron Tail",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of lowering the target's Defense stat by 1 stage.",
+      "power": 100,
+      "accuracy": 75,
+      "pp": 16
+    },
+    {
+      "name": "Jet Punch",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "punch",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user summons a torrent around its fist and punches at blinding speed. This move always goes first.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "King's Shield",
+      "type": "Steel",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself from incoming attacks for the turn and changes into its Shield Forme. Any attackers that use contact moves against the user during this turn will have their Attack stats lowered by 1 stage. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Knock Off",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is boosted by 50% if the target is holding an item. Causes the target to lose its held item.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Kowtow Cleave",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move never misses.",
+      "power": 85,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Lash Out",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user's stats were lowered during the turn this move is used.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Last Resort",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move fails unless the user has already used all the other moves it knows.",
+      "power": 140,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Last Respects",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move's power is increased by 50 for each time that a Pokémon in the user's party has fainted.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Lava Plume",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of burning targets.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Leaf Blade",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Leaf Storm",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Sp. Atk stat by 2 stages.",
+      "power": 130,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Leech Life",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Leech Seed",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Leech Seeded status.",
+      "accuracy": 90,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Life Dew",
+      "type": "Water",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Restores 1/4 of the max HP of the user and its allies.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Light of Ruin",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/2 of the damage dealt by this move.",
+      "power": 140,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Light Screen",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the user's side the Light Screen status for 5 turns.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Liquidation",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of lowering the target's Defense stat by 1 stage.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Lock-On",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Locked On status.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Low Kick",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The heavier the target the greater this move's power (ranging between 20 and 120).",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Low Sweep",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 1 stage.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Lumina Crash",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Def stat by 2 stages.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Lunge",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Mach Punch",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "punch",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user throws a punch at blinding speed. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Magic Powder",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the target's type to Psychic.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Magic Room",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the entire field the Magic Room status for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Magnet Rise",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Magnet Rise status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Magnetic Flux",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "If the user or its allies have the Plus Ability or the Minus Ability their Defense and Sp. Def stats are boosted by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Matcha Gotcha",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of burning targets. The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 80,
+      "accuracy": 90,
+      "pp": 16
+    },
+    {
+      "name": "Mean Look",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Can't Escape status.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Mega Kick",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The target is attacked by a kick launched with muscle-packed power.",
+      "power": 120,
+      "accuracy": 75,
+      "pp": 8
+    },
+    {
+      "name": "Megahorn",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Using its tough and impressive horn, the user rams into the target with no letup.",
+      "power": 120,
+      "accuracy": 85,
+      "pp": 12
+    },
+    {
+      "name": "Memento",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack and Sp. Atk stats by 2 stages. The user faints upon using this move.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Metal Burst",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "counter"
+      ],
+      "weatherTerrain": [],
+      "description": "The user retaliates to deal 150% of the damage it took from an opponent's move during the turn this move is used.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Metal Sound",
+      "type": "Steel",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Def stat by 2 stages.",
+      "accuracy": 85,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Meteor Beam",
+      "type": "Rock",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Charging status on the turn this move is used then attacks on the following turn. The user's Sp. Atk stat is boosted by 1 stage on the turn this move is used.",
+      "power": 120,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Meteor Mash",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of boosting the user's Attack stat by 1 stage.",
+      "power": 90,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Milk Drink",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "healing"
+      ],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Minimize",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's evasiveness by 2 stages. The user gains the Minimized status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Mirror Coat",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": -5,
+      "classification": [
+        "counter",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user retaliates to deal double the damage it took from an opponent's special move during the turn this move is used.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Misty Explosion",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [
+        "misty terrain"
+      ],
+      "description": "If the user is under the effect of Misty Terrain this move's power is boosted by 50%. The user faints upon using this move.",
+      "power": 100,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Misty Terrain",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "misty terrain"
+      ],
+      "description": "Turns the entire field into Misty Terrain for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Moonblast",
+      "type": "Fairy",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Atk stat by 1 stage.",
+      "power": 95,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Moonlight",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Morning Sun",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Mortal Spin",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Poisons targets.",
+      "power": 30,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Mountain Gale",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of making the target flinch.",
+      "power": 120,
+      "accuracy": 85,
+      "pp": 12
+    },
+    {
+      "name": "Mud Shot",
+      "type": "Ground",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 1 stage.",
+      "power": 55,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Mud-Slap",
+      "type": "Ground",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's accuracy by 1 stage.",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Muddy Water",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of lowering targets' accuracy by 1 stage.",
+      "power": 90,
+      "accuracy": 85,
+      "pp": 12
+    },
+    {
+      "name": "Mystical Fire",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Atk stat by 1 stage.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Nasty Plot",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Atk stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Night Daze",
+      "type": "Dark",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 40% chance of lowering the target's accuracy by 1 stage.",
+      "power": 90,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Night Shade",
+      "type": "Ghost",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Deals 50 HP of damage.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Night Slash",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Noble Roar",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack and Sp. Atk stats by 1 stage.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Nuzzle",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Paralyzes the target.",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Outrage",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Rampaging status.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Overheat",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Sp. Atk stat by 2 stages.",
+      "power": 130,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Pain Split",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user adds its remaining HP to the target's remaining HP then splits the total in half for them to share.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Parabolic Charge",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread",
+        "healing",
+        "draining"
+      ],
+      "weatherTerrain": [],
+      "description": "The user's HP is restored by 1/2 of the damage dealt by this move.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Parting Shot",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack and Sp. Atk stats by 1 stage. The user then switches out of battle to be replaced by another party Pokémon.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Payback",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user attacks after the target.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Perish Song",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives all Pokémon on the field the Perishing status.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Petal Blizzard",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user stirs up a violent petal blizzard and damages everything around it.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Petal Dance",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Rampaging status.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Phantom Force",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Concealed status on the turn this move is used then attacks on the following turn. This move can hit a target using a move such as Protect or Detect and removes the effects of those moves.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Pin Missile",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 25,
+      "accuracy": 95,
+      "pp": 20
+    },
+    {
+      "name": "Play Rough",
+      "type": "Fairy",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Attack stat by 1 stage.",
+      "power": 90,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Pluck",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "If the target is holding a Berry the user eats that Berry and gains its effect.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Poison Fang",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 50% chance of badly poisoning the target.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Poison Jab",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of poisoning the target.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Poison Powder",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Poisons the target.",
+      "accuracy": 75,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Pollen Puff",
+      "type": "Bug",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "When used on an ally this move restores 1/2 of its max HP instead of dealing damage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Poltergeist",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move fails if the target isn't holding an item.",
+      "power": 110,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Population Bomb",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 1 to 10 times in a row. The attack ends if the user misses.",
+      "power": 20,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Pounce",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Power Gem",
+      "type": "Rock",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user attacks with a ray of light that sparkles as if it were made of gemstones.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Power Shift",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Atk/Def Swapped status.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Power Split",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user adds its Attack stat to the target's Attack stat then splits the total in half for them to share. It does the same with each of their Sp. Atk stats.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Power Swap",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user swaps the changes to its Attack and Sp. Atk stats with the changes to the target's Attack and Sp. Atk stats.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Power Trick",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Atk/Def Swapped status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Power Trip",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is increased by 20 for each stage that the user's stats have been boosted.",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Power Whip",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user violently whirls its vines, tentacles, or the like to lash the target.",
+      "power": 120,
+      "accuracy": 85,
+      "pp": 12
+    },
+    {
+      "name": "Protect",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself from incoming moves for the turn. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Psych Up",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user copies the target's stat changes.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Psychic",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Psychic Fangs",
+      "type": "Psychic",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite",
+        "ignores screens"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Psychic Noise",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Healing Prevented status for 2 turns.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Psychic Terrain",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "psychic terrain"
+      ],
+      "description": "Turns the entire field into Psychic Terrain for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Psycho Cut",
+      "type": "Psychic",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Psyshield Bash",
+      "type": "Psychic",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense stat by 1 stage.",
+      "power": 90,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Psyshock",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This is a special move but the damage it deals is calculated using the target's Defense stat.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Quash",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Causes the target to move last in the turn.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Quick Attack",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user lunges at the target to inflict damage, moving at blinding speed. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Quick Guard",
+      "type": "Fighting",
+      "category": "Status",
+      "priority": 3,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself and its allies from priority moves for the turn.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Quiver Dance",
+      "type": "Bug",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Atk Sp. Def and Speed stats by 1 stage.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Rage Powder",
+      "type": "Bug",
+      "category": "Status",
+      "priority": 2,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user redirects opponents' moves toward itself. This effect works only on single-target moves.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Raging Bull",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "ignores screens"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes the Light Screen Reflect and Aurora Veil statuses on the target's side. This move's type depends on the user's form.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Raging Fury",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Rampaging status.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Rain Dance",
+      "type": "Water",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "rain"
+      ],
+      "description": "Summons rain for 5 turns.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Rapid Spin",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes the Bound and Leech Seeded statuses from the user and removes the Sticky Web Stealth Rock Spikes and Toxic Spikes statuses from the user's side. Boosts the user's Speed stat by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Razor Shell",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 50% chance of lowering the target's Defense stat by 1 stage.",
+      "power": 75,
+      "accuracy": 95,
+      "pp": 12
+    },
+    {
+      "name": "Recover",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Recycle",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Regenerates the last held item that the user consumed. The user then holds this item once more.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Reflect",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the user's side the Reflect status for 5 turns.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Reflect Type",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user becomes the same type or types as the target.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Rest",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Fully restores the user's HP and cures any status conditions. The user falls asleep for 2 turns. This move fails if the user's HP is full.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Reversal",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The less HP the user has left the greater this move's power (ranging between 20 and 200).",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Rising Voltage",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "electric terrain"
+      ],
+      "description": "This move's power is doubled if the target is under the effect of Electric Terrain.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Roar",
+      "type": "Normal",
+      "category": "Status",
+      "priority": -6,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "If there are other Pokémon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokémon at random.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Rock Blast",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "bullet",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 25,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Rock Polish",
+      "type": "Rock",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Rock Slide",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of making targets flinch.",
+      "power": 75,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Rock Tomb",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 1 stage.",
+      "power": 60,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Rock Wrecker",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Recharging status on the turn after this move is used.",
+      "power": 150,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Role Play",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the user's Ability to be the same as the target's.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Roost",
+      "type": "Flying",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP. If the user is a Flying type it will lose the Flying type for the turn.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Round",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "If multiple Pokémon use this move in the same turn the second user onward will act immediately after the first and the power of the second Round onward will be doubled.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Sacred Sword",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing",
+        "ignores defense boosts"
+      ],
+      "weatherTerrain": [],
+      "description": "This move ignores the target's stat changes when dealing damage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Safeguard",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the user's side the Safeguard status for 5 turns.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Salt Cure",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Salt Cured status.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Sand Tomb",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 35,
+      "accuracy": 85,
+      "pp": 16
+    },
+    {
+      "name": "Sandstorm",
+      "type": "Rock",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sand"
+      ],
+      "description": "Summons a sandstorm for 5 turns.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Scald",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of burning the target. Cures the user and target of being frozen.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Scale Shot",
+      "type": "Dragon",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row. This move lowers the user's Defense stat by 1 stage and boosts its Speed stat by 1 stage.",
+      "power": 25,
+      "accuracy": 90,
+      "pp": 20
+    },
+    {
+      "name": "Scary Face",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 2 stages.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Scorching Sands",
+      "type": "Ground",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of burning the target. Cures the user and target of being frozen.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Screech",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Defense stat by 2 stages.",
+      "accuracy": 85,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Seed Bomb",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks by slamming a barrage of hard-shelled seeds down on the target from above.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Seismic Toss",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Deals 50 HP of damage.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Self-Destruct",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The user faints upon using this move.",
+      "power": 200,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Shadow Ball",
+      "type": "Ghost",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of lowering the target's Sp. Def stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Shadow Claw",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Shadow Punch",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "This move never misses.",
+      "power": 60,
+      "accuracy": 101,
+      "pp": 20
+    },
+    {
+      "name": "Shadow Sneak",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user extends its shadow and attacks the target from behind. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Shed Tail",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user loses 1/2 of its max HP to create a substitute then switches out of battle to be replaced by another party Pokémon. The substitute will be hit by moves instead of that Pokémon and it will vanish when it takes damage equal to 1/4 of the user's max HP.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Sheer Cold",
+      "type": "Ice",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "OHKO"
+      ],
+      "weatherTerrain": [],
+      "description": "Knocks out the target. This move does not affect Ice types. The accuracy of this move is fixed at 30%. If used by Pokémon other than Ice types the accuracy of this move is 20%.",
+      "accuracy": 30,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Shell Side Arm",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of poisoning the target. Becomes a physical move if that will deal more damage.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Shell Smash",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Defense and Sp. Def stats by 1 stage and boosts its Attack Sp. Atk and Speed stats by 2 stages.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Shelter",
+      "type": "Steel",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense stat by 2 stages.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Simple Beam",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the target's Ability to Simple.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Sing",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Puts the target to sleep.",
+      "accuracy": 55,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Skill Swap",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user and the target swap their Abilities.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Skitter Smack",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Sp. Atk stat by 1 stage.",
+      "power": 70,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Sky Attack",
+      "type": "Flying",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user gains the Charging status on the turn this move is used then attacks on the following turn. This move has a 30% chance of making the target flinch and it has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 140,
+      "accuracy": 90,
+      "pp": 8
+    },
+    {
+      "name": "Slack Off",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Sleep Powder",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Puts the target to sleep.",
+      "accuracy": 75,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Sleep Talk",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Can be used only if the user is asleep. The user uses one of the other moves it knows at random.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Sludge Bomb",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 30% chance of poisoning the target.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Sludge Wave",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of poisoning targets.",
+      "power": 95,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Smack Down",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "If the target is off the ground it gains the Landed status. This move can hit a target that has the Sky-High status.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Smart Strike",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "This move never misses.",
+      "power": 70,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Snap Trap",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 35,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Snarl",
+      "type": "Dark",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Sp. Atk stats by 1 stage.",
+      "power": 55,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Snore",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "Can be used only if the user is asleep. Has a 30% chance of making the target flinch.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Snowscape",
+      "type": "Ice",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "snow"
+      ],
+      "description": "Summons snow for 5 turns.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 8
+    },
+    {
+      "name": "Soak",
+      "type": "Water",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the target's type to Water.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Soft-Boiled",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "healing"
+      ],
+      "weatherTerrain": [],
+      "description": "Restores 1/2 of the user's max HP.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Solar Beam",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Solar Blade",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "The user gains the Charging status on the turn this move is used then attacks on the following turn. In harsh sunlight the user does not gain the Charging status and can attack immediately. This move's power is halved in any other weather condition.",
+      "power": 125,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Sparkling Aria",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Cures targets of their burns.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Speed Swap",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user and the target swap their Speed stats.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Spicy Extract",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Defense stat by 2 stages and boosts its Attack stat by 2 stages.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 16
+    },
+    {
+      "name": "Spikes",
+      "type": "Ground",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Spikes status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Spiky Shield",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 4,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user protects itself from incoming moves for the turn. Any attackers that use contact moves against the user during this turn take damage equal to 1/8 of their max HP. With each consecutive use this move's chance of success becomes 1/3 of what it was before.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Spirit Shackle",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Can't Escape status.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Spit Up",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The higher the user's Stockpiling level the greater this move's power (ranging between 100 and 300). This move fails unless the user has the Stockpiling status.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Spite",
+      "type": "Ghost",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Removes 4 PP from the move last used by the target.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Spore",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Puts the target to sleep.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Stealth Rock",
+      "type": "Rock",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Stealth Rock status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Steel Beam",
+      "type": "Steel",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "After attacking the user takes damage equal to 1/2 of its max HP.",
+      "power": 140,
+      "accuracy": 95,
+      "pp": 8
+    },
+    {
+      "name": "Steel Roller",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Removes any terrain. This move fails if there is no terrain on the field.",
+      "power": 130,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Steel Wing",
+      "type": "Steel",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of boosting the user's Defense stat by 1 stage.",
+      "power": 70,
+      "accuracy": 90,
+      "pp": 20
+    },
+    {
+      "name": "Sticky Web",
+      "type": "Bug",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Sticky Web status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Stockpile",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Defense and Sp. Def stats by 1 stage. Raises the user's Stockpiling level by 1. Can be used up to 3 times.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Stomping Tantrum",
+      "type": "Ground",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Stone Axe",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Stealth Rock status.",
+      "power": 65,
+      "accuracy": 90,
+      "pp": 16
+    },
+    {
+      "name": "Stone Edge",
+      "type": "Rock",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 100,
+      "accuracy": 80,
+      "pp": 8
+    },
+    {
+      "name": "Stored Power",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move's power is increased by 20 for each stage that the user's stats have been boosted.",
+      "power": 20,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Storm Throw",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Always a critical hit.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Strength Sap",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "healing"
+      ],
+      "weatherTerrain": [],
+      "description": "Restores the user's HP by an amount equal to the target's Attack stat. Lowers the target's Attack stat by 1 stage.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "String Shot",
+      "type": "Bug",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Speed stats by 2 stages.",
+      "accuracy": 95,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Struggle",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "This attack is used in desperation only if the user has no PP. It also damages the user a little.",
+      "power": 50,
+      "accuracy": 101,
+      "pp": 1
+    },
+    {
+      "name": "Struggle Bug",
+      "type": "Bug",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' Sp. Atk stats by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Stuff Cheeks",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user eats its held Berry and boosts its Defense stat by 2 stages. This move can't be used if the user is not holding a Berry.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Stun Spore",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Paralyzes the target.",
+      "accuracy": 75,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Substitute",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user loses 1/4 of its max HP to create a substitute. The substitute will be hit by moves instead of the user and it will vanish when it takes damage equal to 1/4 of the user's max HP.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Sucker Punch",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "This move fails unless the target has chosen an attack and has not yet attacked during the turn this move is used.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Sunny Day",
+      "type": "Fire",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "Summons harsh sunlight for 5 turns.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Super Fang",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Deals damage to the target equal to 1/2 of its remaining HP. Deals 1 HP of damage to a target that has only 1 HP left.",
+      "accuracy": 90,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Supercell Slam",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "crash"
+      ],
+      "weatherTerrain": [],
+      "description": "If this move misses or fails the user takes damage equal to 1/2 of its max HP. If the target has the Minimized status this move's power is doubled and it will be sure to hit.",
+      "power": 100,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Superpower",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the user's Attack and Defense stats by 1 stage.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Surf",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled against targets that have the Submerged status.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Swagger",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the target's Attack stat by 2 stages and confuses it.",
+      "accuracy": 85,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Swallow",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The higher the user's Stockpiling level the more HP the user restores. Level 1 1/4 of the user's max HP is restored. Level 2 1/2 of the user's max HP is restored. Level 3 The user's HP is fully restored. This move fails unless the user has the Stockpiling status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Sweet Kiss",
+      "type": "Fairy",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Confuses the target.",
+      "accuracy": 75,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Sweet Scent",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers targets' evasiveness by 2 stages.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Switcheroo",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user and the target swap their held items.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Swords Dance",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Attack stat by 2 stages.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Synthesis",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "sun"
+      ],
+      "description": "Restores 1/2 of the user's max HP. In harsh sunlight 2/3 of its max HP will be restored instead. In all other weather conditions 1/4 of its max HP will be restored instead.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Syrup Bomb",
+      "type": "Grass",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Syrupy status for 3 turns.",
+      "power": 60,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Tail Slap",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 25,
+      "accuracy": 85,
+      "pp": 12
+    },
+    {
+      "name": "Tailwind",
+      "type": "Flying",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the user's side the Tailwind status for 4 turns.",
+      "accuracy": 101,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Taunt",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Taunted status.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Tearful Look",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack and Sp. Atk stats by 1 stage. This move ignores the target's evasiveness and can hit a target using a move such as Protect.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Teatime",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Causes all Pokémon on the field to eat their held Berries.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Teeter Dance",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Confuses all other Pokémon on the field.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Temper Flare",
+      "type": "Fire",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "conditional power"
+      ],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the user couldn't act or its move missed or failed on the previous turn.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Terrain Pulse",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "electric terrain",
+        "psychic terrain",
+        "grassy terrain",
+        "misty terrain"
+      ],
+      "description": "This move's power is doubled if the user is under the effect of a terrain. This move's type depends on the terrain.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Thief",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "If the user is not already holding an item it steals the target's held item.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Thrash",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Rampaging status.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Throat Chop",
+      "type": "Dark",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Throat Chopped status.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Thunder",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [
+        "rain"
+      ],
+      "description": "Has a 30% chance of paralyzing the target. This move never misses in rain and can hit a target that has the Sky-High status.",
+      "power": 110,
+      "accuracy": 70,
+      "pp": 12
+    },
+    {
+      "name": "Thunder Fang",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "bite"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of paralyzing the target and a 10% chance of making the target flinch.",
+      "power": 65,
+      "accuracy": 95,
+      "pp": 16
+    },
+    {
+      "name": "Thunder Punch",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "punch"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of paralyzing the target.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Thunder Wave",
+      "type": "Electric",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Paralyzes the target.",
+      "accuracy": 90,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Thunderbolt",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of paralyzing the target.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Tickle",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack and Defense stats by 1 stage.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Tidy Up",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Removes the Sticky Web Stealth Rock Substitute Spikes and Toxic Spikes statuses from the entire field. Boosts the user's Attack and Speed stats by 1 stage.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 12
+    },
+    {
+      "name": "Torch Song",
+      "type": "Fire",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound",
+        "stat change"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Sp. Atk stat by 1 stage.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Torment",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Unable to Repeat status.",
+      "accuracy": 100,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Toxic",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Badly poisons the target. If the user is a Poison type this move will never miss.",
+      "accuracy": 90,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Toxic Spikes",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the opponent's side the Toxic Spikes status.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Toxic Thread",
+      "type": "Poison",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Speed stat by 2 stages and poisons it.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Trailblaze",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Boosts the user's Speed stat by 1 stage.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Transform",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user transforms into a copy of the target. It also copies all of the target's stats apart from its HP.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Tri Attack",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of leaving the target burned frozen or paralyzed.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Trick",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "The user and the target swap their held items.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Trick Room",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": -7,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the entire field the Trick Room status for 5 turns.",
+      "accuracy": 101,
+      "pp": 8,
+      "power": null
+    },
+    {
+      "name": "Trick-or-Treat",
+      "type": "Ghost",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Trick-or-Treating status.",
+      "accuracy": 100,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Triple Arrows",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 50% chance of lowering the target's Defense stat by 1 stage and has a 30% chance of making the target flinch. This move has a 1-stage Critical-Hit Ratio Boost.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Triple Axel",
+      "type": "Ice",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 3 times in a row-first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
+      "power": 20,
+      "accuracy": 90,
+      "pp": 12
+    },
+    {
+      "name": "Trop Kick",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Lowers the target's Attack stat by 1 stage.",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Twin Beam",
+      "type": "Psychic",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks twice in a row.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "U-turn",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "After attacking the user switches out of battle to be replaced by another party Pokémon.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Upper Hand",
+      "type": "Fighting",
+      "category": "Physical",
+      "priority": 1,
+      "classification": [
+        "contact",
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "Makes the target flinch. This move fails if the target isn't about to use a priority move.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Uproar",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "sound"
+      ],
+      "weatherTerrain": [],
+      "description": "The user gains the Uproar status.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Vacuum Wave",
+      "type": "Fighting",
+      "category": "Special",
+      "priority": 1,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "The user whirls its fists to send a wave of pure vacuum at the target. This move always goes first.",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Venoshock",
+      "type": "Poison",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "This move's power is doubled if the target is poisoned or badly poisoned.",
+      "power": 65,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Volt Switch",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "After attacking the user switches out of battle to be replaced by another party Pokémon.",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Volt Tackle",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 10% chance of paralyzing the target. The user also takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Water Pulse",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of confusing the target.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Water Shuriken",
+      "type": "Water",
+      "category": "Special",
+      "priority": 1,
+      "classification": [
+        "priority",
+        "multi-hit"
+      ],
+      "weatherTerrain": [],
+      "description": "The user attacks 2 to 5 times in a row.",
+      "power": 15,
+      "accuracy": 100,
+      "pp": 20
+    },
+    {
+      "name": "Water Spout",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "spread"
+      ],
+      "weatherTerrain": [],
+      "description": "The less HP the user has left the lower this move's power (ranging between 1 and 150).",
+      "power": 150,
+      "accuracy": 100,
+      "pp": 8
+    },
+    {
+      "name": "Waterfall",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of making the target flinch.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Wave Crash",
+      "type": "Water",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Weather Ball",
+      "type": "Normal",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [
+        "sun",
+        "rain",
+        "sand",
+        "snow"
+      ],
+      "description": "When a weather condition is present this move's power is doubled and its type changes. Harsh sunlight Fire type. Rain Water type. Snow Ice type. Sandstorm Rock type.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
+      "name": "Whirlpool",
+      "type": "Water",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status. This move's power is doubled if the target has the Submerged status.",
+      "power": 35,
+      "accuracy": 85,
+      "pp": 16
+    },
+    {
+      "name": "Whirlwind",
+      "type": "Normal",
+      "category": "Status",
+      "priority": -6,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "If there are other Pokémon in the target's party that can switch into battle the target is forced to switch out of battle and is replaced by one of those Pokémon at random.",
+      "accuracy": 101,
+      "pp": 20,
+      "power": null
+    },
+    {
+      "name": "Wide Guard",
+      "type": "Rock",
+      "category": "Status",
+      "priority": 3,
+      "classification": [
+        "priority"
+      ],
+      "weatherTerrain": [],
+      "description": "During the turn this move is used the user protects its side from moves that target all allies.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Wild Charge",
+      "type": "Electric",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/4 of the damage dealt by this move.",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Will-O-Wisp",
+      "type": "Fire",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Burns the target.",
+      "accuracy": 85,
+      "pp": 16,
+      "power": null
+    },
+    {
+      "name": "Wish",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the user's spot the Wish status.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Wonder Room",
+      "type": "Psychic",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Gives the entire field the Wonder Room status for 5 turns.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Wood Hammer",
+      "type": "Grass",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "recoil"
+      ],
+      "weatherTerrain": [],
+      "description": "The user takes 1/3 of the damage dealt by this move.",
+      "power": 120,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Worry Seed",
+      "type": "Grass",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Changes the target's Ability to Insomnia.",
+      "accuracy": 100,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Wrap",
+      "type": "Normal",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Gives the target the Bound status.",
+      "power": 15,
+      "accuracy": 90,
+      "pp": 20
+    },
+    {
+      "name": "X-Scissor",
+      "type": "Bug",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact",
+        "slicing"
+      ],
+      "weatherTerrain": [],
+      "description": "The user slashes at the target by crossing its scythes, claws, or the like as if they were a pair of scissors.",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
+      "name": "Yawn",
+      "type": "Normal",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "description": "Makes the target drowsy. This move never misses.",
+      "accuracy": 101,
+      "pp": 12,
+      "power": null
+    },
+    {
+      "name": "Zap Cannon",
+      "type": "Electric",
+      "category": "Special",
+      "priority": 0,
+      "classification": [
+        "bullet"
+      ],
+      "weatherTerrain": [],
+      "description": "Paralyzes the target.",
+      "power": 120,
+      "accuracy": 50,
+      "pp": 8
+    },
+    {
+      "name": "Zen Headbutt",
+      "type": "Psychic",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [
+        "contact"
+      ],
+      "weatherTerrain": [],
+      "description": "Has a 20% chance of making the target flinch.",
+      "power": 80,
+      "accuracy": 90,
+      "pp": 16
+    }
+  ],
+  "moveFilters": {
+    "types": [
+      "Bug",
+      "Dark",
+      "Dragon",
+      "Electric",
+      "Fairy",
+      "Fighting",
+      "Fire",
+      "Flying",
+      "Ghost",
+      "Grass",
+      "Ground",
+      "Ice",
+      "Normal",
+      "Poison",
+      "Psychic",
+      "Rock",
+      "Steel",
+      "Unknown",
+      "Water"
+    ],
+    "categories": [
+      "Physical",
+      "Special",
+      "Status",
+      "Unknown"
+    ],
+    "classifications": [
+      "OHKO",
+      "bite",
+      "bullet",
+      "conditional power",
+      "contact",
+      "counter",
+      "crash",
+      "draining",
+      "healing",
+      "ignores defense boosts",
+      "ignores screens",
+      "multi-hit",
+      "priority",
+      "punch",
+      "recoil",
+      "slicing",
+      "sound",
+      "spread",
+      "stat change"
+    ],
+    "weatherTerrain": [
+      "electric terrain",
+      "grassy terrain",
+      "misty terrain",
+      "psychic terrain",
+      "rain",
+      "sand",
+      "snow",
+      "sun"
+    ]
+  }
+}
