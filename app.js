@@ -145,6 +145,8 @@ const SORT_LABELS = {
 
 const SETLIST_STORAGE_KEY = "championsDataSearch.setlist";
 const BOX_STORAGE_KEY = "championsDataSearch.box";
+const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
+const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
 
 const MOVE_CATEGORY_ICON_PATHS = {
@@ -2354,11 +2356,27 @@ function getSpeedTierRows() {
 }
 
 function loadSetlist() {
+  const storageKeys = [SETLIST_STORAGE_KEY, ...LEGACY_SETLIST_STORAGE_KEYS];
+  let fallbackSetlist = [];
   try {
-    const saved = JSON.parse(localStorage.getItem(SETLIST_STORAGE_KEY) || "[]");
-    state.setlist = Array.isArray(saved)
-      ? saved.filter(item => item?.kind && item?.name).map(item => ({ kind: item.kind, name: item.name, selected: Boolean(item.selected) }))
-      : [];
+    for (const key of storageKeys) {
+      const saved = JSON.parse(localStorage.getItem(key) || "[]");
+      if (!Array.isArray(saved)) {
+        continue;
+      }
+      const normalized = saved
+        .filter(item => item?.kind && item?.name)
+        .map(item => ({ kind: item.kind, name: item.name, selected: Boolean(item.selected) }));
+      if (normalized.length) {
+        state.setlist = normalized;
+        saveSetlist();
+        return;
+      }
+      if (!fallbackSetlist.length) {
+        fallbackSetlist = normalized;
+      }
+    }
+    state.setlist = fallbackSetlist;
   } catch {
     state.setlist = [];
   }
@@ -2369,10 +2387,25 @@ function saveSetlist() {
 }
 
 async function loadBoxData() {
+  const storageKeys = [BOX_STORAGE_KEY, ...LEGACY_BOX_STORAGE_KEYS];
+  let fallbackBox = null;
   try {
-    const saved = JSON.parse(localStorage.getItem(BOX_STORAGE_KEY) || "null");
-    if (saved && Array.isArray(saved.configs) && Array.isArray(saved.teams)) {
-      state.box = normalizeBoxData(saved);
+    for (const key of storageKeys) {
+      const saved = JSON.parse(localStorage.getItem(key) || "null");
+      if (saved && Array.isArray(saved.configs) && Array.isArray(saved.teams)) {
+        const normalized = normalizeBoxData(saved);
+        if (normalized.configs.length || normalized.teams.length) {
+          state.box = normalized;
+          saveBoxData();
+          return;
+        }
+        if (!fallbackBox) {
+          fallbackBox = normalized;
+        }
+      }
+    }
+    if (fallbackBox) {
+      state.box = fallbackBox;
       return;
     }
   } catch {

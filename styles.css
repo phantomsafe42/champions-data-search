@@ -640,6 +640,9 @@ button.secondary {
   width: 100%;
   min-height: 180px;
   resize: vertical;
+  background: #05070b;
+  color: #f7f8fb;
+  border-color: #3c4657;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
