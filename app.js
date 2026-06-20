@@ -153,6 +153,7 @@ const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
+const ASSET_VERSION = "2026-06-20-4";
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
@@ -584,6 +585,14 @@ function normalizeName(value) {
     .replace(/['’.\-]/g, "")
     .replace(/\s+/g, "")
     .trim();
+}
+
+function withAssetVersion(path) {
+  const value = String(path || "");
+  if (!value || /^https?:\/\//i.test(value)) {
+    return value;
+  }
+  return `${value}${value.includes("?") ? "&" : "?"}v=${ASSET_VERSION}`;
 }
 
 function matchesAbilityName(left, right) {
@@ -1235,7 +1244,7 @@ function formatMoveCategoryIcon(categoryName) {
   if (!iconPath) {
     return `<span class="meta">${categoryName || "Unknown category"}</span>`;
   }
-  return `<img class="move-category-icon" src="${iconPath}" alt="${categoryName}" title="${categoryName}">`;
+  return `<img class="move-category-icon" src="${withAssetVersion(iconPath)}" alt="${categoryName}" title="${categoryName}">`;
 }
 
 function formatMovePowerLabel(move) {
@@ -2255,7 +2264,7 @@ function formatBoxConfigPreview(config) {
     <article class="box-config-row import-preview-card">
       <section class="box-compact-panel">
         <div class="result-card-top">
-          ${config.species.spritePath ? `<img class="pokemon-sprite" src="${config.species.spritePath}" alt="${config.species.name} sprite">` : ""}
+          ${config.species.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(config.species.spritePath)}" alt="${config.species.name} sprite">` : ""}
           <div class="result-card-heading">${formatBoxConfigName(config, false)}</div>
         </div>
         <div class="meta">#${String(config.species.dexNo).padStart(4, "0")} ${formatTypeIcons(config.species.types || [])}</div>
@@ -2335,7 +2344,7 @@ function renderBox() {
     <article class="box-config-row" data-id="${config.id}">
       <section class="box-compact-panel">
         <div class="result-card-top">
-          ${config.species.spritePath ? `<img class="pokemon-sprite" src="${config.species.spritePath}" alt="${config.species.name} sprite">` : ""}
+          ${config.species.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(config.species.spritePath)}" alt="${config.species.name} sprite">` : ""}
           <div class="result-card-heading">
             ${formatBoxConfigName(config, isEditing)}
           </div>
@@ -2602,7 +2611,7 @@ function saveBoxData() {
 
 async function loadSeedBoxData() {
   try {
-    const response = await fetch(BOX_DATA_FILE, { cache: "no-store" });
+    const response = await fetch(withAssetVersion(BOX_DATA_FILE), { cache: "no-store" });
     return response.ok ? normalizeBoxData(await response.json()) : { configs: [], teams: [] };
   } catch {
     return { configs: [], teams: [] };
@@ -2770,7 +2779,7 @@ function renderSpeedDrawer() {
         <div class="speed-pokemon-list">
           ${row.forms.map(form => `
             <div class="speed-pokemon-cell">
-              ${form.spritePath ? `<img class="speed-sprite" src="${form.spritePath}" alt="${form.label} sprite" title="${form.label}">` : ""}
+              ${form.spritePath ? `<img class="speed-sprite" src="${withAssetVersion(form.spritePath)}" alt="${form.label} sprite" title="${form.label}">` : ""}
             </div>
           `).join("")}
         </div>
@@ -3181,7 +3190,7 @@ function renderResults() {
       <div class="compact-card-shell">
         <div class="result-card-button">
           <div class="result-card-top">
-            ${displayForm.spritePath ? `<img class="pokemon-sprite" src="${displayForm.spritePath}" alt="${displayForm.label} sprite">` : ""}
+            ${displayForm.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(displayForm.spritePath)}" alt="${displayForm.label} sprite">` : ""}
             <div class="result-card-heading">
               <h3>${displayForm.label}</h3>
             </div>
@@ -3294,11 +3303,11 @@ function clearFilters() {
 
 async function loadDataset() {
   const [datasetResponse, metadataResponse, abilityResponse, itemResponse, abilityFilterSourceResponse] = await Promise.all([
-    fetch("champions_dataset.json", { cache: "no-store" }),
-    fetch("champions_search_metadata.json", { cache: "no-store" }),
-    fetch("ability_descriptions.json", { cache: "no-store" }),
-    fetch("champions_items.json", { cache: "no-store" }),
-    fetch("ability_filter_sources.json", { cache: "no-store" })
+    fetch(withAssetVersion("champions_dataset.json"), { cache: "no-store" }),
+    fetch(withAssetVersion("champions_search_metadata.json"), { cache: "no-store" }),
+    fetch(withAssetVersion("ability_descriptions.json"), { cache: "no-store" }),
+    fetch(withAssetVersion("champions_items.json"), { cache: "no-store" }),
+    fetch(withAssetVersion("ability_filter_sources.json"), { cache: "no-store" })
   ]);
   if (!datasetResponse.ok) {
     throw new Error(`Could not load champions_dataset.json (${datasetResponse.status})`);
