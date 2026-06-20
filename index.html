@@ -112,9 +112,9 @@
 
               <section class="guide-section">
                 <h2>Move Search</h2>
-                <p>Move Search finds moves directly by name, type, category, priority, weather or terrain connection, and classification.</p>
+                <p>Move Search finds moves directly by name, type, category, priority, target, weather or terrain connection, and classification.</p>
                 <ul>
-                  <li>Results show move name, type, category, BP, PP, accuracy, priority, description, and classifications when available.</li>
+                  <li>Results show move name, type, category, BP, PP, accuracy, target, priority, description, and classifications when available.</li>
                   <li>Send to Setlist saves that move to the Setlist.</li>
                 </ul>
                 <figure class="guide-screenshot">
@@ -283,9 +283,16 @@
                   <select id="move-field-search"><option value="">Any field state</option></select>
                 </div>
                 <div class="filter-block">
+                  <label for="move-target-search">Target</label>
+                  <select id="move-target-search"><option value="">Any target</option></select>
+                </div>
+              </div>
+              <div class="input-row filter-row">
+                <div class="filter-block">
                   <label for="move-classification-search">Classification</label>
                   <select id="move-classification-search"><option value="">Any classification</option></select>
                 </div>
+                <div class="filter-block"></div>
               </div>
             </div>
             <section class="results-panel">

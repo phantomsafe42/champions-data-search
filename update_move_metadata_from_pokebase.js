@@ -13,6 +13,7 @@ const ADDED_CHAMPIONS_MOVES = [
   ["Spore", { classification: [] }],
   ["Struggle", { classification: ["contact", "recoil"] }]
 ];
+const SEREBII_MOVE_BASE_URL = "https://www.serebii.net";
 
 function normalizeName(value) {
   return String(value || "")
@@ -106,6 +107,47 @@ function decodeHtml(value) {
     .trim();
 }
 
+function normalizeTargetText(value) {
+  return decodeHtml(value)
+    .replace(/Pok[eé]mon/g, "Pokemon")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function categorizeMoveTarget(targetText) {
+  const normalized = normalizeTargetText(targetText);
+  switch (normalized) {
+    case "Selected Target":
+    case "Random Target":
+    case "Previous opponent":
+    case "Self":
+    case "Self or Ally":
+    case "Adjacent Ally":
+    case "Team":
+    case "Field":
+    case "Special":
+      return normalized;
+    case "All":
+      return "All Pokemon";
+    case "Allies":
+    case "All allies":
+      return "All Allies";
+    case "Ally":
+      return "Ally Side";
+    case "Enemy Side":
+    case "Opponent's Side":
+      return "Opponent's Side";
+    case "All opponents":
+    case "All Adjacent Foes":
+    case "All Adjacent Opponents":
+      return "All Opponents";
+    case "All Adjacent Pokemon":
+      return "All Adjacent Pokemon";
+    default:
+      return normalized;
+  }
+}
+
 function parseSerebiiNumber(value) {
   const text = decodeHtml(value);
   if (!text || text === "--") {
@@ -160,6 +202,62 @@ function extractSerebiiMoves(html) {
   return moves;
 }
 
+function extractSerebiiMoveLinks(html) {
+  const links = new Map();
+  for (const match of html.matchAll(/<a href="(\/attackdex-champions\/([^"]+)\.shtml)">([^<]+)<\/a>/gi)) {
+    const name = decodeHtml(match[3]);
+    if (!name || links.has(normalizeName(name))) {
+      continue;
+    }
+    links.set(normalizeName(name), {
+      name,
+      slug: match[2],
+      url: `${SEREBII_MOVE_BASE_URL}${match[1]}`
+    });
+  }
+  return links;
+}
+
+function extractSerebiiMoveTarget(html) {
+  const detailsIndex = html.search(/<b>Pok(?:&eacute;|é)mon Hit in Battle<\/b>/i);
+  if (detailsIndex === -1) {
+    return "";
+  }
+
+  const segment = html.slice(detailsIndex, detailsIndex + 1500);
+  const rows = [...segment.matchAll(/<tr>([\s\S]*?)<\/tr>/gi)]
+    .map(rowMatch => [...rowMatch[1].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].map(cellMatch => normalizeTargetText(cellMatch[1])))
+    .filter(row => row.length);
+
+  return rows[0]?.[2] || "";
+}
+
+async function buildSerebiiTargetMap(moveLinks, targetsDirPath = "") {
+  const targetsByName = new Map();
+  const targetsDir = targetsDirPath ? path.resolve(targetsDirPath) : "";
+
+  for (const entry of moveLinks.values()) {
+    let pageHtml = "";
+    if (targetsDir) {
+      const localPath = path.join(targetsDir, `${entry.slug}.html`);
+      if (fs.existsSync(localPath)) {
+        pageHtml = fs.readFileSync(localPath, "utf8");
+      }
+    }
+
+    if (!pageHtml) {
+      pageHtml = await fetchText(entry.url);
+    }
+
+    const target = extractSerebiiMoveTarget(pageHtml);
+    if (target) {
+      targetsByName.set(normalizeName(entry.name), target);
+    }
+  }
+
+  return targetsByName;
+}
+
 function firstPresent(...values) {
   return values.find(value => value !== undefined && value !== null && value !== "");
 }
@@ -181,10 +279,13 @@ function sourcedNumber(serebiiMove, pokebaseMove, existingMove, field, pokebaseV
 }
 
 function mergeMove(existingMove, serebiiMove, pokebaseMove) {
+  const rawTarget = firstPresent(serebiiMove?.targetDetail, serebiiMove?.target, existingMove.targetDetail, existingMove.target, "");
   return {
     ...existingMove,
     type: sourcedText(serebiiMove, pokebaseMove, existingMove, "type", pokebaseMove?.type?.name),
     category: sourcedText(serebiiMove, pokebaseMove, existingMove, "category", titleCase(pokebaseMove?.damageClass)),
+    target: rawTarget ? categorizeMoveTarget(rawTarget) : "",
+    targetDetail: rawTarget,
     description: sourcedText(serebiiMove, pokebaseMove, existingMove, "description", pokebaseMove?.description),
     power: sourcedNumber(serebiiMove, pokebaseMove, existingMove, "power", toNullableNumber(pokebaseMove?.power)),
     accuracy: sourcedNumber(serebiiMove, pokebaseMove, existingMove, "accuracy", toNullableNumber(pokebaseMove?.accuracy)),
@@ -201,6 +302,8 @@ function createMove(serebiiMove, pokebaseMove, overrides = {}) {
     priority: overrides.priority || 0,
     classification: overrides.classification || [],
     weatherTerrain: overrides.weatherTerrain || [],
+    target: overrides.target || "",
+    targetDetail: overrides.targetDetail || "",
     description: "",
     power: null,
     accuracy: null,
@@ -211,6 +314,7 @@ function createMove(serebiiMove, pokebaseMove, overrides = {}) {
 async function main() {
   const serebiiHtmlPath = process.argv[2];
   const pokebaseHtmlPath = process.argv[3];
+  const serebiiTargetsDirPath = process.argv[4];
   const serebiiHtml = serebiiHtmlPath
     ? fs.readFileSync(path.resolve(serebiiHtmlPath), "utf8")
     : await fetchText(SEREBII_MOVES_URL);
@@ -219,8 +323,18 @@ async function main() {
     : await fetchText(POKEBASE_MOVES_URL);
 
   const serebiiMoves = extractSerebiiMoves(serebiiHtml);
+  const serebiiMoveLinks = extractSerebiiMoveLinks(serebiiHtml);
+  const serebiiTargetsByName = await buildSerebiiTargetMap(serebiiMoveLinks, serebiiTargetsDirPath);
   const serebiiByName = new Map(
-    serebiiMoves.map(move => [normalizeName(move.name), move])
+    serebiiMoves.map(move => {
+      const normalizedName = normalizeName(move.name);
+      const rawTarget = serebiiTargetsByName.get(normalizedName) || "";
+      return [normalizedName, {
+        ...move,
+        target: rawTarget ? categorizeMoveTarget(rawTarget) : "",
+        targetDetail: rawTarget
+      }];
+    })
   );
   const pokebaseMoves = extractPokebaseMoves(pokebaseHtml);
   const pokebaseByName = new Map(
@@ -257,6 +371,8 @@ async function main() {
   }
 
   metadata.moves.sort((left, right) => left.name.localeCompare(right.name));
+  metadata.moveFilters.targets = [...new Set(metadata.moves.map(move => move.target).filter(Boolean))]
+    .sort((left, right) => left.localeCompare(right));
 
   fs.writeFileSync(METADATA_PATH, `${JSON.stringify(metadata, null, 2)}\n`);
 

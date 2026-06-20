@@ -72,8 +72,8 @@ Expanded details let you test and save a possible set configuration.
 
 Move Search finds moves directly.
 
-- Search by move name, type, category, priority, weather or terrain connection, and classification.
-- Results show move name, type, category, BP, PP, accuracy, priority, description, and classifications when available.
+- Search by move name, type, category, priority, target, weather or terrain connection, and classification.
+- Results show move name, type, category, BP, PP, accuracy, target, priority, description, and classifications when available.
 - Send to Setlist saves that move to the Setlist.
 
 ![Move Search filtered to Water, Physical, Positive Priority with Aqua Jet saved](screenshots/move-search-water-physical-positive-priority.png)

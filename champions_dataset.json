@@ -1,19 +1,20 @@
 {
-  "generatedAt": "2026-05-04T09:00:53.190Z",
+  "generatedAt": "2026-06-20T21:12:44.275Z",
   "source": {
     "availablePokemon": "https://www.serebii.net/pokemonchampions/pokemon.shtml",
+    "items": "https://www.serebii.net/pokemonchampions/items.shtml",
     "moveData": "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/script_res/move_data.js",
     "abilityData": "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/script_res/ability_data.js"
   },
   "summary": {
-    "speciesCount": 199,
-    "uniqueMoveCount": 490,
-    "uniqueAbilityCount": 178,
+    "speciesCount": 221,
+    "uniqueMoveCount": 495,
+    "uniqueAbilityCount": 186,
     "uniqueTypeCount": 18
   },
   "verification": {
     "movesMissingFromNcp": [
-      "Brutal Swing",
+      "Barb Barrage",
       "Forest's Curse",
       "Foul Play",
       "Freeze-Dry",
@@ -80,7 +81,11 @@
       "Iron Tail",
       "Jet Punch",
       "King's Shield",
-      "Pound"
+      "Make It Rain",
+      "No Retreat",
+      "Rage Fist",
+      "Spirit Break",
+      "Topsy-Turvy"
     ],
     "abilitiesMissingFromNcp": []
   },
@@ -116,6 +121,7 @@
     "Axe Kick",
     "Baby-Doll Eyes",
     "Baneful Bunker",
+    "Barb Barrage",
     "Baton Pass",
     "Beak Blast",
     "Beat Up",
@@ -345,6 +351,7 @@
     "Magic Room",
     "Magnet Rise",
     "Magnetic Flux",
+    "Make It Rain",
     "Matcha Gotcha",
     "Mean Look",
     "Mega Kick",
@@ -371,6 +378,7 @@
     "Night Daze",
     "Night Shade",
     "Night Slash",
+    "No Retreat",
     "Noble Roar",
     "Nuzzle",
     "Outrage",
@@ -393,7 +401,6 @@
     "Poltergeist",
     "Population Bomb",
     "Pounce",
-    "Pound",
     "Power Gem",
     "Power Split",
     "Power Swap",
@@ -413,6 +420,7 @@
     "Quick Attack",
     "Quick Guard",
     "Quiver Dance",
+    "Rage Fist",
     "Rage Powder",
     "Raging Bull",
     "Raging Fury",
@@ -481,6 +489,7 @@
     "Spicy Extract",
     "Spikes",
     "Spiky Shield",
+    "Spirit Break",
     "Spirit Shackle",
     "Spit Up",
     "Spite",
@@ -533,6 +542,7 @@
     "Thunderbolt",
     "Tickle",
     "Tidy Up",
+    "Topsy-Turvy",
     "Torch Song",
     "Torment",
     "Toxic",
@@ -584,6 +594,7 @@
     "Anticipation",
     "Armor Tail",
     "Aroma Veil",
+    "Battle Armor",
     "Berserk",
     "Big Pecks",
     "Blaze",
@@ -608,16 +619,20 @@
     "Dry Skin",
     "Early Bird",
     "Earth Eater",
+    "Effect Spore",
     "Electromorphosis",
     "Flame Body",
     "Flash Fire",
     "Flower Veil",
+    "Fluffy",
     "Forecast",
+    "Forewarn",
     "Friend Guard",
     "Frisk",
     "Fur Coat",
     "Gale Wings",
     "Gluttony",
+    "Good as Gold",
     "Gooey",
     "Guts",
     "Harvest",
@@ -729,6 +744,7 @@
     "Sticky Hold",
     "Strong Jaw",
     "Sturdy",
+    "Suction Cups",
     "Super Luck",
     "Supersweet Syrup",
     "Supreme Overlord",
@@ -743,11 +759,13 @@
     "Telepathy",
     "Thick Fat",
     "Torrent",
+    "Tough Claws",
     "Toxic Debris",
     "Trace",
     "Unaware",
     "Unburden",
     "Unnerve",
+    "Vital Spirit",
     "Volt Absorb",
     "Wandering Spirit",
     "Water Absorb",
@@ -881,8 +899,32 @@
           "speed": 80,
           "total": 625
         },
+        "formId": "mega",
         "spritePath": "sprites/venusaur_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Venusaur",
+          "types": [
+            "Grass",
+            "Poison"
+          ],
+          "abilities": [
+            "Thick Fat"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 100,
+            "defense": 123,
+            "specialAttack": 122,
+            "specialDefense": 120,
+            "speed": 80,
+            "total": 625
+          },
+          "formId": "mega",
+          "spritePath": "sprites/venusaur_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "charizard",
@@ -890,7 +932,9 @@
       "primaryName": "Charizard",
       "availableNames": [
         "Charizard",
-        "Mega Charizard"
+        "Mega Charizard X",
+        "Mega Charizard",
+        "Mega Charizard Y"
       ],
       "url": "https://www.serebii.net/pokedex-champions/charizard/",
       "types": [
@@ -1003,8 +1047,53 @@
           "speed": 100,
           "total": 634
         },
-        "spritePath": "sprites/charizard_mega_pixel.png"
-      }
+        "formId": "mega-x",
+        "spritePath": "sprites/charizard_mega-x_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Charizard X",
+          "types": [
+            "Fire",
+            "Dragon"
+          ],
+          "abilities": [
+            "Tough Claws"
+          ],
+          "baseStats": {
+            "hp": 78,
+            "attack": 130,
+            "defense": 111,
+            "specialAttack": 130,
+            "specialDefense": 85,
+            "speed": 100,
+            "total": 634
+          },
+          "formId": "mega-x",
+          "spritePath": "sprites/charizard_mega-x_pixel.png"
+        },
+        {
+          "name": "Mega Charizard Y",
+          "types": [
+            "Fire",
+            "Flying"
+          ],
+          "abilities": [
+            "Drought"
+          ],
+          "baseStats": {
+            "hp": 78,
+            "attack": 104,
+            "defense": 78,
+            "specialAttack": 159,
+            "specialDefense": 115,
+            "speed": 100,
+            "total": 634
+          },
+          "formId": "mega-y",
+          "spritePath": "sprites/charizard_mega-y_pixel.png"
+        }
+      ]
     },
     {
       "slug": "blastoise",
@@ -1031,9 +1120,9 @@
         "Bite",
         "Blizzard",
         "Body Press",
-        "Bulldoze",
-        "Brick Break",
         "Body Slam",
+        "Brick Break",
+        "Bulldoze",
         "Chilling Water",
         "Crunch",
         "Dark Pulse",
@@ -1124,8 +1213,31 @@
           "speed": 78,
           "total": 630
         },
+        "formId": "mega",
         "spritePath": "sprites/blastoise_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Blastoise",
+          "types": [
+            "Water"
+          ],
+          "abilities": [
+            "Mega Launcher"
+          ],
+          "baseStats": {
+            "hp": 79,
+            "attack": 103,
+            "defense": 120,
+            "specialAttack": 135,
+            "specialDefense": 115,
+            "speed": 78,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/blastoise_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "beedrill",
@@ -1227,8 +1339,32 @@
           "speed": 145,
           "total": 495
         },
+        "formId": "mega",
         "spritePath": "sprites/beedrill_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Beedrill",
+          "types": [
+            "Bug",
+            "Poison"
+          ],
+          "abilities": [
+            "Adaptability"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 150,
+            "defense": 40,
+            "specialAttack": 15,
+            "specialDefense": 80,
+            "speed": 145,
+            "total": 495
+          },
+          "formId": "mega",
+          "spritePath": "sprites/beedrill_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "pidgeot",
@@ -1263,8 +1399,8 @@
         "Heat Wave",
         "Hurricane",
         "Hyper Beam",
-        "Quick Attack",
         "Protect",
+        "Quick Attack",
         "Rain Dance",
         "Rest",
         "Roost",
@@ -1309,8 +1445,32 @@
           "speed": 121,
           "total": 579
         },
+        "formId": "mega",
         "spritePath": "sprites/pidgeot_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Pidgeot",
+          "types": [
+            "Normal",
+            "Flying"
+          ],
+          "abilities": [
+            "No Guard"
+          ],
+          "baseStats": {
+            "hp": 83,
+            "attack": 80,
+            "defense": 80,
+            "specialAttack": 135,
+            "specialDefense": 80,
+            "speed": 121,
+            "total": 579
+          },
+          "formId": "mega",
+          "spritePath": "sprites/pidgeot_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "arbok",
@@ -1410,7 +1570,8 @@
         "total": 448
       },
       "spritePath": "sprites/arbok_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "pikachu",
@@ -1499,14 +1660,18 @@
         "total": 320
       },
       "spritePath": "sprites/pikachu_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "raichu",
       "dexNo": 26,
       "primaryName": "Raichu",
       "availableNames": [
-        "Raichu"
+        "Raichu",
+        "Mega Raichu X",
+        "Mega Raichu",
+        "Mega Raichu Y"
       ],
       "url": "https://www.serebii.net/pokedex-champions/raichu/",
       "types": [
@@ -1594,7 +1759,68 @@
         "total": 485
       },
       "spritePath": "sprites/raichu_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": {
+        "name": "Mega Raichu X",
+        "types": [
+          "Electric"
+        ],
+        "abilities": [
+          "Electric Surge"
+        ],
+        "baseStats": {
+          "hp": 60,
+          "attack": 135,
+          "defense": 95,
+          "specialAttack": 90,
+          "specialDefense": 95,
+          "speed": 110,
+          "total": 585
+        },
+        "formId": "mega-x",
+        "spritePath": "sprites/raichu_mega-x_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Raichu X",
+          "types": [
+            "Electric"
+          ],
+          "abilities": [
+            "Electric Surge"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 135,
+            "defense": 95,
+            "specialAttack": 90,
+            "specialDefense": 95,
+            "speed": 110,
+            "total": 585
+          },
+          "formId": "mega-x",
+          "spritePath": "sprites/raichu_mega-x_pixel.png"
+        },
+        {
+          "name": "Mega Raichu Y",
+          "types": [
+            "Electric"
+          ],
+          "abilities": [
+            "No Guard"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 100,
+            "defense": 55,
+            "specialAttack": 160,
+            "specialDefense": 80,
+            "speed": 130,
+            "total": 585
+          },
+          "formId": "mega-y",
+          "spritePath": "sprites/raichu_mega-y_pixel.png"
+        }
+      ]
     },
     {
       "slug": "raichu-alolan",
@@ -1697,7 +1923,8 @@
         "total": 485
       },
       "spritePath": "sprites/raichu-alolan_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "clefable",
@@ -1837,8 +2064,32 @@
           "speed": 70,
           "total": 583
         },
+        "formId": "mega",
         "spritePath": "sprites/clefable_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Clefable",
+          "types": [
+            "Fairy",
+            "Flying"
+          ],
+          "abilities": [
+            "Magic Bounce"
+          ],
+          "baseStats": {
+            "hp": 95,
+            "attack": 80,
+            "defense": 93,
+            "specialAttack": 135,
+            "specialDefense": 110,
+            "speed": 70,
+            "total": 583
+          },
+          "formId": "mega",
+          "spritePath": "sprites/clefable_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "ninetales",
@@ -1934,7 +2185,8 @@
         "total": 505
       },
       "spritePath": "sprites/ninetales_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "ninetales-alolan",
@@ -2028,7 +2280,93 @@
         "total": 505
       },
       "spritePath": "sprites/ninetales-alolan_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "vileplume",
+      "dexNo": 45,
+      "primaryName": "Vileplume",
+      "availableNames": [
+        "Vileplume"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/vileplume/",
+      "types": [
+        "Grass",
+        "Poison"
+      ],
+      "abilities": [
+        "Chlorophyll",
+        "Effect Spore"
+      ],
+      "moves": [
+        "Acid Spray",
+        "After You",
+        "Attract",
+        "Body Slam",
+        "Bullet Seed",
+        "Charm",
+        "Corrosive Gas",
+        "Dazzling Gleam",
+        "Endure",
+        "Energy Ball",
+        "Facade",
+        "Flail",
+        "Fling",
+        "Giga Drain",
+        "Giga Impact",
+        "Grass Knot",
+        "Grassy Glide",
+        "Grassy Terrain",
+        "Growth",
+        "Helping Hand",
+        "Hyper Beam",
+        "Ingrain",
+        "Leaf Storm",
+        "Leech Seed",
+        "Moonblast",
+        "Moonlight",
+        "Petal Blizzard",
+        "Petal Dance",
+        "Poison Powder",
+        "Pollen Puff",
+        "Protect",
+        "Rest",
+        "Round",
+        "Seed Bomb",
+        "Sleep Powder",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Snore",
+        "Solar Beam",
+        "Solar Blade",
+        "Strength Sap",
+        "Stun Spore",
+        "Substitute",
+        "Sunny Day",
+        "Sweet Scent",
+        "Swords Dance",
+        "Synthesis",
+        "Teeter Dance",
+        "Tickle",
+        "Toxic",
+        "Trailblaze",
+        "Venoshock",
+        "Weather Ball"
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 80,
+        "defense": 85,
+        "specialAttack": 110,
+        "specialDefense": 90,
+        "speed": 50,
+        "total": 490
+      },
+      "spritePath": "sprites/vileplume_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "arcanine",
@@ -2115,7 +2453,8 @@
         "total": 555
       },
       "spritePath": "sprites/arcanine_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "arcanine-hisuian",
@@ -2210,7 +2549,8 @@
         "total": 555
       },
       "spritePath": "sprites/arcanine-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "alakazam",
@@ -2318,8 +2658,31 @@
           "speed": 150,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/alakazam_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Alakazam",
+          "types": [
+            "Psychic"
+          ],
+          "abilities": [
+            "Trace"
+          ],
+          "baseStats": {
+            "hp": 55,
+            "attack": 50,
+            "defense": 65,
+            "specialAttack": 175,
+            "specialDefense": 105,
+            "speed": 150,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/alakazam_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "machamp",
@@ -2415,7 +2778,8 @@
         "total": 505
       },
       "spritePath": "sprites/machamp_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "victreebel",
@@ -2449,6 +2813,7 @@
         "Giga Impact",
         "Grass Knot",
         "Grassy Glide",
+        "Grassy Terrain",
         "Growth",
         "Hyper Beam",
         "Ingrain",
@@ -2522,8 +2887,32 @@
           "speed": 70,
           "total": 590
         },
+        "formId": "mega",
         "spritePath": "sprites/victreebel_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Victreebel",
+          "types": [
+            "Grass",
+            "Poison"
+          ],
+          "abilities": [
+            "Innards Out"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 125,
+            "defense": 85,
+            "specialAttack": 135,
+            "specialDefense": 95,
+            "speed": 70,
+            "total": 590
+          },
+          "formId": "mega",
+          "spritePath": "sprites/victreebel_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "slowbro",
@@ -2651,8 +3040,32 @@
           "speed": 30,
           "total": 590
         },
+        "formId": "mega",
         "spritePath": "sprites/slowbro_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Slowbro",
+          "types": [
+            "Water",
+            "Psychic"
+          ],
+          "abilities": [
+            "Shell Armor"
+          ],
+          "baseStats": {
+            "hp": 95,
+            "attack": 75,
+            "defense": 180,
+            "specialAttack": 130,
+            "specialDefense": 80,
+            "speed": 30,
+            "total": 590
+          },
+          "formId": "mega",
+          "spritePath": "sprites/slowbro_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "slowbro-galarian",
@@ -2775,7 +3188,8 @@
         "total": 490
       },
       "spritePath": "sprites/slowbro-galarian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gengar",
@@ -2899,8 +3313,32 @@
           "speed": 130,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/gengar_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Gengar",
+          "types": [
+            "Ghost",
+            "Poison"
+          ],
+          "abilities": [
+            "Shadow Tag"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 65,
+            "defense": 80,
+            "specialAttack": 170,
+            "specialDefense": 95,
+            "speed": 130,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/gengar_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "kangaskhan",
@@ -3015,8 +3453,31 @@
           "speed": 100,
           "total": 590
         },
+        "formId": "mega",
         "spritePath": "sprites/kangaskhan_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Kangaskhan",
+          "types": [
+            "Normal"
+          ],
+          "abilities": [
+            "Parental Bond"
+          ],
+          "baseStats": {
+            "hp": 105,
+            "attack": 125,
+            "defense": 100,
+            "specialAttack": 60,
+            "specialDefense": 100,
+            "speed": 100,
+            "total": 590
+          },
+          "formId": "mega",
+          "spritePath": "sprites/kangaskhan_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "starmie",
@@ -3128,8 +3589,32 @@
           "speed": 120,
           "total": 620
         },
+        "formId": "mega",
         "spritePath": "sprites/starmie_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Starmie",
+          "types": [
+            "Water",
+            "Psychic"
+          ],
+          "abilities": [
+            "Huge Power"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 100,
+            "defense": 105,
+            "specialAttack": 130,
+            "specialDefense": 105,
+            "speed": 120,
+            "total": 620
+          },
+          "formId": "mega",
+          "spritePath": "sprites/starmie_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "pinsir",
@@ -3231,8 +3716,32 @@
           "speed": 105,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/pinsir_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Pinsir",
+          "types": [
+            "Bug",
+            "Flying"
+          ],
+          "abilities": [
+            "Aerilate"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 155,
+            "defense": 120,
+            "specialAttack": 65,
+            "specialDefense": 90,
+            "speed": 105,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/pinsir_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "tauros",
@@ -3319,7 +3828,8 @@
         "total": 490
       },
       "spritePath": "sprites/tauros_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "tauros-paldean",
@@ -3397,7 +3907,8 @@
         "total": 490
       },
       "spritePath": "sprites/tauros-paldean_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gyarados",
@@ -3513,8 +4024,32 @@
           "speed": 81,
           "total": 640
         },
+        "formId": "mega",
         "spritePath": "sprites/gyarados_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Gyarados",
+          "types": [
+            "Water",
+            "Dark"
+          ],
+          "abilities": [
+            "Mold Breaker"
+          ],
+          "baseStats": {
+            "hp": 95,
+            "attack": 155,
+            "defense": 109,
+            "specialAttack": 70,
+            "specialDefense": 130,
+            "speed": 81,
+            "total": 640
+          },
+          "formId": "mega",
+          "spritePath": "sprites/gyarados_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "ditto",
@@ -3544,7 +4079,8 @@
         "total": 288
       },
       "spritePath": "sprites/ditto_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "vaporeon",
@@ -3632,7 +4168,8 @@
         "total": 525
       },
       "spritePath": "sprites/vaporeon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "jolteon",
@@ -3720,7 +4257,8 @@
         "total": 525
       },
       "spritePath": "sprites/jolteon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "flareon",
@@ -3806,7 +4344,8 @@
         "total": 525
       },
       "spritePath": "sprites/flareon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "aerodactyl",
@@ -3914,8 +4453,32 @@
           "speed": 150,
           "total": 615
         },
+        "formId": "mega",
         "spritePath": "sprites/aerodactyl_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Aerodactyl",
+          "types": [
+            "Rock",
+            "Flying"
+          ],
+          "abilities": [
+            "Tough Claws"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 135,
+            "defense": 85,
+            "specialAttack": 70,
+            "specialDefense": 95,
+            "speed": 150,
+            "total": 615
+          },
+          "formId": "mega",
+          "spritePath": "sprites/aerodactyl_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "snorlax",
@@ -4028,7 +4591,8 @@
         "total": 540
       },
       "spritePath": "sprites/snorlax_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "dragonite",
@@ -4160,8 +4724,32 @@
           "speed": 100,
           "total": 700
         },
+        "formId": "mega",
         "spritePath": "sprites/dragonite_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Dragonite",
+          "types": [
+            "Dragon",
+            "Flying"
+          ],
+          "abilities": [
+            "Multiscale"
+          ],
+          "baseStats": {
+            "hp": 91,
+            "attack": 124,
+            "defense": 115,
+            "specialAttack": 145,
+            "specialDefense": 125,
+            "speed": 100,
+            "total": 700
+          },
+          "formId": "mega",
+          "spritePath": "sprites/dragonite_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "meganium",
@@ -4270,8 +4858,32 @@
           "speed": 80,
           "total": 625
         },
+        "formId": "mega",
         "spritePath": "sprites/meganium_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Meganium",
+          "types": [
+            "Grass",
+            "Fairy"
+          ],
+          "abilities": [
+            "Mega Sol"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 92,
+            "defense": 115,
+            "specialAttack": 143,
+            "specialDefense": 115,
+            "speed": 80,
+            "total": 625
+          },
+          "formId": "mega",
+          "spritePath": "sprites/meganium_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "typhlosion",
@@ -4363,7 +4975,8 @@
         "total": 534
       },
       "spritePath": "sprites/typhlosion_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "typhlosion-hisuian",
@@ -4459,7 +5072,8 @@
         "total": 534
       },
       "spritePath": "sprites/typhlosion-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "feraligatr",
@@ -4589,8 +5203,32 @@
           "speed": 78,
           "total": 630
         },
+        "formId": "mega",
         "spritePath": "sprites/feraligatr_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Feraligatr",
+          "types": [
+            "Water",
+            "Dragon"
+          ],
+          "abilities": [
+            "Dragonize"
+          ],
+          "baseStats": {
+            "hp": 85,
+            "attack": 160,
+            "defense": 125,
+            "specialAttack": 89,
+            "specialDefense": 93,
+            "speed": 78,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/feraligatr_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "ariados",
@@ -4643,7 +5281,7 @@
         "Poison Jab",
         "Pounce",
         "Protect",
-        "Psychic Fangs",
+        "Psychic",
         "Rage Powder",
         "Rest",
         "Round",
@@ -4685,7 +5323,8 @@
         "total": 400
       },
       "spritePath": "sprites/ariados_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "ampharos",
@@ -4800,8 +5439,32 @@
           "speed": 45,
           "total": 610
         },
+        "formId": "mega",
         "spritePath": "sprites/ampharos_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Ampharos",
+          "types": [
+            "Electric",
+            "Dragon"
+          ],
+          "abilities": [
+            "Mold Breaker"
+          ],
+          "baseStats": {
+            "hp": 90,
+            "attack": 95,
+            "defense": 105,
+            "specialAttack": 165,
+            "specialDefense": 110,
+            "speed": 45,
+            "total": 610
+          },
+          "formId": "mega",
+          "spritePath": "sprites/ampharos_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "azumarill",
@@ -4898,7 +5561,8 @@
         "total": 420
       },
       "spritePath": "sprites/azumarill_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "politoed",
@@ -4955,7 +5619,6 @@
         "Mud-Slap",
         "Muddy Water",
         "Perish Song",
-        "Pound",
         "Protect",
         "Psych Up",
         "Psychic",
@@ -4985,7 +5648,8 @@
         "total": 500
       },
       "spritePath": "sprites/politoed_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "espeon",
@@ -5081,7 +5745,8 @@
         "total": 525
       },
       "spritePath": "sprites/espeon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "umbreon",
@@ -5177,7 +5842,8 @@
         "total": 525
       },
       "spritePath": "sprites/umbreon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "slowking",
@@ -5293,7 +5959,8 @@
         "total": 490
       },
       "spritePath": "sprites/slowking_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "slowking-galarian",
@@ -5419,7 +6086,8 @@
         "total": 490
       },
       "spritePath": "sprites/slowking-galarian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "forretress",
@@ -5518,7 +6186,8 @@
         "total": 465
       },
       "spritePath": "sprites/forretress_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "steelix",
@@ -5634,8 +6303,128 @@
           "speed": 30,
           "total": 610
         },
-        "spritePath": "sprites/steelix_mega_pixel.png"
-      }
+        "formId": "mega-x",
+        "spritePath": "sprites/steelix_mega-x_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Steelix",
+          "types": [
+            "Steel",
+            "Ground"
+          ],
+          "abilities": [
+            "Sand Force"
+          ],
+          "baseStats": {
+            "hp": 75,
+            "attack": 125,
+            "defense": 230,
+            "specialAttack": 55,
+            "specialDefense": 95,
+            "speed": 30,
+            "total": 610
+          },
+          "formId": "mega-x",
+          "spritePath": "sprites/steelix_mega-x_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "qwilfish",
+      "dexNo": 211,
+      "primaryName": "Qwilfish",
+      "availableNames": [
+        "Qwilfish"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/qwilfish/",
+      "types": [
+        "Water",
+        "Poison"
+      ],
+      "abilities": [
+        "Poison Point",
+        "Swift Swim",
+        "Intimidate"
+      ],
+      "moves": [
+        "Acid Spray",
+        "Acupressure",
+        "Agility",
+        "Aqua Jet",
+        "Aqua Tail",
+        "Assurance",
+        "Barb Barrage",
+        "Blizzard",
+        "Chilling Water",
+        "Crunch",
+        "Curse",
+        "Destiny Bond",
+        "Dive",
+        "Double-Edge",
+        "Endure",
+        "Facade",
+        "Fell Stinger",
+        "Flail",
+        "Flip Turn",
+        "Giga Impact",
+        "Gunk Shot",
+        "Gyro Ball",
+        "Haze",
+        "Hex",
+        "Hydro Pump",
+        "Ice Beam",
+        "Icy Wind",
+        "Liquidation",
+        "Minimize",
+        "Mud Shot",
+        "Pain Split",
+        "Payback",
+        "Pin Missile",
+        "Poison Jab",
+        "Protect",
+        "Rain Dance",
+        "Rest",
+        "Reversal",
+        "Round",
+        "Scale Shot",
+        "Scary Face",
+        "Self-Destruct",
+        "Shadow Ball",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Snore",
+        "Spikes",
+        "Spit Up",
+        "Spite",
+        "Steel Roller",
+        "Stockpile",
+        "Substitute",
+        "Surf",
+        "Swords Dance",
+        "Taunt",
+        "Throat Chop",
+        "Thunder Wave",
+        "Toxic",
+        "Toxic Spikes",
+        "Venoshock",
+        "Water Pulse",
+        "Waterfall",
+        "Whirlpool"
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 95,
+        "defense": 85,
+        "specialAttack": 55,
+        "specialDefense": 55,
+        "speed": 85,
+        "total": 440
+      },
+      "spritePath": "sprites/qwilfish_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "scizor",
@@ -5749,8 +6538,32 @@
           "speed": 75,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/scizor_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Scizor",
+          "types": [
+            "Bug",
+            "Steel"
+          ],
+          "abilities": [
+            "Technician"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 150,
+            "defense": 140,
+            "specialAttack": 65,
+            "specialDefense": 100,
+            "speed": 75,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/scizor_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "heracross",
@@ -5866,8 +6679,32 @@
           "speed": 75,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/heracross_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Heracross",
+          "types": [
+            "Bug",
+            "Fighting"
+          ],
+          "abilities": [
+            "Skill Link"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 185,
+            "defense": 115,
+            "specialAttack": 40,
+            "specialDefense": 105,
+            "speed": 75,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/heracross_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "skarmory",
@@ -5968,8 +6805,32 @@
           "speed": 110,
           "total": 565
         },
-        "spritePath": "sprites/skarmory_mega_pixel.png"
-      }
+        "formId": "mega-y",
+        "spritePath": "sprites/skarmory_mega-y_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Skarmory",
+          "types": [
+            "Steel",
+            "Flying"
+          ],
+          "abilities": [
+            "Stalwart"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 140,
+            "defense": 110,
+            "specialAttack": 40,
+            "specialDefense": 100,
+            "speed": 110,
+            "total": 565
+          },
+          "formId": "mega-y",
+          "spritePath": "sprites/skarmory_mega-y_pixel.png"
+        }
+      ]
     },
     {
       "slug": "houndoom",
@@ -6086,8 +6947,32 @@
           "speed": 115,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/houndoom_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Houndoom",
+          "types": [
+            "Dark",
+            "Fire"
+          ],
+          "abilities": [
+            "Solar Power"
+          ],
+          "baseStats": {
+            "hp": 75,
+            "attack": 90,
+            "defense": 90,
+            "specialAttack": 140,
+            "specialDefense": 90,
+            "speed": 115,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/houndoom_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "tyranitar",
@@ -6228,8 +7113,485 @@
           "speed": 71,
           "total": 700
         },
+        "formId": "mega",
         "spritePath": "sprites/tyranitar_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Tyranitar",
+          "types": [
+            "Rock",
+            "Dark"
+          ],
+          "abilities": [
+            "Sand Stream"
+          ],
+          "baseStats": {
+            "hp": 100,
+            "attack": 164,
+            "defense": 150,
+            "specialAttack": 95,
+            "specialDefense": 120,
+            "speed": 71,
+            "total": 700
+          },
+          "formId": "mega",
+          "spritePath": "sprites/tyranitar_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "sceptile",
+      "dexNo": 254,
+      "primaryName": "Sceptile",
+      "availableNames": [
+        "Sceptile",
+        "Mega Sceptile"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/sceptile/",
+      "types": [
+        "Grass"
+      ],
+      "abilities": [
+        "Overgrow",
+        "Unburden"
+      ],
+      "moves": [
+        "Acrobatics",
+        "Aerial Ace",
+        "Agility",
+        "Assurance",
+        "Body Slam",
+        "Breaking Swipe",
+        "Brick Break",
+        "Brutal Swing",
+        "Bulldoze",
+        "Bullet Seed",
+        "Cross Poison",
+        "Crunch",
+        "Detect",
+        "Dig",
+        "Double Team",
+        "Double-Edge",
+        "Dragon Cheer",
+        "Dragon Claw",
+        "Dragon Dance",
+        "Dragon Pulse",
+        "Dragon Rush",
+        "Dragon Tail",
+        "Drain Punch",
+        "Earth Power",
+        "Earthquake",
+        "Endeavor",
+        "Endure",
+        "Energy Ball",
+        "Facade",
+        "Fling",
+        "Focus Blast",
+        "Focus Punch",
+        "Frenzy Plant",
+        "Giga Drain",
+        "Giga Impact",
+        "Grass Knot",
+        "Grassy Glide",
+        "Grassy Terrain",
+        "Helping Hand",
+        "Hyper Beam",
+        "Iron Tail",
+        "Leaf Blade",
+        "Leaf Storm",
+        "Leech Seed",
+        "Low Kick",
+        "Low Sweep",
+        "Mega Kick",
+        "Night Slash",
+        "Outrage",
+        "Protect",
+        "Quick Attack",
+        "Quick Guard",
+        "Rest",
+        "Roar",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Scale Shot",
+        "Screech",
+        "Seed Bomb",
+        "Shed Tail",
+        "Sleep Talk",
+        "Snore",
+        "Solar Beam",
+        "Solar Blade",
+        "Substitute",
+        "Sunny Day",
+        "Swords Dance",
+        "Synthesis",
+        "Thief",
+        "Throat Chop",
+        "Thunder Punch",
+        "Trailblaze",
+        "Upper Hand",
+        "Vacuum Wave",
+        "Worry Seed",
+        "X-Scissor"
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 85,
+        "defense": 65,
+        "specialAttack": 105,
+        "specialDefense": 85,
+        "speed": 120,
+        "total": 530
+      },
+      "spritePath": "sprites/sceptile_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Sceptile",
+        "types": [
+          "Grass",
+          "Dragon"
+        ],
+        "abilities": [
+          "Lightning Rod"
+        ],
+        "baseStats": {
+          "hp": 70,
+          "attack": 110,
+          "defense": 75,
+          "specialAttack": 145,
+          "specialDefense": 85,
+          "speed": 145,
+          "total": 630
+        },
+        "formId": "mega",
+        "spritePath": "sprites/sceptile_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Sceptile",
+          "types": [
+            "Grass",
+            "Dragon"
+          ],
+          "abilities": [
+            "Lightning Rod"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 110,
+            "defense": 75,
+            "specialAttack": 145,
+            "specialDefense": 85,
+            "speed": 145,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/sceptile_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "blaziken",
+      "dexNo": 257,
+      "primaryName": "Blaziken",
+      "availableNames": [
+        "Blaziken",
+        "Mega Blaziken"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/blaziken/",
+      "types": [
+        "Fire",
+        "Fighting"
+      ],
+      "abilities": [
+        "Blaze",
+        "Speed Boost"
+      ],
+      "moves": [
+        "Acrobatics",
+        "Aerial Ace",
+        "Agility",
+        "Assurance",
+        "Aura Sphere",
+        "Baton Pass",
+        "Blast Burn",
+        "Blaze Kick",
+        "Body Slam",
+        "Bounce",
+        "Brave Bird",
+        "Brick Break",
+        "Bulk Up",
+        "Bulldoze",
+        "Close Combat",
+        "Coaching",
+        "Counter",
+        "Crush Claw",
+        "Curse",
+        "Detect",
+        "Dig",
+        "Double-Edge",
+        "Earthquake",
+        "Endure",
+        "Facade",
+        "Feather Dance",
+        "Feint",
+        "Fire Blast",
+        "Fire Punch",
+        "Fire Spin",
+        "Flame Charge",
+        "Flamethrower",
+        "Flare Blitz",
+        "Fling",
+        "Focus Blast",
+        "Focus Energy",
+        "Focus Punch",
+        "Giga Impact",
+        "Heat Crash",
+        "Heat Wave",
+        "Helping Hand",
+        "High Jump Kick",
+        "Hyper Beam",
+        "Knock Off",
+        "Last Resort",
+        "Low Kick",
+        "Low Sweep",
+        "Mega Kick",
+        "Mud-Slap",
+        "Night Slash",
+        "Overheat",
+        "Poison Jab",
+        "Protect",
+        "Quick Attack",
+        "Rest",
+        "Reversal",
+        "Roar",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Scorching Sands",
+        "Shadow Claw",
+        "Sleep Talk",
+        "Snore",
+        "Solar Beam",
+        "Stone Edge",
+        "Substitute",
+        "Sunny Day",
+        "Superpower",
+        "Swords Dance",
+        "Temper Flare",
+        "Thief",
+        "Thunder Punch",
+        "U-turn",
+        "Upper Hand",
+        "Uproar",
+        "Vacuum Wave",
+        "Will-O-Wisp"
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 120,
+        "defense": 70,
+        "specialAttack": 110,
+        "specialDefense": 70,
+        "speed": 80,
+        "total": 530
+      },
+      "spritePath": "sprites/blaziken_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Blaziken",
+        "types": [
+          "Fire",
+          "Fighting"
+        ],
+        "abilities": [
+          "Speed Boost"
+        ],
+        "baseStats": {
+          "hp": 80,
+          "attack": 160,
+          "defense": 80,
+          "specialAttack": 130,
+          "specialDefense": 80,
+          "speed": 100,
+          "total": 630
+        },
+        "formId": "mega",
+        "spritePath": "sprites/blaziken_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Blaziken",
+          "types": [
+            "Fire",
+            "Fighting"
+          ],
+          "abilities": [
+            "Speed Boost"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 160,
+            "defense": 80,
+            "specialAttack": 130,
+            "specialDefense": 80,
+            "speed": 100,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/blaziken_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "swampert",
+      "dexNo": 260,
+      "primaryName": "Swampert",
+      "availableNames": [
+        "Swampert",
+        "Mega Swampert"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/swampert/",
+      "types": [
+        "Water",
+        "Ground"
+      ],
+      "abilities": [
+        "Torrent",
+        "Damp"
+      ],
+      "moves": [
+        "Amnesia",
+        "Ancient Power",
+        "Aqua Ring",
+        "Avalanche",
+        "Bite",
+        "Blizzard",
+        "Body Press",
+        "Body Slam",
+        "Brick Break",
+        "Bulk Up",
+        "Bulldoze",
+        "Chilling Water",
+        "Counter",
+        "Curse",
+        "Dig",
+        "Dive",
+        "Double-Edge",
+        "Earth Power",
+        "Earthquake",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "Fling",
+        "Flip Turn",
+        "Focus Blast",
+        "Focus Punch",
+        "Giga Impact",
+        "Hammer Arm",
+        "Hard Press",
+        "Helping Hand",
+        "High Horsepower",
+        "Hydro Cannon",
+        "Hydro Pump",
+        "Hyper Beam",
+        "Ice Beam",
+        "Ice Punch",
+        "Icy Wind",
+        "Iron Tail",
+        "Knock Off",
+        "Liquidation",
+        "Low Kick",
+        "Mega Kick",
+        "Mirror Coat",
+        "Mud Shot",
+        "Mud-Slap",
+        "Muddy Water",
+        "Outrage",
+        "Poison Jab",
+        "Protect",
+        "Rain Dance",
+        "Rest",
+        "Roar",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Sand Tomb",
+        "Scary Face",
+        "Screech",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Smack Down",
+        "Snore",
+        "Stealth Rock",
+        "Stomping Tantrum",
+        "Stone Edge",
+        "Substitute",
+        "Superpower",
+        "Surf",
+        "Uproar",
+        "Water Pulse",
+        "Waterfall",
+        "Wave Crash",
+        "Weather Ball",
+        "Whirlpool",
+        "Wide Guard",
+        "Yawn"
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 110,
+        "defense": 90,
+        "specialAttack": 85,
+        "specialDefense": 90,
+        "speed": 60,
+        "total": 535
+      },
+      "spritePath": "sprites/swampert_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Swampert",
+        "types": [
+          "Water",
+          "Ground"
+        ],
+        "abilities": [
+          "Swift Swim"
+        ],
+        "baseStats": {
+          "hp": 100,
+          "attack": 150,
+          "defense": 110,
+          "specialAttack": 95,
+          "specialDefense": 110,
+          "speed": 70,
+          "total": 635
+        },
+        "formId": "mega",
+        "spritePath": "sprites/swampert_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Swampert",
+          "types": [
+            "Water",
+            "Ground"
+          ],
+          "abilities": [
+            "Swift Swim"
+          ],
+          "baseStats": {
+            "hp": 100,
+            "attack": 150,
+            "defense": 110,
+            "specialAttack": 95,
+            "specialDefense": 110,
+            "speed": 70,
+            "total": 635
+          },
+          "formId": "mega",
+          "spritePath": "sprites/swampert_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "pelipper",
@@ -6313,7 +7675,8 @@
         "total": 440
       },
       "spritePath": "sprites/pelipper_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gardevoir",
@@ -6443,8 +7806,32 @@
           "speed": 100,
           "total": 618
         },
+        "formId": "mega",
         "spritePath": "sprites/gardevoir_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Gardevoir",
+          "types": [
+            "Psychic",
+            "Fairy"
+          ],
+          "abilities": [
+            "Pixilate"
+          ],
+          "baseStats": {
+            "hp": 68,
+            "attack": 85,
+            "defense": 65,
+            "specialAttack": 165,
+            "specialDefense": 135,
+            "speed": 100,
+            "total": 618
+          },
+          "formId": "mega",
+          "spritePath": "sprites/gardevoir_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "sableye",
@@ -6582,8 +7969,178 @@
           "speed": 20,
           "total": 480
         },
+        "formId": "mega",
         "spritePath": "sprites/sableye_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Sableye",
+          "types": [
+            "Dark",
+            "Ghost"
+          ],
+          "abilities": [
+            "Magic Bounce"
+          ],
+          "baseStats": {
+            "hp": 50,
+            "attack": 85,
+            "defense": 125,
+            "specialAttack": 85,
+            "specialDefense": 115,
+            "speed": 20,
+            "total": 480
+          },
+          "formId": "mega",
+          "spritePath": "sprites/sableye_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "mawile",
+      "dexNo": 303,
+      "primaryName": "Mawile",
+      "availableNames": [
+        "Mawile",
+        "Mega Mawile"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/mawile/",
+      "types": [
+        "Steel",
+        "Fairy"
+      ],
+      "abilities": [
+        "Hyper Cutter",
+        "Intimidate",
+        "Sheer Force"
+      ],
+      "moves": [
+        "Ancient Power",
+        "Assurance",
+        "Attract",
+        "Baton Pass",
+        "Bite",
+        "Body Slam",
+        "Brick Break",
+        "Brutal Swing",
+        "Charm",
+        "Crunch",
+        "Dark Pulse",
+        "Double-Edge",
+        "Draining Kiss",
+        "Dynamic Punch",
+        "Endure",
+        "Facade",
+        "Fake Tears",
+        "Fire Blast",
+        "Fire Fang",
+        "Flamethrower",
+        "Flash Cannon",
+        "Fling",
+        "Focus Blast",
+        "Foul Play",
+        "Giga Impact",
+        "Grass Knot",
+        "Guard Swap",
+        "Helping Hand",
+        "Hyper Beam",
+        "Ice Beam",
+        "Ice Fang",
+        "Ice Punch",
+        "Icy Wind",
+        "Iron Defense",
+        "Iron Head",
+        "Knock Off",
+        "Mega Kick",
+        "Misty Terrain",
+        "Payback",
+        "Play Rough",
+        "Poison Fang",
+        "Protect",
+        "Psychic Fangs",
+        "Rain Dance",
+        "Rest",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Sandstorm",
+        "Seismic Toss",
+        "Shadow Ball",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Snore",
+        "Solar Beam",
+        "Spit Up",
+        "Stealth Rock",
+        "Steel Beam",
+        "Stockpile",
+        "Stone Edge",
+        "Substitute",
+        "Sucker Punch",
+        "Sunny Day",
+        "Swagger",
+        "Swallow",
+        "Sweet Scent",
+        "Swords Dance",
+        "Taunt",
+        "Thunder Fang",
+        "Thunder Punch",
+        "Tickle"
+      ],
+      "baseStats": {
+        "hp": 50,
+        "attack": 85,
+        "defense": 85,
+        "specialAttack": 55,
+        "specialDefense": 55,
+        "speed": 50,
+        "total": 380
+      },
+      "spritePath": "sprites/mawile_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Mawile",
+        "types": [
+          "Steel",
+          "Fairy"
+        ],
+        "abilities": [
+          "Huge Power"
+        ],
+        "baseStats": {
+          "hp": 50,
+          "attack": 105,
+          "defense": 125,
+          "specialAttack": 55,
+          "specialDefense": 95,
+          "speed": 50,
+          "total": 480
+        },
+        "formId": "mega",
+        "spritePath": "sprites/mawile_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Mawile",
+          "types": [
+            "Steel",
+            "Fairy"
+          ],
+          "abilities": [
+            "Huge Power"
+          ],
+          "baseStats": {
+            "hp": 50,
+            "attack": 105,
+            "defense": 125,
+            "specialAttack": 55,
+            "specialDefense": 95,
+            "speed": 50,
+            "total": 480
+          },
+          "formId": "mega",
+          "spritePath": "sprites/mawile_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "aggron",
@@ -6715,8 +8272,31 @@
           "speed": 50,
           "total": 630
         },
+        "formId": "mega",
         "spritePath": "sprites/aggron_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Aggron",
+          "types": [
+            "Steel"
+          ],
+          "abilities": [
+            "Filter"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 140,
+            "defense": 230,
+            "specialAttack": 60,
+            "specialDefense": 80,
+            "speed": 50,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/aggron_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "medicham",
@@ -6842,8 +8422,32 @@
           "speed": 100,
           "total": 510
         },
+        "formId": "mega",
         "spritePath": "sprites/medicham_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Medicham",
+          "types": [
+            "Fighting",
+            "Psychic"
+          ],
+          "abilities": [
+            "Pure Power"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 100,
+            "defense": 85,
+            "specialAttack": 80,
+            "specialDefense": 85,
+            "speed": 100,
+            "total": 510
+          },
+          "formId": "mega",
+          "spritePath": "sprites/medicham_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "manectric",
@@ -6940,8 +8544,31 @@
           "speed": 135,
           "total": 575
         },
+        "formId": "mega",
         "spritePath": "sprites/manectric_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Manectric",
+          "types": [
+            "Electric"
+          ],
+          "abilities": [
+            "Intimidate"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 75,
+            "defense": 80,
+            "specialAttack": 135,
+            "specialDefense": 80,
+            "speed": 135,
+            "total": 575
+          },
+          "formId": "mega",
+          "spritePath": "sprites/manectric_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "sharpedo",
@@ -7047,8 +8674,32 @@
           "speed": 105,
           "total": 560
         },
+        "formId": "mega",
         "spritePath": "sprites/sharpedo_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Sharpedo",
+          "types": [
+            "Water",
+            "Dark"
+          ],
+          "abilities": [
+            "Strong Jaw"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 140,
+            "defense": 70,
+            "specialAttack": 110,
+            "specialDefense": 65,
+            "speed": 105,
+            "total": 560
+          },
+          "formId": "mega",
+          "spritePath": "sprites/sharpedo_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "camerupt",
@@ -7165,8 +8816,32 @@
           "speed": 20,
           "total": 560
         },
+        "formId": "mega",
         "spritePath": "sprites/camerupt_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Camerupt",
+          "types": [
+            "Fire",
+            "Ground"
+          ],
+          "abilities": [
+            "Sheer Force"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 120,
+            "defense": 100,
+            "specialAttack": 145,
+            "specialDefense": 105,
+            "speed": 20,
+            "total": 560
+          },
+          "formId": "mega",
+          "spritePath": "sprites/camerupt_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "torkoal",
@@ -7253,7 +8928,8 @@
         "total": 470
       },
       "spritePath": "sprites/torkoal_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "altaria",
@@ -7367,8 +9043,32 @@
           "speed": 80,
           "total": 590
         },
+        "formId": "mega",
         "spritePath": "sprites/altaria_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Altaria",
+          "types": [
+            "Dragon",
+            "Fairy"
+          ],
+          "abilities": [
+            "Pixilate"
+          ],
+          "baseStats": {
+            "hp": 75,
+            "attack": 110,
+            "defense": 110,
+            "specialAttack": 110,
+            "specialDefense": 105,
+            "speed": 80,
+            "total": 590
+          },
+          "formId": "mega",
+          "spritePath": "sprites/altaria_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "milotic",
@@ -7459,7 +9159,8 @@
         "total": 540
       },
       "spritePath": "sprites/milotic_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "castform",
@@ -7524,7 +9225,8 @@
         "total": 420
       },
       "spritePath": "sprites/castform_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "banette",
@@ -7638,8 +9340,31 @@
           "speed": 75,
           "total": 555
         },
+        "formId": "mega",
         "spritePath": "sprites/banette_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Banette",
+          "types": [
+            "Ghost"
+          ],
+          "abilities": [
+            "Prankster"
+          ],
+          "baseStats": {
+            "hp": 64,
+            "attack": 165,
+            "defense": 75,
+            "specialAttack": 93,
+            "specialDefense": 83,
+            "speed": 75,
+            "total": 555
+          },
+          "formId": "mega",
+          "spritePath": "sprites/banette_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "chimecho",
@@ -7751,8 +9476,32 @@
           "speed": 65,
           "total": 555
         },
+        "formId": "mega",
         "spritePath": "sprites/chimecho_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Chimecho",
+          "types": [
+            "Psychic",
+            "Steel"
+          ],
+          "abilities": [
+            "Levitate"
+          ],
+          "baseStats": {
+            "hp": 75,
+            "attack": 50,
+            "defense": 110,
+            "specialAttack": 135,
+            "specialDefense": 120,
+            "speed": 65,
+            "total": 555
+          },
+          "formId": "mega",
+          "spritePath": "sprites/chimecho_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "absol",
@@ -7871,8 +9620,31 @@
           "speed": 115,
           "total": 565
         },
+        "formId": "mega",
         "spritePath": "sprites/absol_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Absol",
+          "types": [
+            "Dark"
+          ],
+          "abilities": [
+            "Magic Bounce"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 150,
+            "defense": 60,
+            "specialAttack": 115,
+            "specialDefense": 60,
+            "speed": 115,
+            "total": 565
+          },
+          "formId": "mega",
+          "spritePath": "sprites/absol_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "glalie",
@@ -7974,8 +9746,173 @@
           "speed": 100,
           "total": 580
         },
+        "formId": "mega",
         "spritePath": "sprites/glalie_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Glalie",
+          "types": [
+            "Ice"
+          ],
+          "abilities": [
+            "Refrigerate"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 120,
+            "defense": 80,
+            "specialAttack": 120,
+            "specialDefense": 80,
+            "speed": 100,
+            "total": 580
+          },
+          "formId": "mega",
+          "spritePath": "sprites/glalie_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "metagross",
+      "dexNo": 376,
+      "primaryName": "Metagross",
+      "availableNames": [
+        "Metagross",
+        "Mega Metagross"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/metagross/",
+      "types": [
+        "Steel",
+        "Psychic"
+      ],
+      "abilities": [
+        "Clear Body",
+        "Light Metal"
+      ],
+      "moves": [
+        "Aerial Ace",
+        "Agility",
+        "Body Press",
+        "Body Slam",
+        "Brick Break",
+        "Brutal Swing",
+        "Bulldoze",
+        "Bullet Punch",
+        "Cosmic Power",
+        "Double-Edge",
+        "Earthquake",
+        "Endure",
+        "Expanding Force",
+        "Explosion",
+        "Facade",
+        "Flash Cannon",
+        "Focus Punch",
+        "Future Sight",
+        "Giga Impact",
+        "Grass Knot",
+        "Gravity",
+        "Gyro Ball",
+        "Hammer Arm",
+        "Hard Press",
+        "Hyper Beam",
+        "Ice Punch",
+        "Icy Wind",
+        "Iron Defense",
+        "Iron Head",
+        "Light Screen",
+        "Magnet Rise",
+        "Meteor Beam",
+        "Meteor Mash",
+        "Mud-Slap",
+        "Protect",
+        "Psych Up",
+        "Psychic",
+        "Psychic Fangs",
+        "Psychic Noise",
+        "Psycho Cut",
+        "Psyshock",
+        "Rain Dance",
+        "Reflect",
+        "Rest",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Sandstorm",
+        "Scary Face",
+        "Self-Destruct",
+        "Shadow Ball",
+        "Shadow Claw",
+        "Shadow Punch",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Snore",
+        "Stealth Rock",
+        "Steel Beam",
+        "Steel Roller",
+        "Stomping Tantrum",
+        "Stone Edge",
+        "Substitute",
+        "Sunny Day",
+        "Swagger",
+        "Thunder Punch",
+        "Trailblaze",
+        "Trick",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 135,
+        "defense": 130,
+        "specialAttack": 95,
+        "specialDefense": 90,
+        "speed": 70,
+        "total": 600
+      },
+      "spritePath": "sprites/metagross_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Metagross",
+        "types": [
+          "Steel",
+          "Psychic"
+        ],
+        "abilities": [
+          "Tough Claws"
+        ],
+        "baseStats": {
+          "hp": 80,
+          "attack": 145,
+          "defense": 150,
+          "specialAttack": 105,
+          "specialDefense": 110,
+          "speed": 110,
+          "total": 700
+        },
+        "formId": "mega",
+        "spritePath": "sprites/metagross_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Metagross",
+          "types": [
+            "Steel",
+            "Psychic"
+          ],
+          "abilities": [
+            "Tough Claws"
+          ],
+          "baseStats": {
+            "hp": 80,
+            "attack": 145,
+            "defense": 150,
+            "specialAttack": 105,
+            "specialDefense": 110,
+            "speed": 110,
+            "total": 700
+          },
+          "formId": "mega",
+          "spritePath": "sprites/metagross_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "torterra",
@@ -8077,7 +10014,8 @@
         "total": 525
       },
       "spritePath": "sprites/torterra_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "infernape",
@@ -8195,7 +10133,8 @@
         "total": 534
       },
       "spritePath": "sprites/infernape_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "empoleon",
@@ -8299,7 +10238,125 @@
         "total": 530
       },
       "spritePath": "sprites/empoleon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "staraptor",
+      "dexNo": 398,
+      "primaryName": "Staraptor",
+      "availableNames": [
+        "Staraptor",
+        "Mega Staraptor"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/staraptor/",
+      "types": [
+        "Normal",
+        "Flying"
+      ],
+      "abilities": [
+        "Intimidate",
+        "Reckless"
+      ],
+      "moves": [
+        "Acrobatics",
+        "Aerial Ace",
+        "Agility",
+        "Air Cutter",
+        "Air Slash",
+        "Blaze Kick",
+        "Brave Bird",
+        "Brick Break",
+        "Bulk Up",
+        "Close Combat",
+        "Double Team",
+        "Double-Edge",
+        "Dual Wingbeat",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "Feather Dance",
+        "Final Gambit",
+        "Fly",
+        "Focus Blast",
+        "Giga Impact",
+        "Heat Wave",
+        "Helping Hand",
+        "Hurricane",
+        "Hyper Beam",
+        "Protect",
+        "Quick Attack",
+        "Rain Dance",
+        "Rest",
+        "Roost",
+        "Round",
+        "Sky Attack",
+        "Sleep Talk",
+        "Snore",
+        "Steel Wing",
+        "Substitute",
+        "Sunny Day",
+        "Swagger",
+        "Tailwind",
+        "Thief",
+        "U-turn",
+        "Uproar",
+        "Whirlwind"
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 120,
+        "defense": 70,
+        "specialAttack": 50,
+        "specialDefense": 60,
+        "speed": 100,
+        "total": 485
+      },
+      "spritePath": "sprites/staraptor_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Staraptor",
+        "types": [
+          "Fighting",
+          "Flying"
+        ],
+        "abilities": [
+          "Contrary"
+        ],
+        "baseStats": {
+          "hp": 85,
+          "attack": 140,
+          "defense": 100,
+          "specialAttack": 60,
+          "specialDefense": 90,
+          "speed": 110,
+          "total": 585
+        },
+        "formId": "mega",
+        "spritePath": "sprites/staraptor_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Staraptor",
+          "types": [
+            "Fighting",
+            "Flying"
+          ],
+          "abilities": [
+            "Contrary"
+          ],
+          "baseStats": {
+            "hp": 85,
+            "attack": 140,
+            "defense": 100,
+            "specialAttack": 60,
+            "specialDefense": 90,
+            "speed": 110,
+            "total": 585
+          },
+          "formId": "mega",
+          "spritePath": "sprites/staraptor_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "luxray",
@@ -8382,7 +10439,8 @@
         "total": 523
       },
       "spritePath": "sprites/luxray_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "roserade",
@@ -8464,7 +10522,8 @@
         "total": 515
       },
       "spritePath": "sprites/roserade_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "rampardos",
@@ -8567,7 +10626,8 @@
         "total": 495
       },
       "spritePath": "sprites/rampardos_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "bastiodon",
@@ -8665,7 +10725,8 @@
         "total": 495
       },
       "spritePath": "sprites/bastiodon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "lopunny",
@@ -8790,8 +10851,32 @@
           "speed": 135,
           "total": 580
         },
-        "spritePath": "sprites/lopunny_mega_pixel.png"
-      }
+        "formId": "mega-y",
+        "spritePath": "sprites/lopunny_mega-y_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Lopunny",
+          "types": [
+            "Normal",
+            "Fighting"
+          ],
+          "abilities": [
+            "Scrappy"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 136,
+            "defense": 94,
+            "specialAttack": 54,
+            "specialDefense": 96,
+            "speed": 135,
+            "total": 580
+          },
+          "formId": "mega-y",
+          "spritePath": "sprites/lopunny_mega-y_pixel.png"
+        }
+      ]
     },
     {
       "slug": "spiritomb",
@@ -8875,7 +10960,8 @@
         "total": 485
       },
       "spritePath": "sprites/spiritomb_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "garchomp",
@@ -8982,8 +11068,32 @@
           "speed": 92,
           "total": 700
         },
+        "formId": "mega",
         "spritePath": "sprites/garchomp_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Garchomp",
+          "types": [
+            "Dragon",
+            "Ground"
+          ],
+          "abilities": [
+            "Sand Force"
+          ],
+          "baseStats": {
+            "hp": 108,
+            "attack": 170,
+            "defense": 115,
+            "specialAttack": 120,
+            "specialDefense": 95,
+            "speed": 92,
+            "total": 700
+          },
+          "formId": "mega",
+          "spritePath": "sprites/garchomp_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "lucario",
@@ -9116,8 +11226,32 @@
           "speed": 112,
           "total": 625
         },
+        "formId": "mega",
         "spritePath": "sprites/lucario_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Lucario",
+          "types": [
+            "Fighting",
+            "Steel"
+          ],
+          "abilities": [
+            "Adaptability"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 145,
+            "defense": 88,
+            "specialAttack": 140,
+            "specialDefense": 70,
+            "speed": 112,
+            "total": 625
+          },
+          "formId": "mega",
+          "spritePath": "sprites/lucario_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "hippowdon",
@@ -9197,7 +11331,8 @@
         "total": 525
       },
       "spritePath": "sprites/hippowdon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "toxicroak",
@@ -9309,7 +11444,8 @@
         "total": 490
       },
       "spritePath": "sprites/toxicroak_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "abomasnow",
@@ -9423,8 +11559,32 @@
           "speed": 30,
           "total": 594
         },
+        "formId": "mega",
         "spritePath": "sprites/abomasnow_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Abomasnow",
+          "types": [
+            "Grass",
+            "Ice"
+          ],
+          "abilities": [
+            "Snow Warning"
+          ],
+          "baseStats": {
+            "hp": 90,
+            "attack": 132,
+            "defense": 105,
+            "specialAttack": 132,
+            "specialDefense": 105,
+            "speed": 30,
+            "total": 594
+          },
+          "formId": "mega",
+          "spritePath": "sprites/abomasnow_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "weavile",
@@ -9526,7 +11686,8 @@
         "total": 510
       },
       "spritePath": "sprites/weavile_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "rhyperior",
@@ -9648,7 +11809,8 @@
         "total": 535
       },
       "spritePath": "sprites/rhyperior_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "leafeon",
@@ -9735,7 +11897,8 @@
         "total": 525
       },
       "spritePath": "sprites/leafeon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "glaceon",
@@ -9822,7 +11985,8 @@
         "total": 525
       },
       "spritePath": "sprites/glaceon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gliscor",
@@ -9927,7 +12091,8 @@
         "total": 510
       },
       "spritePath": "sprites/gliscor_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "mamoswine",
@@ -10021,7 +12186,8 @@
         "total": 530
       },
       "spritePath": "sprites/mamoswine_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gallade",
@@ -10176,8 +12342,32 @@
           "speed": 110,
           "total": 618
         },
+        "formId": "mega",
         "spritePath": "sprites/gallade_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Gallade",
+          "types": [
+            "Psychic",
+            "Fighting"
+          ],
+          "abilities": [
+            "Inner Focus"
+          ],
+          "baseStats": {
+            "hp": 68,
+            "attack": 165,
+            "defense": 95,
+            "specialAttack": 65,
+            "specialDefense": 115,
+            "speed": 110,
+            "total": 618
+          },
+          "formId": "mega",
+          "spritePath": "sprites/gallade_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "froslass",
@@ -10294,8 +12484,32 @@
           "speed": 120,
           "total": 580
         },
+        "formId": "mega",
         "spritePath": "sprites/froslass_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Froslass",
+          "types": [
+            "Ice",
+            "Ghost"
+          ],
+          "abilities": [
+            "Snow Warning"
+          ],
+          "baseStats": {
+            "hp": 70,
+            "attack": 80,
+            "defense": 70,
+            "specialAttack": 140,
+            "specialDefense": 100,
+            "speed": 120,
+            "total": 580
+          },
+          "formId": "mega",
+          "spritePath": "sprites/froslass_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "rotom",
@@ -10366,7 +12580,8 @@
         "total": 440
       },
       "spritePath": "sprites/rotom_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "serperior",
@@ -10448,7 +12663,8 @@
         "total": 528
       },
       "spritePath": "sprites/serperior_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "emboar",
@@ -10576,8 +12792,32 @@
           "speed": 75,
           "total": 628
         },
+        "formId": "mega",
         "spritePath": "sprites/emboar_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Emboar",
+          "types": [
+            "Fire",
+            "Fighting"
+          ],
+          "abilities": [
+            "Mold Breaker"
+          ],
+          "baseStats": {
+            "hp": 110,
+            "attack": 148,
+            "defense": 75,
+            "specialAttack": 110,
+            "specialDefense": 110,
+            "speed": 75,
+            "total": 628
+          },
+          "formId": "mega",
+          "spritePath": "sprites/emboar_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "samurott",
@@ -10667,7 +12907,8 @@
         "total": 528
       },
       "spritePath": "sprites/samurott_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "samurott-hisuian",
@@ -10764,7 +13005,8 @@
         "total": 528
       },
       "spritePath": "sprites/samurott-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "watchog",
@@ -10846,7 +13088,8 @@
         "total": 420
       },
       "spritePath": "sprites/watchog_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "liepard",
@@ -10936,7 +13179,8 @@
         "total": 446
       },
       "spritePath": "sprites/liepard_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "simisage",
@@ -11015,7 +13259,8 @@
         "total": 498
       },
       "spritePath": "sprites/simisage_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "simisear",
@@ -11099,7 +13344,8 @@
         "total": 498
       },
       "spritePath": "sprites/simisear_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "simipour",
@@ -11180,7 +13426,89 @@
         "total": 498
       },
       "spritePath": "sprites/simipour_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "musharna",
+      "dexNo": 518,
+      "primaryName": "Musharna",
+      "availableNames": [
+        "Musharna"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/musharna/",
+      "types": [
+        "Psychic"
+      ],
+      "abilities": [
+        "Forewarn",
+        "Synchronize",
+        "Telepathy"
+      ],
+      "moves": [
+        "Ally Switch",
+        "Amnesia",
+        "Attract",
+        "Calm Mind",
+        "Charge Beam",
+        "Charm",
+        "Curse",
+        "Dazzling Gleam",
+        "Double Team",
+        "Endure",
+        "Energy Ball",
+        "Expanding Force",
+        "Facade",
+        "Future Sight",
+        "Giga Impact",
+        "Guard Swap",
+        "Gyro Ball",
+        "Healing Wish",
+        "Helping Hand",
+        "Hyper Beam",
+        "Hypnosis",
+        "Imprison",
+        "Light Screen",
+        "Misty Explosion",
+        "Moonblast",
+        "Moonlight",
+        "Power Swap",
+        "Protect",
+        "Psychic",
+        "Psychic Terrain",
+        "Psyshock",
+        "Rain Dance",
+        "Reflect",
+        "Rest",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Safeguard",
+        "Shadow Ball",
+        "Skill Swap",
+        "Sleep Talk",
+        "Snore",
+        "Stored Power",
+        "Substitute",
+        "Thunder Wave",
+        "Trick",
+        "Trick Room",
+        "Wonder Room",
+        "Yawn",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 116,
+        "attack": 55,
+        "defense": 85,
+        "specialAttack": 107,
+        "specialDefense": 95,
+        "speed": 29,
+        "total": 487
+      },
+      "spritePath": "sprites/musharna_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "excadrill",
@@ -11283,8 +13611,32 @@
           "speed": 103,
           "total": 608
         },
+        "formId": "mega",
         "spritePath": "sprites/excadrill_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Excadrill",
+          "types": [
+            "Ground",
+            "Steel"
+          ],
+          "abilities": [
+            "Piercing Drill"
+          ],
+          "baseStats": {
+            "hp": 110,
+            "attack": 165,
+            "defense": 100,
+            "specialAttack": 65,
+            "specialDefense": 65,
+            "speed": 103,
+            "total": 608
+          },
+          "formId": "mega",
+          "spritePath": "sprites/excadrill_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "audino",
@@ -11402,8 +13754,32 @@
           "speed": 50,
           "total": 545
         },
+        "formId": "mega",
         "spritePath": "sprites/audino_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Audino",
+          "types": [
+            "Normal",
+            "Fairy"
+          ],
+          "abilities": [
+            "Healer"
+          ],
+          "baseStats": {
+            "hp": 103,
+            "attack": 60,
+            "defense": 126,
+            "specialAttack": 80,
+            "specialDefense": 126,
+            "speed": 50,
+            "total": 545
+          },
+          "formId": "mega",
+          "spritePath": "sprites/audino_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "conkeldurr",
@@ -11494,7 +13870,136 @@
         "total": 505
       },
       "spritePath": "sprites/conkeldurr_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "scolipede",
+      "dexNo": 545,
+      "primaryName": "Scolipede",
+      "availableNames": [
+        "Scolipede",
+        "Mega Scolipede"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/scolipede/",
+      "types": [
+        "Bug",
+        "Poison"
+      ],
+      "abilities": [
+        "Poison Point",
+        "Swarm",
+        "Speed Boost"
+      ],
+      "moves": [
+        "Acid Spray",
+        "Agility",
+        "Assurance",
+        "Attract",
+        "Baton Pass",
+        "Bite",
+        "Bug Bite",
+        "Bulldoze",
+        "Cross Poison",
+        "Dig",
+        "Double Hit",
+        "Double-Edge",
+        "Earthquake",
+        "Endure",
+        "Facade",
+        "Giga Impact",
+        "Gunk Shot",
+        "Gyro Ball",
+        "Hex",
+        "Hyper Beam",
+        "Iron Defense",
+        "Iron Tail",
+        "Leech Life",
+        "Megahorn",
+        "Payback",
+        "Pin Missile",
+        "Poison Jab",
+        "Pounce",
+        "Protect",
+        "Rest",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Screech",
+        "Skitter Smack",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Smart Strike",
+        "Snore",
+        "Solar Beam",
+        "Spikes",
+        "Steel Roller",
+        "Stomping Tantrum",
+        "Substitute",
+        "Sunny Day",
+        "Superpower",
+        "Swords Dance",
+        "Throat Chop",
+        "Toxic",
+        "Toxic Spikes",
+        "Trailblaze",
+        "Venoshock",
+        "X-Scissor"
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 100,
+        "defense": 89,
+        "specialAttack": 55,
+        "specialDefense": 69,
+        "speed": 112,
+        "total": 485
+      },
+      "spritePath": "sprites/scolipede_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Scolipede",
+        "types": [
+          "Bug",
+          "Poison"
+        ],
+        "abilities": [
+          "Shell Armor"
+        ],
+        "baseStats": {
+          "hp": 60,
+          "attack": 140,
+          "defense": 149,
+          "specialAttack": 75,
+          "specialDefense": 99,
+          "speed": 62,
+          "total": 585
+        },
+        "formId": "mega",
+        "spritePath": "sprites/scolipede_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Scolipede",
+          "types": [
+            "Bug",
+            "Poison"
+          ],
+          "abilities": [
+            "Shell Armor"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 140,
+            "defense": 149,
+            "specialAttack": 75,
+            "specialDefense": 99,
+            "speed": 62,
+            "total": 585
+          },
+          "formId": "mega",
+          "spritePath": "sprites/scolipede_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "whimsicott",
@@ -11575,7 +14080,8 @@
         "total": 480
       },
       "spritePath": "sprites/whimsicott_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "krookodile",
@@ -11689,7 +14195,165 @@
         "total": 519
       },
       "spritePath": "sprites/krookodile_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "scrafty",
+      "dexNo": 560,
+      "primaryName": "Scrafty",
+      "availableNames": [
+        "Scrafty",
+        "Mega Scrafty"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/scrafty/",
+      "types": [
+        "Dark",
+        "Fighting"
+      ],
+      "abilities": [
+        "Shed Skin",
+        "Moxie",
+        "Intimidate"
+      ],
+      "moves": [
+        "Acid Spray",
+        "Amnesia",
+        "Assurance",
+        "Beat Up",
+        "Body Slam",
+        "Brick Break",
+        "Bulk Up",
+        "Close Combat",
+        "Coaching",
+        "Counter",
+        "Crunch",
+        "Curse",
+        "Dark Pulse",
+        "Detect",
+        "Dig",
+        "Double-Edge",
+        "Dragon Claw",
+        "Dragon Dance",
+        "Dragon Pulse",
+        "Dragon Tail",
+        "Drain Punch",
+        "Dynamic Punch",
+        "Encore",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "Fake Out",
+        "Fake Tears",
+        "Fire Punch",
+        "Fling",
+        "Focus Blast",
+        "Focus Punch",
+        "Foul Play",
+        "Giga Impact",
+        "Grass Knot",
+        "Head Smash",
+        "Helping Hand",
+        "High Jump Kick",
+        "Hyper Beam",
+        "Ice Punch",
+        "Iron Defense",
+        "Iron Head",
+        "Iron Tail",
+        "Knock Off",
+        "Lash Out",
+        "Low Kick",
+        "Low Sweep",
+        "Mega Kick",
+        "Outrage",
+        "Payback",
+        "Poison Jab",
+        "Protect",
+        "Quick Guard",
+        "Rain Dance",
+        "Rest",
+        "Reversal",
+        "Roar",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Scary Face",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Smack Down",
+        "Snarl",
+        "Snore",
+        "Spite",
+        "Stone Edge",
+        "Substitute",
+        "Sunny Day",
+        "Super Fang",
+        "Swagger",
+        "Swords Dance",
+        "Taunt",
+        "Thief",
+        "Throat Chop",
+        "Thunder Punch",
+        "Torment",
+        "Trailblaze",
+        "Upper Hand",
+        "Uproar",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 90,
+        "defense": 115,
+        "specialAttack": 45,
+        "specialDefense": 115,
+        "speed": 58,
+        "total": 488
+      },
+      "spritePath": "sprites/scrafty_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Scrafty",
+        "types": [
+          "Dark",
+          "Fighting"
+        ],
+        "abilities": [
+          "Intimidate"
+        ],
+        "baseStats": {
+          "hp": 65,
+          "attack": 130,
+          "defense": 135,
+          "specialAttack": 55,
+          "specialDefense": 135,
+          "speed": 68,
+          "total": 588
+        },
+        "formId": "mega-y",
+        "spritePath": "sprites/scrafty_mega-y_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Scrafty",
+          "types": [
+            "Dark",
+            "Fighting"
+          ],
+          "abilities": [
+            "Intimidate"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 130,
+            "defense": 135,
+            "specialAttack": 55,
+            "specialDefense": 135,
+            "speed": 68,
+            "total": 588
+          },
+          "formId": "mega-y",
+          "spritePath": "sprites/scrafty_mega-y_pixel.png"
+        }
+      ]
     },
     {
       "slug": "cofagrigus",
@@ -11771,7 +14435,8 @@
         "total": 483
       },
       "spritePath": "sprites/cofagrigus_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "garbodor",
@@ -11854,7 +14519,8 @@
         "total": 474
       },
       "spritePath": "sprites/garbodor_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "zoroark",
@@ -11952,7 +14618,8 @@
         "total": 510
       },
       "spritePath": "sprites/zoroark_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "zoroark-hisuian",
@@ -12054,7 +14721,8 @@
         "total": 510
       },
       "spritePath": "sprites/zoroark-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "reuniclus",
@@ -12150,7 +14818,8 @@
         "total": 490
       },
       "spritePath": "sprites/reuniclus_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "vanilluxe",
@@ -12221,7 +14890,8 @@
         "total": 535
       },
       "spritePath": "sprites/vanilluxe_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "emolga",
@@ -12297,7 +14967,153 @@
         "total": 428
       },
       "spritePath": "sprites/emolga_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "eelektross",
+      "dexNo": 604,
+      "primaryName": "Eelektross",
+      "availableNames": [
+        "Eelektross",
+        "Mega Eelektross"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/eelektross/",
+      "types": [
+        "Electric"
+      ],
+      "abilities": [
+        "Levitate"
+      ],
+      "moves": [
+        "Acid Spray",
+        "Acrobatics",
+        "Body Press",
+        "Body Slam",
+        "Bounce",
+        "Brick Break",
+        "Bulk Up",
+        "Bulldoze",
+        "Charge",
+        "Charge Beam",
+        "Close Combat",
+        "Coil",
+        "Confuse Ray",
+        "Crunch",
+        "Crush Claw",
+        "Discharge",
+        "Dragon Claw",
+        "Dragon Pulse",
+        "Dragon Tail",
+        "Drain Punch",
+        "Eerie Impulse",
+        "Electric Terrain",
+        "Electro Ball",
+        "Electroweb",
+        "Endure",
+        "Facade",
+        "Fire Punch",
+        "Flamethrower",
+        "Flash Cannon",
+        "Focus Punch",
+        "Gastro Acid",
+        "Giga Drain",
+        "Giga Impact",
+        "Grass Knot",
+        "Heavy Slam",
+        "Hex",
+        "Hyper Beam",
+        "Iron Tail",
+        "Knock Off",
+        "Light Screen",
+        "Liquidation",
+        "Lunge",
+        "Muddy Water",
+        "Outrage",
+        "Poison Fang",
+        "Protect",
+        "Psychic Fangs",
+        "Rain Dance",
+        "Rest",
+        "Rising Voltage",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Scary Face",
+        "Sleep Talk",
+        "Snore",
+        "Stomping Tantrum",
+        "Substitute",
+        "Sunny Day",
+        "Super Fang",
+        "Supercell Slam",
+        "Superpower",
+        "Thrash",
+        "Throat Chop",
+        "Thunder",
+        "Thunder Fang",
+        "Thunder Punch",
+        "Thunder Wave",
+        "Thunderbolt",
+        "U-turn",
+        "Volt Switch",
+        "Waterfall",
+        "Wild Charge",
+        "Zap Cannon",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 115,
+        "defense": 80,
+        "specialAttack": 105,
+        "specialDefense": 80,
+        "speed": 50,
+        "total": 515
+      },
+      "spritePath": "sprites/eelektross_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Eelektross",
+        "types": [
+          "Electric"
+        ],
+        "abilities": [
+          "Eelevate"
+        ],
+        "baseStats": {
+          "hp": 85,
+          "attack": 145,
+          "defense": 80,
+          "specialAttack": 135,
+          "specialDefense": 90,
+          "speed": 80,
+          "total": 615
+        },
+        "formId": "mega",
+        "spritePath": "sprites/eelektross_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Eelektross",
+          "types": [
+            "Electric"
+          ],
+          "abilities": [
+            "Eelevate"
+          ],
+          "baseStats": {
+            "hp": 85,
+            "attack": 145,
+            "defense": 80,
+            "specialAttack": 135,
+            "specialDefense": 90,
+            "speed": 80,
+            "total": 615
+          },
+          "formId": "mega",
+          "spritePath": "sprites/eelektross_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "chandelure",
@@ -12401,8 +15217,32 @@
           "speed": 90,
           "total": 620
         },
+        "formId": "mega",
         "spritePath": "sprites/chandelure_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Chandelure",
+          "types": [
+            "Ghost",
+            "Fire"
+          ],
+          "abilities": [
+            "Infiltrator"
+          ],
+          "baseStats": {
+            "hp": 60,
+            "attack": 75,
+            "defense": 110,
+            "specialAttack": 175,
+            "specialDefense": 110,
+            "speed": 90,
+            "total": 620
+          },
+          "formId": "mega",
+          "spritePath": "sprites/chandelure_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "beartic",
@@ -12507,7 +15347,8 @@
         "total": 505
       },
       "spritePath": "sprites/beartic_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "stunfisk",
@@ -12586,7 +15427,8 @@
         "total": 471
       },
       "spritePath": "sprites/stunfisk_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "stunfisk-galarian",
@@ -12667,7 +15509,8 @@
         "total": 471
       },
       "spritePath": "sprites/stunfisk-galarian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "golurk",
@@ -12795,8 +15638,32 @@
           "speed": 55,
           "total": 583
         },
+        "formId": "mega",
         "spritePath": "sprites/golurk_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Golurk",
+          "types": [
+            "Ground",
+            "Ghost"
+          ],
+          "abilities": [
+            "Unseen Fist"
+          ],
+          "baseStats": {
+            "hp": 89,
+            "attack": 159,
+            "defense": 105,
+            "specialAttack": 70,
+            "specialDefense": 105,
+            "speed": 55,
+            "total": 583
+          },
+          "formId": "mega",
+          "spritePath": "sprites/golurk_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "hydreigon",
@@ -12903,7 +15770,8 @@
         "total": 600
       },
       "spritePath": "sprites/hydreigon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "volcarona",
@@ -12990,7 +15858,8 @@
         "total": 550
       },
       "spritePath": "sprites/volcarona_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "chesnaught",
@@ -13126,8 +15995,32 @@
           "speed": 44,
           "total": 630
         },
+        "formId": "mega",
         "spritePath": "sprites/chesnaught_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Chesnaught",
+          "types": [
+            "Grass",
+            "Fighting"
+          ],
+          "abilities": [
+            "Bulletproof"
+          ],
+          "baseStats": {
+            "hp": 88,
+            "attack": 137,
+            "defense": 172,
+            "specialAttack": 74,
+            "specialDefense": 115,
+            "speed": 44,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/chesnaught_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "delphox",
@@ -13248,8 +16141,32 @@
           "speed": 134,
           "total": 634
         },
-        "spritePath": "sprites/delphox_mega_pixel.png"
-      }
+        "formId": "mega-x",
+        "spritePath": "sprites/delphox_mega-x_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Delphox",
+          "types": [
+            "Fire",
+            "Psychic"
+          ],
+          "abilities": [
+            "Levitate"
+          ],
+          "baseStats": {
+            "hp": 75,
+            "attack": 69,
+            "defense": 72,
+            "specialAttack": 159,
+            "specialDefense": 125,
+            "speed": 134,
+            "total": 634
+          },
+          "formId": "mega-x",
+          "spritePath": "sprites/delphox_mega-x_pixel.png"
+        }
+      ]
     },
     {
       "slug": "greninja",
@@ -13362,8 +16279,32 @@
           "speed": 142,
           "total": 630
         },
+        "formId": "mega",
         "spritePath": "sprites/greninja_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Greninja",
+          "types": [
+            "Water",
+            "Dark"
+          ],
+          "abilities": [
+            "Protean"
+          ],
+          "baseStats": {
+            "hp": 72,
+            "attack": 125,
+            "defense": 77,
+            "specialAttack": 133,
+            "specialDefense": 81,
+            "speed": 142,
+            "total": 630
+          },
+          "formId": "mega",
+          "spritePath": "sprites/greninja_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "diggersby",
@@ -13452,7 +16393,8 @@
         "total": 423
       },
       "spritePath": "sprites/diggersby_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "talonflame",
@@ -13532,7 +16474,8 @@
         "total": 499
       },
       "spritePath": "sprites/talonflame_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "vivillon",
@@ -13606,7 +16549,132 @@
         "total": 411
       },
       "spritePath": "sprites/vivillon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "pyroar",
+      "dexNo": 668,
+      "primaryName": "Pyroar",
+      "availableNames": [
+        "Pyroar",
+        "Mega Pyroar"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/pyroar/",
+      "types": [
+        "Fire",
+        "Normal"
+      ],
+      "abilities": [
+        "Rivalry",
+        "Unnerve",
+        "Moxie"
+      ],
+      "moves": [
+        "Acrobatics",
+        "Body Slam",
+        "Bulldoze",
+        "Burning Jealousy",
+        "Crunch",
+        "Dark Pulse",
+        "Dig",
+        "Double-Edge",
+        "Endeavor",
+        "Endure",
+        "Entrainment",
+        "Facade",
+        "Fire Blast",
+        "Fire Fang",
+        "Fire Spin",
+        "Flame Charge",
+        "Flamethrower",
+        "Flare Blitz",
+        "Giga Impact",
+        "Heat Wave",
+        "Helping Hand",
+        "Hyper Beam",
+        "Hyper Voice",
+        "Iron Tail",
+        "Mud-Slap",
+        "Noble Roar",
+        "Overheat",
+        "Payback",
+        "Protect",
+        "Psychic Fangs",
+        "Rain Dance",
+        "Rest",
+        "Roar",
+        "Round",
+        "Scorching Sands",
+        "Sleep Talk",
+        "Snarl",
+        "Snore",
+        "Solar Beam",
+        "Substitute",
+        "Sunny Day",
+        "Taunt",
+        "Temper Flare",
+        "Thief",
+        "Thunder Fang",
+        "Trailblaze",
+        "Wild Charge",
+        "Will-O-Wisp",
+        "Yawn"
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 68,
+        "defense": 72,
+        "specialAttack": 109,
+        "specialDefense": 66,
+        "speed": 106,
+        "total": 507
+      },
+      "spritePath": "sprites/pyroar_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Pyroar",
+        "types": [
+          "Fire",
+          "Normal"
+        ],
+        "abilities": [
+          "Fire Mane"
+        ],
+        "baseStats": {
+          "hp": 86,
+          "attack": 88,
+          "defense": 92,
+          "specialAttack": 129,
+          "specialDefense": 86,
+          "speed": 126,
+          "total": 607
+        },
+        "formId": "mega",
+        "spritePath": "sprites/pyroar_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Pyroar",
+          "types": [
+            "Fire",
+            "Normal"
+          ],
+          "abilities": [
+            "Fire Mane"
+          ],
+          "baseStats": {
+            "hp": 86,
+            "attack": 88,
+            "defense": 92,
+            "specialAttack": 129,
+            "specialDefense": 86,
+            "speed": 126,
+            "total": 607
+          },
+          "formId": "mega",
+          "spritePath": "sprites/pyroar_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "floette",
@@ -13642,8 +16710,8 @@
         "Grassy Terrain",
         "Helping Hand",
         "Hyper Beam",
-        "Light of Ruin",
         "Light Screen",
+        "Light of Ruin",
         "Misty Terrain",
         "Moonblast",
         "Petal Blizzard",
@@ -13694,8 +16762,31 @@
           "speed": 102,
           "total": 651
         },
+        "formId": "mega",
         "spritePath": "sprites/floette_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Floette",
+          "types": [
+            "Fairy"
+          ],
+          "abilities": [
+            "Fairy Aura"
+          ],
+          "baseStats": {
+            "hp": 74,
+            "attack": 85,
+            "defense": 87,
+            "specialAttack": 155,
+            "specialDefense": 148,
+            "speed": 102,
+            "total": 651
+          },
+          "formId": "mega",
+          "spritePath": "sprites/floette_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "florges",
@@ -13770,7 +16861,8 @@
         "total": 552
       },
       "spritePath": "sprites/florges_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "pangoro",
@@ -13881,7 +16973,8 @@
         "total": 495
       },
       "spritePath": "sprites/pangoro_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "furfrou",
@@ -13949,7 +17042,8 @@
         "total": 472
       },
       "spritePath": "sprites/furfrou_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "meowstic",
@@ -14057,8 +17151,31 @@
           "speed": 124,
           "total": 566
         },
+        "formId": "mega",
         "spritePath": "sprites/meowstic_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Meowstic",
+          "types": [
+            "Psychic"
+          ],
+          "abilities": [
+            "Trace"
+          ],
+          "baseStats": {
+            "hp": 74,
+            "attack": 48,
+            "defense": 76,
+            "specialAttack": 143,
+            "specialDefense": 101,
+            "speed": 124,
+            "total": 566
+          },
+          "formId": "mega",
+          "spritePath": "sprites/meowstic_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "aegislash",
@@ -14132,7 +17249,8 @@
         "total": 500
       },
       "spritePath": "sprites/aegislash_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "aromatisse",
@@ -14209,7 +17327,8 @@
         "total": 462
       },
       "spritePath": "sprites/aromatisse_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "slurpuff",
@@ -14280,7 +17399,424 @@
         "total": 480
       },
       "spritePath": "sprites/slurpuff_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "malamar",
+      "dexNo": 687,
+      "primaryName": "Malamar",
+      "availableNames": [
+        "Malamar",
+        "Mega Malamar"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/malamar/",
+      "types": [
+        "Dark",
+        "Psychic"
+      ],
+      "abilities": [
+        "Contrary",
+        "Suction Cups",
+        "Infiltrator"
+      ],
+      "moves": [
+        "Acupressure",
+        "Aerial Ace",
+        "Baton Pass",
+        "Brutal Swing",
+        "Calm Mind",
+        "Dark Pulse",
+        "Destiny Bond",
+        "Disable",
+        "Double Hit",
+        "Double Team",
+        "Endure",
+        "Expanding Force",
+        "Facade",
+        "Fake Tears",
+        "Flamethrower",
+        "Fling",
+        "Foul Play",
+        "Future Sight",
+        "Giga Impact",
+        "Gravity",
+        "Guard Swap",
+        "Helping Hand",
+        "Hyper Beam",
+        "Hypnosis",
+        "Knock Off",
+        "Lash Out",
+        "Light Screen",
+        "Liquidation",
+        "Lunge",
+        "Nasty Plot",
+        "Night Slash",
+        "Payback",
+        "Pluck",
+        "Poison Jab",
+        "Protect",
+        "Psych Up",
+        "Psychic",
+        "Psychic Noise",
+        "Psycho Cut",
+        "Psyshock",
+        "Rain Dance",
+        "Reflect",
+        "Rest",
+        "Reversal",
+        "Rock Slide",
+        "Round",
+        "Scary Face",
+        "Skill Swap",
+        "Sleep Talk",
+        "Snore",
+        "Spite",
+        "Stored Power",
+        "Substitute",
+        "Sunny Day",
+        "Superpower",
+        "Swagger",
+        "Switcheroo",
+        "Taunt",
+        "Thief",
+        "Throat Chop",
+        "Thunderbolt",
+        "Topsy-Turvy",
+        "Torment",
+        "Trailblaze",
+        "Trick",
+        "Trick Room",
+        "Wrap",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 92,
+        "defense": 88,
+        "specialAttack": 68,
+        "specialDefense": 75,
+        "speed": 73,
+        "total": 482
+      },
+      "spritePath": "sprites/malamar_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Malamar",
+        "types": [
+          "Dark",
+          "Psychic"
+        ],
+        "abilities": [
+          "Contrary"
+        ],
+        "baseStats": {
+          "hp": 86,
+          "attack": 102,
+          "defense": 88,
+          "specialAttack": 98,
+          "specialDefense": 120,
+          "speed": 88,
+          "total": 582
+        },
+        "formId": "mega",
+        "spritePath": "sprites/malamar_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Malamar",
+          "types": [
+            "Dark",
+            "Psychic"
+          ],
+          "abilities": [
+            "Contrary"
+          ],
+          "baseStats": {
+            "hp": 86,
+            "attack": 102,
+            "defense": 88,
+            "specialAttack": 98,
+            "specialDefense": 120,
+            "speed": 88,
+            "total": 582
+          },
+          "formId": "mega",
+          "spritePath": "sprites/malamar_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "barbaracle",
+      "dexNo": 689,
+      "primaryName": "Barbaracle",
+      "availableNames": [
+        "Barbaracle",
+        "Mega Barbaracle"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/barbaracle/",
+      "types": [
+        "Rock",
+        "Water"
+      ],
+      "abilities": [
+        "Tough Claws",
+        "Sniper",
+        "Pickpocket"
+      ],
+      "moves": [
+        "Ancient Power",
+        "Aqua Cutter",
+        "Assurance",
+        "Attract",
+        "Beat Up",
+        "Blizzard",
+        "Brick Break",
+        "Brutal Swing",
+        "Bulk Up",
+        "Bulldoze",
+        "Chilling Water",
+        "Close Combat",
+        "Cross Chop",
+        "Dig",
+        "Dive",
+        "Double Hit",
+        "Dragon Claw",
+        "Earth Power",
+        "Earthquake",
+        "Endure",
+        "Facade",
+        "Fling",
+        "Focus Blast",
+        "Giga Impact",
+        "Grass Knot",
+        "Helping Hand",
+        "Hyper Beam",
+        "Ice Beam",
+        "Icy Wind",
+        "Iron Defense",
+        "Liquidation",
+        "Low Kick",
+        "Meteor Beam",
+        "Mud Shot",
+        "Mud-Slap",
+        "Muddy Water",
+        "Night Slash",
+        "Payback",
+        "Poison Jab",
+        "Protect",
+        "Rain Dance",
+        "Razor Shell",
+        "Rest",
+        "Rock Blast",
+        "Rock Polish",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Safeguard",
+        "Sandstorm",
+        "Scald",
+        "Screech",
+        "Shadow Claw",
+        "Shell Smash",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Snore",
+        "Stealth Rock",
+        "Stone Edge",
+        "Substitute",
+        "Superpower",
+        "Surf",
+        "Switcheroo",
+        "Swords Dance",
+        "Taunt",
+        "Thief",
+        "Uproar",
+        "Waterfall",
+        "Whirlpool",
+        "X-Scissor"
+      ],
+      "baseStats": {
+        "hp": 72,
+        "attack": 105,
+        "defense": 115,
+        "specialAttack": 54,
+        "specialDefense": 86,
+        "speed": 68,
+        "total": 500
+      },
+      "spritePath": "sprites/barbaracle_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Barbaracle",
+        "types": [
+          "Rock",
+          "Fighting"
+        ],
+        "abilities": [
+          "Tough Claws"
+        ],
+        "baseStats": {
+          "hp": 72,
+          "attack": 140,
+          "defense": 130,
+          "specialAttack": 64,
+          "specialDefense": 106,
+          "speed": 88,
+          "total": 600
+        },
+        "formId": "mega",
+        "spritePath": "sprites/barbaracle_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Barbaracle",
+          "types": [
+            "Rock",
+            "Fighting"
+          ],
+          "abilities": [
+            "Tough Claws"
+          ],
+          "baseStats": {
+            "hp": 72,
+            "attack": 140,
+            "defense": 130,
+            "specialAttack": 64,
+            "specialDefense": 106,
+            "speed": 88,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/barbaracle_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "dragalge",
+      "dexNo": 691,
+      "primaryName": "Dragalge",
+      "availableNames": [
+        "Dragalge",
+        "Mega Dragalge"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/dragalge/",
+      "types": [
+        "Poison",
+        "Dragon"
+      ],
+      "abilities": [
+        "Poison Point",
+        "Poison Touch",
+        "Adaptability"
+      ],
+      "moves": [
+        "Acid Armor",
+        "Acid Spray",
+        "Aqua Tail",
+        "Chilling Water",
+        "Dive",
+        "Double Team",
+        "Draco Meteor",
+        "Dragon Pulse",
+        "Dragon Tail",
+        "Endure",
+        "Facade",
+        "Flip Turn",
+        "Focus Blast",
+        "Giga Impact",
+        "Gunk Shot",
+        "Haze",
+        "Hydro Pump",
+        "Hyper Beam",
+        "Icy Wind",
+        "Iron Tail",
+        "Liquidation",
+        "Mud Shot",
+        "Mud-Slap",
+        "Muddy Water",
+        "Outrage",
+        "Play Rough",
+        "Poison Jab",
+        "Protect",
+        "Rain Dance",
+        "Rest",
+        "Round",
+        "Scald",
+        "Scale Shot",
+        "Scary Face",
+        "Shadow Ball",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Snore",
+        "Snowscape",
+        "Spite",
+        "Substitute",
+        "Surf",
+        "Thief",
+        "Thunder",
+        "Thunderbolt",
+        "Toxic",
+        "Toxic Spikes",
+        "Venoshock",
+        "Water Pulse",
+        "Waterfall",
+        "Whirlpool"
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 75,
+        "defense": 90,
+        "specialAttack": 97,
+        "specialDefense": 123,
+        "speed": 44,
+        "total": 494
+      },
+      "spritePath": "sprites/dragalge_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Dragalge",
+        "types": [
+          "Poison",
+          "Dragon"
+        ],
+        "abilities": [
+          "Regenerator"
+        ],
+        "baseStats": {
+          "hp": 65,
+          "attack": 85,
+          "defense": 105,
+          "specialAttack": 132,
+          "specialDefense": 163,
+          "speed": 44,
+          "total": 594
+        },
+        "formId": "mega",
+        "spritePath": "sprites/dragalge_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Dragalge",
+          "types": [
+            "Poison",
+            "Dragon"
+          ],
+          "abilities": [
+            "Regenerator"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 85,
+            "defense": 105,
+            "specialAttack": 132,
+            "specialDefense": 163,
+            "speed": 44,
+            "total": 594
+          },
+          "formId": "mega",
+          "spritePath": "sprites/dragalge_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "clawitzer",
@@ -14360,7 +17896,8 @@
         "total": 500
       },
       "spritePath": "sprites/clawitzer_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "heliolisk",
@@ -14454,7 +17991,8 @@
         "total": 481
       },
       "spritePath": "sprites/heliolisk_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "tyrantrum",
@@ -14548,7 +18086,8 @@
         "total": 521
       },
       "spritePath": "sprites/tyrantrum_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "aurorus",
@@ -14634,7 +18173,8 @@
         "total": 521
       },
       "spritePath": "sprites/aurorus_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "sylveon",
@@ -14718,7 +18258,8 @@
         "total": 525
       },
       "spritePath": "sprites/sylveon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "hawlucha",
@@ -14842,8 +18383,32 @@
           "speed": 118,
           "total": 600
         },
+        "formId": "mega",
         "spritePath": "sprites/hawlucha_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Hawlucha",
+          "types": [
+            "Fighting",
+            "Flying"
+          ],
+          "abilities": [
+            "No Guard"
+          ],
+          "baseStats": {
+            "hp": 78,
+            "attack": 137,
+            "defense": 100,
+            "specialAttack": 74,
+            "specialDefense": 93,
+            "speed": 118,
+            "total": 600
+          },
+          "formId": "mega",
+          "spritePath": "sprites/hawlucha_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "dedenne",
@@ -14924,7 +18489,8 @@
         "total": 431
       },
       "spritePath": "sprites/dedenne_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "goodra",
@@ -15019,7 +18585,8 @@
         "total": 600
       },
       "spritePath": "sprites/goodra_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "goodra-hisuian",
@@ -15113,7 +18680,8 @@
         "total": 600
       },
       "spritePath": "sprites/goodra-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "klefki",
@@ -15187,7 +18755,8 @@
         "total": 470
       },
       "spritePath": "sprites/klefki_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "trevenant",
@@ -15291,7 +18860,8 @@
         "total": 474
       },
       "spritePath": "sprites/trevenant_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "gourgeist",
@@ -15382,7 +18952,8 @@
         "total": 494
       },
       "spritePath": "sprites/gourgeist_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "avalugg",
@@ -15461,7 +19032,8 @@
         "total": 514
       },
       "spritePath": "sprites/avalugg_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "avalugg-hisuian",
@@ -15541,7 +19113,8 @@
         "total": 514
       },
       "spritePath": "sprites/avalugg-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "noivern",
@@ -15636,7 +19209,8 @@
         "total": 535
       },
       "spritePath": "sprites/noivern_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "decidueye",
@@ -15732,7 +19306,8 @@
         "total": 530
       },
       "spritePath": "sprites/decidueye_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "decidueye-hisuian",
@@ -15828,7 +19403,8 @@
         "total": 530
       },
       "spritePath": "sprites/decidueye-hisuian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "incineroar",
@@ -15935,7 +19511,8 @@
         "total": 530
       },
       "spritePath": "sprites/incineroar_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "primarina",
@@ -16028,7 +19605,8 @@
         "total": 530
       },
       "spritePath": "sprites/primarina_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "toucannon",
@@ -16112,7 +19690,8 @@
         "total": 485
       },
       "spritePath": "sprites/toucannon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "crabominable",
@@ -16225,8 +19804,32 @@
           "speed": 33,
           "total": 578
         },
+        "formId": "mega",
         "spritePath": "sprites/crabominable_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Crabominable",
+          "types": [
+            "Fighting",
+            "Ice"
+          ],
+          "abilities": [
+            "Iron Fist"
+          ],
+          "baseStats": {
+            "hp": 97,
+            "attack": 157,
+            "defense": 122,
+            "specialAttack": 62,
+            "specialDefense": 107,
+            "speed": 33,
+            "total": 578
+          },
+          "formId": "mega",
+          "spritePath": "sprites/crabominable_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "lycanroc",
@@ -16314,7 +19917,8 @@
         "total": 487
       },
       "spritePath": "sprites/lycanroc_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "toxapex",
@@ -16396,7 +20000,8 @@
         "total": 495
       },
       "spritePath": "sprites/toxapex_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "mudsdale",
@@ -16471,7 +20076,8 @@
         "total": 500
       },
       "spritePath": "sprites/mudsdale_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "araquanid",
@@ -16552,7 +20158,8 @@
         "total": 454
       },
       "spritePath": "sprites/araquanid_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "salazzle",
@@ -16652,7 +20259,8 @@
         "total": 480
       },
       "spritePath": "sprites/salazzle_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "tsareena",
@@ -16736,7 +20344,8 @@
         "total": 510
       },
       "spritePath": "sprites/tsareena_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "oranguru",
@@ -16831,7 +20440,8 @@
         "total": 490
       },
       "spritePath": "sprites/oranguru_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "passimian",
@@ -16926,7 +20536,8 @@
         "total": 490
       },
       "spritePath": "sprites/passimian_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "mimikyu",
@@ -17015,7 +20626,8 @@
         "total": 476
       },
       "spritePath": "sprites/mimikyu_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "drampa",
@@ -17131,8 +20743,32 @@
           "speed": 36,
           "total": 585
         },
+        "formId": "mega",
         "spritePath": "sprites/drampa_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Drampa",
+          "types": [
+            "Normal",
+            "Dragon"
+          ],
+          "abilities": [
+            "Berserk"
+          ],
+          "baseStats": {
+            "hp": 78,
+            "attack": 85,
+            "defense": 110,
+            "specialAttack": 160,
+            "specialDefense": 116,
+            "speed": 36,
+            "total": 585
+          },
+          "formId": "mega",
+          "spritePath": "sprites/drampa_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "kommo-o",
@@ -17241,7 +20877,8 @@
         "total": 600
       },
       "spritePath": "sprites/kommo-o_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "corviknight",
@@ -17327,7 +20964,8 @@
         "total": 495
       },
       "spritePath": "sprites/corviknight_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "flapple",
@@ -17402,7 +21040,8 @@
         "total": 485
       },
       "spritePath": "sprites/flapple_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "appletun",
@@ -17484,7 +21123,8 @@
         "total": 485
       },
       "spritePath": "sprites/appletun_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "sandaconda",
@@ -17562,7 +21202,8 @@
         "total": 510
       },
       "spritePath": "sprites/sandaconda_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "polteageist",
@@ -17637,7 +21278,8 @@
         "total": 508
       },
       "spritePath": "sprites/polteageist_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "hatterene",
@@ -17727,7 +21369,104 @@
         "total": 510
       },
       "spritePath": "sprites/hatterene_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "grimmsnarl",
+      "dexNo": 861,
+      "primaryName": "Grimmsnarl",
+      "availableNames": [
+        "Grimmsnarl"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/grimmsnarl/",
+      "types": [
+        "Dark",
+        "Fairy"
+      ],
+      "abilities": [
+        "Prankster",
+        "Frisk",
+        "Pickpocket"
+      ],
+      "moves": [
+        "Assurance",
+        "Bite",
+        "Body Press",
+        "Body Slam",
+        "Brick Break",
+        "Bulk Up",
+        "Burning Jealousy",
+        "Chilling Water",
+        "Crunch",
+        "Dark Pulse",
+        "Dazzling Gleam",
+        "Drain Punch",
+        "Draining Kiss",
+        "Endure",
+        "Facade",
+        "Fake Out",
+        "Fake Tears",
+        "Fire Punch",
+        "Flatter",
+        "Fling",
+        "Focus Blast",
+        "Focus Energy",
+        "Focus Punch",
+        "Foul Play",
+        "Giga Impact",
+        "Hammer Arm",
+        "Hyper Beam",
+        "Ice Punch",
+        "Imprison",
+        "Lash Out",
+        "Leech Life",
+        "Light Screen",
+        "Low Kick",
+        "Low Sweep",
+        "Mega Kick",
+        "Misty Terrain",
+        "Nasty Plot",
+        "Parting Shot",
+        "Play Rough",
+        "Power Swap",
+        "Power Whip",
+        "Protect",
+        "Reflect",
+        "Rest",
+        "Round",
+        "Scary Face",
+        "Shadow Claw",
+        "Sleep Talk",
+        "Snore",
+        "Spirit Break",
+        "Stomping Tantrum",
+        "Substitute",
+        "Sucker Punch",
+        "Superpower",
+        "Swagger",
+        "Taunt",
+        "Thief",
+        "Throat Chop",
+        "Thunder Punch",
+        "Torment",
+        "Trailblaze",
+        "Trick",
+        "Uproar",
+        "Wonder Room"
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 120,
+        "defense": 65,
+        "specialAttack": 95,
+        "specialDefense": 75,
+        "speed": 60,
+        "total": 510
+      },
+      "spritePath": "sprites/grimmsnarl_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "mr.rime",
@@ -17851,7 +21590,8 @@
         "total": 520
       },
       "spritePath": "sprites/mr.rime_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "runerigus",
@@ -17949,7 +21689,8 @@
         "total": 483
       },
       "spritePath": "sprites/runerigus_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "alcremie",
@@ -18027,7 +21768,130 @@
         "total": 495
       },
       "spritePath": "sprites/alcremie_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "falinks",
+      "dexNo": 870,
+      "primaryName": "Falinks",
+      "availableNames": [
+        "Falinks",
+        "Mega Falinks"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/falinks/",
+      "types": [
+        "Fighting"
+      ],
+      "abilities": [
+        "Battle Armor",
+        "Defiant"
+      ],
+      "moves": [
+        "Agility",
+        "Assurance",
+        "Beat Up",
+        "Body Press",
+        "Body Slam",
+        "Brick Break",
+        "Bulk Up",
+        "Close Combat",
+        "Coaching",
+        "Counter",
+        "Double Hit",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "First Impression",
+        "Focus Blast",
+        "Focus Energy",
+        "Giga Impact",
+        "Helping Hand",
+        "High Horsepower",
+        "Hyper Beam",
+        "Iron Defense",
+        "Iron Head",
+        "Knock Off",
+        "Lunge",
+        "Megahorn",
+        "No Retreat",
+        "Payback",
+        "Poison Jab",
+        "Protect",
+        "Psych Up",
+        "Rain Dance",
+        "Rest",
+        "Reversal",
+        "Rock Slide",
+        "Rock Tomb",
+        "Round",
+        "Screech",
+        "Seed Bomb",
+        "Sleep Talk",
+        "Smart Strike",
+        "Snore",
+        "Substitute",
+        "Sunny Day",
+        "Superpower",
+        "Swords Dance",
+        "Throat Chop",
+        "Trailblaze",
+        "Upper Hand",
+        "Uproar",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 100,
+        "defense": 100,
+        "specialAttack": 70,
+        "specialDefense": 60,
+        "speed": 75,
+        "total": 470
+      },
+      "spritePath": "sprites/falinks_base_pixel.png",
+      "megaEvolution": {
+        "name": "Mega Falinks",
+        "types": [
+          "Fighting"
+        ],
+        "abilities": [
+          "Defiant"
+        ],
+        "baseStats": {
+          "hp": 65,
+          "attack": 135,
+          "defense": 135,
+          "specialAttack": 70,
+          "specialDefense": 65,
+          "speed": 100,
+          "total": 570
+        },
+        "formId": "mega",
+        "spritePath": "sprites/falinks_mega_pixel.png"
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Falinks",
+          "types": [
+            "Fighting"
+          ],
+          "abilities": [
+            "Defiant"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 135,
+            "defense": 135,
+            "specialAttack": 70,
+            "specialDefense": 65,
+            "speed": 100,
+            "total": 570
+          },
+          "formId": "mega",
+          "spritePath": "sprites/falinks_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "morpeko",
@@ -18121,7 +21985,8 @@
         "total": 436
       },
       "spritePath": "sprites/morpeko_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "dragapult",
@@ -18215,7 +22080,8 @@
         "total": 600
       },
       "spritePath": "sprites/dragapult_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "wyrdeer",
@@ -18307,7 +22173,8 @@
         "total": 525
       },
       "spritePath": "sprites/wyrdeer_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "kleavor",
@@ -18394,7 +22261,8 @@
         "total": 500
       },
       "spritePath": "sprites/kleavor_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "basculegion",
@@ -18474,7 +22342,8 @@
         "total": 530
       },
       "spritePath": "sprites/basculegion_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "sneasler",
@@ -18566,7 +22435,100 @@
         "total": 510
       },
       "spritePath": "sprites/sneasler_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "overqwil",
+      "dexNo": 904,
+      "primaryName": "Overqwil",
+      "availableNames": [
+        "Overqwil"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/overqwil/",
+      "types": [
+        "Dark",
+        "Poison"
+      ],
+      "abilities": [
+        "Poison Point",
+        "Swift Swim",
+        "Intimidate"
+      ],
+      "moves": [
+        "Acid Spray",
+        "Acupressure",
+        "Agility",
+        "Aqua Jet",
+        "Aqua Tail",
+        "Barb Barrage",
+        "Bite",
+        "Blizzard",
+        "Chilling Water",
+        "Crunch",
+        "Curse",
+        "Dark Pulse",
+        "Destiny Bond",
+        "Double-Edge",
+        "Endure",
+        "Facade",
+        "Fell Stinger",
+        "Flail",
+        "Giga Impact",
+        "Gunk Shot",
+        "Gyro Ball",
+        "Haze",
+        "Hex",
+        "Hydro Pump",
+        "Hyper Beam",
+        "Ice Beam",
+        "Icy Wind",
+        "Lash Out",
+        "Liquidation",
+        "Minimize",
+        "Mud Shot",
+        "Pain Split",
+        "Pin Missile",
+        "Poison Jab",
+        "Protect",
+        "Rain Dance",
+        "Rest",
+        "Reversal",
+        "Scale Shot",
+        "Scary Face",
+        "Self-Destruct",
+        "Shadow Ball",
+        "Sleep Talk",
+        "Sludge Bomb",
+        "Sludge Wave",
+        "Smart Strike",
+        "Spikes",
+        "Spit Up",
+        "Spite",
+        "Stockpile",
+        "Substitute",
+        "Surf",
+        "Swords Dance",
+        "Taunt",
+        "Throat Chop",
+        "Toxic",
+        "Toxic Spikes",
+        "Venoshock",
+        "Water Pulse",
+        "Waterfall"
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 115,
+        "defense": 95,
+        "specialAttack": 65,
+        "specialDefense": 65,
+        "speed": 85,
+        "total": 510
+      },
+      "spritePath": "sprites/overqwil_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "meowscarada",
@@ -18661,7 +22623,8 @@
         "total": 530
       },
       "spritePath": "sprites/meowscarada_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "skeledirge",
@@ -18747,7 +22710,8 @@
         "total": 530
       },
       "spritePath": "sprites/skeledirge_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "quaquaval",
@@ -18836,7 +22800,8 @@
         "total": 530
       },
       "spritePath": "sprites/quaquaval_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "maushold",
@@ -18916,7 +22881,8 @@
         "total": 470
       },
       "spritePath": "sprites/maushold_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "garganacl",
@@ -19000,7 +22966,8 @@
         "total": 500
       },
       "spritePath": "sprites/garganacl_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "armarouge",
@@ -19085,7 +23052,8 @@
         "total": 525
       },
       "spritePath": "sprites/armarouge_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "ceruledge",
@@ -19170,7 +23138,8 @@
         "total": 525
       },
       "spritePath": "sprites/ceruledge_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "bellibolt",
@@ -19239,7 +23208,8 @@
         "total": 495
       },
       "spritePath": "sprites/bellibolt_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "scovillain",
@@ -19337,8 +23307,32 @@
           "speed": 75,
           "total": 586
         },
+        "formId": "mega",
         "spritePath": "sprites/scovillain_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Scovillain",
+          "types": [
+            "Grass",
+            "Fire"
+          ],
+          "abilities": [
+            "Spicy Spray"
+          ],
+          "baseStats": {
+            "hp": 65,
+            "attack": 138,
+            "defense": 85,
+            "specialAttack": 138,
+            "specialDefense": 85,
+            "speed": 75,
+            "total": 586
+          },
+          "formId": "mega",
+          "spritePath": "sprites/scovillain_mega_pixel.png"
+        }
+      ]
     },
     {
       "slug": "espathra",
@@ -19425,7 +23419,8 @@
         "total": 481
       },
       "spritePath": "sprites/espathra_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "tinkaton",
@@ -19503,7 +23498,8 @@
         "total": 506
       },
       "spritePath": "sprites/tinkaton_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "palafin",
@@ -19589,7 +23585,8 @@
         "total": 457
       },
       "spritePath": "sprites/palafin_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "orthworm",
@@ -19658,7 +23655,8 @@
         "total": 480
       },
       "spritePath": "sprites/orthworm_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "glimmora",
@@ -19753,8 +23751,221 @@
           "speed": 101,
           "total": 625
         },
+        "formId": "mega",
         "spritePath": "sprites/glimmora_mega_pixel.png"
-      }
+      },
+      "megaEvolutions": [
+        {
+          "name": "Mega Glimmora",
+          "types": [
+            "Rock",
+            "Poison"
+          ],
+          "abilities": [
+            "Adaptability"
+          ],
+          "baseStats": {
+            "hp": 83,
+            "attack": 90,
+            "defense": 105,
+            "specialAttack": 150,
+            "specialDefense": 96,
+            "speed": 101,
+            "total": 625
+          },
+          "formId": "mega",
+          "spritePath": "sprites/glimmora_mega_pixel.png"
+        }
+      ]
+    },
+    {
+      "slug": "houndstone",
+      "dexNo": 972,
+      "primaryName": "Houndstone",
+      "availableNames": [
+        "Houndstone"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/houndstone/",
+      "types": [
+        "Ghost"
+      ],
+      "abilities": [
+        "Sand Rush",
+        "Fluffy"
+      ],
+      "moves": [
+        "Ally Switch",
+        "Bite",
+        "Body Press",
+        "Bulldoze",
+        "Charm",
+        "Confuse Ray",
+        "Crunch",
+        "Destiny Bond",
+        "Dig",
+        "Disable",
+        "Double-Edge",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "Fire Fang",
+        "Giga Impact",
+        "Helping Hand",
+        "Hex",
+        "Howl",
+        "Hyper Beam",
+        "Ice Fang",
+        "Last Respects",
+        "Memento",
+        "Mud Shot",
+        "Mud-Slap",
+        "Night Shade",
+        "Pain Split",
+        "Phantom Force",
+        "Play Rough",
+        "Poltergeist",
+        "Protect",
+        "Psychic Fangs",
+        "Rain Dance",
+        "Rest",
+        "Roar",
+        "Sandstorm",
+        "Scary Face",
+        "Shadow Ball",
+        "Shadow Sneak",
+        "Sleep Talk",
+        "Snarl",
+        "Stomping Tantrum",
+        "Substitute",
+        "Sunny Day",
+        "Swagger",
+        "Thief",
+        "Thunder Fang",
+        "Trick",
+        "Uproar",
+        "Will-O-Wisp",
+        "Yawn",
+        "Zen Headbutt"
+      ],
+      "baseStats": {
+        "hp": 72,
+        "attack": 101,
+        "defense": 100,
+        "specialAttack": 50,
+        "specialDefense": 97,
+        "speed": 68,
+        "total": 488
+      },
+      "spritePath": "sprites/houndstone_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "annihilape",
+      "dexNo": 979,
+      "primaryName": "Annihilape",
+      "availableNames": [
+        "Annihilape"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/annihilape/",
+      "types": [
+        "Fighting",
+        "Ghost"
+      ],
+      "abilities": [
+        "Vital Spirit",
+        "Inner Focus",
+        "Defiant"
+      ],
+      "moves": [
+        "Acrobatics",
+        "Assurance",
+        "Beat Up",
+        "Body Slam",
+        "Brick Break",
+        "Bulk Up",
+        "Bulldoze",
+        "Close Combat",
+        "Coaching",
+        "Counter",
+        "Cross Chop",
+        "Curse",
+        "Dig",
+        "Double-Edge",
+        "Drain Punch",
+        "Dynamic Punch",
+        "Earthquake",
+        "Encore",
+        "Endeavor",
+        "Endure",
+        "Facade",
+        "Fire Punch",
+        "Fling",
+        "Focus Blast",
+        "Focus Energy",
+        "Focus Punch",
+        "Giga Impact",
+        "Gunk Shot",
+        "Helping Hand",
+        "Hyper Beam",
+        "Ice Punch",
+        "Lash Out",
+        "Low Kick",
+        "Low Sweep",
+        "Night Shade",
+        "Night Slash",
+        "Outrage",
+        "Overheat",
+        "Phantom Force",
+        "Poison Jab",
+        "Protect",
+        "Rage Fist",
+        "Rain Dance",
+        "Rest",
+        "Reversal",
+        "Rock Slide",
+        "Rock Tomb",
+        "Scary Face",
+        "Screech",
+        "Seed Bomb",
+        "Seismic Toss",
+        "Shadow Ball",
+        "Shadow Claw",
+        "Shadow Punch",
+        "Sleep Talk",
+        "Smack Down",
+        "Spite",
+        "Stealth Rock",
+        "Stomping Tantrum",
+        "Stone Edge",
+        "Storm Throw",
+        "Substitute",
+        "Sunny Day",
+        "Swagger",
+        "Taunt",
+        "Thief",
+        "Thrash",
+        "Throat Chop",
+        "Thunder",
+        "Thunder Punch",
+        "Thunderbolt",
+        "Torment",
+        "U-turn",
+        "Uproar",
+        "Vacuum Wave"
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 115,
+        "defense": 80,
+        "specialAttack": 50,
+        "specialDefense": 90,
+        "speed": 90,
+        "total": 535
+      },
+      "spritePath": "sprites/annihilape_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "farigiraf",
@@ -19855,7 +24066,8 @@
         "total": 520
       },
       "spritePath": "sprites/farigiraf_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "kingambit",
@@ -19938,7 +24150,80 @@
         "total": 550
       },
       "spritePath": "sprites/kingambit_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
+    },
+    {
+      "slug": "gholdengo",
+      "dexNo": 1000,
+      "primaryName": "Gholdengo",
+      "availableNames": [
+        "Gholdengo"
+      ],
+      "url": "https://www.serebii.net/pokedex-champions/gholdengo/",
+      "types": [
+        "Steel",
+        "Ghost"
+      ],
+      "abilities": [
+        "Good as Gold"
+      ],
+      "moves": [
+        "Charge Beam",
+        "Confuse Ray",
+        "Dazzling Gleam",
+        "Electro Ball",
+        "Endure",
+        "Flash Cannon",
+        "Fling",
+        "Focus Blast",
+        "Focus Punch",
+        "Giga Impact",
+        "Heavy Slam",
+        "Hex",
+        "Hyper Beam",
+        "Iron Head",
+        "Light Screen",
+        "Low Kick",
+        "Low Sweep",
+        "Make It Rain",
+        "Memento",
+        "Metal Sound",
+        "Nasty Plot",
+        "Night Shade",
+        "Poltergeist",
+        "Power Gem",
+        "Protect",
+        "Psychic",
+        "Psyshock",
+        "Recover",
+        "Reflect",
+        "Rest",
+        "Sandstorm",
+        "Shadow Ball",
+        "Shadow Punch",
+        "Sleep Talk",
+        "Steel Beam",
+        "Substitute",
+        "Surf",
+        "Thief",
+        "Thunder",
+        "Thunder Punch",
+        "Thunderbolt",
+        "Trick"
+      ],
+      "baseStats": {
+        "hp": 87,
+        "attack": 60,
+        "defense": 95,
+        "specialAttack": 133,
+        "specialDefense": 91,
+        "speed": 84,
+        "total": 550
+      },
+      "spritePath": "sprites/gholdengo_base_pixel.png",
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "sinistcha",
@@ -20003,7 +24288,8 @@
         "total": 508
       },
       "spritePath": "sprites/sinistcha_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "archaludon",
@@ -20085,7 +24371,8 @@
         "total": 600
       },
       "spritePath": "sprites/archaludon_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     },
     {
       "slug": "hydrapple",
@@ -20167,7 +24454,8 @@
         "total": 540
       },
       "spritePath": "sprites/hydrapple_base_pixel.png",
-      "megaEvolution": null
+      "megaEvolution": null,
+      "megaEvolutions": []
     }
   ]
 }

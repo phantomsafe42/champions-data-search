@@ -64,6 +64,7 @@ const elements = {
   moveCategorySearch: document.getElementById("move-category-search"),
   movePrioritySearch: document.getElementById("move-priority-search"),
   moveFieldSearch: document.getElementById("move-field-search"),
+  moveTargetSearch: document.getElementById("move-target-search"),
   moveClassificationSearch: document.getElementById("move-classification-search"),
   moveResultCount: document.getElementById("move-result-count"),
   moveResults: document.getElementById("move-results"),
@@ -620,6 +621,7 @@ function expandSeparateFormCards(speciesList) {
         spritePath: form.spritePath || species.spritePath,
         moves: [...new Set([...(species.moves || []), ...(form.moves || [])])],
         megaEvolution: null,
+        megaEvolutions: [],
         sourceSpeciesSlug: species.slug,
         isSeparateFormCard: true
       });
@@ -676,6 +678,7 @@ function populateOptions() {
   populateSelect(elements.moveTypeSearch, state.metadata.moveFilters.types, "Any type");
   populateSelect(elements.moveCategorySearch, state.metadata.moveFilters.categories.filter(name => name !== "Unknown"), "Any category");
   populateSelect(elements.moveFieldSearch, state.metadata.moveFilters.weatherTerrain, "Any field state");
+  populateSelect(elements.moveTargetSearch, state.metadata.moveFilters.targets || [], "Any target");
   populateSelect(elements.moveClassificationSearch, state.metadata.moveFilters.classifications, "Any classification");
   renderAbilityToggles();
 }
@@ -786,15 +789,19 @@ function getAvailableForms(species) {
     isMega: false
   }];
 
-  if (species.megaEvolution) {
+  const megaForms = Array.isArray(species.megaEvolutions) && species.megaEvolutions.length
+    ? species.megaEvolutions
+    : (species.megaEvolution ? [species.megaEvolution] : []);
+
+  for (const megaForm of megaForms) {
     forms.push({
-      id: "mega",
-      label: species.megaEvolution.name,
-      shortLabel: "Mega Form",
-      stats: species.megaEvolution.baseStats,
-      abilities: species.megaEvolution.abilities,
-      spritePath: species.megaEvolution.spritePath,
-      types: species.megaEvolution.types,
+      id: megaForm.formId || "mega",
+      label: megaForm.name,
+      shortLabel: megaForm.name.replace(/^Mega\s+/i, "") || "Mega Form",
+      stats: megaForm.baseStats,
+      abilities: megaForm.abilities,
+      spritePath: megaForm.spritePath,
+      types: megaForm.types,
       isMega: true
     });
   }
@@ -847,27 +854,22 @@ function chooseAutoForm(species, sortPlan = getActiveSortPlan()) {
     return forms[0];
   }
 
-  const baseForm = forms[0];
   const comparableSteps = sortPlan.filter(step => !["alphabetical", "dex"].includes(step.key));
   if (!comparableSteps.length) {
-    return baseForm;
+    return forms[0];
   }
 
-  for (const step of comparableSteps) {
-    const baseValue = getSortValueForStats(baseForm.stats, step.key);
-    for (const form of forms.slice(1)) {
-      const formValue = getSortValueForStats(form.stats, step.key);
-      const comparison = compareFormValues(formValue, baseValue, step.key, step.direction);
-      if (comparison < 0) {
-        return form;
-      }
-      if (comparison > 0) {
-        return baseForm;
+  return [...forms].sort((left, right) => {
+    for (const step of comparableSteps) {
+      const leftValue = getSortValueForStats(left.stats, step.key);
+      const rightValue = getSortValueForStats(right.stats, step.key);
+      const comparison = compareFormValues(leftValue, rightValue, step.key, step.direction);
+      if (comparison !== 0) {
+        return comparison;
       }
     }
-  }
-
-  return baseForm;
+    return forms.findIndex(form => form.id === left.id) - forms.findIndex(form => form.id === right.id);
+  })[0];
 }
 
 function getFormById(species, formId) {
@@ -939,6 +941,7 @@ function getSpeciesSearchNames(species) {
   return [
     species.primaryName,
     ...(species.availableNames || []),
+    ...((species.megaEvolutions || []).map(form => form.name)),
     species.megaEvolution?.name || ""
   ].filter(Boolean);
 }
@@ -1178,6 +1181,10 @@ function formatMovePpLabel(move) {
   return `PP: ${Number.isFinite(move.pp) ? move.pp : "-"}`;
 }
 
+function formatMoveTargetLabel(move) {
+  return `Target: ${move.target || "-"}`;
+}
+
 function formatMovePriorityLabel(priority) {
   const numericPriority = Number(priority) || 0;
   const priorityClass = numericPriority > 0
@@ -1203,7 +1210,7 @@ function formatMoveDataRow(move, { includeSendButton = true, learnpoolPick = fal
       <div class="move-primary">
         <div class="move-title-meta">
           <div class="row-title">${move.name}</div>
-          <div class="row-meta move-metadata">${formatMovePowerLabel(move)} | ${formatMoveAccuracyLabel(move)} | ${formatMovePpLabel(move)}</div>
+          <div class="row-meta move-metadata">${formatMovePowerLabel(move)} | ${formatMoveAccuracyLabel(move)} | ${formatMovePpLabel(move)} | ${formatMoveTargetLabel(move)}</div>
         </div>
         <div class="move-priority-corner">${formatMovePriorityLabel(move.priority)}</div>
       </div>
@@ -1650,6 +1657,7 @@ function getMoveSearchMatches() {
   const category = elements.moveCategorySearch.value;
   const priority = elements.movePrioritySearch.value;
   const field = elements.moveFieldSearch.value;
+  const target = elements.moveTargetSearch.value;
   const classification = elements.moveClassificationSearch.value;
 
   return state.metadata.moves.filter(move => {
@@ -1663,6 +1671,7 @@ function getMoveSearchMatches() {
       (!category || move.category === category) &&
       priorityMatch &&
       (!field || move.weatherTerrain.includes(field)) &&
+      (!target || move.target === target) &&
       (!classification || getMoveDisplayClassifications(move).includes(classification));
   }).sort((left, right) => left.name.localeCompare(right.name));
 }
@@ -3203,6 +3212,7 @@ for (const input of [
   elements.moveCategorySearch,
   elements.movePrioritySearch,
   elements.moveFieldSearch,
+  elements.moveTargetSearch,
   elements.moveClassificationSearch
 ]) {
   input.addEventListener("input", renderMoveSearch);

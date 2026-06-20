@@ -2,8 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 const OUTPUT_PATH = path.join(__dirname, "champions_dataset.json");
+const ITEMS_OUTPUT_PATH = path.join(__dirname, "champions_items.json");
 const SPRITES_DIR = path.join(__dirname, "sprites");
 const AVAILABLE_URL = "https://www.serebii.net/pokemonchampions/pokemon.shtml";
+const ITEMS_URL = "https://www.serebii.net/pokemonchampions/items.shtml";
 const MOVE_DATA_URL = "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/script_res/move_data.js";
 const ABILITY_DATA_URL = "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/script_res/ability_data.js";
 const SEREBII_BASE_URL = "https://www.serebii.net";
@@ -89,7 +91,7 @@ function parseNcpAbilityList(source) {
 }
 
 function parseAvailableEntries(html) {
-    const rows = [...html.matchAll(/<tr>\s*<td align="center" class="fooinfo">\s*#?(\d+)\s*<\/td>[\s\S]*?<a href="\/pokedex-champions\/([^"/]+)\/"><img[^>]*alt="([^"]+) Image"[^>]*class="stdsprite"\/?><\/a>[\s\S]*?<a href="\/pokedex-champions\/\2\/">([^<]+)<br \/><\/a>/gi)];
+    const rows = [...html.matchAll(/<tr>\s*<td align="center" class="(?:fooinfo|fooben)">\s*#?(\d+)\s*<\/td>[\s\S]*?<a href="\/pokedex-champions\/([^"/]+)\/"><img[^>]*alt="([^"]+) Image"[^>]*class="stdsprite"\/?><\/a>[\s\S]*?<a href="\/pokedex-champions\/\2\/">([^<]+)<br \/><\/a>/gi)];
     const bySlug = new Map();
 
     for (const row of rows) {
@@ -114,6 +116,30 @@ function parseAvailableEntries(html) {
     }
 
     return [...bySlug.values()].sort((a, b) => a.dexNo - b.dexNo || a.slug.localeCompare(b.slug));
+}
+
+function parseChampionsItems(html) {
+    const sectionRegex = /<div align="center"><font size="4"><b><u>([^<]+)<\/u><\/b><\/font><\/div>[\s\S]*?<table class="dextable" align="center"\s*>[\s\S]*?<tr>\s*<td width="32" class="fooevo">Picture<\/td>\s*<td class="fooevo">Name<\/td>\s*<td class="fooevo">Effect<\/td>\s*<td class="fooevo" width="50%">Location<\/td>\s*<\/tr>([\s\S]*?)<\/table>/gi;
+    const rowRegex = /<tr height="32">\s*<td class="cen">[\s\S]*?<\/td>\s*<td class="fooinfo"><a href="[^"]+">([^<]+)<\/a><\/td>\s*<td class="fooinfo">([\s\S]*?)<\/td><td class="fooinfo">([\s\S]*?)<\/td>\s*<\/tr>/gi;
+    const items = [];
+    let sectionMatch;
+
+    while ((sectionMatch = sectionRegex.exec(html)) !== null) {
+        const category = decodeHtml(sectionMatch[1]);
+        const tableBody = sectionMatch[2];
+        let rowMatch;
+
+        while ((rowMatch = rowRegex.exec(tableBody)) !== null) {
+            items.push({
+                category,
+                name: decodeHtml(rowMatch[1]),
+                effect: decodeHtml(rowMatch[2]),
+                location: decodeHtml(rowMatch[3]).replace(/\s+/g, " ").trim()
+            });
+        }
+    }
+
+    return items;
 }
 
 function parseTypes(pageHtml) {
@@ -434,36 +460,64 @@ function parseAlternateStats(pageHtml) {
     return sections;
 }
 
-function parseMegaEvolution(pageHtml) {
-    const megaIndex = pageHtml.indexOf('<a name="mega"></a><table class="dextable">');
-    if (megaIndex === -1) {
-        return null;
+function parseMegaEvolutions(pageHtml) {
+    const marker = '<a name="mega"></a><table class="dextable">';
+    const sections = [];
+    let startIndex = pageHtml.indexOf(marker);
+
+    while (startIndex !== -1) {
+        const nextIndex = pageHtml.indexOf(marker, startIndex + marker.length);
+        sections.push(pageHtml.slice(startIndex, nextIndex === -1 ? undefined : nextIndex));
+        startIndex = nextIndex;
     }
 
-    const section = pageHtml.slice(megaIndex);
-    const nameMatch = section.match(/<h3>(Mega[^<]+)<\/h3>/i);
-    if (!nameMatch) {
-        return null;
-    }
+    const megaForms = [];
 
-    const typeRowMatch = section.match(/<td class="fooevo">Type<\/td>[\s\S]*?<td class="cen">([\s\S]*?)<\/td>/i);
-    const abilityNames = [];
-    const abilityMatch = section.match(/<b>Abilities<\/b>:\s*([\s\S]*?)<\/td>/i);
-    if (abilityMatch) {
-        for (const match of abilityMatch[1].matchAll(/<b>([^<]+)<\/b>/g)) {
-            const name = decodeHtml(match[1]);
-            if (name && name !== "Abilities") {
-                abilityNames.push(name);
+    for (const section of sections) {
+        const nameMatch = section.match(/<h3>(Mega[^<]+)<\/h3>/i);
+        if (!nameMatch) {
+            continue;
+        }
+
+        const typeRowMatch = section.match(/<td class="fooevo">Type<\/td>[\s\S]*?<td class="cen">([\s\S]*?)<\/td>/i);
+        const abilityNames = [];
+        const abilityMatch = section.match(/<b>Abilities<\/b>:\s*([\s\S]*?)<\/td>/i);
+        if (abilityMatch) {
+            for (const match of abilityMatch[1].matchAll(/<b>([^<]+)<\/b>/g)) {
+                const name = decodeHtml(match[1]);
+                if (name && name !== "Abilities") {
+                    abilityNames.push(name);
+                }
             }
         }
+
+        megaForms.push({
+            name: decodeHtml(nameMatch[1]).replace(/\s+/g, " ").trim(),
+            types: typeRowMatch ? parseTypesFromHtml(typeRowMatch[1]) : [],
+            abilities: [...new Set(abilityNames)],
+            baseStats: parseStatBlock(section)
+        });
     }
 
-    return {
-        name: decodeHtml(nameMatch[1]).replace(/\s+/g, " ").trim(),
-        types: typeRowMatch ? parseTypesFromHtml(typeRowMatch[1]) : [],
-        abilities: [...new Set(abilityNames)],
-        baseStats: parseStatBlock(section)
-    };
+    return megaForms;
+}
+
+function getMegaFormId(megaName) {
+    const normalized = normalizeName(megaName).replace(/^mega/, "");
+    if (normalized.endsWith("x")) {
+        return "mega-x";
+    }
+    if (normalized.endsWith("y")) {
+        return "mega-y";
+    }
+    return "mega";
+}
+
+function getMegaFamilyKey(megaName) {
+    const formId = getMegaFormId(megaName);
+    if (formId === "mega-x") return "megax";
+    if (formId === "mega-y") return "megay";
+    return "mega";
 }
 
 async function cacheSprite(slug, formId, spriteUrls) {
@@ -502,8 +556,8 @@ async function cacheSprite(slug, formId, spriteUrls) {
 }
 
 function buildSpriteCandidates(primaryName, formId, fallbackUrl) {
-    const showdownId = formId === "mega"
-        ? buildShowdownId(primaryName, "mega")
+    const showdownId = formId.startsWith("mega")
+        ? buildShowdownId(primaryName, formId === "mega-x" ? "megax" : formId === "mega-y" ? "megay" : "mega")
         : buildShowdownId(primaryName, "base");
     return [
         `${SHOWDOWN_GEN5_BASE_URL}${showdownId}.png`,
@@ -525,7 +579,7 @@ async function buildSpeciesDataset(entry) {
     const pageHtml = await fetchText(url);
     const baseSpriteUrl = parseBaseSpriteUrl(pageHtml);
     const megaSpriteUrl = parseMegaSpriteUrl(pageHtml);
-    const megaEvolution = parseMegaEvolution(pageHtml);
+    const megaEvolutions = parseMegaEvolutions(pageHtml);
     const baseName = entry.availableNames[0] || entry.slug;
     const typeRows = parseTypeRows(pageHtml);
     const abilitySegments = parseAbilitySegments(pageHtml);
@@ -547,10 +601,16 @@ async function buildSpeciesDataset(entry) {
         moves: baseMoves,
         baseStats: parseBaseStats(pageHtml),
         spritePath: await cacheSprite(entry.slug, "base", buildSpriteCandidates(baseName, "base", baseSpriteUrl)),
-        megaEvolution: megaEvolution ? {
+        megaEvolution: megaEvolutions[0] ? {
+            ...megaEvolutions[0],
+            formId: getMegaFormId(megaEvolutions[0].name),
+            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolutions[0].name), buildSpriteCandidates(baseName, getMegaFormId(megaEvolutions[0].name), megaSpriteUrl))
+        } : null,
+        megaEvolutions: await Promise.all(megaEvolutions.map(async megaEvolution => ({
             ...megaEvolution,
-            spritePath: await cacheSprite(entry.slug, "mega", buildSpriteCandidates(baseName, "mega", megaSpriteUrl))
-        } : null
+            formId: getMegaFormId(megaEvolution.name),
+            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolution.name), buildSpriteCandidates(baseName, getMegaFormId(megaEvolution.name), megaSpriteUrl))
+        })))
     }];
 
     const typeByFamily = new Map(typeRows.slice(1).map(row => [normalizeFormFamily(row.label), row.types]));
@@ -582,7 +642,8 @@ async function buildSpeciesDataset(entry) {
             moves: section.moves,
             baseStats: statsSection.stats,
             spritePath: await cacheSprite(buildRegionalSlug(entry.slug, family), "base", buildRegionalSpriteCandidates(baseName, family, selector?.dataKey)),
-            megaEvolution: null
+            megaEvolution: null,
+            megaEvolutions: []
         });
     }
 
@@ -590,13 +651,15 @@ async function buildSpeciesDataset(entry) {
 }
 
 async function main() {
-    const [availableHtml, moveDataSource, abilityDataSource] = await Promise.all([
+    const [availableHtml, itemsHtml, moveDataSource, abilityDataSource] = await Promise.all([
         fetchText(AVAILABLE_URL),
+        fetchText(ITEMS_URL),
         fetchText(MOVE_DATA_URL),
         fetchText(ABILITY_DATA_URL)
     ]);
 
     const availableEntries = parseAvailableEntries(availableHtml);
+    const items = parseChampionsItems(itemsHtml);
     const ncpMoves = parseNcpMoveList(moveDataSource);
     const ncpAbilities = parseNcpAbilityList(abilityDataSource);
 
@@ -621,6 +684,7 @@ async function main() {
         generatedAt: new Date().toISOString(),
         source: {
             availablePokemon: AVAILABLE_URL,
+            items: ITEMS_URL,
             moveData: MOVE_DATA_URL,
             abilityData: ABILITY_DATA_URL
         },
@@ -641,9 +705,17 @@ async function main() {
     };
 
     fs.writeFileSync(OUTPUT_PATH, JSON.stringify(payload, null, 2));
+    fs.writeFileSync(ITEMS_OUTPUT_PATH, JSON.stringify({
+        source: ITEMS_URL,
+        generatedAt: payload.generatedAt,
+        count: items.length,
+        items
+    }, null, 2));
 
     console.log(`Wrote ${OUTPUT_PATH}`);
+    console.log(`Wrote ${ITEMS_OUTPUT_PATH}`);
     console.log(`Species: ${species.length}`);
+    console.log(`Items: ${items.length}`);
     console.log(`Unique moves: ${learnedMoveNames.length}`);
     console.log(`Unique abilities: ${usedAbilityNames.length}`);
     console.log(`Moves missing from NCP list: ${movesMissingFromNcp.length}`);
