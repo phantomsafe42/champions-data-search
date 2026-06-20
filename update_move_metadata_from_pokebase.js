@@ -5,6 +5,7 @@ const vm = require("vm");
 const POKEBASE_MOVES_URL = "https://pokebase.app/pokemon-champions/moves";
 const SEREBII_MOVES_URL = "https://www.serebii.net/pokemonchampions/moves.shtml";
 const METADATA_PATH = path.join(__dirname, "champions_search_metadata.json");
+const DATASET_PATH = path.join(__dirname, "champions_dataset.json");
 const REMOVED_CHAMPIONS_MOVES = new Set(["Pound"].map(normalizeName));
 const ADDED_CHAMPIONS_MOVES = [
   ["Milk Drink", { classification: ["healing"] }],
@@ -342,32 +343,55 @@ async function main() {
   );
 
   const metadata = JSON.parse(fs.readFileSync(METADATA_PATH, "utf8"));
+  const dataset = JSON.parse(fs.readFileSync(DATASET_PATH, "utf8"));
   const unmatched = [];
   const startingMoveCount = metadata.moves.length;
+  const desiredMoveNames = [
+    ...(Array.isArray(dataset.moveNames) ? dataset.moveNames : []),
+    ...ADDED_CHAMPIONS_MOVES.map(([name]) => name)
+  ];
+  const desiredMoveNameSet = new Set(desiredMoveNames.map(normalizeName));
+  const existingMoveByName = new Map(
+    metadata.moves.map(move => [normalizeName(move.name), move])
+  );
 
-  metadata.moves = metadata.moves.filter(move => !REMOVED_CHAMPIONS_MOVES.has(normalizeName(move.name))).map(move => {
-    const serebiiMove = serebiiByName.get(normalizeName(move.name));
-    const pokebaseMove = pokebaseByName.get(normalizeName(move.name));
-    if (!serebiiMove && !pokebaseMove) {
-      unmatched.push(move.name);
-      return move;
-    }
-    return mergeMove(move, serebiiMove, pokebaseMove);
-  });
+  metadata.moves = desiredMoveNames
+    .filter(name => !REMOVED_CHAMPIONS_MOVES.has(normalizeName(name)))
+    .filter((name, index, names) => names.findIndex(other => normalizeName(other) === normalizeName(name)) === index)
+    .map(name => {
+      const existingMove = existingMoveByName.get(normalizeName(name)) || {
+        name,
+        type: "Unknown",
+        category: "Unknown",
+        priority: 0,
+        classification: [],
+        weatherTerrain: [],
+        target: "",
+        targetDetail: "",
+        description: "",
+        power: null,
+        accuracy: null,
+        pp: null
+      };
+      const overrideEntry = ADDED_CHAMPIONS_MOVES.find(([addedName]) => normalizeName(addedName) === normalizeName(name));
+      const overrides = overrideEntry?.[1] || {};
+      const serebiiMove = serebiiByName.get(normalizeName(name));
+      const pokebaseMove = pokebaseByName.get(normalizeName(name));
+      if (!serebiiMove && !pokebaseMove) {
+        unmatched.push(name);
+        return existingMove;
+      }
+      return mergeMove({
+        ...existingMove,
+        ...overrides,
+        name
+      }, serebiiMove, pokebaseMove);
+    });
 
-  for (const [name, overrides] of ADDED_CHAMPIONS_MOVES) {
-    if (metadata.moves.some(move => normalizeName(move.name) === normalizeName(name))) {
-      continue;
-    }
-
-    const serebiiMove = serebiiByName.get(normalizeName(name));
-    const pokebaseMove = pokebaseByName.get(normalizeName(name));
-    if (!serebiiMove && !pokebaseMove) {
-      unmatched.push(name);
-      continue;
-    }
-
-    metadata.moves.push(createMove(serebiiMove, pokebaseMove, overrides));
+  const droppedMoves = [...existingMoveByName.keys()]
+    .filter(name => !desiredMoveNameSet.has(name) && !REMOVED_CHAMPIONS_MOVES.has(name));
+  if (droppedMoves.length) {
+    console.log(`Dropped stale moves: ${droppedMoves.map(name => existingMoveByName.get(name)?.name || name).join(", ")}`);
   }
 
   metadata.moves.sort((left, right) => left.name.localeCompare(right.name));

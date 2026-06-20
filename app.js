@@ -4,6 +4,7 @@ const state = {
   expandedKey: null,
   promptPlan: null,
   abilityDescriptions: {},
+  abilityFilterSources: null,
   items: [],
   formOverrides: {},
   speedDrawerOpen: false,
@@ -388,6 +389,8 @@ const ABILITY_STAT_OVERRIDES = {
     "Beast Boost",
     "Chilling Neigh",
     "Costar",
+    "Download",
+    "Eelevate",
     "Defiant",
     "Embody Aspect",
     "Flower Gift",
@@ -396,20 +399,29 @@ const ABILITY_STAT_OVERRIDES = {
     "Hustle",
     "Intimidate",
     "Moxie",
+    "Moody",
     "Opportunist",
     "Orichalcum Pulse",
+    "Protosynthesis",
     "Pure Power",
+    "Quark Drive",
     "Slow Start",
     "Supreme Overlord",
     "Toxic Boost",
     "Wind Rider"
   ],
   defense: [
+    "Costar",
     "Dauntless Shield",
+    "Eelevate",
     "Embody Aspect",
     "Fur Coat",
     "Grass Pelt",
     "Marvel Scale",
+    "Moody",
+    "Opportunist",
+    "Protosynthesis",
+    "Quark Drive",
     "Stamina",
     "Water Compaction",
     "Weak Armor",
@@ -418,24 +430,44 @@ const ABILITY_STAT_OVERRIDES = {
   specialAttack: [
     "Berserk",
     "Competitive",
+    "Costar",
+    "Download",
+    "Eelevate",
     "Electromorphosis",
     "Flare Boost",
     "Grim Neigh",
     "Hadron Engine",
     "Minus",
+    "Moody",
+    "Opportunist",
     "Plus",
+    "Protosynthesis",
+    "Quark Drive",
     "Solar Power",
     "Supreme Overlord",
     "Wind Power"
   ],
   specialDefense: [
+    "Costar",
+    "Eelevate",
+    "Embody Aspect",
     "Flower Gift",
-    "Ice Scales"
+    "Ice Scales",
+    "Moody",
+    "Opportunist",
+    "Protosynthesis",
+    "Quark Drive"
   ],
   speed: [
     "Chlorophyll",
+    "Costar",
+    "Eelevate",
     "Embody Aspect",
+    "Moody",
+    "Opportunist",
+    "Protosynthesis",
     "Quick Feet",
+    "Quark Drive",
     "Sand Rush",
     "Slush Rush",
     "Slow Start",
@@ -447,18 +479,35 @@ const ABILITY_STAT_OVERRIDES = {
     "Weak Armor"
   ],
   accuracy: [
+    "Costar",
     "Compoundeyes",
     "Hustle",
     "Keen Eye",
+    "Moody",
     "No Guard",
+    "Opportunist",
     "Tangled Feet"
   ],
   evasion: [
+    "Costar",
+    "Moody",
+    "Opportunist",
     "Sand Veil",
     "Snow Cloak",
     "Supersweet Syrup",
     "Tangled Feet"
   ]
+};
+
+const LOCAL_ABILITY_FILTER_ADDITIONS = {
+  active: ["Eelevate"],
+  weatherTerrain: ["Mega Sol"],
+  typeEffect: ["Effect Spore"],
+  target: ["Illusion"]
+};
+
+const LOCAL_ABILITY_FILTER_REMOVALS = {
+  opponent: ["Illusion"]
 };
 
 const FIELD_RELATION_CATEGORIES = {
@@ -537,6 +586,26 @@ function normalizeName(value) {
     .trim();
 }
 
+function matchesAbilityName(left, right) {
+  return normalizeName(left) === normalizeName(right);
+}
+
+function getAbilitySourceGroup(groupKey) {
+  return state.abilityFilterSources?.filters?.[groupKey]?.abilities || [];
+}
+
+function hasAbilitySourceMatch(name, groupKey) {
+  return getAbilitySourceGroup(groupKey).some(sourceName => matchesAbilityName(sourceName, name));
+}
+
+function hasLocalAbilityFilterAddition(name, tag) {
+  return (LOCAL_ABILITY_FILTER_ADDITIONS[tag] || []).some(filterName => matchesAbilityName(filterName, name));
+}
+
+function hasLocalAbilityFilterRemoval(name, tag) {
+  return (LOCAL_ABILITY_FILTER_REMOVALS[tag] || []).some(filterName => matchesAbilityName(filterName, name));
+}
+
 function setStatus(text) {
   elements.status.textContent = text;
 }
@@ -552,7 +621,7 @@ function canonicalName(input, options) {
 
 function getAbilityDescription(abilityName) {
   const entry = state.abilityDescriptions[normalizeName(abilityName)];
-  return entry?.latest || "Description unavailable.";
+  return entry?.byGeneration?.["9"] || entry?.latest || "Description unavailable.";
 }
 
 function getDetailedAbilityDescription(abilityName) {
@@ -560,6 +629,9 @@ function getDetailedAbilityDescription(abilityName) {
   if (!entry) {
     if (abilityName === "Dragonize") {
       return "Normal-type moves become Dragon-type and receive a Pixilate-style power boost.";
+    }
+    if (abilityName === "Eelevate") {
+      return "Raises this Pokemon's highest stat by one stage when it faints another Pokemon.";
     }
     if (abilityName === "Mega Sol") {
       return "The user's attacks act as if sun is active regardless of the actual weather.";
@@ -1721,16 +1793,29 @@ function getAllAbilityEntries() {
 function classifyAbility(name, description) {
   const text = `${name} ${description}`.toLowerCase();
   const physicalAttackText = text.replace(/\bspecial attack\b/g, "spastat");
+  const typeInteractionPattern = /\b(?:normal|fire|water|electric|grass|ice|fighting|poison|ground|flying|psychic|bug|rock|ghost|dragon|dark|steel|fairy)-type\b|\b(?:normal|fire|water|electric|grass|ice|fighting|poison|ground|flying|psychic|bug|rock|ghost|dragon|dark|steel|fairy)\s+type\b|\bsame-type attack bonus\b|\bmoves? of the same type\b|\bchanges? the pok[eé]mon'?s type\b|\bchanges? the type\b|\bbecome(?:s)? [a-z-]+-type\b|\bhit by (?:a|an) [a-z-]+-type move\b|\bdraws? in all [a-z-]+-type moves\b|\bimmune to all [a-z-]+-type moves\b/i;
   const tags = new Set();
-  if (/\bwhen\b|\bupon\b|\bif\b|\bafter\b|\btrigger|activates?|enters?|hit by|damaged|contact|switch/i.test(text)) {
+  const activeByRegex = /\bwhen\b|\bupon\b|\bif\b|\bafter\b|\btrigger|activates?|enters?|hit by|damaged|contact|switch/i.test(text);
+  const teamByRegex = /\bally|allies|team|party|user's team\b/.test(text);
+  const targetByRegex = /\b(?:the|a|an)\s+target\b/.test(text);
+  const opponentByRegex = /\bopposing|opponent|enemy|foe\b/.test(text);
+  const hpByRegex = /\bhp\b|heals?|healing|restores?|recoil|max hp/.test(text);
+  const priorityByRegex = /\bpriority\b|prankster|triage|quick draw|armor tail|queenly majesty/.test(text);
+  const typeEffectByRegex = typeInteractionPattern.test(text);
+  const weatherByRegex = /\b(?:sun|sunlight|rain|sandstorm|sand|snow|hail|terrain|weather|drought|drizzle|surge|mega sol|chlorophyll|swift swim|slush rush|sand rush)\b/.test(text);
+
+  if (hasAbilitySourceMatch(name, "active") || hasLocalAbilityFilterAddition(name, "active") || activeByRegex) {
     tags.add("active");
   } else {
     tags.add("passive");
   }
   if (/\buser\b|this pok[eé]mon|holder|itself|its\b|own\b/.test(text)) tags.add("user");
-  if (/\bally|allies|team|party|user's team\b/.test(text)) tags.add("team");
-  if (/\btarget|attacker|foe|opposing|opponent|enemy\b/.test(text)) tags.add("target");
-  if (/\bopposing|opponent|enemy|foe\b/.test(text)) tags.add("opponent");
+  if ((hasAbilitySourceMatch(name, "team") || teamByRegex || hasLocalAbilityFilterAddition(name, "team")) &&
+    !hasLocalAbilityFilterRemoval(name, "team")) tags.add("team");
+  if ((targetByRegex || hasLocalAbilityFilterAddition(name, "target")) &&
+    !hasLocalAbilityFilterRemoval(name, "target")) tags.add("target");
+  if (((hasAbilitySourceMatch(name, "opponentCandidates") && opponentByRegex) || opponentByRegex || hasLocalAbilityFilterAddition(name, "opponent")) &&
+    !hasLocalAbilityFilterRemoval(name, "opponent")) tags.add("opponent");
   const statRules = [
     ["hp", /\bhp\b|heals?|healing|restores?|recoil|max hp/],
     ["attack", /\battack (?:stat|one stage|two stages|boost|boosted|lowered|raises|raised|lowers|halved|doubled)|(?:raises|raised|boosts|boosted|lowers|lowered|halves|doubles|increases) (?:its |the |opponents'? |user's )?attack\b|\batk\b/, physicalAttackText],
@@ -1742,16 +1827,23 @@ function classifyAbility(name, description) {
     ["evasion", /\bevasion\b/]
   ];
   for (const [tag, pattern, sourceText = text] of statRules) {
-    if (pattern.test(sourceText)) tags.add(tag);
+    const patternMatch = pattern.test(sourceText);
+    if (((hasAbilitySourceMatch(name, "statCandidates") && patternMatch) || patternMatch || hasLocalAbilityFilterAddition(name, tag)) &&
+      !hasLocalAbilityFilterRemoval(name, tag)) tags.add(tag);
   }
   for (const [tag, abilityNames] of Object.entries(ABILITY_STAT_OVERRIDES)) {
     if (abilityNames.some(abilityName => normalizeName(abilityName) === normalizeName(name))) {
       tags.add(tag);
     }
   }
-  if (/\bpriority\b|prankster|triage|quick draw|armor tail|queenly majesty/.test(text)) tags.add("priority");
-  if (/\btype\b|fire|water|grass|electric|ground|ghost|dragon|steel|poison|ice|rock|fairy|dark|psychic|normal|fighting|flying|bug/.test(text)) tags.add("typeEffect");
-  if (/\bsun|sunlight|rain|sandstorm|sand|snow|hail|terrain|weather|drought|drizzle|surge|mega sol|chlorophyll|swift swim|slush rush|sand rush\b/.test(text)) tags.add("weatherTerrain");
+  if ((hasAbilitySourceMatch(name, "hp") || hpByRegex || hasLocalAbilityFilterAddition(name, "hp")) &&
+    !hasLocalAbilityFilterRemoval(name, "hp")) tags.add("hp");
+  if ((hasAbilitySourceMatch(name, "priority") || priorityByRegex || hasLocalAbilityFilterAddition(name, "priority")) &&
+    !hasLocalAbilityFilterRemoval(name, "priority")) tags.add("priority");
+  if ((hasAbilitySourceMatch(name, "typeEffect") || typeEffectByRegex || hasLocalAbilityFilterAddition(name, "typeEffect")) &&
+    !hasLocalAbilityFilterRemoval(name, "typeEffect")) tags.add("typeEffect");
+  if ((hasAbilitySourceMatch(name, "weatherTerrain") || weatherByRegex || hasLocalAbilityFilterAddition(name, "weatherTerrain")) &&
+    !hasLocalAbilityFilterRemoval(name, "weatherTerrain")) tags.add("weatherTerrain");
   tags.add("user");
   return [...tags];
 }
@@ -2713,9 +2805,38 @@ function findOnSpeedGraph(formLabel) {
   target.classList.add("speed-row-flash");
 }
 
+function getResultCardByKey(entryKey) {
+  return [...elements.results.querySelectorAll(".result-card")]
+    .find(card => card.dataset.entryKey === entryKey) || null;
+}
+
+function rerenderResultsPreservingCard(entryKey, renderCallback) {
+  const previousCard = entryKey ? getResultCardByKey(entryKey) : null;
+  const previousTop = previousCard ? previousCard.getBoundingClientRect().top : null;
+
+  renderCallback();
+
+  if (previousTop === null) {
+    return;
+  }
+
+  const nextCard = getResultCardByKey(entryKey);
+  if (!nextCard) {
+    return;
+  }
+
+  const nextTop = nextCard.getBoundingClientRect().top;
+  const delta = nextTop - previousTop;
+  if (delta) {
+    window.scrollBy(0, delta);
+  }
+}
+
 function toggleExpanded(key) {
-  state.expandedKey = state.expandedKey === key ? null : key;
-  renderResults();
+  rerenderResultsPreservingCard(key, () => {
+    state.expandedKey = state.expandedKey === key ? null : key;
+    renderResults();
+  });
 }
 
 function toggleForm(slug) {
@@ -2725,8 +2846,13 @@ function toggleForm(slug) {
     return;
   }
 
-  state.formOverrides[slug] = getNextManualForm(species).id;
-  renderResults();
+  const activeEntryKey = state.expandedKey && state.expandedKey.startsWith(`${slug}:`)
+    ? state.expandedKey
+    : null;
+  rerenderResultsPreservingCard(activeEntryKey, () => {
+    state.formOverrides[slug] = getNextManualForm(species).id;
+    renderResults();
+  });
 }
 
 function setPromptMatches(plan) {
@@ -3018,6 +3144,7 @@ function renderResults() {
     const entryKey = getEntryKey(entry);
     const card = document.createElement("article");
     card.className = `result-card${state.expandedKey === entryKey ? " expanded" : ""}`;
+    card.dataset.entryKey = entryKey;
     const displayForm = getDisplayFormForEntry(entry, activeSortPlan);
 
     const matchedMoves = selectedMoves.filter(moveName =>
@@ -3143,11 +3270,12 @@ function clearFilters() {
 }
 
 async function loadDataset() {
-  const [datasetResponse, metadataResponse, abilityResponse, itemResponse] = await Promise.all([
+  const [datasetResponse, metadataResponse, abilityResponse, itemResponse, abilityFilterSourceResponse] = await Promise.all([
     fetch("champions_dataset.json", { cache: "no-store" }),
     fetch("champions_search_metadata.json", { cache: "no-store" }),
     fetch("ability_descriptions.json", { cache: "no-store" }),
-    fetch("champions_items.json", { cache: "no-store" })
+    fetch("champions_items.json", { cache: "no-store" }),
+    fetch("ability_filter_sources.json", { cache: "no-store" })
   ]);
   if (!datasetResponse.ok) {
     throw new Error(`Could not load champions_dataset.json (${datasetResponse.status})`);
@@ -3161,12 +3289,16 @@ async function loadDataset() {
   if (!itemResponse.ok) {
     throw new Error(`Could not load champions_items.json (${itemResponse.status})`);
   }
+  if (!abilityFilterSourceResponse.ok) {
+    throw new Error(`Could not load ability_filter_sources.json (${abilityFilterSourceResponse.status})`);
+  }
 
   state.dataset = await datasetResponse.json();
   state.dataset.species = expandSeparateFormCards(state.dataset.species);
   state.metadata = await metadataResponse.json();
   state.abilityDescriptions = await abilityResponse.json();
   state.items = (await itemResponse.json()).items || [];
+  state.abilityFilterSources = await abilityFilterSourceResponse.json();
   loadSetlist();
   await loadBoxData();
   populateOptions();

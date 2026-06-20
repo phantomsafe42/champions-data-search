@@ -483,6 +483,20 @@
       "targetDetail": "Self"
     },
     {
+      "name": "Barb Barrage",
+      "type": "Poison",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "Selected Target",
+      "targetDetail": "Selected Target",
+      "description": "Has a 50% chance of poisoning the target. This move's power is doubled if the target is poisoned or badly poisoned.",
+      "power": 60,
+      "accuracy": 100,
+      "pp": 12
+    },
+    {
       "name": "Baton Pass",
       "type": "Normal",
       "category": "Status",
@@ -4036,6 +4050,20 @@
       "targetDetail": "Team"
     },
     {
+      "name": "Make It Rain",
+      "type": "Steel",
+      "category": "Special",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "All Opponents",
+      "targetDetail": "All Adjacent Foes",
+      "description": "Lowers the user's Sp. Atk stat by 2 stages.",
+      "power": 120,
+      "accuracy": 95,
+      "pp": 8
+    },
+    {
       "name": "Matcha Gotcha",
       "type": "Grass",
       "category": "Special",
@@ -4183,10 +4211,9 @@
         "healing"
       ],
       "weatherTerrain": [],
-      "description": "Restores 1/2 of the user's max HP.",
+      "description": "The user restores its own HP by up to half its max HP.",
       "accuracy": 101,
       "pp": 8,
-      "power": null,
       "target": "Self",
       "targetDetail": "Self"
     },
@@ -4446,6 +4473,20 @@
       "pp": 20,
       "target": "Selected Target",
       "targetDetail": "Selected Target"
+    },
+    {
+      "name": "No Retreat",
+      "type": "Fighting",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "Self",
+      "targetDetail": "Self",
+      "description": "Boosts the user's Attack, Defense, Sp. Atk, Sp. Def, and Speed stats by 1 stage. The user gains the Can't Escape status. This move can only be used once per time the user enters battle— otherwise it will fail.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 8
     },
     {
       "name": "Noble Roar",
@@ -5097,6 +5138,20 @@
       "power": null,
       "target": "Self",
       "targetDetail": "Self"
+    },
+    {
+      "name": "Rage Fist",
+      "type": "Ghost",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "Selected Target",
+      "targetDetail": "Selected Target",
+      "description": "This move's power is increased by 50 each time the user takes damage from a move, up to a maximum power of 350. If the user switches out of battle, the move's power returns to its usual value.",
+      "power": 50,
+      "accuracy": 100,
+      "pp": 12
     },
     {
       "name": "Rage Powder",
@@ -6153,6 +6208,20 @@
       "targetDetail": "Self"
     },
     {
+      "name": "Spirit Break",
+      "type": "Fairy",
+      "category": "Physical",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "Selected Target",
+      "targetDetail": "Selected Target",
+      "description": "Lowers the target's Sp. Atk stat by 1 stage.",
+      "power": 75,
+      "accuracy": 100,
+      "pp": 16
+    },
+    {
       "name": "Spirit Shackle",
       "type": "Ghost",
       "category": "Physical",
@@ -6982,6 +7051,20 @@
       "targetDetail": "Self"
     },
     {
+      "name": "Topsy-Turvy",
+      "type": "Dark",
+      "category": "Status",
+      "priority": 0,
+      "classification": [],
+      "weatherTerrain": [],
+      "target": "Selected Target",
+      "targetDetail": "Selected Target",
+      "description": "Inverts all stat changes affecting the target.",
+      "power": null,
+      "accuracy": 101,
+      "pp": 20
+    },
+    {
       "name": "Torch Song",
       "type": "Fire",
       "category": "Special",
@@ -7168,7 +7251,7 @@
         "multi-hit"
       ],
       "weatherTerrain": [],
-      "description": "The user attacks 3 times in a row-first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
+      "description": "The user attacks 3 times in a rowâ€”first with a power of 20 then with a power of 40 then with a power of 60. The attack ends if the user misses.",
       "power": 20,
       "accuracy": 90,
       "pp": 12,
