@@ -565,6 +565,37 @@ function buildSpriteCandidates(primaryName, formId, fallbackUrl) {
     ].filter(Boolean);
 }
 
+function buildMegaArtFallbackUrl(dexNo, formId) {
+    const paddedDexNo = String(dexNo || "").padStart(3, "0");
+    if (!paddedDexNo || paddedDexNo === "000") {
+        return "";
+    }
+
+    if (formId === "mega-x") {
+        return makeAbsoluteUrl(`/legendsz-a/pokemon/${paddedDexNo}-mx.png`);
+    }
+    if (formId === "mega-y") {
+        return makeAbsoluteUrl(`/legendsz-a/pokemon/${paddedDexNo}-my.png`);
+    }
+    if (formId === "mega-z") {
+        return makeAbsoluteUrl(`/legendsz-a/pokemon/${paddedDexNo}-mz.png`);
+    }
+    if (formId === "mega") {
+        return makeAbsoluteUrl(`/legendsz-a/pokemon/${paddedDexNo}-m.png`);
+    }
+
+    return "";
+}
+
+function buildMegaSpriteCandidates(primaryName, formId, fallbackUrl, dexNo) {
+    const showdownId = buildShowdownId(primaryName, formId === "mega-x" ? "megax" : formId === "mega-y" ? "megay" : formId === "mega-z" ? "megaz" : "mega");
+    return [
+        `${SHOWDOWN_GEN5_BASE_URL}${showdownId}.png`,
+        buildMegaArtFallbackUrl(dexNo, formId),
+        fallbackUrl
+    ].filter(Boolean);
+}
+
 function buildRegionalSpriteCandidates(baseName, family, dataKey) {
     const showdownId = buildShowdownId(baseName, family);
     const serebiiHomeUrl = dataKey ? makeAbsoluteUrl(`/pokemonhome/pokemon/${dataKey}.png`) : "";
@@ -604,12 +635,12 @@ async function buildSpeciesDataset(entry) {
         megaEvolution: megaEvolutions[0] ? {
             ...megaEvolutions[0],
             formId: getMegaFormId(megaEvolutions[0].name),
-            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolutions[0].name), buildSpriteCandidates(baseName, getMegaFormId(megaEvolutions[0].name), megaSpriteUrl))
+            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolutions[0].name), buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolutions[0].name), megaSpriteUrl, entry.dexNo))
         } : null,
         megaEvolutions: await Promise.all(megaEvolutions.map(async megaEvolution => ({
             ...megaEvolution,
             formId: getMegaFormId(megaEvolution.name),
-            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolution.name), buildSpriteCandidates(baseName, getMegaFormId(megaEvolution.name), megaSpriteUrl))
+            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolution.name), buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolution.name), megaSpriteUrl, entry.dexNo))
         })))
     }];
 

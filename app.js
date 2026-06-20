@@ -1304,8 +1304,29 @@ function getNextManualForm(species) {
   return forms[(currentIndex + 1) % forms.length];
 }
 
+function getMegaToggleLabel(form) {
+  if (form.id === "mega-x") {
+    return "Mega X";
+  }
+  if (form.id === "mega-y") {
+    return "Mega Y";
+  }
+  if (form.id === "mega-z") {
+    return "Mega Z";
+  }
+  return "Mega Form";
+}
+
 function getFormToggleButtonText(species) {
+  const forms = getAvailableForms(species);
   const nextForm = getNextManualForm(species);
+  const alternateForms = forms.filter(form => form.id !== "base");
+  const onlyMegaAlternates = alternateForms.length > 0 && alternateForms.every(form => form.isMega);
+
+  if (nextForm.isMega && onlyMegaAlternates) {
+    return `Show ${getMegaToggleLabel(nextForm)}`;
+  }
+
   return `Show ${nextForm.shortLabel || nextForm.label}`;
 }
 
@@ -3233,8 +3254,10 @@ function renderResults() {
     }
     for (const segmentButton of card.querySelectorAll(".form-segment-button")) {
       segmentButton.addEventListener("click", () => {
-        state.formOverrides[species.slug] = segmentButton.dataset.formId;
-        renderResults();
+        rerenderResultsPreservingCard(entryKey, () => {
+          state.formOverrides[species.slug] = segmentButton.dataset.formId;
+          renderResults();
+        });
       });
     }
     card.querySelector(".speed-graph-button").addEventListener("click", () => findOnSpeedGraph(displayForm.label));
