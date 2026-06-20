@@ -2869,16 +2869,16 @@ function toggleExpanded(key) {
   });
 }
 
-function toggleForm(slug) {
+function toggleForm(slug, entryKey = null) {
   const species = state.dataset.species.find(entry => entry.slug === slug);
   const forms = species ? getAvailableForms(species) : [];
   if (forms.length < 2) {
     return;
   }
 
-  const activeEntryKey = state.expandedKey && state.expandedKey.startsWith(`${slug}:`)
+  const activeEntryKey = entryKey || (state.expandedKey && state.expandedKey.startsWith(`${slug}:`)
     ? state.expandedKey
-    : null;
+    : null);
   rerenderResultsPreservingCard(activeEntryKey, () => {
     state.formOverrides[slug] = getNextManualForm(species).id;
     renderResults();
@@ -3259,7 +3259,7 @@ function renderResults() {
     }
     const toggleButton = card.querySelector(".form-toggle-button");
     if (toggleButton) {
-      toggleButton.addEventListener("click", () => toggleForm(species.slug));
+      toggleButton.addEventListener("click", () => toggleForm(species.slug, entryKey));
     }
     for (const segmentButton of card.querySelectorAll(".form-segment-button")) {
       segmentButton.addEventListener("click", () => {
