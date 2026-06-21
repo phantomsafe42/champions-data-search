@@ -1212,6 +1212,14 @@ function formatStats(stats) {
   `).join("");
 }
 
+function formatNatureOptionLabel(nature) {
+  if (!nature?.up || !nature?.down) {
+    return `${nature?.name || "Unknown"} (neutral)`;
+  }
+
+  return `${nature.name} (+${SORT_LABELS[nature.up]}, -${SORT_LABELS[nature.down]})`;
+}
+
 function formatTypeIcon(typeName) {
   const normalizedType = normalizeName(typeName);
   if (!normalizedType || normalizedType === "unknown") {
@@ -1490,7 +1498,7 @@ function formatAdjustableStatTable(stats) {
         <label class="expanded-nature-select">
           <span>Stat Alignment</span>
           <select class="expanded-nature-input">
-            ${NATURES.map(nature => `<option value="${nature.name}">${nature.name}</option>`).join("")}
+            ${NATURES.map(nature => `<option value="${nature.name}">${formatNatureOptionLabel(nature)}</option>`).join("")}
           </select>
         </label>
         <span class="expanded-ev-total">0/${CHAMPIONS_MAX_TOTAL_EVS}</span>
@@ -2065,7 +2073,7 @@ function formatEditableStatTable(config) {
         <label class="expanded-nature-select">
           <span>Stat Alignment</span>
           <select class="expanded-nature-input">
-            ${NATURES.map(natureOption => `<option value="${natureOption.name}"${natureOption.name === config.nature ? " selected" : ""}>${natureOption.name}</option>`).join("")}
+            ${NATURES.map(natureOption => `<option value="${natureOption.name}"${natureOption.name === config.nature ? " selected" : ""}>${formatNatureOptionLabel(natureOption)}</option>`).join("")}
           </select>
         </label>
         <span class="expanded-ev-total">${Object.values(config.evs || {}).reduce((sum, value) => sum + (Number(value) || 0), 0)}/${CHAMPIONS_MAX_TOTAL_EVS}</span>
