@@ -520,7 +520,7 @@ function getMegaFamilyKey(megaName) {
     return "mega";
 }
 
-async function cacheSprite(slug, formId, spriteUrls) {
+async function cacheSprite(slug, formId, spriteUrls, { refreshExisting = false } = {}) {
     if (!spriteUrls.length) {
         return "";
     }
@@ -529,8 +529,9 @@ async function cacheSprite(slug, formId, spriteUrls) {
     const fileName = `${slug}_${formId}_pixel.png`;
     const filePath = path.join(SPRITES_DIR, fileName);
     const relativePath = `sprites/${fileName}`;
+    const shouldRefreshExisting = refreshExisting;
 
-    if (!fs.existsSync(filePath)) {
+    if (!fs.existsSync(filePath) || shouldRefreshExisting) {
         let cached = false;
         for (const spriteUrl of spriteUrls) {
             if (!spriteUrl) {
@@ -587,11 +588,34 @@ function buildMegaArtFallbackUrl(dexNo, formId) {
     return "";
 }
 
+function buildMegaThumbnailFallbackUrl(dexNo, formId) {
+    const bareDexNo = String(Number(dexNo || 0));
+    if (!bareDexNo || bareDexNo === "0") {
+        return "";
+    }
+
+    if (formId === "mega-x") {
+        return makeAbsoluteUrl(`/art/th/${bareDexNo}-mx.png`);
+    }
+    if (formId === "mega-y") {
+        return makeAbsoluteUrl(`/art/th/${bareDexNo}-my.png`);
+    }
+    if (formId === "mega-z") {
+        return makeAbsoluteUrl(`/art/th/${bareDexNo}-mz.png`);
+    }
+    if (formId === "mega") {
+        return makeAbsoluteUrl(`/art/th/${bareDexNo}-m.png`);
+    }
+
+    return "";
+}
+
 function buildMegaSpriteCandidates(primaryName, formId, fallbackUrl, dexNo) {
     const showdownId = buildShowdownId(primaryName, formId === "mega-x" ? "megax" : formId === "mega-y" ? "megay" : formId === "mega-z" ? "megaz" : "mega");
     return [
         `${SHOWDOWN_GEN5_BASE_URL}${showdownId}.png`,
         buildMegaArtFallbackUrl(dexNo, formId),
+        buildMegaThumbnailFallbackUrl(dexNo, formId),
         fallbackUrl
     ].filter(Boolean);
 }
@@ -611,6 +635,7 @@ async function buildSpeciesDataset(entry) {
     const baseSpriteUrl = parseBaseSpriteUrl(pageHtml);
     const megaSpriteUrl = parseMegaSpriteUrl(pageHtml);
     const megaEvolutions = parseMegaEvolutions(pageHtml);
+    const hasMultipleMegaBranches = megaEvolutions.length > 1;
     const baseName = entry.availableNames[0] || entry.slug;
     const typeRows = parseTypeRows(pageHtml);
     const abilitySegments = parseAbilitySegments(pageHtml);
@@ -635,12 +660,22 @@ async function buildSpeciesDataset(entry) {
         megaEvolution: megaEvolutions[0] ? {
             ...megaEvolutions[0],
             formId: getMegaFormId(megaEvolutions[0].name),
-            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolutions[0].name), buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolutions[0].name), megaSpriteUrl, entry.dexNo))
+            spritePath: await cacheSprite(
+                entry.slug,
+                getMegaFormId(megaEvolutions[0].name),
+                buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolutions[0].name), megaSpriteUrl, entry.dexNo),
+                { refreshExisting: hasMultipleMegaBranches }
+            )
         } : null,
         megaEvolutions: await Promise.all(megaEvolutions.map(async megaEvolution => ({
             ...megaEvolution,
             formId: getMegaFormId(megaEvolution.name),
-            spritePath: await cacheSprite(entry.slug, getMegaFormId(megaEvolution.name), buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolution.name), megaSpriteUrl, entry.dexNo))
+            spritePath: await cacheSprite(
+                entry.slug,
+                getMegaFormId(megaEvolution.name),
+                buildMegaSpriteCandidates(baseName, getMegaFormId(megaEvolution.name), megaSpriteUrl, entry.dexNo),
+                { refreshExisting: hasMultipleMegaBranches }
+            )
         })))
     }];
 
