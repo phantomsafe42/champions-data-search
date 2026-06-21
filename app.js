@@ -97,6 +97,8 @@ const elements = {
   boxTeamFilter: document.getElementById("box-team-filter"),
   boxSortSelect: document.getElementById("box-sort-select"),
   boxSortDirectionSelect: document.getElementById("box-sort-direction-select"),
+  boxSortClearButton: document.getElementById("box-sort-clear-button"),
+  boxClearButton: document.getElementById("box-clear-button"),
   boxResultsTitle: document.getElementById("box-results-title"),
   boxViewExportButton: document.getElementById("box-view-export-button"),
   boxResultCount: document.getElementById("box-result-count"),
@@ -173,7 +175,7 @@ const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
-const ASSET_VERSION = "2026-06-21-4";
+const ASSET_VERSION = "2026-06-21-12";
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
@@ -3359,6 +3361,7 @@ function getBoxMatches() {
   const direction = elements.boxSortDirectionSelect.value === "asc" ? 1 : -1;
   const matches = state.box.configs.filter(config => {
     const searchable = [
+      config.nickname,
       config.species?.name,
       config.species?.baseName,
       config.ability,
@@ -3403,6 +3406,21 @@ function getBoxMatches() {
     }
     return (result * direction) || left.species.name.localeCompare(right.species.name);
   });
+}
+
+function clearBoxSearchFilters() {
+  elements.boxNameSearch.value = "";
+  elements.boxTeamFilter.value = "";
+  syncSelectPlaceholder(elements.boxTeamFilter);
+  clearBoxSortFilters();
+  renderBox();
+}
+
+function clearBoxSortFilters() {
+  elements.boxSortSelect.value = "recent";
+  elements.boxSortDirectionSelect.value = "desc";
+  syncSelectPlaceholder(elements.boxSortSelect);
+  syncSelectPlaceholder(elements.boxSortDirectionSelect);
 }
 
 function formatSavedMoveGrid(config) {
@@ -5031,6 +5049,11 @@ for (const input of [elements.boxNameSearch, elements.boxTeamFilter, elements.bo
   input.addEventListener("input", renderBox);
   input.addEventListener("change", renderBox);
 }
+elements.boxClearButton.addEventListener("click", clearBoxSearchFilters);
+elements.boxSortClearButton.addEventListener("click", () => {
+  clearBoxSortFilters();
+  renderBox();
+});
 
 elements.boxSaveTeamSelect.addEventListener("change", () => {
   elements.boxSaveNewTeamRow.hidden = elements.boxSaveTeamSelect.value !== "__new";

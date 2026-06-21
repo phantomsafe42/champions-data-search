@@ -471,6 +471,18 @@ button.secondary {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.sort-row .filter-block,
+.box-sort-row .filter-block {
+  width: 100%;
+  display: grid;
+}
+
+.sort-row .input-group,
+.box-sort-row .input-group {
+  width: 100%;
+  align-items: stretch;
+}
+
 .filter-block {
   min-width: 0;
 }
@@ -495,6 +507,22 @@ button.secondary {
 .top-row-filter-block .input-group button {
   flex: 0 0 auto;
   margin-left: auto;
+}
+
+.sort-control-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(180px, 0.9fr) auto;
+  gap: 10px;
+  width: 100%;
+}
+
+.sort-control-group .select-shell {
+  min-width: 0;
+  width: 100%;
+}
+
+.sort-control-group button {
+  min-width: 0;
 }
 
 .move-search-filter-grid {
@@ -639,6 +667,92 @@ button.secondary {
   display: grid;
   gap: 12px;
   padding: 0 12px 12px;
+}
+
+.box-filter-panel {
+  margin-top: 10px;
+  background: #0c1219;
+  border: 1px solid #233044;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.box-filter-panel summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: #d9e5f3;
+  font-size: 18px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.box-filter-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.box-filter-panel summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  color: #91a3b8;
+  transition: transform 0.16s ease;
+}
+
+.box-filter-panel[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.box-filter-body {
+  display: grid;
+  gap: 14px;
+  padding: 0 12px 12px;
+}
+
+.box-search-top-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(180px, 0.9fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.box-sort-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.box-sort-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(180px, 0.9fr) auto;
+  gap: 10px;
+  width: 100%;
+}
+
+.box-sort-group .select-shell {
+  min-width: 0;
+  width: 100%;
+}
+
+.box-sort-row .filter-block label,
+.box-search-top-row .filter-block label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #c4cfda;
+}
+
+.box-search-top-row .filter-block {
+  display: grid;
+  min-width: 0;
+}
+
+.box-search-top-row .filter-block input,
+.box-search-top-row .filter-block .clearable-select {
+  width: 100%;
+}
+
+#box-clear-button {
+  align-self: end;
+  justify-self: end;
 }
 
 .learnpool-filter-name-row {
@@ -2026,10 +2140,24 @@ button.secondary {
   .filter-row,
   .move-search-filter-grid,
   .learnpool-filter-grid,
+  .box-search-top-row,
   .workspace-grid,
   .data-row,
   .ability-row {
     grid-template-columns: 1fr;
+  }
+
+  .box-sort-group {
+    flex-direction: column;
+  }
+
+  .sort-control-group {
+    flex-direction: column;
+  }
+
+  #box-clear-button {
+    width: 100%;
+    justify-self: stretch;
   }
 
   .top-row-filter-block .input-group {

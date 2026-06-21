@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Pokémon Champions Database</title>
-  <link rel="stylesheet" href="styles.css?v=2026-06-21-4">
+  <link rel="stylesheet" href="styles.css?v=2026-06-21-12">
 </head>
 <body>
   <aside class="speed-drawer" id="speed-drawer" data-open="false">
@@ -260,7 +263,7 @@
               <div class="input-row filter-row sort-row">
                 <div class="filter-block">
                   <label for="sort-select">Sort By</label>
-                  <div class="input-group">
+                  <div class="input-group sort-control-group">
                     <div class="select-shell">
                       <select id="sort-select">
                         <option value="alphabetical">Alphabetical</option>
@@ -403,49 +406,57 @@
 
           <section id="box-panel" class="search-panel" role="tabpanel" aria-labelledby="box-tab" hidden>
             <div class="controls">
-              <h2>Box Search</h2>
-              <div class="input-row filter-row">
-                <div class="filter-block">
-                  <label for="box-name-search">Name</label>
-                  <input id="box-name-search" type="text" placeholder="Search saved Pokemon">
-                </div>
-                <div class="filter-block">
-                  <label for="box-team-filter">Team</label>
-                  <div class="clearable-select">
-                    <select id="box-team-filter">
-                      <option value="">Entire box</option>
-                    </select>
-                    <button type="button" class="select-clear-button" aria-label="Clear Team filter" hidden>X</button>
+              <details class="box-filter-panel">
+                <summary>Box Search</summary>
+                <div class="box-filter-body">
+                  <div class="box-search-top-row">
+                    <div class="filter-block">
+                      <label for="box-name-search">Name</label>
+                      <input id="box-name-search" type="text" placeholder="Search species or nickname">
+                    </div>
+                    <div class="filter-block">
+                      <label for="box-team-filter">Team</label>
+                      <div class="clearable-select">
+                        <select id="box-team-filter">
+                          <option value="">Entire box</option>
+                        </select>
+                        <button type="button" class="select-clear-button" aria-label="Clear Team filter" hidden>X</button>
+                      </div>
+                    </div>
+                    <button id="box-clear-button" type="button" class="secondary">Clear Set</button>
+                  </div>
+                  <div class="box-sort-row">
+                    <div class="filter-block">
+                      <label for="box-sort-select">Sort By</label>
+                      <div class="input-group sort-control-group box-sort-group">
+                        <div class="select-shell">
+                          <select id="box-sort-select">
+                            <option value="recent">Recently Added</option>
+                            <option value="alphabetical">Alphabetical</option>
+                            <option value="dex">Pokedex Number</option>
+                            <option value="hp">HP</option>
+                            <option value="attack">Attack</option>
+                            <option value="defense">Defense</option>
+                            <option value="specialAttack">Special Attack</option>
+                            <option value="specialDefense">Special Defense</option>
+                            <option value="speed">Speed</option>
+                            <option value="total">Base Stat Total</option>
+                            <option value="offenseTotal">Offensive Total</option>
+                            <option value="defenseTotal">Defensive Total</option>
+                          </select>
+                        </div>
+                        <div class="select-shell">
+                          <select id="box-sort-direction-select">
+                            <option value="desc">Descending</option>
+                            <option value="asc">Ascending</option>
+                          </select>
+                        </div>
+                        <button id="box-sort-clear-button" type="button" class="secondary">Clear</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="filter-block">
-                  <label for="box-sort-select">Sort By</label>
-                  <div class="input-group">
-                    <div class="select-shell">
-                      <select id="box-sort-select">
-                        <option value="recent">Recently Added</option>
-                        <option value="alphabetical">Alphabetical</option>
-                        <option value="dex">Pokedex Number</option>
-                        <option value="hp">HP</option>
-                        <option value="attack">Attack</option>
-                        <option value="defense">Defense</option>
-                        <option value="specialAttack">Special Attack</option>
-                        <option value="specialDefense">Special Defense</option>
-                        <option value="speed">Speed</option>
-                        <option value="total">Base Stat Total</option>
-                        <option value="offenseTotal">Offensive Total</option>
-                        <option value="defenseTotal">Defensive Total</option>
-                      </select>
-                    </div>
-                    <div class="select-shell">
-                      <select id="box-sort-direction-select">
-                        <option value="desc">Descending</option>
-                        <option value="asc">Ascending</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </details>
             </div>
             <section class="results-panel">
               <div class="results-header">
@@ -542,6 +553,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=2026-06-21-4"></script>
+  <script src="app.js?v=2026-06-21-12"></script>
 </body>
 </html>
