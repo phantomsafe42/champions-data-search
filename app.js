@@ -153,7 +153,7 @@ const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
-const ASSET_VERSION = "2026-06-20-4";
+const ASSET_VERSION = "2026-06-20-5";
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
