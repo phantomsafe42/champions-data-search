@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Champions Data Search</title>
-  <link rel="stylesheet" href="styles.css?v=2026-06-20-5">
+  <title>Pokémon Champions Database</title>
+  <link rel="stylesheet" href="styles.css?v=2026-06-21-4">
 </head>
 <body>
   <aside class="speed-drawer" id="speed-drawer" data-open="false">
@@ -40,7 +40,7 @@
     <section class="toolbar">
       <div class="title-block">
         <div class="title-row">
-          <h1>Champions Data Search</h1>
+          <h1>Pokémon Champions Database</h1>
           <img class="title-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/normal/cyndaquil.gif" alt="Cyndaquil animated sprite">
         </div>
         <p>Search Champions sets, moves, and abilities, then save useful pieces to the setlist.</p>
@@ -51,8 +51,8 @@
 
     <section class="workspace-panel">
       <div class="search-tabs" role="tablist" aria-label="Data search mode">
-        <button id="help-tab" class="search-tab active" type="button" role="tab" aria-selected="true" aria-controls="help-panel">Help</button>
-        <button id="set-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="set-panel">Set Search</button>
+        <button id="help-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="help-panel">Help</button>
+        <button id="set-tab" class="search-tab active" type="button" role="tab" aria-selected="true" aria-controls="set-panel">Set Search</button>
         <button id="move-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="move-panel">Move Search</button>
         <button id="ability-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="ability-panel">Ability Search</button>
         <button id="box-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="box-panel">Box</button>
@@ -60,7 +60,7 @@
 
       <div class="workspace-grid">
         <div class="tab-main">
-          <section id="help-panel" class="search-panel active" role="tabpanel" aria-labelledby="help-tab">
+          <section id="help-panel" class="search-panel" role="tabpanel" aria-labelledby="help-tab" hidden>
             <div class="guide-panel">
               <section class="guide-section">
                 <h2>Set Search</h2>
@@ -96,7 +96,7 @@
                   <li>Fill from Search copies the current Set Search moves and ability into the expanded configuration.</li>
                   <li>Add to Box saves the current configuration.</li>
                   <li>The stat table lets you choose a nature and enter EVs from 0-32 per stat, up to 66 total.</li>
-                  <li>Learnpool moves are grouped by type. Click a move to choose which move slot it should fill.</li>
+                  <li>Movepool moves are grouped by type. Click a move to choose which move slot it should fill.</li>
                   <li>Ability descriptions show the possible abilities for that Pokemon or form.</li>
                 </ul>
                 <figure class="guide-screenshot">
@@ -112,9 +112,9 @@
 
               <section class="guide-section">
                 <h2>Move Search</h2>
-                <p>Move Search finds moves directly by name, type, category, priority, target, weather or terrain connection, and classification.</p>
+                <p>Move Search finds moves directly by name, type, category, priority, range, weather or terrain connection, and classification.</p>
                 <ul>
-                  <li>Results show move name, type, category, BP, PP, accuracy, target, priority, description, and classifications when available.</li>
+                  <li>Results show move name, type, category, BP, PP, accuracy, range, priority, description, and classifications when available.</li>
                   <li>Send to Setlist saves that move to the Setlist.</li>
                 </ul>
                 <figure class="guide-screenshot">
@@ -141,7 +141,7 @@
                 <ul>
                   <li>Search by name or nickname, filter by team, and sort using the same sort options as Set Search plus Recently Added.</li>
                   <li>Teams can hold up to six configurations and cannot include duplicate species lines.</li>
-                  <li>Edit makes a saved configuration editable, including nickname, moves, ability, item, EVs, nature, learnpool picks, and ability references.</li>
+                  <li>Edit makes a saved configuration editable, including nickname, moves, ability, item, EVs, nature, movepool picks, and ability references.</li>
                   <li>Erase deletes a configuration from the full box. Remove appears in team view and removes it from that team only.</li>
                   <li>The plus button next to the Team header opens the team assignment prompt.</li>
                 </ul>
@@ -163,8 +163,91 @@
             </div>
           </section>
 
-          <section id="set-panel" class="search-panel" role="tabpanel" aria-labelledby="set-tab" hidden>
+          <section id="set-panel" class="search-panel active" role="tabpanel" aria-labelledby="set-tab">
             <div class="controls">
+              <div class="input-row set-search-top-row species-search-row">
+                <label for="species-input">Species Name</label>
+                <div class="input-group prompt-group">
+                  <div class="autocomplete-shell set-autocomplete-shell">
+                    <div class="autocomplete-input-row">
+                      <input id="species-input" data-autocomplete-source="species" type="text" placeholder="Search Venusaur, Mega Charizard, Hisuian Zoroark...">
+                      <button class="autocomplete-clear-button" type="button" aria-label="Clear Species" hidden>X</button>
+                    </div>
+                    <div class="autocomplete-suggestions" hidden></div>
+                  </div>
+                  <button id="clear-species-button" type="button" class="secondary">Clear Set</button>
+                </div>
+              </div>
+
+              <div class="input-row">
+                <label>Moves</label>
+                <div class="slot-grid">
+                  <div class="autocomplete-shell set-autocomplete-shell">
+                    <div class="autocomplete-input-row">
+                      <input id="move-input-1" data-autocomplete-source="move" type="text" placeholder="Move 1">
+                      <button class="autocomplete-clear-button" type="button" aria-label="Clear Move 1" hidden>X</button>
+                    </div>
+                    <div class="autocomplete-suggestions" hidden></div>
+                  </div>
+                  <div class="autocomplete-shell set-autocomplete-shell">
+                    <div class="autocomplete-input-row">
+                      <input id="move-input-2" data-autocomplete-source="move" type="text" placeholder="Move 2">
+                      <button class="autocomplete-clear-button" type="button" aria-label="Clear Move 2" hidden>X</button>
+                    </div>
+                    <div class="autocomplete-suggestions" hidden></div>
+                  </div>
+                  <div class="autocomplete-shell set-autocomplete-shell">
+                    <div class="autocomplete-input-row">
+                      <input id="move-input-3" data-autocomplete-source="move" type="text" placeholder="Move 3">
+                      <button class="autocomplete-clear-button" type="button" aria-label="Clear Move 3" hidden>X</button>
+                    </div>
+                    <div class="autocomplete-suggestions" hidden></div>
+                  </div>
+                  <div class="autocomplete-shell set-autocomplete-shell">
+                    <div class="autocomplete-input-row">
+                      <input id="move-input-4" data-autocomplete-source="move" type="text" placeholder="Move 4">
+                      <button class="autocomplete-clear-button" type="button" aria-label="Clear Move 4" hidden>X</button>
+                    </div>
+                    <div class="autocomplete-suggestions" hidden></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-row filter-row">
+                <div class="filter-block">
+                  <label>Types</label>
+                  <div class="slot-grid type-grid">
+                    <div class="autocomplete-shell set-autocomplete-shell">
+                      <div class="autocomplete-input-row">
+                        <input id="type-input-1" data-autocomplete-source="type" type="text" placeholder="Type 1">
+                        <button class="autocomplete-clear-button" type="button" aria-label="Clear Type 1" hidden>X</button>
+                      </div>
+                      <div class="autocomplete-suggestions" hidden></div>
+                    </div>
+                    <div class="autocomplete-shell set-autocomplete-shell">
+                      <div class="autocomplete-input-row">
+                        <input id="type-input-2" data-autocomplete-source="type" type="text" placeholder="Type 2">
+                        <button class="autocomplete-clear-button" type="button" aria-label="Clear Type 2" hidden>X</button>
+                      </div>
+                      <div class="autocomplete-suggestions" hidden></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="filter-block">
+                  <label for="ability-input">Ability</label>
+                  <div class="input-group">
+                    <div class="autocomplete-shell set-autocomplete-shell">
+                      <div class="autocomplete-input-row">
+                        <input id="ability-input" data-autocomplete-source="ability" type="text" placeholder="Search ability">
+                        <button class="autocomplete-clear-button" type="button" aria-label="Clear Ability" hidden>X</button>
+                      </div>
+                      <div class="autocomplete-suggestions" hidden></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="input-row set-search-top-row">
                 <label for="prompt-input">Prompt Search</label>
                 <div class="input-group prompt-group">
@@ -174,67 +257,31 @@
                 </div>
               </div>
 
-              <div class="input-row set-search-top-row">
-                <label for="species-input">Species Name</label>
-                <div class="input-group prompt-group">
-                  <input id="species-input" list="species-options" type="text" placeholder="Search Venusaur, Mega Charizard, Hisuian Zoroark...">
-                  <button id="clear-species-button" type="button" class="secondary">Clear Species</button>
-                  <datalist id="species-options"></datalist>
-                </div>
-              </div>
-
-              <div class="input-row">
-                <label>Moves</label>
-                <div class="slot-grid">
-                  <input id="move-input-1" list="move-options" type="text" placeholder="Move 1">
-                  <input id="move-input-2" list="move-options" type="text" placeholder="Move 2">
-                  <input id="move-input-3" list="move-options" type="text" placeholder="Move 3">
-                  <input id="move-input-4" list="move-options" type="text" placeholder="Move 4">
-                  <datalist id="move-options"></datalist>
-                </div>
-              </div>
-
-              <div class="input-row filter-row">
-                <div class="filter-block">
-                  <label>Types</label>
-                  <div class="slot-grid type-grid">
-                    <input id="type-input-1" list="type-options" type="text" placeholder="Type 1">
-                    <input id="type-input-2" list="type-options" type="text" placeholder="Type 2">
-                    <datalist id="type-options"></datalist>
-                  </div>
-                </div>
-
-                <div class="filter-block">
-                  <label for="ability-select">Ability</label>
-                  <div class="input-group">
-                    <select id="ability-select">
-                      <option value="">Any ability</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
               <div class="input-row filter-row sort-row">
                 <div class="filter-block">
                   <label for="sort-select">Sort By</label>
                   <div class="input-group">
-                    <select id="sort-select">
-                      <option value="alphabetical">Alphabetical</option>
-                      <option value="dex">Pokedex Number</option>
-                      <option value="hp">HP</option>
-                      <option value="attack">Attack</option>
-                      <option value="defense">Defense</option>
-                      <option value="specialAttack">Special Attack</option>
-                      <option value="specialDefense">Special Defense</option>
-                      <option value="speed">Speed</option>
-                      <option value="total">Base Stat Total</option>
-                      <option value="offenseTotal">Offensive Total</option>
-                      <option value="defenseTotal">Defensive Total</option>
-                    </select>
-                    <select id="sort-direction-select">
-                      <option value="asc">Ascending</option>
-                      <option value="desc">Descending</option>
-                    </select>
+                    <div class="select-shell">
+                      <select id="sort-select">
+                        <option value="alphabetical">Alphabetical</option>
+                        <option value="dex">Pokedex Number</option>
+                        <option value="hp">HP</option>
+                        <option value="attack">Attack</option>
+                        <option value="defense">Defense</option>
+                        <option value="specialAttack">Special Attack</option>
+                        <option value="specialDefense">Special Defense</option>
+                        <option value="speed">Speed</option>
+                        <option value="total">Base Stat Total</option>
+                        <option value="offenseTotal">Offensive Total</option>
+                        <option value="defenseTotal">Defensive Total</option>
+                      </select>
+                    </div>
+                    <div class="select-shell">
+                      <select id="sort-direction-select">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                      </select>
+                    </div>
                     <button id="clear-button" type="button" class="secondary">Clear</button>
                   </div>
                 </div>
@@ -252,47 +299,69 @@
 
           <section id="move-panel" class="search-panel" role="tabpanel" aria-labelledby="move-tab" hidden>
             <div class="controls">
-              <div class="input-row filter-row">
-                <div class="filter-block">
+              <div class="input-row">
+                <div class="filter-block top-row-filter-block">
                   <label for="move-name-search">Move Name</label>
-                  <input id="move-name-search" type="text" placeholder="Search move name">
-                </div>
-                <div class="filter-block">
-                  <label for="move-type-search">Type</label>
-                  <select id="move-type-search"><option value="">Any type</option></select>
+                  <div class="input-group">
+                    <div class="autocomplete-shell set-autocomplete-shell">
+                      <div class="autocomplete-input-row">
+                        <input id="move-name-search" data-autocomplete-source="move" type="text" placeholder="Search move name">
+                        <button class="autocomplete-clear-button" type="button" aria-label="Clear Move Name" hidden>X</button>
+                      </div>
+                      <div class="autocomplete-suggestions" hidden></div>
+                    </div>
+                    <button id="move-clear-all-button" type="button" class="secondary">Clear All</button>
+                  </div>
                 </div>
               </div>
-              <div class="input-row filter-row">
+              <div class="move-search-filter-grid">
+                <div class="filter-block">
+                  <label for="move-type-search">Type</label>
+                  <div class="clearable-select">
+                    <select id="move-type-search"><option value="">Any type</option></select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Type filter" hidden>X</button>
+                  </div>
+                </div>
                 <div class="filter-block">
                   <label for="move-category-search">Category</label>
-                  <select id="move-category-search"><option value="">Any category</option></select>
+                  <div class="clearable-select">
+                    <select id="move-category-search"><option value="">Any category</option></select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Category filter" hidden>X</button>
+                  </div>
                 </div>
                 <div class="filter-block">
                   <label for="move-priority-search">Priority</label>
-                  <select id="move-priority-search">
-                    <option value="">Any priority</option>
-                    <option value="positive">Positive priority</option>
-                    <option value="zero">Normal priority</option>
-                    <option value="negative">Negative priority</option>
-                  </select>
+                  <div class="clearable-select">
+                    <select id="move-priority-search">
+                      <option value="">Any priority</option>
+                      <option value="positive">Positive priority</option>
+                      <option value="zero">Normal priority</option>
+                      <option value="negative">Negative priority</option>
+                    </select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Priority filter" hidden>X</button>
+                  </div>
                 </div>
-              </div>
-              <div class="input-row filter-row">
                 <div class="filter-block">
                   <label for="move-field-search">Weather / Terrain</label>
-                  <select id="move-field-search"><option value="">Any field state</option></select>
+                  <div class="clearable-select">
+                    <select id="move-field-search"><option value="">Any field state</option></select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Weather or Terrain filter" hidden>X</button>
+                  </div>
                 </div>
                 <div class="filter-block">
-                  <label for="move-target-search">Target</label>
-                  <select id="move-target-search"><option value="">Any target</option></select>
+                  <label for="move-target-search">Range</label>
+                  <div class="clearable-select">
+                    <select id="move-target-search"><option value="">Any range</option></select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Range filter" hidden>X</button>
+                  </div>
                 </div>
-              </div>
-              <div class="input-row filter-row">
                 <div class="filter-block">
                   <label for="move-classification-search">Classification</label>
-                  <select id="move-classification-search"><option value="">Any classification</option></select>
+                  <div class="clearable-select">
+                    <select id="move-classification-search"><option value="">Any classification</option></select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Classification filter" hidden>X</button>
+                  </div>
                 </div>
-                <div class="filter-block"></div>
               </div>
             </div>
             <section class="results-panel">
@@ -307,8 +376,19 @@
           <section id="ability-panel" class="search-panel" role="tabpanel" aria-labelledby="ability-tab" hidden>
             <div class="controls">
               <div class="input-row">
-                <label for="ability-name-search">Ability Name</label>
-                <input id="ability-name-search" type="text" placeholder="Search ability name">
+                <div class="filter-block top-row-filter-block">
+                  <label for="ability-name-search">Ability Name</label>
+                  <div class="input-group">
+                    <div class="autocomplete-shell set-autocomplete-shell">
+                      <div class="autocomplete-input-row">
+                        <input id="ability-name-search" data-autocomplete-source="ability" type="text" placeholder="Search ability name">
+                        <button class="autocomplete-clear-button" type="button" aria-label="Clear Ability Name" hidden>X</button>
+                      </div>
+                      <div class="autocomplete-suggestions" hidden></div>
+                    </div>
+                    <button id="ability-clear-all-button" type="button" class="secondary">Clear All</button>
+                  </div>
+                </div>
               </div>
               <div class="toggle-grid" id="ability-toggle-grid"></div>
             </div>
@@ -331,31 +411,38 @@
                 </div>
                 <div class="filter-block">
                   <label for="box-team-filter">Team</label>
-                  <select id="box-team-filter">
-                    <option value="">Entire box</option>
-                  </select>
+                  <div class="clearable-select">
+                    <select id="box-team-filter">
+                      <option value="">Entire box</option>
+                    </select>
+                    <button type="button" class="select-clear-button" aria-label="Clear Team filter" hidden>X</button>
+                  </div>
                 </div>
                 <div class="filter-block">
                   <label for="box-sort-select">Sort By</label>
                   <div class="input-group">
-                    <select id="box-sort-select">
-                      <option value="recent">Recently Added</option>
-                      <option value="alphabetical">Alphabetical</option>
-                      <option value="dex">Pokedex Number</option>
-                      <option value="hp">HP</option>
-                      <option value="attack">Attack</option>
-                      <option value="defense">Defense</option>
-                      <option value="specialAttack">Special Attack</option>
-                      <option value="specialDefense">Special Defense</option>
-                      <option value="speed">Speed</option>
-                      <option value="total">Base Stat Total</option>
-                      <option value="offenseTotal">Offensive Total</option>
-                      <option value="defenseTotal">Defensive Total</option>
-                    </select>
-                    <select id="box-sort-direction-select">
-                      <option value="desc">Descending</option>
-                      <option value="asc">Ascending</option>
-                    </select>
+                    <div class="select-shell">
+                      <select id="box-sort-select">
+                        <option value="recent">Recently Added</option>
+                        <option value="alphabetical">Alphabetical</option>
+                        <option value="dex">Pokedex Number</option>
+                        <option value="hp">HP</option>
+                        <option value="attack">Attack</option>
+                        <option value="defense">Defense</option>
+                        <option value="specialAttack">Special Attack</option>
+                        <option value="specialDefense">Special Defense</option>
+                        <option value="speed">Speed</option>
+                        <option value="total">Base Stat Total</option>
+                        <option value="offenseTotal">Offensive Total</option>
+                        <option value="defenseTotal">Defensive Total</option>
+                      </select>
+                    </div>
+                    <div class="select-shell">
+                      <select id="box-sort-direction-select">
+                        <option value="desc">Descending</option>
+                        <option value="asc">Ascending</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -404,10 +491,13 @@
       </div>
       <div class="input-row">
         <label for="box-save-team-select">Save to Team</label>
-        <select id="box-save-team-select">
-          <option value="">No team</option>
-          <option value="__new">Create new team...</option>
-        </select>
+        <div class="clearable-select">
+          <select id="box-save-team-select">
+            <option value="">No team</option>
+            <option value="__new">Create new team...</option>
+          </select>
+          <button type="button" class="select-clear-button" aria-label="Clear Save to Team selection" hidden>X</button>
+        </div>
       </div>
       <div class="input-row" id="box-save-new-team-row" hidden>
         <label for="box-save-new-team-input">New Team Name</label>
@@ -442,6 +532,16 @@
     </div>
   </div>
 
-  <script src="app.js?v=2026-06-20-5"></script>
+  <div class="modal-backdrop" id="species-detail-modal" hidden>
+    <div class="modal-panel species-detail-modal-panel" role="dialog" aria-modal="true" aria-labelledby="species-detail-title">
+      <div class="species-detail-modal-header">
+        <h2 id="species-detail-title">Pokemon Details</h2>
+        <button id="species-detail-close-button" type="button" class="secondary">Close</button>
+      </div>
+      <div id="species-detail-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js?v=2026-06-21-4"></script>
 </body>
 </html>

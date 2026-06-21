@@ -2,18 +2,35 @@ const state = {
   dataset: null,
   metadata: null,
   expandedKey: null,
+  consumedResultMouseDownKey: null,
+  consumedSearchExpandMouseDown: null,
+  relatedSpeciesSort: "alphabetical",
+  relatedSpeciesSortDirection: "asc",
+  moveExpandedName: "",
+  abilityExpandedName: "",
+  speciesDetail: null,
   promptPlan: null,
   abilityDescriptions: {},
   abilityFilterSources: null,
   items: [],
   formOverrides: {},
   speedDrawerOpen: false,
-  activeTab: "help",
+  activeTab: "set",
   setlist: [],
   box: {
     configs: [],
     teams: []
   },
+  learnpoolFilters: {
+    name: "",
+    type: "",
+    category: "",
+    priority: "",
+    field: "",
+    target: "",
+    classification: ""
+  },
+  learnpoolFiltersOpen: false,
   editingBoxConfigId: null,
   pendingBoxConfig: null,
   pendingImportConfig: null,
@@ -33,7 +50,6 @@ const elements = {
   abilityPanel: document.getElementById("ability-panel"),
   boxPanel: document.getElementById("box-panel"),
   speciesInput: document.getElementById("species-input"),
-  speciesOptions: document.getElementById("species-options"),
   clearSpeciesButton: document.getElementById("clear-species-button"),
   moveInputs: [
     document.getElementById("move-input-1"),
@@ -41,13 +57,12 @@ const elements = {
     document.getElementById("move-input-3"),
     document.getElementById("move-input-4")
   ],
-  moveOptions: document.getElementById("move-options"),
   typeInputs: [
     document.getElementById("type-input-1"),
     document.getElementById("type-input-2")
   ],
-  typeOptions: document.getElementById("type-options"),
-  abilitySelect: document.getElementById("ability-select"),
+  abilityInput: document.getElementById("ability-input"),
+  setAutocompleteShells: [...document.querySelectorAll(".set-autocomplete-shell")],
   sortSelect: document.getElementById("sort-select"),
   sortDirectionSelect: document.getElementById("sort-direction-select"),
   clearButton: document.getElementById("clear-button"),
@@ -67,9 +82,11 @@ const elements = {
   moveFieldSearch: document.getElementById("move-field-search"),
   moveTargetSearch: document.getElementById("move-target-search"),
   moveClassificationSearch: document.getElementById("move-classification-search"),
+  moveClearAllButton: document.getElementById("move-clear-all-button"),
   moveResultCount: document.getElementById("move-result-count"),
   moveResults: document.getElementById("move-results"),
   abilityNameSearch: document.getElementById("ability-name-search"),
+  abilityClearAllButton: document.getElementById("ability-clear-all-button"),
   abilityToggleGrid: document.getElementById("ability-toggle-grid"),
   abilityResultCount: document.getElementById("ability-result-count"),
   abilityResults: document.getElementById("ability-results"),
@@ -101,7 +118,10 @@ const elements = {
   showdownImportModal: document.getElementById("showdown-import-modal"),
   showdownImportPreview: document.getElementById("showdown-import-preview"),
   showdownImportConfirmButton: document.getElementById("showdown-import-confirm-button"),
-  showdownImportCancelButton: document.getElementById("showdown-import-cancel-button")
+  showdownImportCancelButton: document.getElementById("showdown-import-cancel-button"),
+  speciesDetailModal: document.getElementById("species-detail-modal"),
+  speciesDetailContent: document.getElementById("species-detail-content"),
+  speciesDetailCloseButton: document.getElementById("species-detail-close-button")
 };
 
 const STAT_ALIASES = new Map([
@@ -153,7 +173,7 @@ const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
-const ASSET_VERSION = "2026-06-20-5";
+const ASSET_VERSION = "2026-06-21-4";
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
@@ -166,6 +186,40 @@ const CHAMPIONS_IV = 31;
 const CHAMPIONS_MAX_EVS_PER_STAT = 32;
 const CHAMPIONS_MAX_TOTAL_EVS = 66;
 const SHOWDOWN_MAX_EVS_PER_STAT = 252;
+const MOVE_RANGE_OPTIONS = [
+  "Single Target",
+  "Self",
+  "Single Ally",
+  "All Allies",
+  "User's Side",
+  "Random Opponent",
+  "All Opponents",
+  "Opponent's Side",
+  "All Pokemon",
+  "Entire Field",
+  "Varies"
+];
+
+const LEARNPOOL_TYPE_ORDER = [
+  "Normal",
+  "Grass",
+  "Fire",
+  "Water",
+  "Electric",
+  "Bug",
+  "Flying",
+  "Rock",
+  "Poison",
+  "Ground",
+  "Ice",
+  "Fighting",
+  "Psychic",
+  "Ghost",
+  "Dragon",
+  "Dark",
+  "Steel",
+  "Fairy"
+];
 
 const STAT_ROWS = [
   ["HP", "hp"],
@@ -183,25 +237,21 @@ const NATURES = [
   { name: "Adamant", up: "attack", down: "specialAttack" },
   { name: "Naughty", up: "attack", down: "specialDefense" },
   { name: "Bold", up: "defense", down: "attack" },
-  { name: "Docile", up: null, down: null },
   { name: "Relaxed", up: "defense", down: "speed" },
   { name: "Impish", up: "defense", down: "specialAttack" },
   { name: "Lax", up: "defense", down: "specialDefense" },
   { name: "Timid", up: "speed", down: "attack" },
   { name: "Hasty", up: "speed", down: "defense" },
-  { name: "Serious", up: null, down: null },
   { name: "Jolly", up: "speed", down: "specialAttack" },
   { name: "Naive", up: "speed", down: "specialDefense" },
   { name: "Modest", up: "specialAttack", down: "attack" },
   { name: "Mild", up: "specialAttack", down: "defense" },
   { name: "Quiet", up: "specialAttack", down: "speed" },
-  { name: "Bashful", up: null, down: null },
   { name: "Rash", up: "specialAttack", down: "specialDefense" },
   { name: "Calm", up: "specialDefense", down: "attack" },
   { name: "Gentle", up: "specialDefense", down: "defense" },
   { name: "Sassy", up: "specialDefense", down: "speed" },
-  { name: "Careful", up: "specialDefense", down: "specialAttack" },
-  { name: "Quirky", up: null, down: null }
+  { name: "Careful", up: "specialDefense", down: "specialAttack" }
 ];
 
 const TRANSFORMING_FORMS = {
@@ -304,7 +354,8 @@ const TRANSFORMING_FORMS = {
 };
 
 const SEPARATE_FORM_CARDS = {
-  rotom: [{
+  rotom: {
+    forms: [{
     slugSuffix: "fan",
     name: "Rotom Fan",
     types: ["Electric", "Flying"],
@@ -334,8 +385,10 @@ const SEPARATE_FORM_CARDS = {
     types: ["Electric", "Water"],
     spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-wash.png",
     moves: ["Hydro Pump"]
-  }],
-  lycanroc: [{
+  }]
+  },
+  lycanroc: {
+    forms: [{
     slugSuffix: "midnight",
     name: "Lycanroc Midnight",
     spritePath: "https://play.pokemonshowdown.com/sprites/gen5/lycanroc-midnight.png",
@@ -362,6 +415,25 @@ const SEPARATE_FORM_CARDS = {
       total: 487
     }
   }]
+  },
+  meowstic: {
+    replaceBase: true,
+    forms: [{
+      slugSuffix: "m",
+      name: "Meowstic M",
+      availableNames: ["Meowstic", "Meowstic M", "Meowstic Male", "Male Meowstic"],
+      spritePath: "https://play.pokemonshowdown.com/sprites/gen5/meowstic.png",
+      abilities: ["Keen Eye", "Infiltrator", "Prankster"],
+      moves: ["Alluring Voice", "Baton Pass", "Calm Mind", "Charge Beam", "Charm", "Covet", "Dark Pulse", "Dig", "Endure", "Energy Ball", "Expanding Force", "Facade", "Fake Out", "Fake Tears", "Giga Impact", "Gravity", "Helping Hand", "Hyper Beam", "Imprison", "Iron Tail", "Light Screen", "Magic Room", "Mean Look", "Misty Terrain", "Nasty Plot", "Payback", "Play Rough", "Protect", "Psych Up", "Psychic", "Psychic Noise", "Psychic Terrain", "Psyshock", "Quick Guard", "Rain Dance", "Reflect", "Rest", "Role Play", "Round", "Safeguard", "Shadow Ball", "Skill Swap", "Sleep Talk", "Snore", "Stored Power", "Substitute", "Sucker Punch", "Sunny Day", "Tail Slap", "Thunder Wave", "Thunderbolt", "Tickle", "Trailblaze", "Trick", "Trick Room", "Wish", "Wonder Room", "Yawn", "Zen Headbutt"]
+    }, {
+      slugSuffix: "f",
+      name: "Meowstic F",
+      availableNames: ["Meowstic", "Meowstic F", "Meowstic Female", "Female Meowstic"],
+      spritePath: "https://play.pokemonshowdown.com/sprites/gen5/meowstic-f.png",
+      abilities: ["Keen Eye", "Infiltrator", "Competitive"],
+      moves: ["Alluring Voice", "Baton Pass", "Calm Mind", "Charge Beam", "Charm", "Covet", "Dark Pulse", "Dig", "Endure", "Energy Ball", "Expanding Force", "Extrasensory", "Facade", "Fake Out", "Fake Tears", "Future Sight", "Giga Impact", "Gravity", "Helping Hand", "Hyper Beam", "Iron Tail", "Light Screen", "Magic Room", "Nasty Plot", "Payback", "Play Rough", "Protect", "Psych Up", "Psychic", "Psychic Noise", "Psychic Terrain", "Psyshock", "Rain Dance", "Reflect", "Rest", "Role Play", "Round", "Safeguard", "Shadow Ball", "Skill Swap", "Sleep Talk", "Snore", "Stored Power", "Substitute", "Sucker Punch", "Sunny Day", "Tail Slap", "Thunder Wave", "Thunderbolt", "Tickle", "Trailblaze", "Trick", "Trick Room", "Wonder Room", "Yawn", "Zen Headbutt"]
+    }]
+  }
 };
 
 const ABILITY_TOGGLES = [
@@ -383,6 +455,110 @@ const ABILITY_TOGGLES = [
   ["typeEffect", "Type Effect"],
   ["weatherTerrain", "Weather / Terrain"]
 ];
+
+const GEN9_NON_SIGNATURE_ABILITIES = new Set([
+  "adaptability",
+  "aerilate",
+  "anticipation",
+  "battlearmor",
+  "berserk",
+  "bigpecks",
+  "blaze",
+  "cheekpouch",
+  "chlorophyll",
+  "clearbody",
+  "compoundeyes",
+  "cursedbody",
+  "cutecharm",
+  "damp",
+  "defiant",
+  "drought",
+  "dryskin",
+  "earlybird",
+  "effectspore",
+  "flamebody",
+  "flashfire",
+  "flowerveil",
+  "fluffy",
+  "forewarn",
+  "frisk",
+  "furcoat",
+  "gluttony",
+  "guts",
+  "healer",
+  "hustle",
+  "hydration",
+  "hypercutter",
+  "illuminate",
+  "immunity",
+  "innerfocus",
+  "insomnia",
+  "intimidate",
+  "ironfist",
+  "justified",
+  "keeneye",
+  "leafguard",
+  "levitate",
+  "lightningrod",
+  "limber",
+  "magicbounce",
+  "magmaarmor",
+  "megalauncher",
+  "moldbreaker",
+  "naturalcure",
+  "oblivious",
+  "overcoat",
+  "overgrow",
+  "owntempo",
+  "pickup",
+  "pixilate",
+  "plus",
+  "poisonpoint",
+  "prankster",
+  "pressure",
+  "reckless",
+  "refrigerate",
+  "regenerator",
+  "ripen",
+  "rivalry",
+  "rockhead",
+  "roughskin",
+  "sandforce",
+  "sandrush",
+  "sandstream",
+  "sandveil",
+  "sapsipper",
+  "scrappy",
+  "shadowtag",
+  "shedskin",
+  "sheerforce",
+  "shellarmor",
+  "shielddust",
+  "snowcloak",
+  "soundproof",
+  "speedboost",
+  "stamina",
+  "static",
+  "steadfast",
+  "stench",
+  "strongjaw",
+  "sturdy",
+  "suctioncups",
+  "swarm",
+  "sweetveil",
+  "swiftswim",
+  "synchronize",
+  "technician",
+  "thickfat",
+  "torrent",
+  "toughclaws",
+  "trace",
+  "unaware",
+  "vitalspirit",
+  "voltabsorb",
+  "waterabsorb",
+  "weakarmor"
+]);
 
 const ABILITY_STAT_OVERRIDES = {
   attack: [
@@ -587,6 +763,22 @@ function normalizeName(value) {
     .trim();
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function formatFilterOptionLabel(value) {
+  return String(value || "")
+    .split(/[\s_-]+/)
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 function withAssetVersion(path) {
   const value = String(path || "");
   if (!value || /^https?:\/\//i.test(value)) {
@@ -630,7 +822,7 @@ function canonicalName(input, options) {
 
 function getAbilityDescription(abilityName) {
   const entry = state.abilityDescriptions[normalizeName(abilityName)];
-  return entry?.byGeneration?.["9"] || entry?.latest || "Description unavailable.";
+  return entry?.latest || entry?.byGeneration?.["9"] || "Description unavailable.";
 }
 
 function getDetailedAbilityDescription(abilityName) {
@@ -653,10 +845,7 @@ function getDetailedAbilityDescription(abilityName) {
     }
     return "Description unavailable.";
   }
-  const latestGen = entry.byGeneration?.["9"];
-  return [latestGen && latestGen !== entry.latest ? latestGen : "", entry.latest]
-    .filter(Boolean)
-    .join(" ");
+  return entry.latest || entry.byGeneration?.["9"] || "Description unavailable.";
 }
 
 function canonicalExistingNames(names, options) {
@@ -681,8 +870,16 @@ function expandSeparateFormCards(speciesList) {
   const expanded = [];
 
   for (const species of speciesList) {
-    expanded.push(species);
-    for (const form of SEPARATE_FORM_CARDS[species.slug] || []) {
+    const separateFormConfig = SEPARATE_FORM_CARDS[species.slug];
+    const separateForms = Array.isArray(separateFormConfig)
+      ? separateFormConfig
+      : separateFormConfig?.forms || [];
+
+    if (!separateFormConfig?.replaceBase) {
+      expanded.push(species);
+    }
+
+    for (const form of separateForms) {
       const stats = form.stats || {
         hp: 50,
         attack: 65,
@@ -696,13 +893,14 @@ function expandSeparateFormCards(speciesList) {
         ...species,
         slug: `${species.slug}-${form.slugSuffix}`,
         primaryName: form.name,
-        availableNames: [form.name],
+        availableNames: [...new Set(form.availableNames || [form.name])],
         types: form.types || species.types,
+        abilities: form.abilities || species.abilities,
         baseStats: stats,
         spritePath: form.spritePath || species.spritePath,
-        moves: [...new Set([...(species.moves || []), ...(form.moves || [])])],
-        megaEvolution: null,
-        megaEvolutions: [],
+        moves: form.moves || [...new Set([...(species.moves || []), ...(form.moves || [])])],
+        megaEvolution: form.megaEvolution === null ? null : species.megaEvolution,
+        megaEvolutions: form.megaEvolutions === null ? [] : species.megaEvolutions,
         sourceSpeciesSlug: species.slug,
         isSeparateFormCard: true
       });
@@ -724,44 +922,254 @@ function getAllAbilityNames() {
 }
 
 function populateOptions() {
-  elements.moveOptions.innerHTML = "";
-  for (const moveName of state.dataset.moveNames) {
-    const option = document.createElement("option");
-    option.value = moveName;
-    elements.moveOptions.appendChild(option);
-  }
-
-  elements.typeOptions.innerHTML = "";
-  for (const typeName of state.dataset.typeNames) {
-    const option = document.createElement("option");
-    option.value = typeName;
-    elements.typeOptions.appendChild(option);
-  }
-
-  elements.speciesOptions.innerHTML = "";
-  const speciesNames = [...new Set(state.dataset.species.flatMap(species => species.availableNames || [species.primaryName]))]
-    .sort((left, right) => left.localeCompare(right));
-  for (const speciesName of speciesNames) {
-    const option = document.createElement("option");
-    option.value = speciesName;
-    elements.speciesOptions.appendChild(option);
-  }
-
-  elements.abilitySelect.innerHTML = '<option value="">Any ability</option>';
-  for (const abilityName of getAllAbilityNames()) {
-    const option = document.createElement("option");
-    option.value = abilityName;
-    option.textContent = abilityName;
-    elements.abilitySelect.appendChild(option);
-  }
-  syncSelectPlaceholder(elements.abilitySelect);
-
-  populateSelect(elements.moveTypeSearch, state.metadata.moveFilters.types, "Any type");
+  populateSelect(elements.moveTypeSearch, state.metadata.moveFilters.types.filter(name => name !== "Unknown"), "Any type");
   populateSelect(elements.moveCategorySearch, state.metadata.moveFilters.categories.filter(name => name !== "Unknown"), "Any category");
   populateSelect(elements.moveFieldSearch, state.metadata.moveFilters.weatherTerrain, "Any field state");
-  populateSelect(elements.moveTargetSearch, state.metadata.moveFilters.targets || [], "Any target");
+  populateSelect(elements.moveTargetSearch, MOVE_RANGE_OPTIONS, "Any range");
   populateSelect(elements.moveClassificationSearch, state.metadata.moveFilters.classifications, "Any classification");
   renderAbilityToggles();
+  syncSetAutocompleteButtons();
+  initializeClearableSelects();
+  initializeStyledSelectShells();
+}
+
+function getSpeciesAutocompleteOptions() {
+  return [...new Set(state.dataset.species.flatMap(species => species.availableNames || [species.primaryName]))]
+    .sort((left, right) => left.localeCompare(right));
+}
+
+function getSetAutocompleteOptions(input) {
+  switch (input.dataset.autocompleteSource) {
+    case "species":
+      return getSpeciesAutocompleteOptions();
+    case "move":
+      return state.dataset.moveNames || [];
+    case "type":
+      return state.dataset.typeNames || [];
+    case "ability":
+      return getAllAbilityNames();
+    default:
+      return [];
+  }
+}
+
+function getAutocompleteMatches(query, options) {
+  const normalized = normalizeName(query);
+  if (normalized.length < 2) {
+    return [];
+  }
+
+  const startsWith = [];
+  const includes = [];
+  for (const option of options) {
+    const normalizedOption = normalizeName(option);
+    if (normalizedOption.startsWith(normalized)) {
+      startsWith.push(option);
+    } else if (normalizedOption.includes(normalized)) {
+      includes.push(option);
+    }
+  }
+  return [...startsWith, ...includes].slice(0, 8);
+}
+
+function getClosestAutocompleteOption(value, options) {
+  const exact = canonicalName(value, options);
+  if (exact) {
+    return exact;
+  }
+  return getAutocompleteMatches(value, options)[0] || null;
+}
+
+function getAutocompleteElements(input) {
+  const shell = input.closest(".autocomplete-shell");
+  return {
+    shell,
+    clearButton: shell?.querySelector(".autocomplete-clear-button"),
+    suggestions: shell?.querySelector(".autocomplete-suggestions")
+  };
+}
+
+function syncSetAutocompleteButtons() {
+  for (const shell of elements.setAutocompleteShells) {
+    const input = shell.querySelector("input");
+    const clearButton = shell.querySelector(".autocomplete-clear-button");
+    if (input && clearButton) {
+      clearButton.hidden = !input.value;
+    }
+  }
+}
+
+function hideAutocompleteSuggestions(input) {
+  const { suggestions } = getAutocompleteElements(input);
+  if (!suggestions) {
+    return;
+  }
+  suggestions.hidden = true;
+  suggestions.innerHTML = "";
+}
+
+function setAutocompleteValue(input, value) {
+  input.value = value || "";
+  syncSetAutocompleteButtons();
+}
+
+function cancelPendingAutocompleteCommit(input) {
+  const timerId = Number(input.dataset.autocompleteCommitTimer || 0);
+  if (timerId) {
+    window.clearTimeout(timerId);
+    delete input.dataset.autocompleteCommitTimer;
+  }
+}
+
+function skipNextAutocompleteCommit(input) {
+  cancelPendingAutocompleteCommit(input);
+  input.dataset.skipNextAutocompleteCommit = "true";
+}
+
+function getSearchInputForAutocompleteSource(source) {
+  switch (source) {
+    case "species":
+      return elements.speciesInput;
+    case "move":
+      return elements.moveNameSearch;
+    case "ability":
+      return elements.abilityNameSearch;
+    default:
+      return null;
+  }
+}
+
+function commitExplicitAutocompleteSelection(input, selectedName) {
+  if (!input || !selectedName) {
+    return false;
+  }
+
+  skipNextAutocompleteCommit(input);
+  setAutocompleteValue(input, selectedName);
+  hideAutocompleteSuggestions(input);
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+  input.blur();
+  return true;
+}
+
+function commitClickedResultToSpeciesSearch(entryKey) {
+  const entry = getMatches().find(match => getEntryKey(match) === entryKey);
+  if (!entry) {
+    return false;
+  }
+
+  const selectedName = entry.species?.primaryName || "";
+  if (!selectedName) {
+    return false;
+  }
+
+  return commitExplicitAutocompleteSelection(elements.speciesInput, selectedName);
+}
+
+function renderAutocompleteSuggestions(input) {
+  const { suggestions } = getAutocompleteElements(input);
+  if (!suggestions) {
+    return;
+  }
+
+  const matches = getAutocompleteMatches(input.value, getSetAutocompleteOptions(input));
+  if (!matches.length) {
+    hideAutocompleteSuggestions(input);
+    return;
+  }
+
+  suggestions.hidden = false;
+  suggestions.innerHTML = matches.map(match => `
+    <button type="button" class="autocomplete-suggestion-button" data-value="${match}">${match}</button>
+  `).join("");
+
+  for (const button of suggestions.querySelectorAll(".autocomplete-suggestion-button")) {
+    button.addEventListener("mousedown", event => {
+      event.preventDefault();
+      setAutocompleteValue(input, button.dataset.value || "");
+      hideAutocompleteSuggestions(input);
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      input.blur();
+    });
+  }
+}
+
+function commitAutocompleteValue(input) {
+  cancelPendingAutocompleteCommit(input);
+  if (input.dataset.skipNextAutocompleteCommit === "true") {
+    delete input.dataset.skipNextAutocompleteCommit;
+    hideAutocompleteSuggestions(input);
+    return;
+  }
+
+  const previousValue = input.value;
+  const value = input.value.trim();
+  if (!value) {
+    setAutocompleteValue(input, "");
+    hideAutocompleteSuggestions(input);
+    if (previousValue) {
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    return;
+  }
+
+  if (value.length < 2) {
+    setAutocompleteValue(input, "");
+    hideAutocompleteSuggestions(input);
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    return;
+  }
+
+  const closest = getClosestAutocompleteOption(value, getSetAutocompleteOptions(input));
+  setAutocompleteValue(input, closest || "");
+  hideAutocompleteSuggestions(input);
+  if (previousValue !== input.value) {
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+}
+
+function initializeSetAutocomplete() {
+  for (const shell of elements.setAutocompleteShells) {
+    const input = shell.querySelector("input");
+    const clearButton = shell.querySelector(".autocomplete-clear-button");
+    if (!input || input.dataset.autocompleteReady === "true") {
+      continue;
+    }
+
+    input.dataset.autocompleteReady = "true";
+    input.autocomplete = "off";
+
+    input.addEventListener("input", () => {
+      cancelPendingAutocompleteCommit(input);
+      syncSetAutocompleteButtons();
+      renderAutocompleteSuggestions(input);
+    });
+    input.addEventListener("focus", () => {
+      cancelPendingAutocompleteCommit(input);
+      renderAutocompleteSuggestions(input);
+    });
+    input.addEventListener("blur", () => {
+      cancelPendingAutocompleteCommit(input);
+      input.dataset.autocompleteCommitTimer = String(window.setTimeout(() => {
+        delete input.dataset.autocompleteCommitTimer;
+        commitAutocompleteValue(input);
+      }, 120));
+    });
+
+    clearButton?.addEventListener("mousedown", event => {
+      event.preventDefault();
+    });
+
+    clearButton?.addEventListener("click", () => {
+      skipNextAutocompleteCommit(input);
+      setAutocompleteValue(input, "");
+      hideAutocompleteSuggestions(input);
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      input.blur();
+    });
+  }
 }
 
 function populateSelect(select, options, defaultText) {
@@ -769,13 +1177,103 @@ function populateSelect(select, options, defaultText) {
   for (const optionName of options) {
     const option = document.createElement("option");
     option.value = optionName;
-    option.textContent = optionName;
+    option.textContent = formatFilterOptionLabel(optionName);
     select.appendChild(option);
+  }
+}
+
+function normalizeMoveTargetLabel(target) {
+  return getMoveRangeLabels({ target })[0] || "-";
+}
+
+function getMoveRangeLabels(move) {
+  switch (move?.target) {
+    case "Selected Target":
+      return ["Single Target"];
+    case "Self":
+      return ["Self"];
+    case "Adjacent Ally":
+      return ["Single Ally"];
+    case "Self or Ally":
+      return normalizeName(move?.name) === "acupressure"
+        ? ["Self", "Single Ally"]
+        : ["Single Ally"];
+    case "All Allies":
+    case "Team":
+      return ["All Allies"];
+    case "Ally Side":
+      return ["User's Side"];
+    case "All Opponents":
+      return ["All Opponents"];
+    case "Opponent's Side":
+      return ["Opponent's Side"];
+    case "Random Target":
+      return ["Random Opponent"];
+    case "All Adjacent Pokemon":
+    case "All Pokemon":
+      return ["All Pokemon"];
+    case "Field":
+      return ["Entire Field"];
+    case "Special":
+    case "Previous opponent":
+      return ["Varies"];
+    default:
+      return [move?.target || "-"];
   }
 }
 
 function syncSelectPlaceholder(select) {
   select.classList.toggle("placeholder-selected", !select.value);
+  const clearButton = select.closest(".clearable-select")?.querySelector(".select-clear-button");
+  if (clearButton) {
+    clearButton.hidden = !select.value;
+  }
+}
+
+function initializeClearableSelects(root = document) {
+  for (const select of root.querySelectorAll(".clearable-select select")) {
+    syncSelectPlaceholder(select);
+    if (select.dataset.clearableSelectReady === "true") {
+      continue;
+    }
+
+    select.dataset.clearableSelectReady = "true";
+    const clearButton = select.closest(".clearable-select")?.querySelector(".select-clear-button");
+    if (!clearButton) {
+      continue;
+    }
+
+    select.addEventListener("change", () => {
+      syncSelectPlaceholder(select);
+      select.blur();
+    });
+
+    clearButton.addEventListener("mousedown", event => {
+      event.preventDefault();
+    });
+    clearButton.addEventListener("click", event => {
+      event.preventDefault();
+      select.value = "";
+      syncSelectPlaceholder(select);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      select.blur();
+    });
+  }
+}
+
+function initializeStyledSelectShells(root = document) {
+  for (const select of root.querySelectorAll(".select-shell select")) {
+    syncSelectPlaceholder(select);
+    if (select.dataset.styledSelectReady === "true") {
+      continue;
+    }
+
+    select.dataset.styledSelectReady = "true";
+    select.addEventListener("change", () => {
+      syncSelectPlaceholder(select);
+      select.blur();
+    });
+  }
 }
 
 function renderAbilityToggles() {
@@ -803,7 +1301,7 @@ function getSelectedTypes() {
 }
 
 function getSelectedAbility() {
-  return elements.abilitySelect.value || "";
+  return canonicalName(elements.abilityInput.value, getAllAbilityNames()) || "";
 }
 
 function getSpeciesSearchQuery() {
@@ -816,6 +1314,14 @@ function getSelectedSort() {
 
 function getSelectedSortDirection() {
   return elements.sortDirectionSelect.value || "asc";
+}
+
+function getRelatedSpeciesSort() {
+  return state.relatedSpeciesSort || "alphabetical";
+}
+
+function getRelatedSpeciesSortDirection() {
+  return state.relatedSpeciesSortDirection || "asc";
 }
 
 function getActiveSortPlan() {
@@ -919,6 +1425,14 @@ function getAvailableForms(species) {
   return forms;
 }
 
+function isPromptEligibleMultiformSpecies(species) {
+  if (!species || species.isSeparateFormCard) {
+    return false;
+  }
+
+  return Boolean(TRANSFORMING_FORMS[species.slug]?.length);
+}
+
 function compareFormValues(leftValue, rightValue, sortKey, direction) {
   if (sortKey === "alphabetical" || sortKey === "dex") {
     return 0;
@@ -974,6 +1488,295 @@ function getDisplayFormForEntry(entry, sortPlan = getActiveSortPlan()) {
     return getFormById(entry.species, entry.formMode);
   }
   return getDisplayForm(entry.species, sortPlan);
+}
+
+function getNextExplicitForm(species, currentFormId) {
+  const forms = getAvailableForms(species);
+  const currentIndex = Math.max(0, forms.findIndex(form => form.id === currentFormId));
+  return forms[(currentIndex + 1) % forms.length];
+}
+
+function getNonMegaSearchFormId(species, abilityName = "") {
+  const normalizedAbility = normalizeName(abilityName);
+  if (normalizedAbility) {
+    const matchingForm = getAvailableForms(species).find(form =>
+      !form.isMega &&
+      (form.abilities || []).some(ability => normalizeName(ability) === normalizedAbility)
+    );
+    if (matchingForm) {
+      return matchingForm.id;
+    }
+  }
+  return "base";
+}
+
+function compareSpeciesEntries(left, right) {
+  const leftForm = getDisplayFormForEntry(left, []);
+  const rightForm = getDisplayFormForEntry(right, []);
+  return (left.species.dexNo - right.species.dexNo) ||
+    left.species.primaryName.localeCompare(right.species.primaryName) ||
+    leftForm.label.localeCompare(rightForm.label);
+}
+
+function getRelatedSpeciesEntriesForMove(moveName) {
+  const normalizedMove = normalizeName(moveName);
+  const entries = [];
+
+  for (const species of state.dataset.species) {
+    if (!species.moves.some(move => normalizeName(move) === normalizedMove)) {
+      continue;
+    }
+
+    entries.push({ species, formMode: getNonMegaSearchFormId(species) });
+    for (const megaForm of getAvailableForms(species).filter(form => form.isMega)) {
+      entries.push({ species, formMode: megaForm.id });
+    }
+  }
+
+  return entries.sort(compareSpeciesEntries);
+}
+
+function getRelatedSpeciesEntriesForAbility(abilityName) {
+  const normalizedAbility = normalizeName(abilityName);
+  const entries = [];
+
+  for (const species of state.dataset.species) {
+    const forms = getAvailableForms(species);
+    const matchingNonMega = forms.find(form =>
+      !form.isMega &&
+      (form.abilities || []).some(ability => normalizeName(ability) === normalizedAbility)
+    );
+    if (matchingNonMega) {
+      entries.push({ species, formMode: matchingNonMega.id });
+    }
+    for (const megaForm of forms.filter(form =>
+      form.isMega &&
+      (form.abilities || []).some(ability => normalizeName(ability) === normalizedAbility)
+    )) {
+      entries.push({ species, formMode: megaForm.id });
+    }
+  }
+
+  return entries.sort(compareSpeciesEntries);
+}
+
+function getRelatedSpeciesSortPlan() {
+  return [{ key: getRelatedSpeciesSort(), direction: getRelatedSpeciesSortDirection() }];
+}
+
+function formatRelatedSpeciesCard(entry) {
+  const displayForm = getDisplayFormForEntry(entry, []);
+  return `
+    <article class="related-species-card" data-entry-key="${getEntryKey(entry)}">
+      <div class="related-species-top">
+        ${displayForm.spritePath ? `<img class="related-species-sprite" src="${withAssetVersion(displayForm.spritePath)}" alt="${displayForm.label} sprite">` : ""}
+        <div class="related-species-heading">
+          <h4>${displayForm.label}</h4>
+          <span class="related-species-dex-no">#${entry.species.dexNo}</span>
+        </div>
+      </div>
+      <div class="meta related-species-types">${formatTypeIcons(displayForm.types)}</div>
+      <div class="meta related-species-abilities">${(displayForm.abilities || []).join("/") || "Unknown"}</div>
+      <div class="stat-grid compact-stat-grid related-species-stats">
+        ${formatStats(displayForm.stats)}
+      </div>
+      <div class="related-species-actions">
+        <button type="button" class="secondary related-species-detail-button" data-entry-key="${getEntryKey(entry)}">See Details</button>
+      </div>
+    </article>
+  `;
+}
+
+function formatRelatedSpeciesSortControls() {
+  return `
+    <div class="related-species-sort-controls">
+      <label>
+        <span>Sort By</span>
+        <div class="select-shell compact-select-shell">
+          <select class="related-species-sort-select">
+            <option value="alphabetical"${getRelatedSpeciesSort() === "alphabetical" ? " selected" : ""}>Alphabetical</option>
+            <option value="dex"${getRelatedSpeciesSort() === "dex" ? " selected" : ""}>Pokedex Number</option>
+            <option value="hp"${getRelatedSpeciesSort() === "hp" ? " selected" : ""}>HP</option>
+            <option value="attack"${getRelatedSpeciesSort() === "attack" ? " selected" : ""}>Attack</option>
+            <option value="defense"${getRelatedSpeciesSort() === "defense" ? " selected" : ""}>Defense</option>
+            <option value="specialAttack"${getRelatedSpeciesSort() === "specialAttack" ? " selected" : ""}>Special Attack</option>
+            <option value="specialDefense"${getRelatedSpeciesSort() === "specialDefense" ? " selected" : ""}>Special Defense</option>
+            <option value="speed"${getRelatedSpeciesSort() === "speed" ? " selected" : ""}>Speed</option>
+            <option value="total"${getRelatedSpeciesSort() === "total" ? " selected" : ""}>Base Stat Total</option>
+            <option value="offenseTotal"${getRelatedSpeciesSort() === "offenseTotal" ? " selected" : ""}>Offensive Total</option>
+            <option value="defenseTotal"${getRelatedSpeciesSort() === "defenseTotal" ? " selected" : ""}>Defensive Total</option>
+          </select>
+        </div>
+      </label>
+      <label>
+        <span>Direction</span>
+        <div class="select-shell compact-select-shell">
+          <select class="related-species-sort-direction-select">
+            <option value="asc"${getRelatedSpeciesSortDirection() === "asc" ? " selected" : ""}>Ascending</option>
+            <option value="desc"${getRelatedSpeciesSortDirection() === "desc" ? " selected" : ""}>Descending</option>
+          </select>
+        </div>
+      </label>
+    </div>
+  `;
+}
+
+function getSpeciesDetailContextMatches(species, displayForm) {
+  const matchedMoves = [];
+  const matchedAbilities = [];
+
+  for (const moveName of getActiveMoveMatchNames()) {
+    if (species.moves.some(speciesMove => normalizeName(speciesMove) === normalizeName(moveName))) {
+      matchedMoves.push(moveName);
+    }
+  }
+  if (state.speciesDetail?.sourceKind === "move" &&
+    species.moves.some(speciesMove => normalizeName(speciesMove) === normalizeName(state.speciesDetail.sourceName))) {
+    if (!matchedMoves.some(moveName => normalizeName(moveName) === normalizeName(state.speciesDetail.sourceName))) {
+      matchedMoves.unshift(state.speciesDetail.sourceName);
+    }
+  }
+
+  for (const abilityName of getActiveAbilityMatchNames()) {
+    if ((displayForm.abilities || []).some(formAbility => normalizeName(formAbility) === normalizeName(abilityName))) {
+      matchedAbilities.push(abilityName);
+    }
+  }
+  if (state.speciesDetail?.sourceKind === "ability" &&
+    (displayForm.abilities || []).some(formAbility => normalizeName(formAbility) === normalizeName(state.speciesDetail.sourceName))) {
+    if (!matchedAbilities.some(abilityName => normalizeName(abilityName) === normalizeName(state.speciesDetail.sourceName))) {
+      matchedAbilities.unshift(state.speciesDetail.sourceName);
+    }
+  }
+
+  return { matchedMoves, matchedAbilities };
+}
+
+function formatSpeciesDetailModalCard(species, displayForm) {
+  const { matchedMoves, matchedAbilities } = getSpeciesDetailContextMatches(species, displayForm);
+  const allowManualToggle = getAvailableForms(species).length > 1;
+
+  return `
+    <article class="result-card expanded modal-expanded-card" data-species-detail="true">
+      <div class="compact-card-shell">
+        <div class="result-card-button">
+          <div class="result-card-top">
+            ${displayForm.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(displayForm.spritePath)}" alt="${displayForm.label} sprite">` : ""}
+            <div class="result-card-heading">
+              <h3>${displayForm.label}</h3>
+              <span class="result-card-dex-no">#${species.dexNo}</span>
+            </div>
+          </div>
+          <div class="meta compact-dex-line">${formatTypeIcons(displayForm.types)}</div>
+          <div class="meta compact-ability-line">${displayForm.abilities.join("/") || "Unknown"}</div>
+          ${matchedAbilities.length ? `<div class="moves-list">Matched abilities: ${matchedAbilities.join(", ")}</div>` : ""}
+          ${matchedMoves.length ? `<div class="moves-list">Matched moves: ${matchedMoves.join(", ")}</div>` : ""}
+        </div>
+        <div class="always-visible-stats">
+          <div class="detail-block compact-stats-block">
+            <div class="stat-grid compact-stat-grid">
+              ${formatStats(displayForm.stats)}
+            </div>
+          </div>
+        </div>
+        <div class="result-card-actions">
+          ${allowManualToggle ? getManualFormControl(species, displayForm) : ""}
+        </div>
+      </div>
+      <section class="expanded-moves-panel">
+        <h4>Moves</h4>
+        ${formatExpandedSetDropdowns(species, displayForm)}
+      </section>
+      <section class="expanded-stats-panel">
+        <h4>Stats</h4>
+        ${formatAdjustableStatTable(displayForm.stats)}
+      </section>
+      <section class="expanded-actions-panel" aria-label="Set actions">
+        <button type="button" class="secondary expanded-search-button">Fill from Search</button>
+        <button type="button" class="secondary expanded-box-button">Add to Box</button>
+      </section>
+      <div class="details-panel">
+        <section class="detail-block expanded-ability-block">
+          <h4>${displayForm.isMega ? `${displayForm.label} Abilities` : "Abilities"}</h4>
+          <div class="ability-list">
+            ${formatAbilityDetails(displayForm.abilities)}
+          </div>
+        </section>
+        <section class="detail-block expanded-learnpool-block">
+          <h4>Champions Movepool</h4>
+          ${formatLearnpoolFilterPanel()}
+          <div class="learnpool-list">
+            ${formatMoveList(species.moves, state.learnpoolFilters)}
+          </div>
+        </section>
+      </div>
+    </article>
+  `;
+}
+
+function openSpeciesDetailModal(entry, sourceKind = "", sourceName = "") {
+  state.speciesDetail = {
+    speciesSlug: entry.species.slug,
+    formId: entry.formMode,
+    sourceKind,
+    sourceName
+  };
+  renderSpeciesDetailModal();
+  elements.speciesDetailModal.hidden = false;
+}
+
+function closeSpeciesDetailModal() {
+  state.speciesDetail = null;
+  elements.speciesDetailModal.hidden = true;
+  elements.speciesDetailContent.innerHTML = "";
+}
+
+function fillSpeciesDetailFromContext(card, species, displayForm) {
+  const moveInputs = [...card.querySelectorAll(".expanded-move-input")];
+  const { matchedMoves, matchedAbilities } = getSpeciesDetailContextMatches(species, displayForm);
+  moveInputs.forEach((input, index) => {
+    input.value = matchedMoves[index] || "";
+  });
+
+  const abilityInput = card.querySelector(".expanded-ability-input");
+  if (abilityInput) {
+    abilityInput.value = matchedAbilities[0] || "";
+  }
+}
+
+function renderSpeciesDetailModal() {
+  if (!state.speciesDetail) {
+    return;
+  }
+
+  const species = state.dataset.species.find(entry => entry.slug === state.speciesDetail.speciesSlug);
+  if (!species) {
+    closeSpeciesDetailModal();
+    return;
+  }
+
+  const displayForm = getFormById(species, state.speciesDetail.formId || "base");
+  elements.speciesDetailContent.innerHTML = formatSpeciesDetailModalCard(species, displayForm);
+  const card = elements.speciesDetailContent.querySelector("[data-species-detail]");
+  if (!card) {
+    return;
+  }
+
+  bindExpandedSetControls(card);
+  bindLearnpoolFilters(card, species.moves);
+  bindLearnpoolMoveRows(card);
+  card.querySelector(".expanded-search-button")?.addEventListener("click", () => fillSpeciesDetailFromContext(card, species, displayForm));
+  card.querySelector(".expanded-box-button")?.addEventListener("click", () => openBoxSavePrompt(getExpandedConfigFromCard(card, species, displayForm)));
+  card.querySelector(".form-toggle-button")?.addEventListener("click", () => {
+    state.speciesDetail.formId = getNextExplicitForm(species, displayForm.id).id;
+    renderSpeciesDetailModal();
+  });
+  for (const segmentButton of card.querySelectorAll(".form-segment-button")) {
+    segmentButton.addEventListener("click", () => {
+      state.speciesDetail.formId = segmentButton.dataset.formId;
+      renderSpeciesDetailModal();
+    });
+  }
 }
 
 function compareEntriesBySortPlan(leftEntry, rightEntry, sortPlan = getActiveSortPlan()) {
@@ -1075,6 +1878,7 @@ function getMatches() {
   const requiredAbility = normalizeName(getSelectedAbility());
   const relationFilters = state.promptPlan?.relations || [];
   const hasFormAbilityFilter = Boolean(requiredAbility || relationFilters.some(filter => filter.abilities.length));
+  const multiformOnly = Boolean(state.promptPlan?.forms?.multiformOnly);
 
   const matchedSpecies = state.dataset.species.filter(species => {
     const moveSet = new Set(species.moves.map(normalizeName));
@@ -1082,6 +1886,7 @@ function getMatches() {
 
     return requiredMoves.every(moveName => moveSet.has(moveName)) &&
       requiredTypes.every(typeName => typeSet.has(typeName)) &&
+      (!multiformOnly || isPromptEligibleMultiformSpecies(species)) &&
       (!speciesQuery || Number.isFinite(scoreSpeciesNameMatch(species, speciesQuery)));
   });
 
@@ -1118,7 +1923,8 @@ function hasActiveFilters() {
     getSelectedMoves().length ||
     getSelectedTypes().length ||
     getSelectedAbility() ||
-    state.promptPlan?.relations?.length);
+    state.promptPlan?.relations?.length ||
+    state.promptPlan?.forms?.multiformOnly);
 }
 
 function hasActiveSearch() {
@@ -1217,7 +2023,203 @@ function formatNatureOptionLabel(nature) {
     return `${nature?.name || "Unknown"} (neutral)`;
   }
 
-  return `${nature.name} (+${SORT_LABELS[nature.up]}, -${SORT_LABELS[nature.down]})`;
+  const shortStatLabels = {
+    hp: "HP",
+    attack: "Atk",
+    defense: "Def",
+    specialAttack: "SpA",
+    specialDefense: "SpD",
+    speed: "Spe"
+  };
+
+  return `${nature.name} (+${shortStatLabels[nature.up]}, -${shortStatLabels[nature.down]})`;
+}
+
+function isNeutralNature(nature) {
+  return !nature?.up || !nature?.down;
+}
+
+function sumChampionsEvs(evs = {}) {
+  return STAT_ROWS.reduce((total, [, key]) => total + (Number(evs[key]) || 0), 0);
+}
+
+function calculateFinalStatsForSpread(baseStats, evs, nature) {
+  const finalStats = {};
+  for (const [, key] of STAT_ROWS) {
+    finalStats[key] = calculateChampionsStat(baseStats[key], key, evs[key], nature);
+  }
+  return finalStats;
+}
+
+function findMinimumChampionsEvsForTarget(baseStat, statKey, nature, targetStat) {
+  for (let evs = 0; evs <= CHAMPIONS_MAX_EVS_PER_STAT; evs += 1) {
+    const finalStat = calculateChampionsStat(baseStat, statKey, evs, nature);
+    if (finalStat >= targetStat) {
+      return { evs, finalStat };
+    }
+  }
+  return null;
+}
+
+function compareOptimizedSpread(left, right, currentNatureName) {
+  if (!left) return right;
+  if (!right) return left;
+
+  if (right.savedPoints !== left.savedPoints) {
+    return right.savedPoints > left.savedPoints ? right : left;
+  }
+  if (right.totalStatGain !== left.totalStatGain) {
+    return right.totalStatGain > left.totalStatGain ? right : left;
+  }
+  if (right.improvedStatCount !== left.improvedStatCount) {
+    return right.improvedStatCount > left.improvedStatCount ? right : left;
+  }
+  const leftKeepsNature = left.natureName === currentNatureName;
+  const rightKeepsNature = right.natureName === currentNatureName;
+  if (leftKeepsNature !== rightKeepsNature) {
+    return rightKeepsNature ? right : left;
+  }
+  return left;
+}
+
+function optimizeChampionsSpread(baseStats, currentEvs, currentNatureName) {
+  const currentNature = getNatureByName(currentNatureName);
+  const currentTotal = sumChampionsEvs(currentEvs);
+  if (currentTotal < CHAMPIONS_MAX_TOTAL_EVS || isNeutralNature(currentNature)) {
+    return null;
+  }
+
+  const currentFinalStats = calculateFinalStatsForSpread(baseStats, currentEvs, currentNature);
+  let best = null;
+
+  for (const candidateNature of NATURES) {
+    const candidateEvs = {};
+    const candidateFinalStats = {};
+    let total = 0;
+    let feasible = true;
+
+    for (const [, key] of STAT_ROWS) {
+      const targetStat = currentFinalStats[key];
+      const optimized = findMinimumChampionsEvsForTarget(baseStats[key], key, candidateNature, targetStat);
+      if (!optimized) {
+        feasible = false;
+        break;
+      }
+      candidateEvs[key] = optimized.evs;
+      candidateFinalStats[key] = optimized.finalStat;
+      total += optimized.evs;
+      if (total > CHAMPIONS_MAX_TOTAL_EVS) {
+        feasible = false;
+        break;
+      }
+    }
+
+    if (!feasible) {
+      continue;
+    }
+
+    const savedPoints = currentTotal - total;
+    const totalStatGain = STAT_ROWS.reduce(
+      (sum, [, key]) => sum + Math.max(0, candidateFinalStats[key] - currentFinalStats[key]),
+      0
+    );
+    const improvedStatCount = STAT_ROWS.reduce(
+      (count, [, key]) => count + (candidateFinalStats[key] > currentFinalStats[key] ? 1 : 0),
+      0
+    );
+
+    if (savedPoints <= 0 && totalStatGain <= 0) {
+      continue;
+    }
+
+    best = compareOptimizedSpread(best, {
+      natureName: candidateNature.name,
+      nature: candidateNature,
+      evs: candidateEvs,
+      finalStats: candidateFinalStats,
+      total,
+      savedPoints,
+      totalStatGain,
+      improvedStatCount
+    }, currentNatureName);
+  }
+
+  return best;
+}
+
+function formatOptimizedEvSummary(evs) {
+  return STAT_ROWS
+    .map(([label, key]) => {
+      const value = Number(evs[key]) || 0;
+      return value ? `${value} ${label}` : null;
+    })
+    .filter(Boolean)
+    .join(" / ");
+}
+
+function formatOptimizationCallout(optimized, currentNatureName) {
+  const summary = formatOptimizedEvSummary(optimized.evs);
+  const natureLabel = formatNatureOptionLabel(optimized.nature);
+  const actionText = optimized.savedPoints > 0
+    ? `save ${optimized.savedPoints} point${optimized.savedPoints === 1 ? "" : "s"}`
+    : "get higher stats";
+  const leadText = optimized.natureName === currentNatureName
+    ? `More efficient spread found to ${actionText}:`
+    : `Use a different nature to ${actionText}:`;
+
+  return `
+    <small><em>Optimizer:</em> ${leadText}</small>
+    <button type="button" class="secondary stat-optimize-button">${summary} (${natureLabel})</button>
+  `;
+}
+
+function getSpreadFromStatTable(table) {
+  const natureName = table.querySelector(".expanded-nature-input")?.value || NATURES[0].name;
+  const nature = getNatureByName(natureName);
+  const evs = {};
+  const baseStats = {};
+
+  for (const input of getExpandedStatInputs(table)) {
+    const statKey = input.dataset.stat;
+    const row = input.closest(".expanded-stat-row");
+    evs[statKey] = Math.max(0, Math.min(CHAMPIONS_MAX_EVS_PER_STAT, Number(input.value) || 0));
+    baseStats[statKey] = Number(row?.querySelector(".expanded-stat-value")?.textContent) || 0;
+  }
+
+  return { natureName, nature, evs, baseStats, total: sumChampionsEvs(evs) };
+}
+
+function applyOptimizedSpreadToTable(table, optimized) {
+  const natureInput = table.querySelector(".expanded-nature-input");
+  if (natureInput) {
+    natureInput.value = optimized.natureName;
+  }
+
+  for (const input of getExpandedStatInputs(table)) {
+    const statKey = input.dataset.stat;
+    input.value = String(optimized.evs[statKey] || 0);
+  }
+}
+
+function syncExpandedStatOptimizer(table, spread = getSpreadFromStatTable(table)) {
+  const optimizerElement = table.querySelector(".expanded-stat-optimizer");
+  if (!optimizerElement) {
+    return;
+  }
+
+  const optimized = optimizeChampionsSpread(spread.baseStats, spread.evs, spread.natureName);
+  if (!optimized) {
+    optimizerElement.hidden = true;
+    optimizerElement.innerHTML = "";
+    return;
+  }
+
+  optimizerElement.hidden = false;
+  optimizerElement.innerHTML = formatOptimizationCallout(optimized, spread.natureName);
+  optimizerElement.querySelector(".stat-optimize-button")?.addEventListener("click", () => {
+    applyOptimizedSpreadToTable(table, optimized);
+    syncExpandedStatTable(table);
+  });
 }
 
 function formatTypeIcon(typeName) {
@@ -1235,14 +2237,68 @@ function formatTypeIcons(typeNames) {
     : `<span class="meta">Unknown type</span>`;
 }
 
-function formatItemOptions(selectedItem = "") {
-  const items = [...state.items];
-  if (selectedItem && !items.some(item => normalizeName(item.name) === normalizeName(selectedItem))) {
-    items.push({ name: selectedItem });
+function getHeldItemPool() {
+  return state.items.filter(item => ["Hold Items", "Berries", "Mega Stone"].includes(item.category));
+}
+
+function getMegaStoneSpeciesName(item) {
+  const match = item?.effect?.match(/(?:^|[.]\s)A[n]? ([A-Za-z0-9.' -]+?) holding this stone/i);
+  return match ? match[1].trim() : "";
+}
+
+function getMegaStoneOptionsForSpecies(speciesName = "") {
+  const normalizedSpeciesName = normalizeName(speciesName);
+  if (!normalizedSpeciesName) {
+    return [];
   }
-  return items
-    .sort((left, right) => left.name.localeCompare(right.name))
-    .map(item => `<option value="${item.name}"${normalizeName(item.name) === normalizeName(selectedItem) ? " selected" : ""}>${item.name}</option>`)
+
+  return getHeldItemPool().filter(item =>
+    item.category === "Mega Stone" &&
+    normalizeName(getMegaStoneSpeciesName(item)) === normalizedSpeciesName
+  );
+}
+
+function getFilteredItemOptions(selectedItem = "", speciesName = "") {
+  const megaStoneOptions = getMegaStoneOptionsForSpecies(speciesName);
+  const hasMegaOptions = megaStoneOptions.length > 0;
+  const megaStoneNames = new Set(megaStoneOptions.map(item => normalizeName(item.name)));
+
+  const baseItems = getHeldItemPool().filter(item => {
+    if (item.category !== "Mega Stone") {
+      return true;
+    }
+    return hasMegaOptions ? megaStoneNames.has(normalizeName(item.name)) : false;
+  });
+
+  const selectedNormalized = normalizeName(selectedItem);
+  if (selectedItem && !baseItems.some(item => normalizeName(item.name) === selectedNormalized)) {
+    baseItems.push({
+      category: megaStoneNames.has(selectedNormalized) ? "Mega Stone" : "Hold Items",
+      name: selectedItem,
+      effect: ""
+    });
+  }
+
+  const alphabetical = (left, right) => left.name.localeCompare(right.name);
+  const nonBerryNonMegaItems = baseItems
+    .filter(item => item.category !== "Mega Stone" && item.category !== "Berries")
+    .sort(alphabetical);
+  const berries = baseItems
+    .filter(item => item.category === "Berries")
+    .sort(alphabetical);
+
+  const prioritized = [
+    ...(hasMegaOptions ? megaStoneOptions.sort(alphabetical) : []),
+    ...nonBerryNonMegaItems,
+    ...berries
+  ];
+
+  return prioritized;
+}
+
+function formatItemOptions(selectedItem = "", speciesName = "") {
+  return getFilteredItemOptions(selectedItem, speciesName)
+    .map(item => `<option value="${item.name}"${normalizeName(item.name) === normalizeName(selectedItem) ? " selected" : ""}${item.category === "Mega Stone" ? ' style="color: #b388ff;"' : ""}>${item.name}</option>`)
     .join("");
 }
 
@@ -1271,7 +2327,12 @@ function formatMovePpLabel(move) {
 }
 
 function formatMoveTargetLabel(move) {
-  return `Target: ${move.target || "-"}`;
+  const ranges = getMoveRangeLabels(move);
+  let display = ranges.join(" / ");
+  if (ranges.length === 1 && ranges[0] === "All Pokemon" && ["perishsong", "teatime"].includes(normalizeName(move.name))) {
+    display = "All Pokemon (+User)";
+  }
+  return `Range: ${display}`;
 }
 
 function formatMovePriorityLabel(priority) {
@@ -1282,6 +2343,28 @@ function formatMovePriorityLabel(priority) {
       ? "negative"
       : "neutral";
   return `<span class="priority-badge priority-${priorityClass}">${numericPriority >= 0 ? "+" : ""}${numericPriority}</span>`;
+}
+
+function doesMoveMatchFilters(move, filters = {}) {
+  const nameQuery = normalizeName(filters.name || "");
+  const type = filters.type || "";
+  const category = filters.category || "";
+  const priority = filters.priority || "";
+  const field = filters.field || "";
+  const target = filters.target || "";
+  const classification = filters.classification || "";
+  const priorityMatch = !priority ||
+    (priority === "positive" && move.priority > 0) ||
+    (priority === "zero" && move.priority === 0) ||
+    (priority === "negative" && move.priority < 0);
+
+  return (!nameQuery || normalizeName(move.name).includes(nameQuery)) &&
+    (!type || move.type === type) &&
+    (!category || move.category === category) &&
+    priorityMatch &&
+    (!field || move.weatherTerrain.includes(field)) &&
+    (!target || getMoveRangeLabels(move).includes(target)) &&
+    (!classification || getMoveDisplayClassifications(move).includes(classification));
 }
 
 function getMoveDisplayClassifications(move) {
@@ -1299,7 +2382,8 @@ function formatMoveDataRow(move, { includeSendButton = true, learnpoolPick = fal
       <div class="move-primary">
         <div class="move-title-meta">
           <div class="row-title">${move.name}</div>
-          <div class="row-meta move-metadata">${formatMovePowerLabel(move)} | ${formatMoveAccuracyLabel(move)} | ${formatMovePpLabel(move)} | ${formatMoveTargetLabel(move)}</div>
+          <div class="row-meta move-metadata">${formatMovePowerLabel(move)} | ${formatMoveAccuracyLabel(move)} | ${formatMovePpLabel(move)}</div>
+          <div class="row-meta move-target-meta">${formatMoveTargetLabel(move)}</div>
         </div>
         <div class="move-priority-corner">${formatMovePriorityLabel(move.priority)}</div>
       </div>
@@ -1376,11 +2460,30 @@ function getManualFormControl(species, displayForm) {
   return `<button type="button" class="secondary form-toggle-button">${getFormToggleButtonText(species)}</button>`;
 }
 
-function formatMoveList(moves) {
+function formatMoveList(moves, filters = null) {
   const moveEntries = moves.map(moveName => ({
     name: moveName,
     metadata: getMoveMetadata(moveName)
-  }));
+  })).filter(entry => {
+    if (!filters) {
+      return true;
+    }
+    if (!entry.metadata) {
+      return !filters.type &&
+        !filters.category &&
+        !filters.priority &&
+        !filters.field &&
+        !filters.target &&
+        !filters.classification &&
+        (!filters.name || normalizeName(entry.name).includes(normalizeName(filters.name)));
+    }
+    return doesMoveMatchFilters(entry.metadata, filters);
+  });
+
+  if (!moveEntries.length) {
+    return `<div class="empty-state">No movepool moves match the current filters.</div>`;
+  }
+
   const grouped = new Map();
   for (const entry of moveEntries) {
     const typeName = entry.metadata?.type || "Unknown";
@@ -1391,13 +2494,16 @@ function formatMoveList(moves) {
   }
 
   return [...grouped.entries()]
-    .sort(([leftType], [rightType]) => leftType.localeCompare(rightType))
+    .sort(([leftType], [rightType]) => {
+      const rankDiff = getLearnpoolTypeRank(leftType) - getLearnpoolTypeRank(rightType);
+      return rankDiff || leftType.localeCompare(rightType);
+    })
     .map(([typeName, entries]) => `
       <section class="learnpool-type-group">
         <h5>${formatTypeIcons(typeName === "Unknown" ? [] : [typeName])}</h5>
         <div class="learnpool-move-rows">
           ${entries
-            .sort((left, right) => left.name.localeCompare(right.name))
+            .sort(compareLearnpoolEntries)
             .map(entry => entry.metadata
               ? formatMoveDataRow(entry.metadata, { includeSendButton: false, learnpoolPick: true })
               : `<article class="data-row move-row learnpool-missing-row"><div class="row-title">${entry.name}</div><div class="row-description">Move data unavailable.</div></article>`)
@@ -1405,6 +2511,144 @@ function formatMoveList(moves) {
         </div>
       </section>
     `).join("");
+}
+
+function getLearnpoolCategoryRank(entry) {
+  const category = normalizeName(entry.metadata?.category);
+  if (category === "physical") {
+    return 0;
+  }
+  if (category === "special") {
+    return 1;
+  }
+  if (category === "status") {
+    return 2;
+  }
+  return 3;
+}
+
+function getLearnpoolPowerSortValue(entry) {
+  const power = entry.metadata?.power;
+  return Number.isFinite(power) && power > 0 ? power : null;
+}
+
+function compareLearnpoolEntries(left, right) {
+  const leftRank = getLearnpoolCategoryRank(left);
+  const rightRank = getLearnpoolCategoryRank(right);
+  if (leftRank !== rightRank) {
+    return leftRank - rightRank;
+  }
+
+  if (leftRank <= 1) {
+    const leftPower = getLearnpoolPowerSortValue(left);
+    const rightPower = getLearnpoolPowerSortValue(right);
+    if (leftPower === null && rightPower !== null) {
+      return 1;
+    }
+    if (leftPower !== null && rightPower === null) {
+      return -1;
+    }
+    if (leftPower !== null && rightPower !== null && leftPower !== rightPower) {
+      return rightPower - leftPower;
+    }
+  }
+
+  return left.name.localeCompare(right.name);
+}
+
+function getLearnpoolTypeRank(typeName) {
+  const index = LEARNPOOL_TYPE_ORDER.findIndex(entry => normalizeName(entry) === normalizeName(typeName));
+  return index >= 0 ? index : LEARNPOOL_TYPE_ORDER.length;
+}
+
+function getLearnpoolFilterOptionMarkup(options, selectedValue, placeholderText) {
+  return [
+    `<option value="">${placeholderText}</option>`,
+    ...options.map(option => `<option value="${option}"${option === selectedValue ? " selected" : ""}>${formatFilterOptionLabel(option)}</option>`)
+  ].join("");
+}
+
+function formatLearnpoolFilterPanel() {
+  const filters = state.learnpoolFilters;
+  const detailsAttributes = state.learnpoolFiltersOpen ? " open" : "";
+
+  return `
+    <details class="learnpool-filter-panel"${detailsAttributes}>
+      <summary>Movepool Filters</summary>
+      <div class="learnpool-filter-body">
+        <div class="input-row learnpool-filter-name-row">
+          <div class="filter-block top-row-filter-block">
+            <label>Move Name</label>
+            <div class="input-group">
+              <input class="learnpool-filter-input" data-filter-key="name" type="text" placeholder="Search move name" value="${escapeHtml(filters.name)}">
+              <button type="button" class="secondary learnpool-filter-clear-button">Clear All</button>
+            </div>
+          </div>
+        </div>
+        <div class="learnpool-filter-grid">
+          <div class="filter-block">
+            <label>Type</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="type">
+                ${getLearnpoolFilterOptionMarkup(state.metadata.moveFilters.types.filter(name => name !== "Unknown"), filters.type, "Any type")}
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Type filter" hidden>X</button>
+            </div>
+          </div>
+          <div class="filter-block">
+            <label>Category</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="category">
+                ${getLearnpoolFilterOptionMarkup(state.metadata.moveFilters.categories.filter(name => name !== "Unknown"), filters.category, "Any category")}
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Category filter" hidden>X</button>
+            </div>
+          </div>
+          <div class="filter-block">
+            <label>Priority</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="priority">
+                <option value="">Any priority</option>
+                <option value="positive"${filters.priority === "positive" ? " selected" : ""}>Positive priority</option>
+                <option value="zero"${filters.priority === "zero" ? " selected" : ""}>Normal priority</option>
+                <option value="negative"${filters.priority === "negative" ? " selected" : ""}>Negative priority</option>
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Priority filter" hidden>X</button>
+            </div>
+          </div>
+        </div>
+        <div class="learnpool-filter-grid">
+          <div class="filter-block">
+            <label>Weather / Terrain</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="field">
+                ${getLearnpoolFilterOptionMarkup(state.metadata.moveFilters.weatherTerrain, filters.field, "Any field state")}
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Weather or Terrain filter" hidden>X</button>
+            </div>
+          </div>
+          <div class="filter-block">
+            <label>Range</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="target">
+                ${getLearnpoolFilterOptionMarkup(MOVE_RANGE_OPTIONS, filters.target, "Any range")}
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Range filter" hidden>X</button>
+            </div>
+          </div>
+          <div class="filter-block">
+            <label>Classification</label>
+            <div class="clearable-select compact-clearable-select">
+              <select class="learnpool-filter-input" data-filter-key="classification">
+                ${getLearnpoolFilterOptionMarkup(state.metadata.moveFilters.classifications, filters.classification, "Any classification")}
+              </select>
+              <button type="button" class="select-clear-button" aria-label="Clear movepool Classification filter" hidden>X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+  `;
 }
 
 function formatExpandedMoveDropdowns(species) {
@@ -1415,10 +2659,13 @@ function formatExpandedMoveDropdowns(species) {
     return `
       <label class="expanded-move-select">
         <span>Move ${index + 1}</span>
-        <select class="expanded-move-input">
-          <option value="">-</option>
-          ${options}
-        </select>
+        <div class="clearable-select compact-clearable-select">
+          <select class="expanded-move-input">
+            <option value="">-</option>
+            ${options}
+          </select>
+          <button type="button" class="select-clear-button" aria-label="Clear Move ${index + 1}" hidden>X</button>
+        </div>
       </label>
     `;
   }).join("");
@@ -1436,17 +2683,23 @@ function formatExpandedSetDropdowns(species, displayForm) {
     <div class="expanded-set-selects">
       <label class="expanded-move-select expanded-ability-select">
         <span>Ability</span>
-        <select class="expanded-ability-input">
-          <option value="">-</option>
-          ${abilityOptions || `<option value="">Unknown</option>`}
-        </select>
+        <div class="clearable-select compact-clearable-select">
+          <select class="expanded-ability-input">
+            <option value="">-</option>
+            ${abilityOptions || `<option value="">Unknown</option>`}
+          </select>
+          <button type="button" class="select-clear-button" aria-label="Clear Ability" hidden>X</button>
+        </div>
       </label>
       <label class="expanded-move-select expanded-item-select">
         <span>Item</span>
-        <select>
-          <option value="">-</option>
-          ${formatItemOptions()}
-        </select>
+        <div class="clearable-select compact-clearable-select">
+          <select>
+            <option value="">-</option>
+            ${formatItemOptions("", species.primaryName)}
+          </select>
+          <button type="button" class="select-clear-button" aria-label="Clear Item" hidden>X</button>
+        </div>
       </label>
     </div>
   `;
@@ -1497,12 +2750,15 @@ function formatAdjustableStatTable(stats) {
       <div class="expanded-stat-alignment">
         <label class="expanded-nature-select">
           <span>Stat Alignment</span>
-          <select class="expanded-nature-input">
-            ${NATURES.map(nature => `<option value="${nature.name}">${formatNatureOptionLabel(nature)}</option>`).join("")}
-          </select>
+          <div class="select-shell compact-select-shell">
+            <select class="expanded-nature-input">
+              ${NATURES.map(nature => `<option value="${nature.name}">${formatNatureOptionLabel(nature)}</option>`).join("")}
+            </select>
+          </div>
         </label>
         <span class="expanded-ev-total">0/${CHAMPIONS_MAX_TOTAL_EVS}</span>
       </div>
+      <div class="expanded-stat-optimizer" hidden></div>
     </div>
   `;
 }
@@ -1539,9 +2795,9 @@ function clampExpandedEvInput(input, table) {
 }
 
 function syncExpandedStatTable(table) {
-  const nature = getNatureByName(table.querySelector(".expanded-nature-input")?.value);
+  const spread = getSpreadFromStatTable(table);
+  const { nature, total: totalEvs } = spread;
   const inputs = getExpandedStatInputs(table);
-  const totalEvs = inputs.reduce((total, input) => total + (Number(input.value) || 0), 0);
   const totalElement = table.querySelector(".expanded-ev-total");
   if (totalElement) {
     totalElement.textContent = `${totalEvs}/${CHAMPIONS_MAX_TOTAL_EVS}`;
@@ -1563,9 +2819,13 @@ function syncExpandedStatTable(table) {
       finalValue.classList.toggle("nature-negative", nature.down === statKey);
     }
   }
+
+  syncExpandedStatOptimizer(table, spread);
 }
 
 function bindExpandedSetControls(card) {
+  initializeClearableSelects(card);
+  initializeStyledSelectShells(card);
   const table = card.querySelector(".expanded-stat-table");
   if (table) {
     for (const input of getExpandedStatInputs(table)) {
@@ -1715,9 +2975,12 @@ function openTeamAddPrompt(config) {
 }
 
 function closeBoxSavePrompt() {
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
   state.pendingBoxConfig = null;
   elements.boxSaveNicknameInput.value = "";
   elements.boxSaveModal.hidden = true;
+  requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
 }
 
 function confirmBoxSave() {
@@ -1761,63 +3024,200 @@ function confirmBoxSave() {
   closeBoxSavePrompt();
 }
 
+function formatMoveSearchCard(move) {
+  const classifications = getMoveDisplayClassifications(move);
+  const isExpanded = normalizeName(state.moveExpandedName) === normalizeName(move.name);
+  const relatedEntries = [...getRelatedSpeciesEntriesForMove(move.name)]
+    .sort((left, right) => compareEntriesBySortPlan(left, right, getRelatedSpeciesSortPlan()));
+  const hoverLabel = `Show ${relatedEntries.length} user${relatedEntries.length === 1 ? "" : "s"}?`;
+
+  return `
+    <article class="search-expand-card move-expand-card${isExpanded ? " expanded" : ""}" data-move-name="${move.name}" data-hover-label="${hoverLabel}">
+      <div class="move-search-shell-frame">
+        <div class="data-row move-row search-expand-shell type-border-${normalizeName(move.type)}">
+          <div class="move-primary">
+            <div class="move-title-meta">
+              <div class="row-title">${move.name}</div>
+              <div class="row-meta move-metadata">${formatMovePowerLabel(move)} | ${formatMoveAccuracyLabel(move)} | ${formatMovePpLabel(move)}</div>
+              <div class="row-meta move-target-meta">${formatMoveTargetLabel(move)}</div>
+            </div>
+            <div class="move-priority-corner">${formatMovePriorityLabel(move.priority)}</div>
+          </div>
+          <div class="row-meta move-badge-cell">${formatTypeIcons([move.type])}</div>
+          <div class="row-meta move-badge-cell">${formatMoveCategoryIcon(move.category)}</div>
+          <div class="move-copy${classifications.length ? " has-classification" : ""}">
+            <div class="row-description">${move.description}</div>
+            ${classifications.length ? `<div class="move-classifications">${classifications.join(", ")}</div>` : ""}
+          </div>
+          <button type="button" class="secondary send-setlist-button" data-kind="move" data-name="${move.name}">Send to Setlist</button>
+        </div>
+      </div>
+      ${isExpanded ? `
+        <section class="search-species-panel">
+          <div class="search-species-panel-header">
+            <h4>${relatedEntries.length} Pokemon</h4>
+            ${formatRelatedSpeciesSortControls()}
+          </div>
+          <div class="related-species-grid">
+            ${relatedEntries.map(entry => formatRelatedSpeciesCard(entry)).join("")}
+          </div>
+        </section>
+      ` : ""}
+    </article>
+  `;
+}
+
+function formatAbilitySearchCard(ability) {
+  const isExpanded = normalizeName(state.abilityExpandedName) === normalizeName(ability.name);
+  const relatedEntries = [...getRelatedSpeciesEntriesForAbility(ability.name)]
+    .sort((left, right) => compareEntriesBySortPlan(left, right, getRelatedSpeciesSortPlan()));
+  const hoverLabel = `Show ${relatedEntries.length} user${relatedEntries.length === 1 ? "" : "s"}?`;
+
+  return `
+    <article class="search-expand-card ability-expand-card${isExpanded ? " expanded" : ""}" data-ability-name="${ability.name}" data-hover-label="${hoverLabel}">
+      <div class="ability-search-shell-frame">
+        <div class="data-row ability-row search-expand-shell">
+          <div class="row-title">${ability.name}</div>
+          <div class="row-meta">${ability.tags.map(tag => ABILITY_TOGGLES.find(([key]) => key === tag)?.[1] || tag).join(", ")}</div>
+          <div class="row-description">${ability.description}</div>
+          <button type="button" class="secondary send-setlist-button" data-kind="ability" data-name="${ability.name}">Send to Setlist</button>
+        </div>
+      </div>
+      ${isExpanded ? `
+        <section class="search-species-panel">
+          <div class="search-species-panel-header">
+            <h4>${relatedEntries.length} Pokemon</h4>
+            ${formatRelatedSpeciesSortControls()}
+          </div>
+          <div class="related-species-grid">
+            ${relatedEntries.map(entry => formatRelatedSpeciesCard(entry)).join("")}
+          </div>
+        </section>
+      ` : ""}
+    </article>
+  `;
+}
+
+function bindSearchExpanders(container, kind) {
+  for (const shell of container.querySelectorAll(".search-expand-shell")) {
+    shell.addEventListener("mousedown", event => {
+      if (!(event.target instanceof Element) || event.target.closest(".send-setlist-button")) {
+        return;
+      }
+
+      const activeInput = kind === "move" ? elements.moveNameSearch : elements.abilityNameSearch;
+      if (document.activeElement !== activeInput) {
+        return;
+      }
+
+      const selectedName = kind === "move"
+        ? shell.closest("[data-move-name]")?.dataset.moveName || ""
+        : shell.closest("[data-ability-name]")?.dataset.abilityName || "";
+      if (!selectedName) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      state.consumedSearchExpandMouseDown = `${kind}:${normalizeName(selectedName)}`;
+      commitExplicitAutocompleteSelection(activeInput, selectedName);
+      if (kind === "move") {
+        state.moveExpandedName = selectedName;
+        renderMoveSearch();
+      } else {
+        state.abilityExpandedName = selectedName;
+        renderAbilitySearch();
+      }
+    });
+
+    shell.addEventListener("click", event => {
+      if (!(event.target instanceof Element) || event.target.closest(".send-setlist-button")) {
+        return;
+      }
+
+      const name = kind === "move"
+        ? shell.closest("[data-move-name]")?.dataset.moveName || ""
+        : shell.closest("[data-ability-name]")?.dataset.abilityName || "";
+      if (state.consumedSearchExpandMouseDown === `${kind}:${normalizeName(name)}`) {
+        state.consumedSearchExpandMouseDown = null;
+        return;
+      }
+
+      if (kind === "move") {
+        state.moveExpandedName = normalizeName(state.moveExpandedName) === normalizeName(name) ? "" : name;
+        renderMoveSearch();
+      } else {
+        state.abilityExpandedName = normalizeName(state.abilityExpandedName) === normalizeName(name) ? "" : name;
+        renderAbilitySearch();
+      }
+    });
+  }
+
+  for (const select of container.querySelectorAll(".related-species-sort-select")) {
+    syncSelectPlaceholder(select);
+    select.addEventListener("change", () => {
+      state.relatedSpeciesSort = select.value || "alphabetical";
+      renderMoveSearch();
+      renderAbilitySearch();
+    });
+  }
+
+  for (const select of container.querySelectorAll(".related-species-sort-direction-select")) {
+    syncSelectPlaceholder(select);
+    select.addEventListener("change", () => {
+      state.relatedSpeciesSortDirection = select.value || "asc";
+      renderMoveSearch();
+      renderAbilitySearch();
+    });
+  }
+
+  initializeStyledSelectShells(container);
+
+  for (const button of container.querySelectorAll(".related-species-detail-button")) {
+    button.addEventListener("click", event => {
+      event.stopPropagation();
+      const entryKey = button.dataset.entryKey || "";
+      const [slug, formMode = "base"] = entryKey.split(":");
+      const species = state.dataset.species.find(entry => entry.slug === slug);
+      if (!species) {
+        return;
+      }
+      openSpeciesDetailModal(
+        { species, formMode },
+        kind,
+        kind === "move"
+          ? button.closest("[data-move-name]")?.dataset.moveName || ""
+          : button.closest("[data-ability-name]")?.dataset.abilityName || ""
+      );
+    });
+  }
+}
+
 function getMoveSearchMatches() {
-  const nameQuery = normalizeName(elements.moveNameSearch.value);
-  const type = elements.moveTypeSearch.value;
-  const category = elements.moveCategorySearch.value;
-  const priority = elements.movePrioritySearch.value;
-  const field = elements.moveFieldSearch.value;
-  const target = elements.moveTargetSearch.value;
-  const classification = elements.moveClassificationSearch.value;
-
-  return state.metadata.moves.filter(move => {
-    const priorityMatch = !priority ||
-      (priority === "positive" && move.priority > 0) ||
-      (priority === "zero" && move.priority === 0) ||
-      (priority === "negative" && move.priority < 0);
-
-    return (!nameQuery || normalizeName(move.name).includes(nameQuery)) &&
-      (!type || move.type === type) &&
-      (!category || move.category === category) &&
-      priorityMatch &&
-      (!field || move.weatherTerrain.includes(field)) &&
-      (!target || move.target === target) &&
-      (!classification || getMoveDisplayClassifications(move).includes(classification));
-  }).sort((left, right) => left.name.localeCompare(right.name));
+  return state.metadata.moves.filter(move => doesMoveMatchFilters(move, {
+    name: elements.moveNameSearch.value,
+    type: elements.moveTypeSearch.value,
+    category: elements.moveCategorySearch.value,
+    priority: elements.movePrioritySearch.value,
+    field: elements.moveFieldSearch.value,
+    target: elements.moveTargetSearch.value,
+    classification: elements.moveClassificationSearch.value
+  })).sort((left, right) => left.name.localeCompare(right.name));
 }
 
 function renderMoveSearch() {
   const matches = getMoveSearchMatches();
+  if (state.moveExpandedName && !matches.some(move => normalizeName(move.name) === normalizeName(state.moveExpandedName))) {
+    state.moveExpandedName = "";
+  }
   elements.moveResultCount.textContent = `${matches.length} move${matches.length === 1 ? "" : "s"}`;
-  elements.moveResults.innerHTML = matches.map(move => formatMoveDataRow(move)).join("") || `<div class="empty-state">No moves match the current search.</div>`;
-  syncMoveRowHeights();
+  elements.moveResults.innerHTML = matches.map(move => formatMoveSearchCard(move)).join("") || `<div class="empty-state">No moves match the current search.</div>`;
   bindSendButtons(elements.moveResults);
+  bindSearchExpanders(elements.moveResults, "move");
 }
 
 function syncMoveRowHeights() {
-  const rows = [...elements.moveResults.querySelectorAll(".move-row")];
-  if (!rows.length) {
-    return;
-  }
-
-  for (const row of rows) {
-    row.style.minHeight = "";
-    row.style.height = "";
-  }
-
-  if (elements.movePanel.hidden) {
-    return;
-  }
-
-  requestAnimationFrame(() => {
-    const tallestRow = Math.max(...rows.map(row => row.offsetHeight));
-    if (!tallestRow) {
-      return;
-    }
-    for (const row of rows) {
-      row.style.height = `${tallestRow}px`;
-    }
-  });
+  return;
 }
 
 function getAllAbilityEntries() {
@@ -1846,6 +3246,9 @@ function classifyAbility(name, description) {
     tags.add("active");
   } else {
     tags.add("passive");
+  }
+  if (!GEN9_NON_SIGNATURE_ABILITIES.has(normalizeName(name))) {
+    tags.add("signature");
   }
   if (/\buser\b|this pok[eé]mon|holder|itself|its\b|own\b/.test(text)) tags.add("user");
   if ((hasAbilitySourceMatch(name, "team") || teamByRegex || hasLocalAbilityFilterAddition(name, "team")) &&
@@ -1901,16 +3304,40 @@ function getAbilitySearchMatches() {
 
 function renderAbilitySearch() {
   const matches = getAbilitySearchMatches();
+  if (state.abilityExpandedName && !matches.some(ability => normalizeName(ability.name) === normalizeName(state.abilityExpandedName))) {
+    state.abilityExpandedName = "";
+  }
   elements.abilityResultCount.textContent = `${matches.length} abilit${matches.length === 1 ? "y" : "ies"}`;
-  elements.abilityResults.innerHTML = matches.map(ability => `
-    <article class="data-row ability-row">
-      <div class="row-title">${ability.name}</div>
-      <div class="row-meta">${ability.tags.map(tag => ABILITY_TOGGLES.find(([key]) => key === tag)?.[1] || tag).join(", ")}</div>
-      <div class="row-description">${ability.description}</div>
-      <button type="button" class="secondary send-setlist-button" data-kind="ability" data-name="${ability.name}">Send to Setlist</button>
-    </article>
-  `).join("") || `<div class="empty-state">No abilities match the current search.</div>`;
+  elements.abilityResults.innerHTML = matches.map(ability => formatAbilitySearchCard(ability)).join("") || `<div class="empty-state">No abilities match the current search.</div>`;
+  syncAbilityRowHeights();
   bindSendButtons(elements.abilityResults);
+  bindSearchExpanders(elements.abilityResults, "ability");
+}
+
+function syncAbilityRowHeights() {
+  const rows = [...elements.abilityResults.querySelectorAll(".ability-row.search-expand-shell")];
+  if (!rows.length) {
+    return;
+  }
+
+  for (const row of rows) {
+    row.style.minHeight = "";
+    row.style.height = "";
+  }
+
+  if (elements.abilityPanel.hidden) {
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    const tallestRow = Math.max(...rows.map(row => row.offsetHeight));
+    if (!tallestRow) {
+      return;
+    }
+    for (const row of rows) {
+      row.style.height = `${tallestRow}px`;
+    }
+  });
 }
 
 function getBoxSortStatValue(config, statKey) {
@@ -1979,8 +3406,13 @@ function getBoxMatches() {
 }
 
 function formatSavedMoveGrid(config) {
+  const getMoveFieldClass = moveName => {
+    const move = moveName ? getMoveMetadata(moveName) : null;
+    return move ? ` type-border-${normalizeName(move.type)}` : "";
+  };
+
   return Array.from({ length: 4 }, (_, index) => `
-    <div class="box-saved-field">
+    <div class="box-saved-field box-move-field${getMoveFieldClass(config.moves?.[index])}">
       <span>Move ${index + 1}</span>
       <strong>${config.moves?.[index] || "-"}</strong>
     </div>
@@ -2015,13 +3447,21 @@ function getConfigAvailableAbilities(config) {
 }
 
 function formatEditableMoveGrid(config) {
+  const getMoveFieldClass = moveName => {
+    const move = moveName ? getMoveMetadata(moveName) : null;
+    return move ? ` type-border-${normalizeName(move.type)}` : "";
+  };
+
   return Array.from({ length: 4 }, (_, index) => `
-    <label class="expanded-move-select">
+    <label class="expanded-move-select box-move-field${getMoveFieldClass(config.moves?.[index])}">
       <span>Move ${index + 1}</span>
-      <select class="box-edit-move">
-        <option value="">-</option>
-        ${getSavedSpeciesMoveOptions(config, config.moves?.[index] || "")}
-      </select>
+      <div class="clearable-select compact-clearable-select">
+        <select class="box-edit-move">
+          <option value="">-</option>
+          ${getSavedSpeciesMoveOptions(config, config.moves?.[index] || "")}
+        </select>
+        <button type="button" class="select-clear-button" aria-label="Clear Box Move ${index + 1}" hidden>X</button>
+      </div>
     </label>
   `).join("");
 }
@@ -2072,12 +3512,15 @@ function formatEditableStatTable(config) {
       <div class="expanded-stat-alignment">
         <label class="expanded-nature-select">
           <span>Stat Alignment</span>
-          <select class="expanded-nature-input">
-            ${NATURES.map(natureOption => `<option value="${natureOption.name}"${natureOption.name === config.nature ? " selected" : ""}>${formatNatureOptionLabel(natureOption)}</option>`).join("")}
-          </select>
+          <div class="select-shell compact-select-shell">
+            <select class="expanded-nature-input">
+              ${NATURES.map(natureOption => `<option value="${natureOption.name}"${natureOption.name === config.nature ? " selected" : ""}>${formatNatureOptionLabel(natureOption)}</option>`).join("")}
+            </select>
+          </div>
         </label>
         <span class="expanded-ev-total">${Object.values(config.evs || {}).reduce((sum, value) => sum + (Number(value) || 0), 0)}/${CHAMPIONS_MAX_TOTAL_EVS}</span>
       </div>
+      <div class="expanded-stat-optimizer" hidden></div>
     </div>
   `;
 }
@@ -2275,7 +3718,7 @@ function formatBoxConfigPreview(config) {
           ${config.species.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(config.species.spritePath)}" alt="${config.species.name} sprite">` : ""}
           <div class="result-card-heading">${formatBoxConfigName(config, false)}</div>
         </div>
-        <div class="meta">#${String(config.species.dexNo).padStart(4, "0")} ${formatTypeIcons(config.species.types || [])}</div>
+        <div class="meta box-compact-type-line">${formatTypeIcons(config.species.types || [])}</div>
       </section>
       <section class="expanded-moves-panel">
         <h4>Moves</h4>
@@ -2357,7 +3800,7 @@ function renderBox() {
             ${formatBoxConfigName(config, isEditing)}
           </div>
         </div>
-        <div class="meta">#${String(config.species.dexNo).padStart(4, "0")} ${formatTypeIcons(config.species.types || [])}</div>
+        <div class="meta box-compact-type-line">${formatTypeIcons(config.species.types || [])}</div>
         ${formatConfigTeams(config)}
         <div class="box-card-actions">
           ${isEditing ? `
@@ -2377,11 +3820,17 @@ function renderBox() {
           ${isEditing ? `
             <label class="expanded-move-select">
               <span>Ability</span>
-              <select class="box-edit-ability"><option value="">-</option>${getSavedAbilityOptions(config)}</select>
+              <div class="clearable-select compact-clearable-select">
+                <select class="box-edit-ability"><option value="">-</option>${getSavedAbilityOptions(config)}</select>
+                <button type="button" class="select-clear-button" aria-label="Clear Box Ability" hidden>X</button>
+              </div>
             </label>
             <label class="expanded-move-select">
               <span>Item</span>
-              <select class="box-edit-item"><option value="">-</option>${formatItemOptions(config.item)}</select>
+              <div class="clearable-select compact-clearable-select">
+                <select class="box-edit-item"><option value="">-</option>${formatItemOptions(config.item, config.species.baseName || config.species.name)}</select>
+                <button type="button" class="select-clear-button" aria-label="Clear Box Item" hidden>X</button>
+              </div>
             </label>
           ` : `
             <div class="box-saved-field"><span>Ability</span><strong>${config.ability || "-"}</strong></div>
@@ -2400,7 +3849,7 @@ function renderBox() {
         </section>
         ${isEditing ? `
           <section class="detail-block expanded-learnpool-block">
-            <h4>Champions Learnpool</h4>
+            <h4>Champions Movepool</h4>
             <div class="learnpool-list">
               ${formatMoveList(getConfigLearnpoolMoves(config))}
             </div>
@@ -2746,10 +4195,9 @@ function addSetlistToSearch() {
   const selectedAbility = state.setlist.find(item => item.selected && item.kind === "ability");
 
   elements.moveInputs.forEach((input, index) => {
-    input.value = selectedMoves[index]?.name || "";
+    setAutocompleteValue(input, selectedMoves[index]?.name || "");
   });
-  elements.abilitySelect.value = selectedAbility?.name || "";
-  syncSelectPlaceholder(elements.abilitySelect);
+  setAutocompleteValue(elements.abilityInput, selectedAbility?.name || "");
   setActiveTab("set");
   render();
 }
@@ -2775,6 +4223,9 @@ function setActiveTab(tab) {
   }
   if (tab === "move") {
     syncMoveRowHeights();
+  }
+  if (tab === "ability") {
+    syncAbilityRowHeights();
   }
 }
 
@@ -2877,6 +4328,78 @@ function toggleExpanded(key) {
   });
 }
 
+function collapseExpandedCardOnOutsideClick(event) {
+  if (!state.expandedKey || state.activeTab !== "set") {
+    return;
+  }
+  if (!(event.target instanceof Element)) {
+    return;
+  }
+  if (event.target.closest(".modal-backdrop")) {
+    return;
+  }
+  if (!elements.boxSaveModal.hidden || !elements.moveSlotModal.hidden || !elements.showdownImportModal.hidden || !elements.speciesDetailModal.hidden) {
+    return;
+  }
+
+  const expandedCard = getResultCardByKey(state.expandedKey);
+  if (!expandedCard || expandedCard.contains(event.target)) {
+    return;
+  }
+
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+  state.expandedKey = null;
+  renderResults();
+  requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+}
+
+function handleResultCardShellClick(event, entryKey) {
+  if (!(event.target instanceof Element)) {
+    return;
+  }
+  if (state.consumedResultMouseDownKey === entryKey) {
+    state.consumedResultMouseDownKey = null;
+    return;
+  }
+  if (event.target.closest(".result-card-actions")) {
+    return;
+  }
+  if (state.expandedKey === entryKey) {
+    event.stopPropagation();
+    toggleExpanded(entryKey);
+    return;
+  }
+
+  event.stopPropagation();
+  commitClickedResultToSpeciesSearch(entryKey);
+  rerenderResultsPreservingCard(entryKey, () => {
+    state.expandedKey = entryKey;
+    renderResults();
+  });
+}
+
+function handleResultCardShellMouseDown(event, entryKey) {
+  if (!(event.target instanceof Element)) {
+    return;
+  }
+  if (event.target.closest(".result-card-actions")) {
+    return;
+  }
+  if (document.activeElement !== elements.speciesInput) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  state.consumedResultMouseDownKey = entryKey;
+  commitClickedResultToSpeciesSearch(entryKey);
+  rerenderResultsPreservingCard(entryKey, () => {
+    state.expandedKey = entryKey;
+    renderResults();
+  });
+}
+
 function toggleForm(slug, entryKey = null) {
   const species = state.dataset.species.find(entry => entry.slug === slug);
   const forms = species ? getAvailableForms(species) : [];
@@ -2898,14 +4421,14 @@ function setPromptMatches(plan) {
   const typeNames = plan.types.slice(0, elements.typeInputs.length);
 
   elements.moveInputs.forEach((input, index) => {
-    input.value = moveNames[index] || "";
+    setAutocompleteValue(input, moveNames[index] || "");
   });
 
   elements.typeInputs.forEach((input, index) => {
-    input.value = typeNames[index] || "";
+    setAutocompleteValue(input, typeNames[index] || "");
   });
 
-  elements.abilitySelect.value = plan.ability || "";
+  setAutocompleteValue(elements.abilityInput, plan.ability || "");
 
   if (plan.sorts.length) {
     elements.sortSelect.value = plan.sorts[0].key;
@@ -3101,6 +4624,15 @@ function inferSortsFromPrompt(promptText) {
   return sorts.slice(0, 3);
 }
 
+function inferFormFiltersFromPrompt(promptText) {
+  const normalized = promptText.toLowerCase();
+  const wantsMultiform = /\b(?:multi\s*form|multi\s*forme|multiple\s*forms?|alternate\s*forms?|multiform)\b/i.test(normalized);
+
+  return {
+    multiformOnly: wantsMultiform
+  };
+}
+
 function applyPromptSearch() {
   const promptText = elements.promptInput.value.trim();
   if (!promptText) {
@@ -3116,7 +4648,8 @@ function applyPromptSearch() {
     types: extractCanonicalNamesFromText(exactMatchText, state.dataset.typeNames, elements.typeInputs.length),
     ability: extractCanonicalNamesFromText(exactMatchText, getAllAbilityNames(), 1)[0] || "",
     sorts: inferSortsFromPrompt(promptText),
-    relations
+    relations,
+    forms: inferFormFiltersFromPrompt(promptText)
   };
 
   setPromptMatches(plan);
@@ -3129,10 +4662,23 @@ function clearPromptSearch() {
   render();
 }
 
+function clearLearnpoolFilters() {
+  state.learnpoolFilters = {
+    name: "",
+    type: "",
+    category: "",
+    priority: "",
+    field: "",
+    target: "",
+    classification: ""
+  };
+}
+
 function clearSpeciesSearch() {
-  elements.speciesInput.value = "";
+  clearSetSection();
+  clearLearnpoolFilters();
   state.expandedKey = null;
-  renderResults();
+  render();
 }
 
 function renderResults() {
@@ -3201,16 +4747,16 @@ function renderResults() {
             ${displayForm.spritePath ? `<img class="pokemon-sprite" src="${withAssetVersion(displayForm.spritePath)}" alt="${displayForm.label} sprite">` : ""}
             <div class="result-card-heading">
               <h3>${displayForm.label}</h3>
+              <span class="result-card-dex-no">#${species.dexNo}</span>
             </div>
           </div>
-          <div class="meta">#${String(species.dexNo).padStart(4, "0")} ${formatTypeIcons(displayForm.types)}</div>
-          <div class="meta">Abilities: ${displayForm.abilities.join(", ") || "Unknown"}</div>
+          <div class="meta compact-dex-line">${formatTypeIcons(displayForm.types)}</div>
+          <div class="meta compact-ability-line">${displayForm.abilities.join("/") || "Unknown"}</div>
           ${matchedAbilities.length ? `<div class="moves-list">Matched abilities: ${matchedAbilities.join(", ")}</div>` : ""}
           ${matchedMoves.length ? `<div class="moves-list">Matched moves: ${matchedMoves.join(", ")}</div>` : ""}
         </div>
         <div class="always-visible-stats">
-          <div class="detail-block">
-            <h4>${displayForm.isMega ? displayForm.label : "Base Stats"}</h4>
+          <div class="detail-block compact-stats-block">
             <div class="stat-grid compact-stat-grid">
               ${formatStats(displayForm.stats)}
             </div>
@@ -3220,7 +4766,6 @@ function renderResults() {
           ${allowManualToggle ? getManualFormControl(species, displayForm) : ""}
           <button type="button" class="secondary speed-graph-button">Find on Speed Graph</button>
         </div>
-        <button type="button" class="details-toggle-button" aria-expanded="${isExpanded ? "true" : "false"}" aria-label="${isExpanded ? "Collapse details" : "Expand details"}"></button>
       </div>
       ${isExpanded ? `
         <section class="expanded-moves-panel">
@@ -3243,28 +4788,23 @@ function renderResults() {
             </div>
           </section>
           <section class="detail-block expanded-learnpool-block">
-            <h4>Champions Learnpool</h4>
+            <h4>Champions Movepool</h4>
+            ${formatLearnpoolFilterPanel()}
             <div class="learnpool-list">
-              ${formatMoveList(species.moves)}
+              ${formatMoveList(species.moves, state.learnpoolFilters)}
             </div>
           </section>
         </div>
       ` : ""}
     `;
 
-    card.querySelector(".details-toggle-button").addEventListener("click", () => toggleExpanded(entryKey));
+    card.querySelector(".compact-card-shell").addEventListener("mousedown", event => handleResultCardShellMouseDown(event, entryKey));
+    card.querySelector(".compact-card-shell").addEventListener("click", event => handleResultCardShellClick(event, entryKey));
     bindExpandedSetControls(card);
     card.querySelector(".expanded-search-button")?.addEventListener("click", () => fillExpandedSetFromSearch(card, species, displayForm));
     card.querySelector(".expanded-box-button")?.addEventListener("click", () => openBoxSavePrompt(getExpandedConfigFromCard(card, species, displayForm)));
-    for (const learnpoolRow of card.querySelectorAll(".learnpool-pick-row")) {
-      learnpoolRow.addEventListener("click", () => addLearnpoolMoveToConfig(card, learnpoolRow.dataset.moveName));
-      learnpoolRow.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          addLearnpoolMoveToConfig(card, learnpoolRow.dataset.moveName);
-        }
-      });
-    }
+    bindLearnpoolFilters(card, species.moves);
+    bindLearnpoolMoveRows(card);
     const toggleButton = card.querySelector(".form-toggle-button");
     if (toggleButton) {
       toggleButton.addEventListener("click", () => toggleForm(species.slug, entryKey));
@@ -3295,18 +4835,114 @@ function render() {
 }
 
 function clearFilters() {
-  for (const input of [...elements.moveInputs, ...elements.typeInputs]) {
-    input.value = "";
-  }
-  elements.speciesInput.value = "";
-  elements.abilitySelect.value = "";
-  syncSelectPlaceholder(elements.abilitySelect);
+  clearSetSection();
+  clearLearnpoolFilters();
   elements.sortSelect.value = "alphabetical";
   elements.sortDirectionSelect.value = "asc";
   state.promptPlan = null;
   state.formOverrides = {};
   state.expandedKey = null;
   render();
+}
+
+function clearSetSection() {
+  for (const input of [elements.speciesInput, ...elements.moveInputs, ...elements.typeInputs, elements.abilityInput]) {
+    setAutocompleteValue(input, "");
+    hideAutocompleteSuggestions(input);
+  }
+}
+
+function bindLearnpoolMoveRows(card) {
+  for (const learnpoolRow of card.querySelectorAll(".learnpool-pick-row")) {
+    learnpoolRow.addEventListener("click", () => addLearnpoolMoveToConfig(card, learnpoolRow.dataset.moveName));
+    learnpoolRow.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        addLearnpoolMoveToConfig(card, learnpoolRow.dataset.moveName);
+      }
+    });
+  }
+}
+
+function refreshLearnpoolList(card, moves) {
+  const learnpoolList = card.querySelector(".learnpool-list");
+  if (!learnpoolList) {
+    return;
+  }
+
+  learnpoolList.innerHTML = formatMoveList(moves, state.learnpoolFilters);
+  bindLearnpoolMoveRows(card);
+}
+
+function bindLearnpoolFilters(card, moves) {
+  const filterPanel = card.querySelector(".learnpool-filter-panel");
+  if (!filterPanel) {
+    return;
+  }
+
+  initializeClearableSelects(card);
+
+  filterPanel.addEventListener("toggle", () => {
+    state.learnpoolFiltersOpen = filterPanel.open;
+  });
+
+  for (const input of card.querySelectorAll(".learnpool-filter-input")) {
+    if (input.tagName === "SELECT") {
+      input.addEventListener("change", () => {
+        state.learnpoolFilters[input.dataset.filterKey] = input.value;
+        refreshLearnpoolList(card, moves);
+      });
+      continue;
+    }
+
+    input.addEventListener("input", () => {
+      state.learnpoolFilters[input.dataset.filterKey] = input.value;
+      refreshLearnpoolList(card, moves);
+    });
+    input.addEventListener("change", () => {
+      state.learnpoolFilters[input.dataset.filterKey] = input.value;
+      refreshLearnpoolList(card, moves);
+    });
+  }
+
+  card.querySelector(".learnpool-filter-clear-button")?.addEventListener("click", () => {
+    clearLearnpoolFilters();
+    for (const input of card.querySelectorAll(".learnpool-filter-input")) {
+      input.value = state.learnpoolFilters[input.dataset.filterKey] || "";
+      if (input.tagName === "SELECT") {
+        syncSelectPlaceholder(input);
+      }
+    }
+    refreshLearnpoolList(card, moves);
+  });
+}
+
+function clearMoveSearchFilters() {
+  setAutocompleteValue(elements.moveNameSearch, "");
+  hideAutocompleteSuggestions(elements.moveNameSearch);
+  for (const select of [
+    elements.moveTypeSearch,
+    elements.moveCategorySearch,
+    elements.movePrioritySearch,
+    elements.moveFieldSearch,
+    elements.moveTargetSearch,
+    elements.moveClassificationSearch
+  ]) {
+    select.value = "";
+    syncSelectPlaceholder(select);
+  }
+  state.moveExpandedName = "";
+  renderMoveSearch();
+}
+
+function clearAbilitySearchFilters() {
+  setAutocompleteValue(elements.abilityNameSearch, "");
+  hideAutocompleteSuggestions(elements.abilityNameSearch);
+  for (const input of elements.abilityToggleGrid.querySelectorAll("input")) {
+    input.checked = false;
+  }
+  state.abilityExpandedName = "";
+  renderAbilitySearch();
 }
 
 async function loadDataset() {
@@ -3342,6 +4978,7 @@ async function loadDataset() {
   loadSetlist();
   await loadBoxData();
   populateOptions();
+  initializeSetAutocomplete();
   renderMoveSearch();
   renderAbilitySearch();
   renderSetlist();
@@ -3354,10 +4991,8 @@ for (const input of [...elements.moveInputs, ...elements.typeInputs]) {
   input.addEventListener("change", render);
 }
 
-elements.abilitySelect.addEventListener("change", () => {
-  syncSelectPlaceholder(elements.abilitySelect);
-  render();
-});
+elements.abilityInput.addEventListener("input", render);
+elements.abilityInput.addEventListener("change", render);
 elements.sortSelect.addEventListener("change", render);
 elements.sortDirectionSelect.addEventListener("change", render);
 elements.clearButton.addEventListener("click", clearFilters);
@@ -3390,6 +5025,7 @@ for (const input of [
   input.addEventListener("input", renderMoveSearch);
   input.addEventListener("change", renderMoveSearch);
 }
+elements.moveClearAllButton.addEventListener("click", clearMoveSearchFilters);
 
 for (const input of [elements.boxNameSearch, elements.boxTeamFilter, elements.boxSortSelect, elements.boxSortDirectionSelect]) {
   input.addEventListener("input", renderBox);
@@ -3418,6 +5054,12 @@ elements.showdownImportModal.addEventListener("click", event => {
     closeShowdownImportPrompt();
   }
 });
+elements.speciesDetailCloseButton.addEventListener("click", closeSpeciesDetailModal);
+elements.speciesDetailModal.addEventListener("click", event => {
+  if (event.target === elements.speciesDetailModal) {
+    closeSpeciesDetailModal();
+  }
+});
 elements.showdownCopyButton.addEventListener("click", async () => {
   elements.showdownText.select();
   try {
@@ -3435,6 +5077,7 @@ elements.moveSlotModal.addEventListener("click", event => {
 });
 elements.abilityNameSearch.addEventListener("input", renderAbilitySearch);
 elements.abilityNameSearch.addEventListener("change", renderAbilitySearch);
+elements.abilityClearAllButton.addEventListener("click", clearAbilitySearchFilters);
 elements.addSetlistButton.addEventListener("click", addSetlistToSearch);
 elements.clearSetlistButton.addEventListener("click", clearSetlist);
 elements.promptInput.addEventListener("keydown", event => {
@@ -3443,7 +5086,9 @@ elements.promptInput.addEventListener("keydown", event => {
     applyPromptSearch();
   }
 });
+document.addEventListener("click", collapseExpandedCardOnOutsideClick);
 window.addEventListener("resize", syncMoveRowHeights);
+window.addEventListener("resize", syncAbilityRowHeights);
 
 loadDataset().catch(error => {
   console.error(error);

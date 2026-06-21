@@ -4910,5 +4910,53 @@
       "8": "The Pokémon transforms into its Hero Form when it switches out.",
       "9": "The Pokémon transforms into its Hero Form when it switches out."
     }
+  },
+  "dragonize": {
+    "id": 10002,
+    "name": "dragonize",
+    "latest": "Normal-type moves become Dragon-type and receive a 20% power boost.",
+    "byGeneration": {
+      "9": "Normal-type moves become Dragon-type and receive a 20% power boost."
+    }
+  },
+  "eelevate": {
+    "id": 10003,
+    "name": "eelevate",
+    "latest": "Makes the Pokémon ungrounded and immune to damaging Ground-type moves, and raises its highest non-HP stat by one stage whenever it knocks out a Pokémon with a damaging move.",
+    "byGeneration": {
+      "9": "Makes the Pokémon ungrounded and immune to damaging Ground-type moves, and raises its highest non-HP stat by one stage whenever it knocks out a Pokémon with a damaging move."
+    }
+  },
+  "firemane": {
+    "id": 10004,
+    "name": "fire-mane",
+    "latest": "Fire-type moves use a 1.5x Attack or Special Attack multiplier during damage calculation, effectively increasing their damage by 50%.",
+    "byGeneration": {
+      "9": "Fire-type moves use a 1.5x Attack or Special Attack multiplier during damage calculation, effectively increasing their damage by 50%."
+    }
+  },
+  "megasol": {
+    "id": 10005,
+    "name": "mega-sol",
+    "latest": "All moves used by the Pokémon behave as though the weather were harsh sunlight, regardless of the actual weather.",
+    "byGeneration": {
+      "9": "All moves used by the Pokémon behave as though the weather were harsh sunlight, regardless of the actual weather."
+    }
+  },
+  "piercingdrill": {
+    "id": 10006,
+    "name": "piercing-drill",
+    "latest": "Contact moves hit through protection moves for 25% of their original damage, while all other effects still trigger.",
+    "byGeneration": {
+      "9": "Contact moves hit through protection moves for 25% of their original damage, while all other effects still trigger."
+    }
+  },
+  "spicyspray": {
+    "id": 10007,
+    "name": "spicy-spray",
+    "latest": "When hit by a damaging move, burns the attacker even through Substitute and even if the user faints; it does not activate while the user is behind a Substitute.",
+    "byGeneration": {
+      "9": "When hit by a damaging move, burns the attacker even through Substitute and even if the user faints; it does not activate while the user is behind a Substitute."
+    }
   }
 }

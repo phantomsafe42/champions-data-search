@@ -10,6 +10,13 @@ const MOVE_DATA_URL = "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/s
 const ABILITY_DATA_URL = "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/script_res/ability_data.js";
 const SEREBII_BASE_URL = "https://www.serebii.net";
 const SHOWDOWN_GEN5_BASE_URL = "https://play.pokemonshowdown.com/sprites/gen5/";
+const SHOWDOWN_GEN5_SHINY_BASE_URL = "https://play.pokemonshowdown.com/sprites/gen5-shiny/";
+const SHINY_SPRITE_OVERRIDES = {
+    metagross: {
+        base: "metagross",
+        mega: "metagross-mega"
+    }
+};
 
 function decodeHtml(value) {
     return String(value || "")
@@ -399,19 +406,25 @@ function buildShowdownId(baseName, family) {
         case "base":
             return normalized;
         case "mega":
-            return `${normalized}mega`;
+            return `${normalized}-mega`;
+        case "megax":
+            return `${normalized}-megax`;
+        case "megay":
+            return `${normalized}-megay`;
+        case "megaz":
+            return `${normalized}-megaz`;
         case "hisui":
-            return `${normalized}hisui`;
+            return `${normalized}-hisui`;
         case "alola":
-            return `${normalized}alola`;
+            return `${normalized}-alola`;
         case "galar":
-            return `${normalized}galar`;
+            return `${normalized}-galar`;
         case "paldea":
-            return `${normalized}paldea`;
+            return `${normalized}-paldea`;
         case "blaze":
-            return `${normalized}paldeablaze`;
+            return `${normalized}-paldea-blaze`;
         case "aqua":
-            return `${normalized}paldeaaqua`;
+            return `${normalized}-paldea-aqua`;
         default:
             return "";
     }
@@ -529,7 +542,7 @@ async function cacheSprite(slug, formId, spriteUrls, { refreshExisting = false }
     const fileName = `${slug}_${formId}_pixel.png`;
     const filePath = path.join(SPRITES_DIR, fileName);
     const relativePath = `sprites/${fileName}`;
-    const shouldRefreshExisting = refreshExisting;
+    const shouldRefreshExisting = refreshExisting || process.argv.includes("--refresh-existing");
 
     if (!fs.existsSync(filePath) || shouldRefreshExisting) {
         let cached = false;
@@ -560,7 +573,9 @@ function buildSpriteCandidates(primaryName, formId, fallbackUrl) {
     const showdownId = formId.startsWith("mega")
         ? buildShowdownId(primaryName, formId === "mega-x" ? "megax" : formId === "mega-y" ? "megay" : "mega")
         : buildShowdownId(primaryName, "base");
+    const shinyOverride = SHINY_SPRITE_OVERRIDES[normalizeName(primaryName)]?.[formId.startsWith("mega") ? "mega" : "base"];
     return [
+        shinyOverride ? `${SHOWDOWN_GEN5_SHINY_BASE_URL}${shinyOverride}.png` : "",
         `${SHOWDOWN_GEN5_BASE_URL}${showdownId}.png`,
         fallbackUrl
     ].filter(Boolean);
@@ -612,7 +627,9 @@ function buildMegaThumbnailFallbackUrl(dexNo, formId) {
 
 function buildMegaSpriteCandidates(primaryName, formId, fallbackUrl, dexNo) {
     const showdownId = buildShowdownId(primaryName, formId === "mega-x" ? "megax" : formId === "mega-y" ? "megay" : formId === "mega-z" ? "megaz" : "mega");
+    const shinyOverride = SHINY_SPRITE_OVERRIDES[normalizeName(primaryName)]?.[formId];
     return [
+        shinyOverride ? `${SHOWDOWN_GEN5_SHINY_BASE_URL}${shinyOverride}.png` : "",
         `${SHOWDOWN_GEN5_BASE_URL}${showdownId}.png`,
         buildMegaArtFallbackUrl(dexNo, formId),
         buildMegaThumbnailFallbackUrl(dexNo, formId),

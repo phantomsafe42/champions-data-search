@@ -1436,7 +1436,7 @@
       "priority": 0,
       "classification": [
         "contact",
-        "ignores defense boosts"
+        "ignores boosts"
       ],
       "weatherTerrain": [],
       "description": "This move ignores the target's stat changes when dealing damage.",
@@ -5497,7 +5497,7 @@
       "classification": [
         "contact",
         "slicing",
-        "ignores defense boosts"
+        "ignores boosts"
       ],
       "weatherTerrain": [],
       "description": "This move ignores the target's stat changes when dealing damage.",
@@ -7755,7 +7755,7 @@
       "crash",
       "draining",
       "healing",
-      "ignores defense boosts",
+      "ignores boosts",
       "ignores screens",
       "multi-hit",
       "priority",
