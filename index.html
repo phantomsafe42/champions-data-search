@@ -58,7 +58,7 @@
         <button id="set-tab" class="search-tab active" type="button" role="tab" aria-selected="true" aria-controls="set-panel">Set Search</button>
         <button id="move-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="move-panel">Move Search</button>
         <button id="ability-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="ability-panel">Ability Search</button>
-        <button id="box-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="box-panel">Box</button>
+        <button id="box-tab" class="search-tab" type="button" role="tab" aria-selected="false" aria-controls="box-panel">Party</button>
       </div>
 
       <div class="workspace-grid">
@@ -139,13 +139,13 @@
               </section>
 
               <section class="guide-section">
-                <h2>Box</h2>
-                <p>The Box tab stores saved Pokemon configurations.</p>
+                <h2>Party</h2>
+                <p>The Party tab groups saved Pokemon configurations by team.</p>
                 <ul>
-                  <li>Search by name or nickname, filter by team, and sort using the same sort options as Set Search plus Recently Added.</li>
+                  <li>Search by party name, species, or nickname to find matching teams.</li>
                   <li>Teams can hold up to six configurations and cannot include duplicate species lines.</li>
                   <li>Edit makes a saved configuration editable, including nickname, moves, ability, item, EVs, nature, movepool picks, and ability references.</li>
-                  <li>Erase deletes a configuration from the full box. Remove appears in team view and removes it from that team only.</li>
+                  <li>Remove detaches a saved configuration from its party while keeping the saved set itself intact.</li>
                   <li>The plus button next to the Team header opens the team assignment prompt.</li>
                 </ul>
                 <figure class="guide-screenshot">
@@ -407,62 +407,23 @@
           <section id="box-panel" class="search-panel" role="tabpanel" aria-labelledby="box-tab" hidden>
             <div class="controls">
               <details class="box-filter-panel">
-                <summary>Box Search</summary>
+                <summary>Party Search</summary>
                 <div class="box-filter-body">
                   <div class="box-search-top-row">
                     <div class="filter-block">
                       <label for="box-name-search">Name</label>
-                      <input id="box-name-search" type="text" placeholder="Search species or nickname">
+                      <input id="box-name-search" type="text" placeholder="Search party, species, or nickname">
                     </div>
-                    <div class="filter-block">
-                      <label for="box-team-filter">Team</label>
-                      <div class="clearable-select">
-                        <select id="box-team-filter">
-                          <option value="">Entire box</option>
-                        </select>
-                        <button type="button" class="select-clear-button" aria-label="Clear Team filter" hidden>X</button>
-                      </div>
-                    </div>
-                    <button id="box-clear-button" type="button" class="secondary">Clear Set</button>
-                  </div>
-                  <div class="box-sort-row">
-                    <div class="filter-block">
-                      <label for="box-sort-select">Sort By</label>
-                      <div class="input-group sort-control-group box-sort-group">
-                        <div class="select-shell">
-                          <select id="box-sort-select">
-                            <option value="recent">Recently Added</option>
-                            <option value="alphabetical">Alphabetical</option>
-                            <option value="dex">Pokedex Number</option>
-                            <option value="hp">HP</option>
-                            <option value="attack">Attack</option>
-                            <option value="defense">Defense</option>
-                            <option value="specialAttack">Special Attack</option>
-                            <option value="specialDefense">Special Defense</option>
-                            <option value="speed">Speed</option>
-                            <option value="total">Base Stat Total</option>
-                            <option value="offenseTotal">Offensive Total</option>
-                            <option value="defenseTotal">Defensive Total</option>
-                          </select>
-                        </div>
-                        <div class="select-shell">
-                          <select id="box-sort-direction-select">
-                            <option value="desc">Descending</option>
-                            <option value="asc">Ascending</option>
-                          </select>
-                        </div>
-                        <button id="box-sort-clear-button" type="button" class="secondary">Clear</button>
-                      </div>
-                    </div>
+                    <button id="box-clear-button" type="button" class="secondary">Clear Search</button>
                   </div>
                 </div>
               </details>
             </div>
             <section class="results-panel">
               <div class="results-header">
-                <h2 id="box-results-title">Box</h2>
+                <h2 id="box-results-title">Parties</h2>
                 <div class="box-header-actions">
-                  <button id="box-view-export-button" type="button" class="secondary" hidden>Export Team</button>
+                  <button id="box-view-export-button" type="button" class="secondary" hidden>Export Party</button>
                   <div class="result-count" id="box-result-count"></div>
                 </div>
               </div>

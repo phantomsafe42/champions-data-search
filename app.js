@@ -17,6 +17,7 @@ const state = {
   speedDrawerOpen: false,
   activeTab: "set",
   setlist: [],
+  expandedPartyName: null,
   box: {
     configs: [],
     teams: []
@@ -94,10 +95,6 @@ const elements = {
   addSetlistButton: document.getElementById("add-setlist-button"),
   clearSetlistButton: document.getElementById("clear-setlist-button"),
   boxNameSearch: document.getElementById("box-name-search"),
-  boxTeamFilter: document.getElementById("box-team-filter"),
-  boxSortSelect: document.getElementById("box-sort-select"),
-  boxSortDirectionSelect: document.getElementById("box-sort-direction-select"),
-  boxSortClearButton: document.getElementById("box-sort-clear-button"),
   boxClearButton: document.getElementById("box-clear-button"),
   boxResultsTitle: document.getElementById("box-results-title"),
   boxViewExportButton: document.getElementById("box-view-export-button"),
