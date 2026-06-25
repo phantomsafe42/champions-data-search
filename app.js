@@ -172,7 +172,7 @@ const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
 const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
 const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
 const BOX_DATA_FILE = "box_data.json";
-const ASSET_VERSION = "2026-06-21-12";
+const ASSET_VERSION = "2026-06-25-1";
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
@@ -2940,10 +2940,6 @@ function getExpandedConfigFromCard(card, species, displayForm) {
 }
 
 function populateBoxTeamOptions() {
-  const selectedFilter = elements.boxTeamFilter.value;
-  elements.boxTeamFilter.innerHTML = `<option value="">Entire box</option>${state.box.teams.map(team => `<option value="${team}">${team}</option>`).join("")}`;
-  elements.boxTeamFilter.value = state.box.teams.includes(selectedFilter) ? selectedFilter : "";
-
   elements.boxSaveTeamSelect.innerHTML = `
     <option value="">No team</option>
     ${state.box.teams.map(team => `<option value="${team}">${team}</option>`).join("")}
@@ -3339,85 +3335,38 @@ function syncAbilityRowHeights() {
   });
 }
 
-function getBoxSortStatValue(config, statKey) {
-  if (statKey === "total") {
-    return STAT_ROWS.reduce((total, [, key]) => total + getBoxSortStatValue(config, key), 0);
-  }
-  return calculateChampionsStat(
-    config.species?.baseStats?.[statKey],
-    statKey,
-    config.evs?.[statKey] || 0,
-    getNatureByName(config.nature)
-  );
-}
-
-function getBoxMatches() {
+function getPartyMatches() {
   const nameQuery = normalizeName(elements.boxNameSearch.value);
-  const teamFilter = elements.boxTeamFilter.value;
-  const sort = elements.boxSortSelect.value;
-  const direction = elements.boxSortDirectionSelect.value === "asc" ? 1 : -1;
-  const matches = state.box.configs.filter(config => {
-    const searchable = [
-      config.nickname,
-      config.species?.name,
-      config.species?.baseName,
-      config.ability,
-      config.item,
-      ...(config.moves || []),
-      config.team
-    ].filter(Boolean).join(" ");
-    return (!nameQuery || normalizeName(searchable).includes(nameQuery)) &&
-      (!teamFilter || config.team === teamFilter);
-  });
-
-  return matches.sort((left, right) => {
-    let result = 0;
-    switch (sort) {
-      case "alphabetical":
-        result = left.species.name.localeCompare(right.species.name);
-        break;
-      case "dex":
-        result = (left.species.dexNo || 0) - (right.species.dexNo || 0);
-        break;
-      case "hp":
-      case "attack":
-      case "defense":
-      case "specialAttack":
-      case "specialDefense":
-      case "speed":
-      case "total":
-        result = getBoxSortStatValue(left, sort) - getBoxSortStatValue(right, sort);
-        break;
-      case "offenseTotal":
-        result = (getBoxSortStatValue(left, "attack") + getBoxSortStatValue(left, "specialAttack")) -
-          (getBoxSortStatValue(right, "attack") + getBoxSortStatValue(right, "specialAttack"));
-        break;
-      case "defenseTotal":
-        result = (getBoxSortStatValue(left, "defense") + getBoxSortStatValue(left, "specialDefense")) -
-          (getBoxSortStatValue(right, "defense") + getBoxSortStatValue(right, "specialDefense"));
-        break;
-      case "recent":
-      default:
-        result = new Date(left.createdAt).getTime() - new Date(right.createdAt).getTime();
-        break;
-    }
-    return (result * direction) || left.species.name.localeCompare(right.species.name);
-  });
+  const partyNames = [...new Set([
+    ...state.box.teams,
+    ...state.box.configs.map(config => config.team).filter(Boolean)
+  ])].sort((left, right) => left.localeCompare(right));
+  return partyNames
+    .map(name => ({
+      name,
+      configs: state.box.configs.filter(config => config.team === name)
+    }))
+    .filter(party => party.configs.length > 0)
+    .filter(party => {
+      const searchable = [
+        party.name,
+        ...party.configs.flatMap(config => [
+          config.nickname,
+          config.species?.name,
+          config.species?.baseName,
+          config.ability,
+          config.item,
+          ...(config.moves || [])
+        ])
+      ].filter(Boolean).join(" ");
+      return !nameQuery || normalizeName(searchable).includes(nameQuery);
+    })
+    .sort((left, right) => left.name.localeCompare(right.name));
 }
 
 function clearBoxSearchFilters() {
   elements.boxNameSearch.value = "";
-  elements.boxTeamFilter.value = "";
-  syncSelectPlaceholder(elements.boxTeamFilter);
-  clearBoxSortFilters();
   renderBox();
-}
-
-function clearBoxSortFilters() {
-  elements.boxSortSelect.value = "recent";
-  elements.boxSortDirectionSelect.value = "desc";
-  syncSelectPlaceholder(elements.boxSortSelect);
-  syncSelectPlaceholder(elements.boxSortDirectionSelect);
 }
 
 function formatSavedMoveGrid(config) {
@@ -3796,17 +3745,9 @@ function removeConfigFromTeam(configId) {
   }
 }
 
-function renderBox() {
-  populateBoxTeamOptions();
-  const matches = getBoxMatches();
-  const inTeamView = Boolean(elements.boxTeamFilter.value);
-  elements.boxResultsTitle.textContent = inTeamView ? elements.boxTeamFilter.value : "Box";
-  elements.boxViewExportButton.hidden = !inTeamView;
-  elements.boxViewExportButton.textContent = "Export Team";
-  elements.boxResultCount.textContent = `${matches.length} saved set${matches.length === 1 ? "" : "s"}`;
-  elements.boxResults.innerHTML = matches.map(config => {
-    const isEditing = state.editingBoxConfigId === config.id;
-    return `
+function formatBoxConfigCard(config, inTeamView = true) {
+  const isEditing = state.editingBoxConfigId === config.id;
+  return `
     <article class="box-config-row" data-id="${config.id}">
       <section class="box-compact-panel">
         <div class="result-card-top">
@@ -3873,9 +3814,10 @@ function renderBox() {
       </div>
     </article>
   `;
-  }).join("") || `<div class="empty-state">No saved configurations match the current box filters.</div>`;
+}
 
-  for (const card of elements.boxResults.querySelectorAll(".box-config-row")) {
+function bindBoxConfigCardInteractions(root, inTeamView = true) {
+  for (const card of root.querySelectorAll(".box-config-row")) {
     const configId = card.dataset.id;
     card.querySelector(".box-edit-button")?.addEventListener("click", () => {
       state.editingBoxConfigId = configId;
@@ -3924,6 +3866,60 @@ function renderBox() {
     }
     bindExpandedSetControls(card);
   }
+}
+
+function formatPartySpriteGrid(configs) {
+  return configs.map(config => `
+    <div class="party-sprite-slot" title="${escapeHtml(config.nickname || config.species.name)}">
+      ${config.species.spritePath ? `<img class="party-sprite" src="${withAssetVersion(config.species.spritePath)}" alt="${config.species.name} sprite">` : ""}
+    </div>
+  `).join("");
+}
+
+function formatPartyCard(party, isExpanded) {
+  const partyName = escapeHtml(party.name);
+  return `
+    <article class="party-card${isExpanded ? " expanded" : ""}" data-party-name="${partyName}">
+      <button type="button" class="party-card-toggle" aria-expanded="${isExpanded ? "true" : "false"}">
+        <div class="party-card-header">
+          <h3>${partyName}</h3>
+          <span class="party-card-count">${party.configs.length} Pokemon</span>
+        </div>
+        <div class="party-sprite-grid">${formatPartySpriteGrid(party.configs)}</div>
+      </button>
+      ${isExpanded ? `
+        <div class="party-expanded-panel">
+          ${party.configs.map(config => formatBoxConfigCard(config, true)).join("")}
+        </div>
+      ` : ""}
+    </article>
+  `;
+}
+
+function renderBox() {
+  populateBoxTeamOptions();
+  const parties = getPartyMatches();
+  if (!parties.some(party => party.name === state.expandedPartyName)) {
+    state.expandedPartyName = null;
+  }
+  const expandedParty = parties.find(party => party.name === state.expandedPartyName) || null;
+  elements.boxResultsTitle.textContent = "Parties";
+  elements.boxViewExportButton.hidden = !expandedParty;
+  elements.boxViewExportButton.textContent = "Export Party";
+  elements.boxResultCount.textContent = `${parties.length} ${parties.length === 1 ? "party" : "parties"}`;
+  elements.boxResults.innerHTML = parties.map(party => formatPartyCard(party, party.name === state.expandedPartyName)).join("")
+    || `<div class="empty-state">No parties match the current search.</div>`;
+
+  for (const partyCard of elements.boxResults.querySelectorAll(".party-card")) {
+    const partyName = partyCard.dataset.partyName;
+    partyCard.querySelector(".party-card-toggle")?.addEventListener("click", () => {
+      state.expandedPartyName = state.expandedPartyName === partyName ? null : partyName;
+      state.editingBoxConfigId = null;
+      renderBox();
+    });
+  }
+
+  bindBoxConfigCardInteractions(elements.boxResults, true);
 }
 
 function getSpeedStat(baseSpeed, evs, nature) {
@@ -5042,15 +5038,11 @@ for (const input of [
 }
 elements.moveClearAllButton.addEventListener("click", clearMoveSearchFilters);
 
-for (const input of [elements.boxNameSearch, elements.boxTeamFilter, elements.boxSortSelect, elements.boxSortDirectionSelect]) {
+for (const input of [elements.boxNameSearch]) {
   input.addEventListener("input", renderBox);
   input.addEventListener("change", renderBox);
 }
 elements.boxClearButton.addEventListener("click", clearBoxSearchFilters);
-elements.boxSortClearButton.addEventListener("click", () => {
-  clearBoxSortFilters();
-  renderBox();
-});
 
 elements.boxSaveTeamSelect.addEventListener("change", () => {
   elements.boxSaveNewTeamRow.hidden = elements.boxSaveTeamSelect.value !== "__new";
@@ -5065,7 +5057,12 @@ elements.boxSaveModal.addEventListener("click", event => {
     closeBoxSavePrompt();
   }
 });
-elements.boxViewExportButton.addEventListener("click", () => exportShowdownConfigs(getBoxMatches()));
+elements.boxViewExportButton.addEventListener("click", () => {
+  const party = getPartyMatches().find(entry => entry.name === state.expandedPartyName);
+  if (party) {
+    exportShowdownConfigs(party.configs);
+  }
+});
 elements.showdownImportButton.addEventListener("click", importShowdownSet);
 elements.showdownImportConfirmButton.addEventListener("click", confirmShowdownImport);
 elements.showdownImportCancelButton.addEventListener("click", closeShowdownImportPrompt);
