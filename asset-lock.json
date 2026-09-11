@@ -12,9 +12,9 @@
   "hostedProjection": {
     "repository": "phantomsafe42/pokemon-line-calculator",
     "visibility": "public",
-    "commit": "8bf1085cd682688df54ae612272e99f7cc500edb",
+    "commit": "409fa8168221143a52be2aa9e98d4617b623766e",
     "path": "public-assets",
-    "releaseBase": "https://raw.githubusercontent.com/phantomsafe42/pokemon-line-calculator/8bf1085cd682688df54ae612272e99f7cc500edb/public-assets"
+    "releaseBase": "https://raw.githubusercontent.com/phantomsafe42/pokemon-line-calculator/409fa8168221143a52be2aa9e98d4617b623766e/public-assets"
   },
   "profiles": [
     "pixel"
