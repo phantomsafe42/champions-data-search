@@ -1,0 +1,11 @@
+{
+  "name": "champions-database",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:locks": "node tools/check_consumer_locks.mjs",
+    "check:publication": "node tools/check_repository_publication.mjs",
+    "test": "npm run check:publication && npm run check:locks"
+  }
+}
