@@ -1,0 +1,798 @@
+{
+  "generatedAt": "2026-09-09T00:00:00.000Z",
+  "sourceIndex": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_by_effect",
+  "categories": {
+    "active_end_turn": {
+      "title": "Abilities that activate at the end of the turn",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_activate_at_the_end_of_the_turn",
+      "abilities": [
+        "Dry Skin",
+        "Harvest",
+        "Healer",
+        "Hydration",
+        "Ice Body",
+        "Moody",
+        "Pickup",
+        "Poison Heal",
+        "Rain Dish",
+        "Shed Skin",
+        "Solar Power",
+        "Speed Boost"
+      ]
+    },
+    "active_contact": {
+      "title": "Abilities that activate on contact",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_activate_on_contact",
+      "abilities": [
+        "Aftermath",
+        "Cute Charm",
+        "Effect Spore",
+        "Flame Body",
+        "Gooey",
+        "Long Reach",
+        "Mummy",
+        "Pickpocket",
+        "Poison Point",
+        "Poison Touch",
+        "Rough Skin",
+        "Static",
+        "Tough Claws",
+        "Wandering Spirit"
+      ]
+    },
+    "active_entering": {
+      "title": "Abilities that activate upon entering battle",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_activate_upon_entering_battle",
+      "abilities": [
+        "Anticipation",
+        "Cloud Nine",
+        "Curious Medicine",
+        "Drizzle",
+        "Drought",
+        "Forewarn",
+        "Frisk",
+        "Hospitality",
+        "Imposter",
+        "Intimidate",
+        "Mold Breaker",
+        "Pressure",
+        "Sand Stream",
+        "Screen Cleaner",
+        "Snow Warning",
+        "Supersweet Syrup",
+        "Supreme Overlord",
+        "Trace",
+        "Unnerve"
+      ]
+    },
+    "active_exiting": {
+      "title": "Abilities that activate upon exiting battle",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_activate_upon_exiting_battle",
+      "abilities": [
+        "Natural Cure",
+        "Regenerator"
+      ]
+    },
+    "active_damage": {
+      "title": "Abilities that activate upon taking damage",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_activate_upon_taking_damage",
+      "abilities": [
+        "Aftermath",
+        "Anger Point",
+        "Cursed Body",
+        "Cute Charm",
+        "Disguise",
+        "Effect Spore",
+        "Flame Body",
+        "Gooey",
+        "Innards Out",
+        "Justified",
+        "Mummy",
+        "Pickpocket",
+        "Poison Point",
+        "Rattled",
+        "Rough Skin",
+        "Sand Spit",
+        "Seed Sower",
+        "Spicy Spray",
+        "Stamina",
+        "Static",
+        "Thermal Exchange",
+        "Toxic Debris",
+        "Wandering Spirit",
+        "Weak Armor"
+      ]
+    },
+    "team_allies": {
+      "title": "Abilities that affect allies",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_affect_allies",
+      "abilities": [
+        "Aroma Veil",
+        "Flower Veil",
+        "Friend Guard",
+        "Healer",
+        "Hospitality",
+        "Steely Spirit",
+        "Sweet Veil",
+        "Symbiosis"
+      ]
+    },
+    "team_ally_only": {
+      "title": "Abilities which only have an effect with an ally",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_which_only_have_an_effect_with_an_ally",
+      "abilities": [
+        "Friend Guard",
+        "Healer",
+        "Hospitality",
+        "Minus",
+        "Plus",
+        "Receiver",
+        "Symbiosis",
+        "Telepathy"
+      ]
+    },
+    "hp_restore": {
+      "title": "Abilities which restore HP",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_which_restore_HP",
+      "abilities": [
+        "Cheek Pouch",
+        "Dry Skin",
+        "Earth Eater",
+        "Hospitality",
+        "Ice Body",
+        "Poison Heal",
+        "Rain Dish",
+        "Regenerator",
+        "Volt Absorb",
+        "Water Absorb"
+      ]
+    },
+    "priority": {
+      "title": "Abilities that affect move priority",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_affect_move_priority",
+      "abilities": [
+        "Gale Wings",
+        "Prankster"
+      ]
+    },
+    "weather_affected": {
+      "title": "Abilities affected by weather conditions",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_affected_by_weather_conditions",
+      "abilities": [
+        "Chlorophyll",
+        "Dry Skin",
+        "Forecast",
+        "Harvest",
+        "Hydration",
+        "Ice Body",
+        "Leaf Guard",
+        "Rain Dish",
+        "Sand Force",
+        "Sand Rush",
+        "Sand Veil",
+        "Slush Rush",
+        "Snow Cloak",
+        "Solar Power",
+        "Swift Swim"
+      ]
+    },
+    "weather_effects": {
+      "title": "Abilities with effects on weather conditions",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_with_effects_on_weather_conditions",
+      "abilities": [
+        "Cloud Nine",
+        "Drizzle",
+        "Drought",
+        "Sand Spit",
+        "Sand Stream",
+        "Snow Warning"
+      ]
+    },
+    "terrain_affected": {
+      "title": "Abilities affected by terrain",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_affected_by_terrain",
+      "abilities": [
+        "Grass Pelt",
+        "Mimicry",
+        "Surge Surfer"
+      ]
+    },
+    "terrain_effects": {
+      "title": "Abilities with effects on terrain",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_with_effects_on_terrain",
+      "abilities": [
+        "Electric Surge",
+        "Grassy Surge",
+        "Psychic Surge",
+        "Seed Sower"
+      ]
+    },
+    "move_type_change": {
+      "title": "Abilities that can modify move types",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_can_modify_move_types",
+      "abilities": [
+        "Aerilate",
+        "Dragonize",
+        "Liquid Voice",
+        "Pixilate",
+        "Refrigerate"
+      ]
+    },
+    "move_type_effects": {
+      "title": "Effects that can modify move types",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Effects_that_can_modify_move_types",
+      "abilities": []
+    },
+    "pokemon_type_change": {
+      "title": "Abilities that change a Pokémon's type",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_change_a_Pok%C3%A9mon%27s_type",
+      "abilities": [
+        "Forecast",
+        "Imposter",
+        "Libero",
+        "Mimicry",
+        "Protean"
+      ]
+    },
+    "move_power": {
+      "title": "Abilities that increase move power",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_increase_move_power",
+      "abilities": [
+        "Adaptability",
+        "Aerilate",
+        "Analytic",
+        "Battle Bond",
+        "Dragonize",
+        "Iron Fist",
+        "Mega Launcher",
+        "Pixilate",
+        "Punk Rock",
+        "Reckless",
+        "Refrigerate",
+        "Rivalry",
+        "Sand Force",
+        "Sharpness",
+        "Sheer Force",
+        "Stakeout",
+        "Steely Spirit",
+        "Strong Jaw",
+        "Supreme Overlord",
+        "Technician",
+        "Tough Claws",
+        "Water Bubble"
+      ]
+    },
+    "type_enhancing": {
+      "title": "Type-enhancing Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Type-enhancing_Abilities",
+      "abilities": [
+        "Blaze",
+        "Electromorphosis",
+        "Fairy Aura",
+        "Flash Fire",
+        "Overgrow",
+        "Sand Force",
+        "Steely Spirit",
+        "Swarm",
+        "Torrent",
+        "Water Bubble"
+      ]
+    },
+    "stat_increasing": {
+      "title": "Stat increasing Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Stat_increasing_Abilities",
+      "abilities": [
+        "Blaze",
+        "Chlorophyll",
+        "Flash Fire",
+        "Fur Coat",
+        "Grass Pelt",
+        "Guts",
+        "Huge Power",
+        "Hustle",
+        "Marvel Scale",
+        "Minus",
+        "Overgrow",
+        "Plus",
+        "Pure Power",
+        "Quick Feet",
+        "Sand Rush",
+        "Slush Rush",
+        "Solar Power",
+        "Surge Surfer",
+        "Swarm",
+        "Swift Swim",
+        "Torrent",
+        "Unburden"
+      ]
+    },
+    "stat_raising": {
+      "title": "Stat raising Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Stat_raising_Abilities",
+      "abilities": [
+        "Anger Point",
+        "Battle Bond",
+        "Berserk",
+        "Competitive",
+        "Contrary",
+        "Defiant",
+        "Guard Dog",
+        "Justified",
+        "Lightning Rod",
+        "Moody",
+        "Motor Drive",
+        "Moxie",
+        "Opportunist",
+        "Rattled",
+        "Sap Sipper",
+        "Speed Boost",
+        "Stamina",
+        "Steadfast",
+        "Super Luck",
+        "Thermal Exchange",
+        "Weak Armor"
+      ]
+    },
+    "stat_lowering": {
+      "title": "Stat lowering Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Stat_lowering_Abilities",
+      "abilities": [
+        "Contrary",
+        "Gooey",
+        "Intimidate",
+        "Mirror Armor",
+        "Moody",
+        "Supersweet Syrup",
+        "Weak Armor"
+      ]
+    },
+    "stat_decreasing": {
+      "title": "Stat-decreasing Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Stat-decreasing_Abilities",
+      "abilities": []
+    },
+    "prevent_stat_reductions": {
+      "title": "Abilities that prevent stat reductions",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_prevent_stat_reductions",
+      "abilities": [
+        "Big Pecks",
+        "Clear Body",
+        "Flower Veil",
+        "Hyper Cutter",
+        "Illuminate",
+        "Keen Eye",
+        "White Smoke"
+      ]
+    },
+    "damage_inflicting": {
+      "title": "Damage-inflicting Abilities",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Damage-inflicting_Abilities",
+      "abilities": [
+        "Aftermath",
+        "Dry Skin",
+        "Innards Out",
+        "Liquid Ooze",
+        "Magic Guard",
+        "Rough Skin",
+        "Solar Power"
+      ]
+    },
+    "status_nonvolatile": {
+      "title": "Abilities that inflict non-volatile status conditions",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_inflict_non-volatile_status_conditions",
+      "abilities": [
+        "Effect Spore",
+        "Flame Body",
+        "Poison Point",
+        "Poison Touch",
+        "Spicy Spray",
+        "Static",
+        "Synchronize"
+      ]
+    },
+    "status_volatile": {
+      "title": "Abilities that inflict volatile status conditions",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_inflict_volatile_status_conditions",
+      "abilities": [
+        "Cursed Body",
+        "Cute Charm",
+        "Stench"
+      ]
+    },
+    "damage_taken": {
+      "title": "Abilities that alter damage taken",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Category:Abilities_that_alter_damage_taken",
+      "abilities": [
+        "Bulletproof",
+        "Disguise",
+        "Dry Skin",
+        "Earth Eater",
+        "Filter",
+        "Flash Fire",
+        "Fluffy",
+        "Friend Guard",
+        "Heatproof",
+        "Levitate",
+        "Lightning Rod",
+        "Motor Drive",
+        "Multiscale",
+        "Punk Rock",
+        "Purifying Salt",
+        "Sap Sipper",
+        "Solid Rock",
+        "Soundproof",
+        "Thick Fat",
+        "Volt Absorb",
+        "Water Absorb",
+        "Water Bubble"
+      ]
+    }
+  },
+  "filters": {
+    "active": {
+      "categoryKeys": [
+        "active_end_turn",
+        "active_contact",
+        "active_entering",
+        "active_exiting",
+        "active_damage"
+      ],
+      "abilities": [
+        "Aftermath",
+        "Anger Point",
+        "Anticipation",
+        "Cloud Nine",
+        "Curious Medicine",
+        "Cursed Body",
+        "Cute Charm",
+        "Disguise",
+        "Drizzle",
+        "Drought",
+        "Dry Skin",
+        "Effect Spore",
+        "Flame Body",
+        "Forewarn",
+        "Frisk",
+        "Gooey",
+        "Harvest",
+        "Healer",
+        "Hospitality",
+        "Hydration",
+        "Ice Body",
+        "Imposter",
+        "Innards Out",
+        "Intimidate",
+        "Justified",
+        "Long Reach",
+        "Mold Breaker",
+        "Moody",
+        "Mummy",
+        "Natural Cure",
+        "Pickpocket",
+        "Pickup",
+        "Poison Heal",
+        "Poison Point",
+        "Poison Touch",
+        "Pressure",
+        "Rain Dish",
+        "Rattled",
+        "Regenerator",
+        "Rough Skin",
+        "Sand Spit",
+        "Sand Stream",
+        "Screen Cleaner",
+        "Seed Sower",
+        "Shed Skin",
+        "Snow Warning",
+        "Solar Power",
+        "Speed Boost",
+        "Spicy Spray",
+        "Stamina",
+        "Static",
+        "Supersweet Syrup",
+        "Supreme Overlord",
+        "Thermal Exchange",
+        "Tough Claws",
+        "Toxic Debris",
+        "Trace",
+        "Unnerve",
+        "Wandering Spirit",
+        "Weak Armor"
+      ]
+    },
+    "team": {
+      "categoryKeys": [
+        "team_allies",
+        "team_ally_only"
+      ],
+      "abilities": [
+        "Aroma Veil",
+        "Flower Veil",
+        "Friend Guard",
+        "Healer",
+        "Hospitality",
+        "Minus",
+        "Plus",
+        "Receiver",
+        "Steely Spirit",
+        "Sweet Veil",
+        "Symbiosis",
+        "Telepathy"
+      ]
+    },
+    "hp": {
+      "categoryKeys": [
+        "hp_restore"
+      ],
+      "abilities": [
+        "Cheek Pouch",
+        "Dry Skin",
+        "Earth Eater",
+        "Hospitality",
+        "Ice Body",
+        "Poison Heal",
+        "Rain Dish",
+        "Regenerator",
+        "Volt Absorb",
+        "Water Absorb"
+      ]
+    },
+    "priority": {
+      "categoryKeys": [
+        "priority"
+      ],
+      "abilities": [
+        "Gale Wings",
+        "Prankster"
+      ]
+    },
+    "weatherTerrain": {
+      "categoryKeys": [
+        "weather_affected",
+        "weather_effects",
+        "terrain_affected",
+        "terrain_effects"
+      ],
+      "abilities": [
+        "Chlorophyll",
+        "Cloud Nine",
+        "Drizzle",
+        "Drought",
+        "Dry Skin",
+        "Electric Surge",
+        "Forecast",
+        "Grass Pelt",
+        "Grassy Surge",
+        "Harvest",
+        "Hydration",
+        "Ice Body",
+        "Leaf Guard",
+        "Mimicry",
+        "Psychic Surge",
+        "Rain Dish",
+        "Sand Force",
+        "Sand Rush",
+        "Sand Spit",
+        "Sand Stream",
+        "Sand Veil",
+        "Seed Sower",
+        "Slush Rush",
+        "Snow Cloak",
+        "Snow Warning",
+        "Solar Power",
+        "Surge Surfer",
+        "Swift Swim"
+      ]
+    },
+    "typeEffect": {
+      "categoryKeys": [
+        "move_type_change",
+        "move_type_effects",
+        "pokemon_type_change",
+        "type_enhancing"
+      ],
+      "abilities": [
+        "Aerilate",
+        "Blaze",
+        "Dragonize",
+        "Electromorphosis",
+        "Fairy Aura",
+        "Flash Fire",
+        "Forecast",
+        "Imposter",
+        "Libero",
+        "Liquid Voice",
+        "Mimicry",
+        "Overgrow",
+        "Pixilate",
+        "Protean",
+        "Refrigerate",
+        "Sand Force",
+        "Steely Spirit",
+        "Swarm",
+        "Torrent",
+        "Water Bubble"
+      ]
+    },
+    "statCandidates": {
+      "categoryKeys": [
+        "stat_increasing",
+        "stat_raising",
+        "stat_lowering",
+        "stat_decreasing",
+        "prevent_stat_reductions"
+      ],
+      "abilities": [
+        "Anger Point",
+        "Battle Bond",
+        "Berserk",
+        "Big Pecks",
+        "Blaze",
+        "Chlorophyll",
+        "Clear Body",
+        "Competitive",
+        "Contrary",
+        "Defiant",
+        "Flash Fire",
+        "Flower Veil",
+        "Fur Coat",
+        "Gooey",
+        "Grass Pelt",
+        "Guard Dog",
+        "Guts",
+        "Huge Power",
+        "Hustle",
+        "Hyper Cutter",
+        "Illuminate",
+        "Intimidate",
+        "Justified",
+        "Keen Eye",
+        "Lightning Rod",
+        "Marvel Scale",
+        "Minus",
+        "Mirror Armor",
+        "Moody",
+        "Motor Drive",
+        "Moxie",
+        "Opportunist",
+        "Overgrow",
+        "Plus",
+        "Pure Power",
+        "Quick Feet",
+        "Rattled",
+        "Sand Rush",
+        "Sap Sipper",
+        "Slush Rush",
+        "Solar Power",
+        "Speed Boost",
+        "Stamina",
+        "Steadfast",
+        "Super Luck",
+        "Supersweet Syrup",
+        "Surge Surfer",
+        "Swarm",
+        "Swift Swim",
+        "Thermal Exchange",
+        "Torrent",
+        "Unburden",
+        "Weak Armor",
+        "White Smoke"
+      ]
+    },
+    "targetCandidates": {
+      "categoryKeys": [
+        "stat_lowering",
+        "stat_decreasing",
+        "damage_inflicting",
+        "status_nonvolatile",
+        "status_volatile",
+        "damage_taken"
+      ],
+      "abilities": [
+        "Aftermath",
+        "Bulletproof",
+        "Contrary",
+        "Cursed Body",
+        "Cute Charm",
+        "Disguise",
+        "Dry Skin",
+        "Earth Eater",
+        "Effect Spore",
+        "Filter",
+        "Flame Body",
+        "Flash Fire",
+        "Fluffy",
+        "Friend Guard",
+        "Gooey",
+        "Heatproof",
+        "Innards Out",
+        "Intimidate",
+        "Levitate",
+        "Lightning Rod",
+        "Liquid Ooze",
+        "Magic Guard",
+        "Mirror Armor",
+        "Moody",
+        "Motor Drive",
+        "Multiscale",
+        "Poison Point",
+        "Poison Touch",
+        "Punk Rock",
+        "Purifying Salt",
+        "Rough Skin",
+        "Sap Sipper",
+        "Solar Power",
+        "Solid Rock",
+        "Soundproof",
+        "Spicy Spray",
+        "Static",
+        "Stench",
+        "Supersweet Syrup",
+        "Synchronize",
+        "Thick Fat",
+        "Volt Absorb",
+        "Water Absorb",
+        "Water Bubble",
+        "Weak Armor"
+      ]
+    },
+    "opponentCandidates": {
+      "categoryKeys": [
+        "stat_lowering",
+        "stat_decreasing",
+        "damage_inflicting",
+        "status_nonvolatile",
+        "status_volatile",
+        "damage_taken"
+      ],
+      "abilities": [
+        "Aftermath",
+        "Bulletproof",
+        "Contrary",
+        "Cursed Body",
+        "Cute Charm",
+        "Disguise",
+        "Dry Skin",
+        "Earth Eater",
+        "Effect Spore",
+        "Filter",
+        "Flame Body",
+        "Flash Fire",
+        "Fluffy",
+        "Friend Guard",
+        "Gooey",
+        "Heatproof",
+        "Innards Out",
+        "Intimidate",
+        "Levitate",
+        "Lightning Rod",
+        "Liquid Ooze",
+        "Magic Guard",
+        "Mirror Armor",
+        "Moody",
+        "Motor Drive",
+        "Multiscale",
+        "Poison Point",
+        "Poison Touch",
+        "Punk Rock",
+        "Purifying Salt",
+        "Rough Skin",
+        "Sap Sipper",
+        "Solar Power",
+        "Solid Rock",
+        "Soundproof",
+        "Spicy Spray",
+        "Static",
+        "Stench",
+        "Supersweet Syrup",
+        "Synchronize",
+        "Thick Fat",
+        "Volt Absorb",
+        "Water Absorb",
+        "Water Bubble",
+        "Weak Armor"
+      ]
+    }
+  },
+  "sourceNote": "Legacy Bulbapedia classifications retained only for abilities present in the pinned Champions Showdown roster; unclassified new abilities remain searchable by name."
+}

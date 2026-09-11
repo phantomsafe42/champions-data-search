@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "champions-database-dataset-lock/v1",
+  "repository": "phantomsafe42/pokemon-datasets",
+  "visibility": "private",
+  "tag": "v0.1.9",
+  "commit": "b8dd569ffcf7f0fe12821fb62e0271862dca1380",
+  "releaseVersion": "0.1.9",
+  "profile": "champions-database",
+  "artifact": {
+    "name": "pokemon-datasets-champions-database-v0.1.9.zip",
+    "sha256": "a3829021a84197a8397f1b414ac438011bb2f8de7a6c192156776884eff65628"
+  },
+  "storageMode": "checked-in-compatibility-snapshot"
+}

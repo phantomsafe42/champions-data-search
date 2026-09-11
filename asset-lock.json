@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "champions-database-asset-lock/v1",
+  "source": {
+    "repository": "phantomsafe42/pokemon-assets",
+    "visibility": "private",
+    "releaseVersion": "0.5.0-dev.1",
+    "commit": "86d01088927edd72257b290b24aab6600d4b3b99",
+    "indexSha256": "8ea932f01af335da8e6f5b105c94cd874defb216ac6582dc865b8afb8c622884",
+    "manifestSha256": "015470236952e2a9a95d0e68c365e789843cefbe3915c3d770a589e1465ec78c"
+  },
+  "hostedProjection": {
+    "repository": "phantomsafe42/pokemon-line-calculator",
+    "visibility": "public",
+    "commit": "8bf1085cd682688df54ae612272e99f7cc500edb",
+    "path": "public-assets",
+    "releaseBase": "https://raw.githubusercontent.com/phantomsafe42/pokemon-line-calculator/8bf1085cd682688df54ae612272e99f7cc500edb/public-assets"
+  },
+  "profiles": [
+    "pixel"
+  ]
+}

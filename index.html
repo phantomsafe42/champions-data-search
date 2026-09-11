@@ -6,6 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+  <meta name="pokemon-asset-release-base" content="https://raw.githubusercontent.com/phantomsafe42/pokemon-line-calculator/8bf1085cd682688df54ae612272e99f7cc500edb/public-assets">
   <title>Pokémon Champions Database</title>
   <link rel="stylesheet" href="styles.css?v=2026-06-25-1">
 </head>
@@ -44,7 +45,7 @@
       <div class="title-block">
         <div class="title-row">
           <h1>Pokémon Champions Database</h1>
-          <img class="title-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/normal/cyndaquil.gif" alt="Cyndaquil animated sprite">
+          <img class="title-sprite" id="title-pokemon-sprite" alt="Cyndaquil animated sprite" hidden>
         </div>
         <p>Search Champions sets, moves, and abilities, then save useful pieces to the setlist.</p>
         <div class="watermark" aria-label="twitch.tv/phantomsafe">twitch.tv/phantomsafe</div>
@@ -514,6 +515,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=2026-06-25-1"></script>
+  <script src="generated/pokemon_asset_resolver.global.js?v=2026-09-11-1"></script>
+  <script src="app.js?v=2026-09-11-1"></script>
 </body>
 </html>

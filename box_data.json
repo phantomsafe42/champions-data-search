@@ -9,7 +9,14 @@
         "baseName": "Azumarill",
         "dexNo": 184,
         "formId": "base",
-        "spritePath": "sprites/azumarill_base_pixel.png",
+        "spriteQuery": {
+          "spriteType": "pixel",
+          "species": "Azumarill",
+          "nationalDex": 184,
+          "gender": "default",
+          "shiny": false,
+          "view": "front"
+        },
         "types": ["Water", "Fairy"],
         "baseStats": {
           "hp": 100,

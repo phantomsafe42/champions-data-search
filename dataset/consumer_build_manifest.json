@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "champions-consumer-build-manifest/v1",
+  "gameVersion": "1.2",
+  "regulation": "M-C",
+  "generatedAt": "2026-09-09T00:00:00.000Z",
+  "sourceCommit": "812501ede865eea397cd6e9a6f040d73ff57cc84",
+  "files": {
+    "champions_dataset.json": {
+      "sha256": "36375dc01066eb8f4e6ac03a8f0b30d4e41a468a60128ee31cd8db80817af611",
+      "bytes": 838329
+    },
+    "champions_search_metadata.json": {
+      "sha256": "5fd4f9919e25897a1d6387ee60659dbae9327cb972eceffddd0f2585fda6ed50",
+      "bytes": 298323
+    },
+    "champions_items.json": {
+      "sha256": "a0214e9b6d284a44e5f6bb91fa16ffb73dfd5efaed375395cca4b1fbdd5f7d8b",
+      "bytes": 42405
+    },
+    "ability_descriptions.json": {
+      "sha256": "aa89ff7e6d4ce6cdd624e29f0593ef62593db5989ae39402b237760c250290b1",
+      "bytes": 159093
+    },
+    "ability_filter_sources.json": {
+      "sha256": "c813a56d3a9d853b03f2aa871a092a1e41f18b8d74b7ff74b4192a5311ddc94b",
+      "bytes": 19568
+    }
+  }
+}

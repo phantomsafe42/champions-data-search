@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "champions-database-generated-dataset/v1",
+  "consumer": "champions-database-dataset",
+  "source": "Datasets/Champions",
+  "sourceTreeSha256": "5B1115DBEA18C657EC1F2350CD400D043DD2CFC77D13C1751986A61015CBF018",
+  "files": [
+    {
+      "path": "champions_dataset.json",
+      "bytes": 838329,
+      "sha256": "36375DC01066EB8F4E6AC03A8F0B30D4E41A468A60128EE31CD8DB80817AF611"
+    },
+    {
+      "path": "champions_search_metadata.json",
+      "bytes": 298323,
+      "sha256": "5FD4F9919E25897A1D6387EE60659DBAE9327CB972ECEFFDDD0F2585FDA6ED50"
+    },
+    {
+      "path": "champions_items.json",
+      "bytes": 42405,
+      "sha256": "A0214E9B6D284A44E5F6BB91FA16FFB73DFD5EFAED375395CCA4B1FBDD5F7D8B"
+    },
+    {
+      "path": "ability_descriptions.json",
+      "bytes": 159093,
+      "sha256": "AA89FF7E6D4CE6CDD624E29F0593EF62593DB5989AE39402B237760C250290B1"
+    },
+    {
+      "path": "ability_filter_sources.json",
+      "bytes": 19568,
+      "sha256": "C813A56D3A9D853B03F2AA871A092A1E41F18B8D74B7FF74B4192A5311DDC94B"
+    },
+    {
+      "path": "consumer_build_manifest.json",
+      "bytes": 970,
+      "sha256": "89266FC089D59A1F622F11D702EAF2A132CDF8BB5E4796B853385FE83BA31015"
+    }
+  ]
+}

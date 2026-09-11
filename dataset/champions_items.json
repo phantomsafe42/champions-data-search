@@ -1,0 +1,1349 @@
+{
+  "schemaVersion": "champions-items/v2",
+  "source": {
+    "pokemonShowdown": {
+      "repository": "https://github.com/smogon/pokemon-showdown.git",
+      "commit": "812501ede865eea397cd6e9a6f040d73ff57cc84",
+      "parent": "81c39fb3facd0c82bc6753295b2b079190fa3e6f",
+      "mod": "champions"
+    },
+    "acquisition": {
+      "url": "https://www.serebii.net/pokemonchampions/items.shtml",
+      "retrievedAt": "2026-09-09",
+      "normalizedUtf8Sha256": "115b9db0ba542857e3d6c8d1f7310c5687907d58d420e962549e97b53665ea63"
+    },
+    "legacyAcquisitionBaseline": "source-data/imports/legacy/champions_items_2026-06-21.json"
+  },
+  "generatedAt": "2026-09-09T00:00:00.000Z",
+  "count": 166,
+  "items": [
+    {
+      "sourceId": "abomasite",
+      "numericId": 674,
+      "category": "Mega Stone",
+      "name": "Abomasite",
+      "effect": "If held by an Abomasnow, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "absolite",
+      "numericId": 677,
+      "category": "Mega Stone",
+      "name": "Absolite",
+      "effect": "If held by an Absol, this item allows it to Mega Evolve into Mega Absol in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "absolitez",
+      "numericId": 2638,
+      "category": "Mega Stone",
+      "name": "Absolite Z",
+      "effect": "If held by an Absol, this item allows it to Mega Evolve into Mega Absol Z in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "aerodactylite",
+      "numericId": 672,
+      "category": "Mega Stone",
+      "name": "Aerodactylite",
+      "effect": "If held by an Aerodactyl, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "aggronite",
+      "numericId": 667,
+      "category": "Mega Stone",
+      "name": "Aggronite",
+      "effect": "If held by an Aggron, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "airballoon",
+      "numericId": 541,
+      "category": "Hold Items",
+      "name": "Air Balloon",
+      "effect": "Holder is immune to Ground-type attacks. Pops when holder is hit.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "alakazite",
+      "numericId": 679,
+      "category": "Mega Stone",
+      "name": "Alakazite",
+      "effect": "If held by an Alakazam, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "altarianite",
+      "numericId": 755,
+      "category": "Mega Stone",
+      "name": "Altarianite",
+      "effect": "If held by an Altaria, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "ampharosite",
+      "numericId": 658,
+      "category": "Mega Stone",
+      "name": "Ampharosite",
+      "effect": "If held by an Ampharos, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "aspearberry",
+      "numericId": 153,
+      "category": "Berries",
+      "name": "Aspear Berry",
+      "effect": "Holder is cured if it is frozen. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "audinite",
+      "numericId": 757,
+      "category": "Mega Stone",
+      "name": "Audinite",
+      "effect": "If held by an Audino, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "babiriberry",
+      "numericId": 199,
+      "category": "Berries",
+      "name": "Babiri Berry",
+      "effect": "Halves damage taken from a supereffective Steel-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "banettite",
+      "numericId": 668,
+      "category": "Mega Stone",
+      "name": "Banettite",
+      "effect": "If held by a Banette, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "barbaracite",
+      "numericId": 2581,
+      "category": "Mega Stone",
+      "name": "Barbaracite",
+      "effect": "If held by a Barbaracle, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "baxcalibrite",
+      "numericId": 2648,
+      "category": "Mega Stone",
+      "name": "Baxcalibrite",
+      "effect": "If held by a Baxcalibur, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "beedrillite",
+      "numericId": 770,
+      "category": "Mega Stone",
+      "name": "Beedrillite",
+      "effect": "If held by a Beedrill, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "bigroot",
+      "numericId": 296,
+      "category": "Hold Items",
+      "name": "Big Root",
+      "effect": "Holder gains 1.3x HP from draining/Aqua Ring/Ingrain/Leech Seed/Strength Sap.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "bindingband",
+      "numericId": 544,
+      "category": "Hold Items",
+      "name": "Binding Band",
+      "effect": "Holder's partial-trapping moves deal 1/6 max HP per turn instead of 1/8.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "blackbelt",
+      "numericId": 241,
+      "category": "Hold Items",
+      "name": "Black Belt",
+      "effect": "Holder's Fighting-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "blackglasses",
+      "numericId": 240,
+      "category": "Hold Items",
+      "name": "Black Glasses",
+      "effect": "Holder's Dark-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "blastoisinite",
+      "numericId": 661,
+      "category": "Mega Stone",
+      "name": "Blastoisinite",
+      "effect": "If held by a Blastoise, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "blazikenite",
+      "numericId": 664,
+      "category": "Mega Stone",
+      "name": "Blazikenite",
+      "effect": "If held by a Blaziken, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "brightpowder",
+      "numericId": 213,
+      "category": "Hold Items",
+      "name": "Bright Powder",
+      "effect": "The accuracy of attacks against the holder is 0.9x.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "cameruptite",
+      "numericId": 767,
+      "category": "Mega Stone",
+      "name": "Cameruptite",
+      "effect": "If held by a Camerupt, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "chandelurite",
+      "numericId": 2574,
+      "category": "Mega Stone",
+      "name": "Chandelurite",
+      "effect": "If held by a Chandelure, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "charcoal",
+      "numericId": 249,
+      "category": "Hold Items",
+      "name": "Charcoal",
+      "effect": "Holder's Fire-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "charizarditex",
+      "numericId": 660,
+      "category": "Mega Stone",
+      "name": "Charizardite X",
+      "effect": "If held by a Charizard, this item allows it to Mega Evolve into Mega Charizard X.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "charizarditey",
+      "numericId": 678,
+      "category": "Mega Stone",
+      "name": "Charizardite Y",
+      "effect": "If held by a Charizard, this item allows it to Mega Evolve into Mega Charizard Y.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "chartiberry",
+      "numericId": 195,
+      "category": "Berries",
+      "name": "Charti Berry",
+      "effect": "Halves damage taken from a supereffective Rock-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "cheriberry",
+      "numericId": 149,
+      "category": "Berries",
+      "name": "Cheri Berry",
+      "effect": "Holder cures itself if it is paralyzed. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "chesnaughtite",
+      "numericId": 2575,
+      "category": "Mega Stone",
+      "name": "Chesnaughtite",
+      "effect": "If held by a Chesnaught, this item allows it to Mega Evolve in battle.",
+      "location": "Deposit a Chesnaught from Pokémon Legends: Z-A Shop 2000 VP"
+    },
+    {
+      "sourceId": "chestoberry",
+      "numericId": 150,
+      "category": "Berries",
+      "name": "Chesto Berry",
+      "effect": "Holder wakes up if it is asleep. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "chilanberry",
+      "numericId": 200,
+      "category": "Berries",
+      "name": "Chilan Berry",
+      "effect": "Halves damage taken from a Normal-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "chimechite",
+      "numericId": 2637,
+      "category": "Mega Stone",
+      "name": "Chimechite",
+      "effect": "If held by a Chimecho, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "choicescarf",
+      "numericId": 287,
+      "category": "Hold Items",
+      "name": "Choice Scarf",
+      "effect": "Holder's Speed is 1.5x, but it can only select the first move it executes.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "chopleberry",
+      "numericId": 189,
+      "category": "Berries",
+      "name": "Chople Berry",
+      "effect": "Halves damage taken from a supereffective Fighting-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "clefablite",
+      "numericId": 2559,
+      "category": "Mega Stone",
+      "name": "Clefablite",
+      "effect": "If held by a Clefable, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "cobaberry",
+      "numericId": 192,
+      "category": "Berries",
+      "name": "Coba Berry",
+      "effect": "Halves damage taken from a supereffective Flying-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "colburberry",
+      "numericId": 198,
+      "category": "Berries",
+      "name": "Colbur Berry",
+      "effect": "Halves damage taken from a supereffective Dark-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "crabominite",
+      "numericId": 2644,
+      "category": "Mega Stone",
+      "name": "Crabominite",
+      "effect": "If held by a Crabominable, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "damprock",
+      "numericId": 285,
+      "category": "Hold Items",
+      "name": "Damp Rock",
+      "effect": "Holder's use of Rain Dance lasts 8 turns instead of 5.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "delphoxite",
+      "numericId": 2576,
+      "category": "Mega Stone",
+      "name": "Delphoxite",
+      "effect": "If held by a Delphox, this item allows it to Mega Evolve in battle.",
+      "location": "Deposit a Delphox from Pokémon Legends: Z-A Shop 2000 VP"
+    },
+    {
+      "sourceId": "dragalgite",
+      "numericId": 2582,
+      "category": "Mega Stone",
+      "name": "Dragalgite",
+      "effect": "If held by a Dragalge, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "dragonfang",
+      "numericId": 250,
+      "category": "Hold Items",
+      "name": "Dragon Fang",
+      "effect": "Holder's Dragon-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "dragoninite",
+      "numericId": 2562,
+      "category": "Mega Stone",
+      "name": "Dragoninite",
+      "effect": "If held by a Dragonite, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "drampanite",
+      "numericId": 2585,
+      "category": "Mega Stone",
+      "name": "Drampanite",
+      "effect": "If held by a Drampa, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "eelektrossite",
+      "numericId": 2573,
+      "category": "Mega Stone",
+      "name": "Eelektrossite",
+      "effect": "If held by an Eelektross, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "ejectbutton",
+      "numericId": 547,
+      "category": "Hold Items",
+      "name": "Eject Button",
+      "effect": "If holder survives a hit, it immediately switches out to a chosen ally. Single use.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "electricseed",
+      "numericId": 881,
+      "category": "Hold Items",
+      "name": "Electric Seed",
+      "effect": "If the terrain is Electric Terrain, raises holder's Defense by 1 stage. Single use.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "emboarite",
+      "numericId": 2569,
+      "category": "Mega Stone",
+      "name": "Emboarite",
+      "effect": "If held by an Emboar, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "excadrite",
+      "numericId": 2570,
+      "category": "Mega Stone",
+      "name": "Excadrite",
+      "effect": "If held by an Excadrill, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "expertbelt",
+      "numericId": 268,
+      "category": "Hold Items",
+      "name": "Expert Belt",
+      "effect": "Holder's attacks that are super effective against the target do 1.2x damage.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "fairyfeather",
+      "numericId": 2401,
+      "category": "Hold Items",
+      "name": "Fairy Feather",
+      "effect": "Holder's Fairy-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "falinksite",
+      "numericId": 2587,
+      "category": "Mega Stone",
+      "name": "Falinksite",
+      "effect": "If held by a Falinks, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "feraligite",
+      "numericId": 2564,
+      "category": "Mega Stone",
+      "name": "Feraligite",
+      "effect": "If held by a Feraligatr, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "floettite",
+      "numericId": 2579,
+      "category": "Mega Stone",
+      "name": "Floettite",
+      "effect": "If held by an Eternal Flower Floette, this item allows it to Mega Evolve in battle.",
+      "location": "Deposit a Floette Eternal Flower from Pokémon Legends: Z-A"
+    },
+    {
+      "sourceId": "focusband",
+      "numericId": 230,
+      "category": "Hold Items",
+      "name": "Focus Band",
+      "effect": "Holder has a 10% chance to survive an attack that would KO it with 1 HP.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "focussash",
+      "numericId": 275,
+      "category": "Hold Items",
+      "name": "Focus Sash",
+      "effect": "If holder's HP is full, will survive an attack that would KO it with 1 HP. Single use.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "froslassite",
+      "numericId": 2566,
+      "category": "Mega Stone",
+      "name": "Froslassite",
+      "effect": "If held by a Froslass, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "galladite",
+      "numericId": 756,
+      "category": "Mega Stone",
+      "name": "Galladite",
+      "effect": "If held by a Gallade, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "garchompite",
+      "numericId": 683,
+      "category": "Mega Stone",
+      "name": "Garchompite",
+      "effect": "If held by a Garchomp, this item allows it to Mega Evolve into Mega Garchomp.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "garchompitez",
+      "numericId": 2640,
+      "category": "Mega Stone",
+      "name": "Garchompite Z",
+      "effect": "If held by a Garchomp, this item allows it to Mega Evolve into Mega Garchomp Z.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "gardevoirite",
+      "numericId": 657,
+      "category": "Mega Stone",
+      "name": "Gardevoirite",
+      "effect": "If held by a Gardevoir, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "gengarite",
+      "numericId": 656,
+      "category": "Mega Stone",
+      "name": "Gengarite",
+      "effect": "If held by a Gengar, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "glalitite",
+      "numericId": 763,
+      "category": "Mega Stone",
+      "name": "Glalitite",
+      "effect": "If held by a Glalie, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "glimmoranite",
+      "numericId": 2650,
+      "category": "Mega Stone",
+      "name": "Glimmoranite",
+      "effect": "If held by a Glimmora, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "golisopite",
+      "numericId": 2645,
+      "category": "Mega Stone",
+      "name": "Golisopite",
+      "effect": "If held by a Golisopod, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "golurkite",
+      "numericId": 2642,
+      "category": "Mega Stone",
+      "name": "Golurkite",
+      "effect": "If held by a Golurk, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "grassyseed",
+      "numericId": 884,
+      "category": "Hold Items",
+      "name": "Grassy Seed",
+      "effect": "If the terrain is Grassy Terrain, raises holder's Defense by 1 stage. Single use.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "greninjite",
+      "numericId": 2577,
+      "category": "Mega Stone",
+      "name": "Greninjite",
+      "effect": "If held by a Greninja, this item allows it to Mega Evolve in battle.",
+      "location": "Deposit a Greninja from Pokémon Legends: Z-A Shop 2000 VP"
+    },
+    {
+      "sourceId": "gyaradosite",
+      "numericId": 676,
+      "category": "Mega Stone",
+      "name": "Gyaradosite",
+      "effect": "If held by a Gyarados, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "habanberry",
+      "numericId": 197,
+      "category": "Berries",
+      "name": "Haban Berry",
+      "effect": "Halves damage taken from a supereffective Dragon-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "hardstone",
+      "numericId": 238,
+      "category": "Hold Items",
+      "name": "Hard Stone",
+      "effect": "Holder's Rock-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "hawluchanite",
+      "numericId": 2583,
+      "category": "Mega Stone",
+      "name": "Hawluchanite",
+      "effect": "If held by a Hawlucha, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "heatrock",
+      "numericId": 284,
+      "category": "Hold Items",
+      "name": "Heat Rock",
+      "effect": "Holder's use of Sunny Day lasts 8 turns instead of 5.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "heracronite",
+      "numericId": 680,
+      "category": "Mega Stone",
+      "name": "Heracronite",
+      "effect": "If held by a Heracross, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "houndoominite",
+      "numericId": 666,
+      "category": "Mega Stone",
+      "name": "Houndoominite",
+      "effect": "If held by a Houndoom, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "icyrock",
+      "numericId": 282,
+      "category": "Hold Items",
+      "name": "Icy Rock",
+      "effect": "Holder's use of Snowscape lasts 8 turns instead of 5.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "ironball",
+      "numericId": 278,
+      "category": "Hold Items",
+      "name": "Iron Ball",
+      "effect": "Holder is grounded, Speed halved. If Flying type, takes neutral Ground damage.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "kangaskhanite",
+      "numericId": 675,
+      "category": "Mega Stone",
+      "name": "Kangaskhanite",
+      "effect": "If held by a Kangaskhan, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "kasibberry",
+      "numericId": 196,
+      "category": "Berries",
+      "name": "Kasib Berry",
+      "effect": "Halves damage taken from a supereffective Ghost-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "kebiaberry",
+      "numericId": 190,
+      "category": "Berries",
+      "name": "Kebia Berry",
+      "effect": "Halves damage taken from a supereffective Poison-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "kingsrock",
+      "numericId": 221,
+      "category": "Hold Items",
+      "name": "King's Rock",
+      "effect": "Holder's attacks without a chance to make the target flinch gain a 10% chance to make the target flinch. Evolves Poliwhirl into Politoed and Slowpoke into Slowking when traded.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "leek",
+      "numericId": 259,
+      "category": "Hold Items",
+      "name": "Leek",
+      "effect": "If held by a Farfetch’d or Sirfetch’d, its critical hit ratio is raised by 2 stages.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "leftovers",
+      "numericId": 234,
+      "category": "Hold Items",
+      "name": "Leftovers",
+      "effect": "At the end of every turn, holder restores 1/16 of its max HP.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "leppaberry",
+      "numericId": 154,
+      "category": "Berries",
+      "name": "Leppa Berry",
+      "effect": "Restores 10 PP to the first of the holder's moves to reach 0 PP. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "lifeorb",
+      "numericId": 270,
+      "category": "Hold Items",
+      "name": "Life Orb",
+      "effect": "Holder's attacks do 1.3x damage, and it loses 1/10 its max HP after the attack.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "lightball",
+      "numericId": 236,
+      "category": "Hold Items",
+      "name": "Light Ball",
+      "effect": "If held by a Pikachu, its Attack and Sp. Atk are doubled.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "lightclay",
+      "numericId": 269,
+      "category": "Hold Items",
+      "name": "Light Clay",
+      "effect": "Holder's use of Aurora Veil, Light Screen, or Reflect lasts 8 turns instead of 5.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "lopunnite",
+      "numericId": 768,
+      "category": "Mega Stone",
+      "name": "Lopunnite",
+      "effect": "If held by a Lopunny, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "lucarionite",
+      "numericId": 673,
+      "category": "Mega Stone",
+      "name": "Lucarionite",
+      "effect": "If held by a Lucario, this item allows it to Mega Evolve into Mega Lucario in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "lucarionitez",
+      "numericId": 2641,
+      "category": "Mega Stone",
+      "name": "Lucarionite Z",
+      "effect": "If held by a Lucario, this item allows it to Mega Evolve into Mega Lucario Z in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "lumberry",
+      "numericId": 157,
+      "category": "Berries",
+      "name": "Lum Berry",
+      "effect": "Holder cures itself if it has a non-volatile status or is confused. Single use.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "magnet",
+      "numericId": 242,
+      "category": "Hold Items",
+      "name": "Magnet",
+      "effect": "Holder's Electric-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "malamarite",
+      "numericId": 2580,
+      "category": "Mega Stone",
+      "name": "Malamarite",
+      "effect": "If held by a Malamar, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "manectite",
+      "numericId": 682,
+      "category": "Mega Stone",
+      "name": "Manectite",
+      "effect": "If held by a Manectric, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "mawilite",
+      "numericId": 681,
+      "category": "Mega Stone",
+      "name": "Mawilite",
+      "effect": "If held by a Mawile, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "medichamite",
+      "numericId": 665,
+      "category": "Mega Stone",
+      "name": "Medichamite",
+      "effect": "If held by a Medicham, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "meganiumite",
+      "numericId": 2563,
+      "category": "Mega Stone",
+      "name": "Meganiumite",
+      "effect": "If held by a Meganium, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "mentalherb",
+      "numericId": 219,
+      "category": "Hold Items",
+      "name": "Mental Herb",
+      "effect": "Cures holder of Attract, Disable, Encore, Heal Block, Taunt, Torment. Single use.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "meowsticite",
+      "numericId": 2643,
+      "category": "Mega Stone",
+      "name": "Meowsticite",
+      "effect": "If held by a Meowstic, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "metagrossite",
+      "numericId": 758,
+      "category": "Mega Stone",
+      "name": "Metagrossite",
+      "effect": "If held by a Metagross, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "metalcoat",
+      "numericId": 233,
+      "category": "Hold Items",
+      "name": "Metal Coat",
+      "effect": "Holder's Steel-type attacks have 1.2x power. Evolves Onix into Steelix and Scyther into Scizor when traded.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "metronome",
+      "numericId": 277,
+      "category": "Hold Items",
+      "name": "Metronome",
+      "effect": "Damage of moves used on consecutive turns is increased. Max 2x after 5 turns.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "miracleseed",
+      "numericId": 239,
+      "category": "Hold Items",
+      "name": "Miracle Seed",
+      "effect": "Holder's Grass-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "mistyseed",
+      "numericId": 883,
+      "category": "Hold Items",
+      "name": "Misty Seed",
+      "effect": "If the terrain is Misty Terrain, raises holder's Sp. Def by 1 stage. Single use.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "muscleband",
+      "numericId": 266,
+      "category": "Hold Items",
+      "name": "Muscle Band",
+      "effect": "Holder's physical attacks have 1.1x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "mysticwater",
+      "numericId": 243,
+      "category": "Hold Items",
+      "name": "Mystic Water",
+      "effect": "Holder's Water-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "nevermeltice",
+      "numericId": 246,
+      "category": "Hold Items",
+      "name": "Never-Melt Ice",
+      "effect": "Holder's Ice-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "normalgem",
+      "numericId": 564,
+      "category": "Hold Items",
+      "name": "Normal Gem",
+      "effect": "Holder's first successful Normal-type attack will have 1.3x power. Single use.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "occaberry",
+      "numericId": 184,
+      "category": "Berries",
+      "name": "Occa Berry",
+      "effect": "Halves damage taken from a supereffective Fire-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "oranberry",
+      "numericId": 155,
+      "category": "Berries",
+      "name": "Oran Berry",
+      "effect": "Restores 10 HP when at 1/2 max HP or less. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "passhoberry",
+      "numericId": 185,
+      "category": "Berries",
+      "name": "Passho Berry",
+      "effect": "Halves damage taken from a supereffective Water-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "payapaberry",
+      "numericId": 193,
+      "category": "Berries",
+      "name": "Payapa Berry",
+      "effect": "Halves damage taken from a supereffective Psychic-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "pechaberry",
+      "numericId": 151,
+      "category": "Berries",
+      "name": "Pecha Berry",
+      "effect": "Holder is cured if it is poisoned. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "persimberry",
+      "numericId": 156,
+      "category": "Berries",
+      "name": "Persim Berry",
+      "effect": "Holder is cured if it is confused. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "pidgeotite",
+      "numericId": 762,
+      "category": "Mega Stone",
+      "name": "Pidgeotite",
+      "effect": "If held by a Pidgeot, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "pinsirite",
+      "numericId": 671,
+      "category": "Mega Stone",
+      "name": "Pinsirite",
+      "effect": "If held by a Pinsir, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "poisonbarb",
+      "numericId": 245,
+      "category": "Hold Items",
+      "name": "Poison Barb",
+      "effect": "Holder's Poison-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "psychicseed",
+      "numericId": 882,
+      "category": "Hold Items",
+      "name": "Psychic Seed",
+      "effect": "If the terrain is Psychic Terrain, raises holder's Sp. Def by 1 stage. Single use.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "pyroarite",
+      "numericId": 2578,
+      "category": "Mega Stone",
+      "name": "Pyroarite",
+      "effect": "If held by a Pyroar, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "quickclaw",
+      "numericId": 217,
+      "category": "Hold Items",
+      "name": "Quick Claw",
+      "effect": "Each turn, holder has a 20% chance to move first in its priority bracket.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "raichunitex",
+      "numericId": 2635,
+      "category": "Mega Stone",
+      "name": "Raichunite X",
+      "effect": "If held by a Raichu, this item allows it to Mega Evolve into Mega Raichu X in battle.",
+      "location": "Special Gift"
+    },
+    {
+      "sourceId": "raichunitey",
+      "numericId": 2636,
+      "category": "Mega Stone",
+      "name": "Raichunite Y",
+      "effect": "If held by a Raichu, this item allows it to Mega Evolve into Mega Raichu Y in battle.",
+      "location": "Special Gift"
+    },
+    {
+      "sourceId": "rawstberry",
+      "numericId": 152,
+      "category": "Berries",
+      "name": "Rawst Berry",
+      "effect": "Holder is cured if it is burned. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "redcard",
+      "numericId": 542,
+      "category": "Hold Items",
+      "name": "Red Card",
+      "effect": "If holder survives a hit, attacker is forced to switch to a random ally. Single use.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "rindoberry",
+      "numericId": 187,
+      "category": "Berries",
+      "name": "Rindo Berry",
+      "effect": "Halves damage taken from a supereffective Grass-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "rockyhelmet",
+      "numericId": 540,
+      "category": "Hold Items",
+      "name": "Rocky Helmet",
+      "effect": "If holder is hit by a contact move, the attacker loses 1/6 of its max HP.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "roseliberry",
+      "numericId": 686,
+      "category": "Berries",
+      "name": "Roseli Berry",
+      "effect": "Halves damage taken from a supereffective Fairy-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "sablenite",
+      "numericId": 754,
+      "category": "Mega Stone",
+      "name": "Sablenite",
+      "effect": "If held by a Sableye, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "salamencite",
+      "numericId": 769,
+      "category": "Mega Stone",
+      "name": "Salamencite",
+      "effect": "If held by a Salamence, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "sceptilite",
+      "numericId": 753,
+      "category": "Mega Stone",
+      "name": "Sceptilite",
+      "effect": "If held by a Sceptile, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "scizorite",
+      "numericId": 670,
+      "category": "Mega Stone",
+      "name": "Scizorite",
+      "effect": "If held by a Scizor, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "scolipite",
+      "numericId": 2571,
+      "category": "Mega Stone",
+      "name": "Scolipite",
+      "effect": "If held by a Scolipede, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "scopelens",
+      "numericId": 232,
+      "category": "Hold Items",
+      "name": "Scope Lens",
+      "effect": "Holder's critical hit ratio is raised by 1 stage.",
+      "location": "Shop 1000 VP"
+    },
+    {
+      "sourceId": "scovillainite",
+      "numericId": 2647,
+      "category": "Mega Stone",
+      "name": "Scovillainite",
+      "effect": "If held by a Scovillain, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "scraftinite",
+      "numericId": 2572,
+      "category": "Mega Stone",
+      "name": "Scraftinite",
+      "effect": "If held by a Scrafty, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "sharpbeak",
+      "numericId": 244,
+      "category": "Hold Items",
+      "name": "Sharp Beak",
+      "effect": "Holder's Flying-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "sharpedonite",
+      "numericId": 759,
+      "category": "Mega Stone",
+      "name": "Sharpedonite",
+      "effect": "If held by a Sharpedo, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "shedshell",
+      "numericId": 295,
+      "category": "Hold Items",
+      "name": "Shed Shell",
+      "effect": "Holder cannot be prevented from choosing to switch out by any effect.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "shellbell",
+      "numericId": 253,
+      "category": "Hold Items",
+      "name": "Shell Bell",
+      "effect": "After an attack, holder gains 1/8 of the damage in HP dealt to other Pokemon.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "shucaberry",
+      "numericId": 191,
+      "category": "Berries",
+      "name": "Shuca Berry",
+      "effect": "Halves damage taken from a supereffective Ground-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "silkscarf",
+      "numericId": 251,
+      "category": "Hold Items",
+      "name": "Silk Scarf",
+      "effect": "Holder's Normal-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "silverpowder",
+      "numericId": 222,
+      "category": "Hold Items",
+      "name": "Silver Powder",
+      "effect": "Holder's Bug-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "sitrusberry",
+      "numericId": 158,
+      "category": "Berries",
+      "name": "Sitrus Berry",
+      "effect": "Restores 1/4 max HP when at 1/2 max HP or less. Single use.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "skarmorite",
+      "numericId": 2565,
+      "category": "Mega Stone",
+      "name": "Skarmorite",
+      "effect": "If held by a Skarmory, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "slowbronite",
+      "numericId": 760,
+      "category": "Mega Stone",
+      "name": "Slowbronite",
+      "effect": "If held by a Slowbro, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "smoothrock",
+      "numericId": 283,
+      "category": "Hold Items",
+      "name": "Smooth Rock",
+      "effect": "Holder's use of Sandstorm lasts 8 turns instead of 5.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "softsand",
+      "numericId": 237,
+      "category": "Hold Items",
+      "name": "Soft Sand",
+      "effect": "Holder's Ground-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "spelltag",
+      "numericId": 247,
+      "category": "Hold Items",
+      "name": "Spell Tag",
+      "effect": "Holder's Ghost-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "staraptite",
+      "numericId": 2639,
+      "category": "Mega Stone",
+      "name": "Staraptite",
+      "effect": "If held by a Staraptor, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "starminite",
+      "numericId": 2561,
+      "category": "Mega Stone",
+      "name": "Starminite",
+      "effect": "If held by a Starmie, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "steelixite",
+      "numericId": 761,
+      "category": "Mega Stone",
+      "name": "Steelixite",
+      "effect": "If held by a Steelix, this item allows it to Mega Evolve in battle.",
+      "location": "Mega Evolution Tutorial"
+    },
+    {
+      "sourceId": "swampertite",
+      "numericId": 752,
+      "category": "Mega Stone",
+      "name": "Swampertite",
+      "effect": "If held by a Swampert, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "tangaberry",
+      "numericId": 194,
+      "category": "Berries",
+      "name": "Tanga Berry",
+      "effect": "Halves damage taken from a supereffective Bug-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "terrainextender",
+      "numericId": 879,
+      "category": "Hold Items",
+      "name": "Terrain Extender",
+      "effect": "Holder's use of Electric/Grassy/Misty/Psychic Terrain lasts 8 turns instead of 5.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "twistedspoon",
+      "numericId": 248,
+      "category": "Hold Items",
+      "name": "Twisted Spoon",
+      "effect": "Holder's Psychic-type attacks have 1.2x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "tyranitarite",
+      "numericId": 669,
+      "category": "Mega Stone",
+      "name": "Tyranitarite",
+      "effect": "If held by a Tyranitar, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "venusaurite",
+      "numericId": 659,
+      "category": "Mega Stone",
+      "name": "Venusaurite",
+      "effect": "If held by a Venusaur, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "victreebelite",
+      "numericId": 2560,
+      "category": "Mega Stone",
+      "name": "Victreebelite",
+      "effect": "If held by a Victreebel, this item allows it to Mega Evolve in battle.",
+      "location": "Shop 2000 VP"
+    },
+    {
+      "sourceId": "wacanberry",
+      "numericId": 186,
+      "category": "Berries",
+      "name": "Wacan Berry",
+      "effect": "Halves damage taken from a supereffective Electric-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "whiteherb",
+      "numericId": 214,
+      "category": "Hold Items",
+      "name": "White Herb",
+      "effect": "Restores all lowered stat stages to 0 when one is less than 0. Single use.",
+      "location": "Beginning"
+    },
+    {
+      "sourceId": "widelens",
+      "numericId": 265,
+      "category": "Hold Items",
+      "name": "Wide Lens",
+      "effect": "The accuracy of attacks by the holder is 1.1x.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "wiseglasses",
+      "numericId": 267,
+      "category": "Hold Items",
+      "name": "Wise Glasses",
+      "effect": "Holder's special attacks have 1.1x power.",
+      "location": "Shop 700 VP"
+    },
+    {
+      "sourceId": "yacheberry",
+      "numericId": 188,
+      "category": "Berries",
+      "name": "Yache Berry",
+      "effect": "Halves damage taken from a supereffective Ice-type attack. Single use.",
+      "location": "Shop 400 VP"
+    },
+    {
+      "sourceId": "zoomlens",
+      "numericId": 276,
+      "category": "Hold Items",
+      "name": "Zoom Lens",
+      "effect": "The accuracy of attacks by the holder is 1.2x if it moves after its target.",
+      "location": "Shop 700 VP"
+    }
+  ]
+}

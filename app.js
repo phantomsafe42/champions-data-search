@@ -35,7 +35,8 @@ const state = {
   editingBoxConfigId: null,
   pendingBoxConfig: null,
   pendingImportConfig: null,
-  pendingMoveSlotSelection: null
+  pendingMoveSlotSelection: null,
+  spriteDiagnostics: []
 };
 
 const elements = {
@@ -166,13 +167,130 @@ const SORT_LABELS = {
   defenseTotal: "Defensive Total"
 };
 
-const SETLIST_STORAGE_KEY = "championsDataSearch.setlist";
-const BOX_STORAGE_KEY = "championsDataSearch.box";
-const BOX_SEED_STORAGE_KEY = "championsDataSearch.boxSeedIds";
-const LEGACY_SETLIST_STORAGE_KEYS = ["championsMoveFinder.setlist"];
-const LEGACY_BOX_STORAGE_KEYS = ["championsMoveFinder.box"];
+const SETLIST_STORAGE_KEY = "championsDatabase.setlist";
+const BOX_STORAGE_KEY = "championsDatabase.box";
+const BOX_SEED_STORAGE_KEY = "championsDatabase.boxSeedIds";
+const LEGACY_SETLIST_STORAGE_KEYS = ["championsDataSearch.setlist", "championsMoveFinder.setlist"];
+const LEGACY_BOX_STORAGE_KEYS = ["championsDataSearch.box", "championsMoveFinder.box"];
+const LEGACY_BOX_SEED_STORAGE_KEYS = ["championsDataSearch.boxSeedIds"];
 const BOX_DATA_FILE = "box_data.json";
+const CHAMPIONS_DATA_ROOT = "./dataset";
 const ASSET_VERSION = "2026-06-25-1";
+const LOCAL_POKEMON_ASSET_RELEASE_BASE = "/Datasets/Pokemon%20Assets/release";
+const isLocalPokemonAssetRuntime = ["127.0.0.1", "localhost", "::1"].includes(window.location.hostname);
+const pokemonAssetReleaseBase = isLocalPokemonAssetRuntime
+  ? LOCAL_POKEMON_ASSET_RELEASE_BASE
+  : globalThis.POKEMON_ASSET_RELEASE_BASE;
+const pokemonAssetResolver = globalThis.PokemonAssets?.createResolver?.({
+  baseUrl: pokemonAssetReleaseBase
+}) || null;
+
+function getCanonicalMegaFormId(label, fallbackFormId = "mega") {
+  const displayName = String(label || "").replace(/\s+/g, " ").trim();
+  if (/\sX$/i.test(displayName)) return "mega-x";
+  if (/\sY$/i.test(displayName)) return "mega-y";
+  if (/\sZ$/i.test(displayName)) return "mega-z";
+  if (/^Mega\s/i.test(displayName)) return "mega";
+  return fallbackFormId || "base";
+}
+
+function buildPokemonSpriteQuery({ species, nationalDex, form = "", gender = "default", shiny = false } = {}) {
+  const query = {
+    spriteType: "pixel",
+    species,
+    nationalDex,
+    gender,
+    shiny: Boolean(shiny),
+    view: "front"
+  };
+  if (form && form !== "base") query.form = form;
+  return query;
+}
+
+function normalizePokemonSpriteQuery(query, fallback = {}) {
+  const form = fallback.isMega
+    ? getCanonicalMegaFormId(fallback.label, query?.form || fallback.form)
+    : (query?.form || fallback.form || "");
+  return buildPokemonSpriteQuery({
+    species: query?.species || fallback.species,
+    nationalDex: query?.nationalDex || query?.dexNo || fallback.nationalDex,
+    form,
+    gender: query?.gender || fallback.gender || "default",
+    shiny: query?.shiny ?? fallback.shiny ?? false
+  });
+}
+
+async function hydratePokemonSprite(holder, fallback = {}) {
+  if (!holder) return { status: "unavailable", reason: "sprite-holder-missing" };
+  const spriteQuery = normalizePokemonSpriteQuery(holder.spriteQuery, fallback);
+  holder.spriteQuery = spriteQuery;
+  delete holder.spritePath;
+  if (!pokemonAssetResolver) {
+    const unavailable = { status: "unavailable", reason: "resolver-not-loaded", requested: spriteQuery };
+    state.spriteDiagnostics.push(unavailable);
+    return unavailable;
+  }
+  const result = await pokemonAssetResolver.resolve(spriteQuery);
+  if (result.status === "ok") holder.spritePath = result.url;
+  else state.spriteDiagnostics.push({ ...result, context: fallback.label || fallback.species || "unknown" });
+  return result;
+}
+
+async function hydrateDatasetSprites(speciesList) {
+  const tasks = [];
+  for (const species of speciesList || []) {
+    tasks.push(hydratePokemonSprite(species, {
+      species: species.primaryName,
+      nationalDex: species.dexNo,
+      label: species.primaryName
+    }));
+    const megaForms = Array.isArray(species.megaEvolutions) && species.megaEvolutions.length
+      ? species.megaEvolutions
+      : (species.megaEvolution ? [species.megaEvolution] : []);
+    for (const mega of megaForms) {
+      tasks.push(hydratePokemonSprite(mega, {
+        species: species.primaryName,
+        nationalDex: species.dexNo,
+        form: mega.formId || "mega",
+        label: mega.name,
+        isMega: true
+      }));
+    }
+  }
+  await Promise.all(tasks);
+}
+
+async function hydrateTransformingFormSprites(speciesList) {
+  const bySlug = new Map((speciesList || []).map(species => [species.slug, species]));
+  const tasks = [];
+  for (const [slug, forms] of Object.entries(TRANSFORMING_FORMS)) {
+    const species = bySlug.get(slug);
+    if (!species) continue;
+    for (const form of forms) {
+      tasks.push(hydratePokemonSprite(form, {
+        species: species.primaryName,
+        nationalDex: species.dexNo,
+        form: form.id === "base" ? "" : (form.assetForm || form.id),
+        gender: form.assetGender || "default",
+        label: form.label || species.primaryName
+      }));
+    }
+  }
+  await Promise.all(tasks);
+}
+
+async function hydrateBoxSprites() {
+  await Promise.all((state.box.configs || []).map(config => {
+    const species = config.species || {};
+    return hydratePokemonSprite(species, {
+      species: species.baseName || species.name,
+      nationalDex: species.dexNo,
+      form: species.formId,
+      label: species.name,
+      isMega: String(species.formId || "").startsWith("mega") || /^Mega\s/i.test(species.name || "")
+    });
+  }));
+}
 
 const MOVE_CATEGORY_ICON_PATHS = {
   physical: "sprites/move_category_sprites/move-physical-new.png",
@@ -268,7 +386,7 @@ const TRANSFORMING_FORMS = {
       speed: 60,
       total: 500
     },
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/aegislash-blade.png"
+    assetForm: "blade"
   }],
   palafin: [{
     id: "hero",
@@ -284,7 +402,7 @@ const TRANSFORMING_FORMS = {
       speed: 100,
       total: 650
     },
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/palafin-hero.png"
+    assetForm: "hero"
   }],
   gourgeist: [{
     id: "small",
@@ -321,6 +439,7 @@ const TRANSFORMING_FORMS = {
     }
   }, {
     id: "jumbo",
+    assetForm: "super",
     label: "Gourgeist Jumbo",
     shortLabel: "Jumbo",
     segmentLabel: "J",
@@ -348,7 +467,7 @@ const TRANSFORMING_FORMS = {
       speed: 78,
       total: 530
     },
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/basculegion-f.png"
+    assetGender: "female"
   }]
 };
 
@@ -358,31 +477,31 @@ const SEPARATE_FORM_CARDS = {
     slugSuffix: "fan",
     name: "Rotom Fan",
     types: ["Electric", "Flying"],
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-fan.png",
+    assetForm: "fan",
     moves: ["Air Slash"]
   }, {
     slugSuffix: "frost",
     name: "Rotom Frost",
     types: ["Electric", "Ice"],
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-frost.png",
+    assetForm: "frost",
     moves: ["Blizzard"]
   }, {
     slugSuffix: "heat",
     name: "Rotom Heat",
     types: ["Electric", "Fire"],
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-heat.png",
+    assetForm: "heat",
     moves: ["Overheat"]
   }, {
     slugSuffix: "mow",
     name: "Rotom Mow",
     types: ["Electric", "Grass"],
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-mow.png",
+    assetForm: "mow",
     moves: ["Leaf Storm"]
   }, {
     slugSuffix: "wash",
     name: "Rotom Wash",
     types: ["Electric", "Water"],
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/rotom-wash.png",
+    assetForm: "wash",
     moves: ["Hydro Pump"]
   }]
   },
@@ -390,7 +509,7 @@ const SEPARATE_FORM_CARDS = {
     forms: [{
     slugSuffix: "midnight",
     name: "Lycanroc Midnight",
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/lycanroc-midnight.png",
+    assetForm: "midnight",
     stats: {
       hp: 85,
       attack: 115,
@@ -403,7 +522,7 @@ const SEPARATE_FORM_CARDS = {
   }, {
     slugSuffix: "dusk",
     name: "Lycanroc Dusk",
-    spritePath: "https://play.pokemonshowdown.com/sprites/gen5/lycanroc-dusk.png",
+    assetForm: "dusk",
     stats: {
       hp: 75,
       attack: 117,
@@ -421,14 +540,14 @@ const SEPARATE_FORM_CARDS = {
       slugSuffix: "m",
       name: "Meowstic M",
       availableNames: ["Meowstic", "Meowstic M", "Meowstic Male", "Male Meowstic"],
-      spritePath: "https://play.pokemonshowdown.com/sprites/gen5/meowstic.png",
+      assetGender: "male",
       abilities: ["Keen Eye", "Infiltrator", "Prankster"],
       moves: ["Alluring Voice", "Baton Pass", "Calm Mind", "Charge Beam", "Charm", "Covet", "Dark Pulse", "Dig", "Endure", "Energy Ball", "Expanding Force", "Facade", "Fake Out", "Fake Tears", "Giga Impact", "Gravity", "Helping Hand", "Hyper Beam", "Imprison", "Iron Tail", "Light Screen", "Magic Room", "Mean Look", "Misty Terrain", "Nasty Plot", "Payback", "Play Rough", "Protect", "Psych Up", "Psychic", "Psychic Noise", "Psychic Terrain", "Psyshock", "Quick Guard", "Rain Dance", "Reflect", "Rest", "Role Play", "Round", "Safeguard", "Shadow Ball", "Skill Swap", "Sleep Talk", "Snore", "Stored Power", "Substitute", "Sucker Punch", "Sunny Day", "Tail Slap", "Thunder Wave", "Thunderbolt", "Tickle", "Trailblaze", "Trick", "Trick Room", "Wish", "Wonder Room", "Yawn", "Zen Headbutt"]
     }, {
       slugSuffix: "f",
       name: "Meowstic F",
       availableNames: ["Meowstic", "Meowstic F", "Meowstic Female", "Female Meowstic"],
-      spritePath: "https://play.pokemonshowdown.com/sprites/gen5/meowstic-f.png",
+      assetGender: "female",
       abilities: ["Keen Eye", "Infiltrator", "Competitive"],
       moves: ["Alluring Voice", "Baton Pass", "Calm Mind", "Charge Beam", "Charm", "Covet", "Dark Pulse", "Dig", "Endure", "Energy Ball", "Expanding Force", "Extrasensory", "Facade", "Fake Out", "Fake Tears", "Future Sight", "Giga Impact", "Gravity", "Helping Hand", "Hyper Beam", "Iron Tail", "Light Screen", "Magic Room", "Nasty Plot", "Payback", "Play Rough", "Protect", "Psych Up", "Psychic", "Psychic Noise", "Psychic Terrain", "Psyshock", "Rain Dance", "Reflect", "Rest", "Role Play", "Round", "Safeguard", "Shadow Ball", "Skill Swap", "Sleep Talk", "Snore", "Stored Power", "Substitute", "Sucker Punch", "Sunny Day", "Tail Slap", "Thunder Wave", "Thunderbolt", "Tickle", "Trailblaze", "Trick", "Trick Room", "Wonder Room", "Yawn", "Zen Headbutt"]
     }]
@@ -896,7 +1015,12 @@ function expandSeparateFormCards(speciesList) {
         types: form.types || species.types,
         abilities: form.abilities || species.abilities,
         baseStats: stats,
-        spritePath: form.spritePath || species.spritePath,
+        spriteQuery: buildPokemonSpriteQuery({
+          species: species.primaryName,
+          nationalDex: species.dexNo,
+          form: form.assetForm,
+          gender: form.assetGender || "default"
+        }),
         moves: form.moves || [...new Set([...(species.moves || []), ...(form.moves || [])])],
         megaEvolution: form.megaEvolution === null ? null : species.megaEvolution,
         megaEvolutions: form.megaEvolutions === null ? [] : species.megaEvolutions,
@@ -1364,13 +1488,16 @@ function getSortValueForStats(stats, sortKey) {
 }
 
 function getAvailableForms(species) {
+  const datasetBattleForms = Array.isArray(species.battleForms) ? species.battleForms : null;
+  const datasetSelectableForms = Array.isArray(species.embeddedSelectableForms) ? species.embeddedSelectableForms : [];
   const forms = [{
     id: "base",
     label: species.primaryName,
-    shortLabel: TRANSFORMING_FORMS[species.slug]?.[0]?.baseLabel || "Base form",
+    shortLabel: species.baseFormLabel || TRANSFORMING_FORMS[species.slug]?.[0]?.baseLabel || "Base form",
     stats: species.baseStats,
     abilities: species.abilities,
     spritePath: species.spritePath,
+    spriteQuery: species.spriteQuery,
     types: species.types,
     isMega: false
   }];
@@ -1387,12 +1514,16 @@ function getAvailableForms(species) {
       stats: megaForm.baseStats,
       abilities: megaForm.abilities,
       spritePath: megaForm.spritePath,
+      spriteQuery: megaForm.spriteQuery,
       types: megaForm.types,
       isMega: true
     });
   }
 
-  for (const form of TRANSFORMING_FORMS[species.slug] || []) {
+  const alternateForms = datasetBattleForms
+    ? [...datasetBattleForms, ...datasetSelectableForms]
+    : (TRANSFORMING_FORMS[species.slug] || []);
+  for (const form of alternateForms) {
     if (form.id === "base") {
       Object.assign(forms[0], {
         label: form.label || forms[0].label,
@@ -1401,6 +1532,7 @@ function getAvailableForms(species) {
         stats: form.stats || forms[0].stats,
         abilities: form.abilities || forms[0].abilities,
         spritePath: form.spritePath || forms[0].spritePath,
+        spriteQuery: form.spriteQuery || forms[0].spriteQuery,
         types: form.types || forms[0].types,
         isAlternate: true
       });
@@ -1415,6 +1547,12 @@ function getAvailableForms(species) {
       stats: form.stats,
       abilities: form.abilities || species.abilities,
       spritePath: form.spritePath || species.spritePath,
+      spriteQuery: form.spriteQuery || buildPokemonSpriteQuery({
+        species: species.primaryName,
+        nationalDex: species.dexNo,
+        form: form.assetForm || form.id,
+        gender: form.assetGender || "default"
+      }),
       types: form.types || species.types,
       isMega: false,
       isAlternate: true
@@ -1429,7 +1567,7 @@ function isPromptEligibleMultiformSpecies(species) {
     return false;
   }
 
-  return Boolean(TRANSFORMING_FORMS[species.slug]?.length);
+  return Boolean(species.battleForms?.length || species.embeddedSelectableForms?.length || TRANSFORMING_FORMS[species.slug]?.length);
 }
 
 function compareFormValues(leftValue, rightValue, sortKey, direction) {
@@ -2925,6 +3063,7 @@ function getExpandedConfigFromCard(card, species, displayForm) {
       dexNo: species.dexNo,
       formId: displayForm.id,
       spritePath: displayForm.spritePath,
+      spriteQuery: displayForm.spriteQuery,
       types: displayForm.types || [],
       baseStats: displayForm.stats || {}
     },
@@ -3660,6 +3799,7 @@ function parseShowdownSet(text) {
       dexNo: found.species.dexNo,
       formId: found.form.id,
       spritePath: found.form.spritePath,
+      spriteQuery: found.form.spriteQuery,
       types: found.form.types || [],
       baseStats: found.form.stats || {}
     },
@@ -3996,26 +4136,23 @@ function getSpeedTierRows() {
 
 function loadSetlist() {
   const storageKeys = [SETLIST_STORAGE_KEY, ...LEGACY_SETLIST_STORAGE_KEYS];
-  let fallbackSetlist = [];
   try {
     for (const key of storageKeys) {
-      const saved = JSON.parse(localStorage.getItem(key) || "[]");
+      const serialized = localStorage.getItem(key);
+      if (serialized === null) {
+        continue;
+      }
+      const saved = JSON.parse(serialized);
       if (!Array.isArray(saved)) {
         continue;
       }
-      const normalized = saved
+      state.setlist = saved
         .filter(item => item?.kind && item?.name)
         .map(item => ({ kind: item.kind, name: item.name, selected: Boolean(item.selected) }));
-      if (normalized.length) {
-        state.setlist = normalized;
-        saveSetlist();
-        return;
-      }
-      if (!fallbackSetlist.length) {
-        fallbackSetlist = normalized;
-      }
+      saveSetlist();
+      return;
     }
-    state.setlist = fallbackSetlist;
+    state.setlist = [];
   } catch {
     state.setlist = [];
   }
@@ -4023,33 +4160,25 @@ function loadSetlist() {
 
 function saveSetlist() {
   localStorage.setItem(SETLIST_STORAGE_KEY, JSON.stringify(state.setlist));
+  LEGACY_SETLIST_STORAGE_KEYS.forEach(key => localStorage.removeItem(key));
 }
 
 async function loadBoxData() {
   const seedBox = await loadSeedBoxData();
   const storageKeys = [BOX_STORAGE_KEY, ...LEGACY_BOX_STORAGE_KEYS];
-  let fallbackBox = null;
   try {
     for (const key of storageKeys) {
-      const saved = JSON.parse(localStorage.getItem(key) || "null");
-      if (saved && Array.isArray(saved.configs) && Array.isArray(saved.teams)) {
-        const normalized = normalizeBoxData(saved);
-        if (normalized.configs.length || normalized.teams.length) {
-          state.box = normalized;
-          mergeSeedBoxData(seedBox);
-          saveBoxData();
-          return;
-        }
-        if (!fallbackBox) {
-          fallbackBox = normalized;
-        }
+      const serialized = localStorage.getItem(key);
+      if (serialized === null) {
+        continue;
       }
-    }
-    if (fallbackBox) {
-      state.box = fallbackBox;
-      mergeSeedBoxData(seedBox);
-      saveBoxData();
-      return;
+      const saved = JSON.parse(serialized);
+      if (saved && Array.isArray(saved.configs) && Array.isArray(saved.teams)) {
+        state.box = normalizeBoxData(saved);
+        mergeSeedBoxData(seedBox);
+        saveBoxData();
+        return;
+      }
     }
   } catch {
     state.box = { configs: [], teams: [] };
@@ -4060,7 +4189,22 @@ async function loadBoxData() {
 }
 
 function normalizeBoxData(data) {
-  const configs = Array.isArray(data?.configs) ? data.configs.filter(config => config?.id && config?.species?.name) : [];
+  const configs = Array.isArray(data?.configs)
+    ? data.configs
+      .filter(config => config?.id && config?.species?.name)
+      .map(config => {
+        const species = { ...config.species };
+        species.spriteQuery = normalizePokemonSpriteQuery(species.spriteQuery, {
+          species: species.baseName || species.name,
+          nationalDex: species.dexNo,
+          form: species.formId,
+          label: species.name,
+          isMega: String(species.formId || "").startsWith("mega") || /^Mega\s/i.test(species.name || "")
+        });
+        delete species.spritePath;
+        return { ...config, species };
+      })
+    : [];
   const teamNames = new Set(Array.isArray(data?.teams) ? data.teams.filter(Boolean) : []);
   configs.forEach(config => {
     if (config.team) {
@@ -4074,7 +4218,8 @@ function normalizeBoxData(data) {
 }
 
 function saveBoxData() {
-  localStorage.setItem(BOX_STORAGE_KEY, JSON.stringify(state.box));
+  localStorage.setItem(BOX_STORAGE_KEY, JSON.stringify(state.box, (key, value) => key === "spritePath" ? undefined : value));
+  LEGACY_BOX_STORAGE_KEYS.forEach(key => localStorage.removeItem(key));
 }
 
 async function loadSeedBoxData() {
@@ -4093,7 +4238,17 @@ function mergeSeedBoxData(seedBox) {
 
   let importedSeedIds = [];
   try {
-    importedSeedIds = JSON.parse(localStorage.getItem(BOX_SEED_STORAGE_KEY) || "[]");
+    for (const key of [BOX_SEED_STORAGE_KEY, ...LEGACY_BOX_SEED_STORAGE_KEYS]) {
+      const serialized = localStorage.getItem(key);
+      if (serialized === null) {
+        continue;
+      }
+      const saved = JSON.parse(serialized);
+      if (Array.isArray(saved)) {
+        importedSeedIds = saved;
+        break;
+      }
+    }
   } catch {
     importedSeedIds = [];
   }
@@ -4118,6 +4273,7 @@ function mergeSeedBoxData(seedBox) {
 
   state.box = normalizeBoxData(state.box);
   localStorage.setItem(BOX_SEED_STORAGE_KEY, JSON.stringify([...importedSeeds]));
+  LEGACY_BOX_SEED_STORAGE_KEYS.forEach(key => localStorage.removeItem(key));
   return changed;
 }
 
@@ -4958,11 +5114,11 @@ function clearAbilitySearchFilters() {
 
 async function loadDataset() {
   const [datasetResponse, metadataResponse, abilityResponse, itemResponse, abilityFilterSourceResponse] = await Promise.all([
-    fetch(withAssetVersion("champions_dataset.json"), { cache: "no-store" }),
-    fetch(withAssetVersion("champions_search_metadata.json"), { cache: "no-store" }),
-    fetch(withAssetVersion("ability_descriptions.json"), { cache: "no-store" }),
-    fetch(withAssetVersion("champions_items.json"), { cache: "no-store" }),
-    fetch(withAssetVersion("ability_filter_sources.json"), { cache: "no-store" })
+    fetch(withAssetVersion(`${CHAMPIONS_DATA_ROOT}/champions_dataset.json`), { cache: "no-store" }),
+    fetch(withAssetVersion(`${CHAMPIONS_DATA_ROOT}/champions_search_metadata.json`), { cache: "no-store" }),
+    fetch(withAssetVersion(`${CHAMPIONS_DATA_ROOT}/ability_descriptions.json`), { cache: "no-store" }),
+    fetch(withAssetVersion(`${CHAMPIONS_DATA_ROOT}/champions_items.json`), { cache: "no-store" }),
+    fetch(withAssetVersion(`${CHAMPIONS_DATA_ROOT}/ability_filter_sources.json`), { cache: "no-store" })
   ]);
   if (!datasetResponse.ok) {
     throw new Error(`Could not load champions_dataset.json (${datasetResponse.status})`);
@@ -4981,13 +5137,33 @@ async function loadDataset() {
   }
 
   state.dataset = await datasetResponse.json();
-  state.dataset.species = expandSeparateFormCards(state.dataset.species);
+  if (state.dataset.formIdentityMode !== "explicit-records") {
+    state.dataset.species = expandSeparateFormCards(state.dataset.species);
+  } else {
+    state.dataset.species = state.dataset.species.filter(species => species.consumerDisplayMode !== "embedded");
+  }
+  await Promise.all([
+    hydrateDatasetSprites(state.dataset.species),
+    hydrateTransformingFormSprites(state.dataset.species),
+    pokemonAssetResolver?.setImage?.(
+      document.getElementById("title-pokemon-sprite"),
+      {
+        spriteType: "g5-animated",
+        species: "Cyndaquil",
+        nationalDex: 155,
+        view: "front",
+        shiny: false,
+        fallbackSpriteTypes: ["g5-static", "pixel"]
+      }
+    )
+  ]);
   state.metadata = await metadataResponse.json();
   state.abilityDescriptions = await abilityResponse.json();
   state.items = (await itemResponse.json()).items || [];
   state.abilityFilterSources = await abilityFilterSourceResponse.json();
   loadSetlist();
   await loadBoxData();
+  await hydrateBoxSprites();
   populateOptions();
   initializeSetAutocomplete();
   renderMoveSearch();
