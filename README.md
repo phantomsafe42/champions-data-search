@@ -8,22 +8,6 @@ Join my Discord! https://discord.gg/HBr2zJHz2
 
 A static data/search tool for Pokemon Champions sets, moves, abilities, items, saved Box configurations, and Showdown-style import/export.
 
-## Opening The Tool
-
-Serve either the Streaming Tools workspace root or this repository as a static
-site and open `index.html`. The app loads its generated Dataset projection from
-the local `dataset/` directory, so an independent checkout remains functional.
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Local Tools\Stream Tools Launcher\stream_tools.ps1" -Action start -Component static-server
-```
-
-Local URL:
-
-```text
-http://127.0.0.1:8000/Web%20Tools/Champions%20Database/index.html
-```
-
 ## Set Search
 
 Set Search finds Pokemon that match move, type, ability, species, and prompt filters.
@@ -117,23 +101,3 @@ The Showdown Tool appears below the Setlist.
 - Copy copies the current text.
 - Import reads a pasted Showdown set and opens a confirmation preview.
 - Confirm adds the imported set to the Box as a saved configuration.
-
-## Data
-
-The authoritative Champions datasets and their maintenance scripts live in
-`Datasets/Champions`. This repository contains the web interface, saved Box seed
-data, screenshots, generated adapters, non-Pokémon UI assets, and a disposable
-generated compatibility snapshot under `dataset/`.
-
-The `champions-database` profile in `Datasets/consumer_exports.json` is the only
-supported way to refresh that snapshot:
-
-```powershell
-node ".\Datasets\tools\export_consumer_bundle.js" --profile champions-database --write --output ".\Web Tools\Champions Database"
-node ".\Datasets\tools\export_consumer_bundle.js" --profile champions-database --check --output ".\Web Tools\Champions Database"
-```
-
-Do not edit files under `dataset/` directly. Publication must use a Dataset lock
-that pins the immutable Dataset tag and full commit used for the export.
-
-Pokémon sprite records store identity queries rather than image paths. On localhost the app resolves pixel sprites from `/Datasets/Pokemon%20Assets/release`; the published copy reads the immutable hosted release base declared in `index.html`. `asset-lock.json` pins both the private Assets authority and the public projection commit that hosts those bytes. Base species, regional forms, Mega forms, alternate forms, and saved Box entries all use the same Dataset resolver. The move-category icons under `sprites/move_category_sprites/` remain local because they are not Pokémon sprites.
