@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { assertNoForbiddenPublicAssetReferences } from "./asset_publication_policy.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const commonGitDirectory = execFileSync("git", ["-C", projectRoot, "rev-parse", "--path-format=absolute", "--git-common-dir"], {
@@ -15,7 +16,6 @@ const primaryProjectRoot = path.dirname(commonGitDirectory);
 const workspaceRoot = path.resolve(primaryProjectRoot, "..", "..");
 const datasetRepository = path.join(workspaceRoot, "Datasets");
 const assetRepository = path.join(datasetRepository, "Pokemon Assets");
-const plcRepository = path.join(workspaceRoot, "Web Tools", "Pokemon Line Calculator");
 
 const sha256 = bytes => crypto.createHash("sha256").update(bytes).digest("hex").toUpperCase();
 const readJson = file => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -134,68 +134,151 @@ function verifyDataset() {
   }
 }
 
-function materializeTree(repository, commit, treePath, prefix) {
-  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), `${prefix}-`));
-  const archive = path.join(temporaryRoot, "tree.tar");
-  const archived = git(repository, ["archive", "--format=tar", "-o", archive, commit, treePath], { allowFailure: true });
-  if (archived.status !== 0) {
-    fs.rmSync(temporaryRoot, { recursive: true, force: true });
-    throw new Error(`Unable to materialize ${treePath} at ${commit}: ${String(archived.stderr || archived.stdout).trim()}`);
+function verifyAssetTag(lock) {
+  const local = git(assetRepository, ["rev-parse", `${lock.release.tag}^{commit}`], { allowFailure: true });
+  if (local.status === 0) {
+    if (local.stdout.trim() !== lock.release.tagCommit) throw new Error("Pokemon Assets release tag does not match its lock");
+    return "local-tag";
   }
-  const tar = process.platform === "win32" ? "tar.exe" : "tar";
-  const extracted = spawnSync(tar, ["-xf", archive, "-C", temporaryRoot], { encoding: "utf8", windowsHide: true });
-  if (extracted.status !== 0) {
-    fs.rmSync(temporaryRoot, { recursive: true, force: true });
-    throw new Error(`Unable to extract ${treePath}`);
+  const rows = git(assetRepository, ["ls-remote", "--tags", "origin", `refs/tags/${lock.release.tag}`, `refs/tags/${lock.release.tag}^{}`]).stdout
+    .split(/\r?\n/u).filter(Boolean);
+  const peeled = rows.find(row => row.endsWith(`refs/tags/${lock.release.tag}^{}`)) || rows[0];
+  if (peeled?.split(/\s+/u)[0] !== lock.release.tagCommit) throw new Error("Remote Pokemon Assets release tag does not match its lock");
+  return "remote-tag";
+}
+
+function assetFileAtCommit(commit, descriptor, label) {
+  const sourcePath = normalizeRelative(descriptor.path || descriptor.sourcePath, `${label} path`);
+  const bytes = git(assetRepository, ["show", `${commit}:${sourcePath}`], { buffer: true }).stdout;
+  if (bytes.length !== descriptor.bytes || sha256(bytes) !== String(descriptor.sha256).toUpperCase()) {
+    throw new Error(`${label} does not match its pinned Pokemon Assets commit`);
   }
-  return temporaryRoot;
+  return bytes;
+}
+
+function producerAssetFile(lock, descriptor, label) {
+  return assetFileAtCommit(lock.source.commit, descriptor, label);
+}
+
+function expectedAssetProvenance(lock, projectionName, projection) {
+  const published = projectionName === "published";
+  return Buffer.from(`${JSON.stringify({
+    schemaVersion: 3,
+    generated: true,
+    projection: projectionName,
+    mode: projection.mode,
+    sourceRepository: lock.source.repository,
+    sourceCommit: lock.source.commit,
+    sourcePath: projection.client.sourcePath,
+    sourceSha256: projection.client.sha256,
+    generatedPath: projection.client.generatedPath,
+    releaseVersion: lock.release.version,
+    releaseTag: lock.release.tag,
+    releaseTagCommit: lock.release.tagCommit,
+    releaseIndexSha256: lock.release.rootIndex.sha256,
+    releaseManifestSha256: lock.release.manifest.sha256,
+    releaseCreditsSha256: lock.release.credits.sha256,
+    ...(published ? {
+      gatewayOrigin: projection.origin,
+      assetRoute: projection.assetRoute,
+      gatewayConfigurationSha256: lock.gatewayConfiguration.configuration.sha256,
+      wranglerConfigurationSha256: lock.gatewayConfiguration.wrangler.sha256,
+      workerVersion: lock.gatewayConfiguration.workerVersion,
+      workerDeployment: lock.gatewayConfiguration.workerDeployment,
+    } : { releaseBase: projection.releaseBase }),
+  }, null, 2)}\n`);
+}
+
+function verifyAssetProjection(lock, projectionName, projection) {
+  const sourceBytes = producerAssetFile(lock, projection.client, `${projectionName} asset client`);
+  const generatedPath = path.join(projectRoot, normalizeRelative(projection.client.generatedPath, `${projectionName} generated path`));
+  const provenancePath = path.join(projectRoot, normalizeRelative(projection.client.provenancePath, `${projectionName} provenance path`));
+  if (!fs.existsSync(generatedPath) || !fs.readFileSync(generatedPath).equals(sourceBytes)) {
+    throw new Error(`${projectionName} generated asset client differs from its pinned producer file`);
+  }
+  if (!fs.existsSync(provenancePath) || !fs.readFileSync(provenancePath).equals(expectedAssetProvenance(lock, projectionName, projection))) {
+    throw new Error(`${projectionName} generated asset client provenance differs from asset-lock.json`);
+  }
+  return { mode: projection.mode, client: projection.client.generatedPath, sha256: projection.client.sha256 };
 }
 
 function verifyAssets() {
   const lock = readJson(path.join(projectRoot, "asset-lock.json"));
-  if (lock.schemaVersion !== "champions-database-asset-lock/v1") throw new Error("Unsupported Champions asset lock");
-  const resolverBytes = git(assetRepository, ["show", `${lock.source.commit}:consumer/pokemon_asset_resolver.global.js`], { buffer: true }).stdout;
-  const indexBytes = git(assetRepository, ["show", `${lock.source.commit}:release/index.json`], { buffer: true }).stdout;
-  if (sha256(resolverBytes) !== String(lock.source.resolverSha256).toUpperCase()) throw new Error("Asset resolver does not match its locked commit");
-  if (sha256(indexBytes) !== String(lock.source.indexSha256).toUpperCase()) throw new Error("Assets index does not match its locked commit");
+  if (lock.schemaVersion !== "champions-database-asset-gateway-lock/v1") throw new Error("Unsupported Champions asset gateway lock");
+  if (!/^[0-9a-f]{40}$/u.test(lock.source.commit) || lock.source.visibility !== "private") throw new Error("Pokemon Assets source identity is invalid");
+  const tagSource = verifyAssetTag(lock);
+  const indexBytes = producerAssetFile(lock, lock.release.rootIndex, "Pokemon Assets root index");
+  const manifestBytes = producerAssetFile(lock, lock.release.manifest, "Pokemon Assets manifest");
+  const creditsBytes = producerAssetFile(lock, lock.release.credits, "Pokemon Assets credits");
+  assetFileAtCommit(lock.release.tagCommit, lock.release.rootIndex, "Tagged Pokemon Assets root index");
+  assetFileAtCommit(lock.release.tagCommit, lock.release.manifest, "Tagged Pokemon Assets manifest");
+  assetFileAtCommit(lock.release.tagCommit, lock.release.credits, "Tagged Pokemon Assets credits");
+  const gatewayConfigBytes = producerAssetFile(lock, lock.gatewayConfiguration.configuration, "Pokemon Assets gateway configuration");
+  producerAssetFile(lock, lock.gatewayConfiguration.wrangler, "Pokemon Assets Wrangler configuration");
+
   const index = JSON.parse(indexBytes.toString("utf8"));
-  const manifestBytes = git(assetRepository, ["show", `${lock.source.commit}:release/${index.manifest.path}`], { buffer: true }).stdout;
-  if (sha256(manifestBytes) !== String(lock.source.manifestSha256).toUpperCase()) throw new Error("Assets manifest does not match its locked commit");
-  if (index.releaseVersion !== lock.source.releaseVersion) throw new Error("Assets release version does not match its lock");
-  const generatedResolver = path.join(projectRoot, "generated", "pokemon_asset_resolver.global.js");
-  const generatedProvenance = readJson(path.join(projectRoot, "generated", "pokemon_asset_resolver.provenance.json"));
-  if (!fs.readFileSync(generatedResolver).equals(resolverBytes)) throw new Error("Champions asset resolver differs from its locked commit");
-  if (generatedProvenance.schemaVersion !== 2
-    || generatedProvenance.sourceCommit !== lock.source.commit
-    || generatedProvenance.sourceSha256.toUpperCase() !== lock.source.resolverSha256.toUpperCase()
-    || generatedProvenance.releaseIndexSha256.toUpperCase() !== lock.source.indexSha256.toUpperCase()
-    || generatedProvenance.releaseManifestSha256.toUpperCase() !== lock.source.manifestSha256.toUpperCase()) {
-    throw new Error("Champions asset resolver provenance differs from asset-lock.json");
+  const gatewayConfig = JSON.parse(gatewayConfigBytes.toString("utf8"));
+  if (index.releaseVersion !== lock.release.version
+    || `release/${index.manifest.path}` !== lock.release.manifest.path
+    || String(index.manifest.sha256).toUpperCase() !== String(lock.release.manifest.sha256).toUpperCase()
+    || `release/${index.credits.path}` !== lock.release.credits.path
+    || String(index.credits.sha256).toUpperCase() !== String(lock.release.credits.sha256).toUpperCase()) {
+    throw new Error("Pokemon Assets release descriptors do not match the Champions lock");
   }
-  const hostedRoot = materializeTree(plcRepository, lock.hostedProjection.commit, lock.hostedProjection.path, "champions-assets");
-  try {
-    const projectionRoot = path.join(hostedRoot, lock.hostedProjection.path);
-    const projection = readJson(path.join(projectionRoot, "projection.json"));
-    if (projection.sourceRelease !== lock.source.releaseVersion
-      || String(projection.sourceIndexSha256).toUpperCase() !== String(lock.source.indexSha256).toUpperCase()
-      || String(projection.sourceManifestSha256).toUpperCase() !== String(lock.source.manifestSha256).toUpperCase()) {
-      throw new Error("Hosted asset projection provenance does not match the Champions asset lock");
-    }
-    const actual = listFiles(projectionRoot);
-    const expected = new Set(["projection.json", ...(projection.files || []).map(file => normalizeRelative(file.path))]);
-    const extras = actual.filter(file => !expected.has(file));
-    const missing = [...expected].filter(file => !actual.includes(file));
-    if (extras.length || missing.length) throw new Error(`Hosted asset inventory mismatch (missing: ${missing.join(", ") || "none"}; extras: ${extras.join(", ") || "none"})`);
-    for (const file of projection.files || []) {
-      const bytes = fs.readFileSync(path.join(projectionRoot, normalizeRelative(file.path)));
-      if (bytes.length !== file.bytes || sha256(bytes) !== String(file.sha256).toUpperCase()) throw new Error(`Hosted asset digest mismatch: ${file.path}`);
-    }
-    const html = fs.readFileSync(path.join(projectRoot, "index.html"), "utf8");
-    if (!html.includes(lock.hostedProjection.releaseBase)) throw new Error("Champions index.html does not use the locked immutable asset URL");
-    return { commit: lock.hostedProjection.commit, files: actual.length, profiles: lock.profiles };
-  } finally {
-    fs.rmSync(hostedRoot, { recursive: true, force: true });
+  if (sha256(manifestBytes) !== String(index.manifest.sha256).toUpperCase()
+    || sha256(creditsBytes) !== String(index.credits.sha256).toUpperCase()) {
+    throw new Error("Pokemon Assets release payloads do not match the root index");
   }
+  const requiredProfiles = new Set(lock.release.profiles);
+  for (const profile of index.profiles || []) requiredProfiles.delete(profile.profileId);
+  if (requiredProfiles.size) throw new Error(`Pokemon Assets profiles are unavailable: ${[...requiredProfiles].join(", ")}`);
+
+  const exposure = lock.gatewayConfiguration.exposurePolicy;
+  if (gatewayConfig.contract !== lock.gatewayConfiguration.contract
+    || gatewayConfig.publicOrigin !== lock.publishedProjection.origin
+    || gatewayConfig.releaseVersion !== lock.release.version
+    || gatewayConfig.routes?.asset !== lock.publishedProjection.assetRoute
+    || gatewayConfig.routes?.credits !== lock.publishedProjection.creditsRoute
+    || gatewayConfig.rootIndexSha256 !== lock.release.rootIndex.sha256
+    || gatewayConfig.creditsSha256 !== lock.release.credits.sha256
+    || gatewayConfig.completionPlanSha256 !== lock.gatewayConfiguration.privateCompletionPlanSha256
+    || exposure.typedSingleAssetResponses !== true
+    || exposure.creditsContract !== true
+    || ["rawObjectPaths", "releaseIndexes", "releaseManifest", "releasePlan", "bucketListing", "browserCredentials"].some(key => exposure[key] !== false)
+    || Object.entries(exposure).some(([key, value]) => gatewayConfig.exposurePolicy?.[key] !== value)) {
+    throw new Error("Pokemon Assets gateway configuration differs from the Champions lock");
+  }
+
+  const local = verifyAssetProjection(lock, "local", lock.localProjection);
+  const published = verifyAssetProjection(lock, "published", lock.publishedProjection);
+  const html = fs.readFileSync(path.join(projectRoot, "index.html"), "utf8");
+  const app = fs.readFileSync(path.join(projectRoot, "app.js"), "utf8");
+  const gatewayClient = fs.readFileSync(path.join(projectRoot, lock.publishedProjection.client.generatedPath), "utf8");
+  assertNoForbiddenPublicAssetReferences({ html, app, gatewayClient });
+  if (Object.hasOwn(lock, "hostedProjection")) throw new Error("The obsolete PLC hostedProjection lock is forbidden");
+  if (!html.includes(`<meta name="pokemon-asset-gateway-origin" content="${lock.publishedProjection.origin}">`)
+    || !html.includes(`<meta name="pokemon-asset-release-version" content="${lock.release.version}">`)
+    || !html.includes(`src="${lock.localProjection.client.generatedPath}`)
+    || !html.includes(`src="${lock.publishedProjection.client.generatedPath}`)) {
+    throw new Error("Champions index.html asset client configuration differs from its lock");
+  }
+  if (!app.includes(`const LOCAL_POKEMON_ASSET_RELEASE_BASE = "${lock.localProjection.releaseBase}"`)
+    || !app.includes("globalThis.PokemonAssets?.createResolver?.")
+    || !app.includes("globalThis.PokemonAssetGateway?.createClient?.")
+    || app.includes("fallbackSpriteTypes")
+    || !/function withAssetVersion\(path\)[\s\S]*?\^https\?:\\\/\\\//u.test(app)) {
+    throw new Error("Champions application asset routing does not satisfy the local/published contract");
+  }
+
+  return {
+    sourceCommit: lock.source.commit,
+    tagSource,
+    release: lock.release.version,
+    local,
+    published: { ...published, origin: lock.publishedProjection.origin, route: lock.publishedProjection.assetRoute },
+    workerVersion: lock.gatewayConfiguration.workerVersion,
+    workerDeployment: lock.gatewayConfiguration.workerDeployment,
+  };
 }
 
 const dataset = verifyDataset();

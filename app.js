@@ -178,12 +178,16 @@ const CHAMPIONS_DATA_ROOT = "./dataset";
 const ASSET_VERSION = "2026-06-25-1";
 const LOCAL_POKEMON_ASSET_RELEASE_BASE = "/Datasets/Pokemon%20Assets/release";
 const isLocalPokemonAssetRuntime = ["127.0.0.1", "localhost", "::1"].includes(window.location.hostname);
-const pokemonAssetReleaseBase = isLocalPokemonAssetRuntime
-  ? LOCAL_POKEMON_ASSET_RELEASE_BASE
-  : globalThis.POKEMON_ASSET_RELEASE_BASE;
-const pokemonAssetResolver = globalThis.PokemonAssets?.createResolver?.({
-  baseUrl: pokemonAssetReleaseBase
-}) || null;
+const PUBLISHED_POKEMON_ASSET_GATEWAY_ORIGIN = document.querySelector('meta[name="pokemon-asset-gateway-origin"]')?.content || "";
+const PUBLISHED_POKEMON_ASSET_RELEASE_VERSION = document.querySelector('meta[name="pokemon-asset-release-version"]')?.content || "";
+const pokemonAssetMode = isLocalPokemonAssetRuntime ? "local-resolver" : "published-gateway";
+const pokemonAssetClient = isLocalPokemonAssetRuntime
+  ? globalThis.PokemonAssets?.createResolver?.({ baseUrl: LOCAL_POKEMON_ASSET_RELEASE_BASE })
+  : globalThis.PokemonAssetGateway?.createClient?.({
+      origin: PUBLISHED_POKEMON_ASSET_GATEWAY_ORIGIN,
+      releaseVersion: PUBLISHED_POKEMON_ASSET_RELEASE_VERSION
+    });
+document.documentElement.dataset.pokemonAssetMode = pokemonAssetMode;
 
 function getCanonicalMegaFormId(label, fallbackFormId = "mega") {
   const displayName = String(label || "").replace(/\s+/g, " ").trim();
@@ -225,12 +229,12 @@ async function hydratePokemonSprite(holder, fallback = {}) {
   const spriteQuery = normalizePokemonSpriteQuery(holder.spriteQuery, fallback);
   holder.spriteQuery = spriteQuery;
   delete holder.spritePath;
-  if (!pokemonAssetResolver) {
-    const unavailable = { status: "unavailable", reason: "resolver-not-loaded", requested: spriteQuery };
+  if (!pokemonAssetClient) {
+    const unavailable = { status: "unavailable", reason: "asset-client-not-loaded", requested: spriteQuery };
     state.spriteDiagnostics.push(unavailable);
     return unavailable;
   }
-  const result = await pokemonAssetResolver.resolve(spriteQuery);
+  const result = await pokemonAssetClient.resolve(spriteQuery);
   if (result.status === "ok") holder.spritePath = result.url;
   else state.spriteDiagnostics.push({ ...result, context: fallback.label || fallback.species || "unknown" });
   return result;
@@ -290,6 +294,78 @@ async function hydrateBoxSprites() {
       isMega: String(species.formId || "").startsWith("mega") || /^Mega\s/i.test(species.name || "")
     });
   }));
+}
+
+const TITLE_POKEMON_SPRITE_TYPES = Object.freeze(["g5-animated", "g5-static", "pixel"]);
+
+async function loadPokemonSpriteImage(image, query) {
+  if (!pokemonAssetClient) return { status: "unavailable", reason: "asset-client-not-loaded", requested: query };
+  let result;
+  try {
+    result = await pokemonAssetClient.resolve(query);
+  } catch (error) {
+    return { status: "unavailable", reason: "asset-resolution-failed", error: error.message, requested: query };
+  }
+  if (result.status !== "ok" || !result.url) return result;
+  return new Promise(resolve => {
+    let settled = false;
+    const finish = value => {
+      if (settled) return;
+      settled = true;
+      image.onload = null;
+      image.onerror = null;
+      resolve(value);
+    };
+    image.onload = () => {
+      image.hidden = false;
+      image.dataset.pokemonAssetProfile = result.profileId || query.spriteType;
+      delete image.dataset.pokemonAssetError;
+      finish(result);
+    };
+    image.onerror = () => {
+      image.hidden = true;
+      image.dataset.pokemonAssetError = "image-load-failed";
+      finish({ ...result, status: "unavailable", reason: "image-load-failed" });
+    };
+    image.hidden = true;
+    image.src = result.url;
+    if (image.complete) queueMicrotask(() => image.naturalWidth > 0 ? image.onload?.() : image.onerror?.());
+  });
+}
+
+async function hydrateTitlePokemonSprite() {
+  const image = document.getElementById("title-pokemon-sprite");
+  if (!image) return { status: "unavailable", reason: "title-sprite-missing" };
+  const attempts = [];
+  image.dataset.pokemonAssetFallbackOrder = TITLE_POKEMON_SPRITE_TYPES.join(",");
+  for (const [index, spriteType] of TITLE_POKEMON_SPRITE_TYPES.entries()) {
+    const query = {
+      spriteType,
+      species: "Cyndaquil",
+      nationalDex: 155,
+      view: "front",
+      shiny: false
+    };
+    const result = await loadPokemonSpriteImage(image, query);
+    attempts.push({ spriteType, status: result.status, reason: result.reason || "" });
+    if (result.status === "ok") {
+      image.dataset.pokemonAssetFallbackIndex = String(index);
+      if (index > 0) {
+        state.spriteDiagnostics.push({
+          status: "ok",
+          resolution: "explicit-profile-fallback",
+          context: "title-cyndaquil",
+          requestedSpriteType: TITLE_POKEMON_SPRITE_TYPES[0],
+          selectedSpriteType: spriteType,
+          attempts
+        });
+      }
+      return result;
+    }
+  }
+  const unavailable = { status: "unavailable", reason: "title-sprite-profiles-unavailable", context: "title-cyndaquil", attempts };
+  state.spriteDiagnostics.push(unavailable);
+  return unavailable;
 }
 
 const MOVE_CATEGORY_ICON_PATHS = {
@@ -5145,17 +5221,7 @@ async function loadDataset() {
   await Promise.all([
     hydrateDatasetSprites(state.dataset.species),
     hydrateTransformingFormSprites(state.dataset.species),
-    pokemonAssetResolver?.setImage?.(
-      document.getElementById("title-pokemon-sprite"),
-      {
-        spriteType: "g5-animated",
-        species: "Cyndaquil",
-        nationalDex: 155,
-        view: "front",
-        shiny: false,
-        fallbackSpriteTypes: ["g5-static", "pixel"]
-      }
-    )
+    hydrateTitlePokemonSprite()
   ]);
   state.metadata = await metadataResponse.json();
   state.abilityDescriptions = await abilityResponse.json();
