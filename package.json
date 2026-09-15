@@ -4,8 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "sync:asset-clients": "node tools/sync_asset_clients.mjs --write",
+    "check:asset-clients": "node tools/sync_asset_clients.mjs --check",
+    "test:asset-policy": "node tools/test_asset_publication_policy.mjs",
+    "test:browser:assets": "node tools/test_asset_browser_smoke.mjs",
     "check:locks": "node tools/check_consumer_locks.mjs",
     "check:publication": "node tools/check_repository_publication.mjs",
-    "test": "npm run check:publication && npm run check:locks"
+    "test": "npm run check:publication && npm run check:asset-clients && npm run test:asset-policy && npm run check:locks"
   }
 }
