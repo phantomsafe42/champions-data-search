@@ -1316,20 +1316,6 @@ function commitExplicitAutocompleteSelection(input, selectedName) {
   return true;
 }
 
-function commitClickedResultToSpeciesSearch(entryKey) {
-  const entry = getMatches().find(match => getEntryKey(match) === entryKey);
-  if (!entry) {
-    return false;
-  }
-
-  const selectedName = entry.species?.primaryName || "";
-  if (!selectedName) {
-    return false;
-  }
-
-  return commitExplicitAutocompleteSelection(elements.speciesInput, selectedName);
-}
-
 function renderAutocompleteSuggestions(input) {
   const { suggestions } = getAutocompleteElements(input);
   if (!suggestions) {
@@ -4650,8 +4636,17 @@ function rerenderResultsPreservingCard(entryKey, renderCallback) {
   }
 }
 
+function rerenderResultsPreservingViewport(renderCallback) {
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+
+  renderCallback();
+  window.scrollTo(scrollX, scrollY);
+  requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+}
+
 function toggleExpanded(key) {
-  rerenderResultsPreservingCard(key, () => {
+  rerenderResultsPreservingViewport(() => {
     state.expandedKey = state.expandedKey === key ? null : key;
     renderResults();
   });
@@ -4676,11 +4671,10 @@ function collapseExpandedCardOnOutsideClick(event) {
     return;
   }
 
-  const scrollX = window.scrollX;
-  const scrollY = window.scrollY;
-  state.expandedKey = null;
-  renderResults();
-  requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+  rerenderResultsPreservingViewport(() => {
+    state.expandedKey = null;
+    renderResults();
+  });
 }
 
 function handleResultCardShellClick(event, entryKey) {
@@ -4701,11 +4695,7 @@ function handleResultCardShellClick(event, entryKey) {
   }
 
   event.stopPropagation();
-  commitClickedResultToSpeciesSearch(entryKey);
-  rerenderResultsPreservingCard(entryKey, () => {
-    state.expandedKey = entryKey;
-    renderResults();
-  });
+  toggleExpanded(entryKey);
 }
 
 function handleResultCardShellMouseDown(event, entryKey) {
@@ -4722,11 +4712,10 @@ function handleResultCardShellMouseDown(event, entryKey) {
   event.preventDefault();
   event.stopPropagation();
   state.consumedResultMouseDownKey = entryKey;
-  commitClickedResultToSpeciesSearch(entryKey);
-  rerenderResultsPreservingCard(entryKey, () => {
-    state.expandedKey = entryKey;
-    renderResults();
-  });
+  skipNextAutocompleteCommit(elements.speciesInput);
+  hideAutocompleteSuggestions(elements.speciesInput);
+  elements.speciesInput.blur();
+  toggleExpanded(entryKey);
 }
 
 function toggleForm(slug, entryKey = null) {

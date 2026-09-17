@@ -325,6 +325,78 @@ async function pressTab(client) {
   await client.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
 }
 
+async function waitForAnimationFrames(client, count = 2) {
+  await evaluate(client, `new Promise(resolve => {
+    let remaining = ${count};
+    const next = () => {
+      remaining -= 1;
+      if (remaining <= 0) resolve();
+      else requestAnimationFrame(next);
+    };
+    requestAnimationFrame(next);
+  })`, true);
+}
+
+async function assertCardExpansionPreservesViewport(client, name, layout, { focusSpeciesInput = false } = {}) {
+  const target = await evaluate(client, `(() => {
+    const cards = [...document.querySelectorAll("#results .result-card")];
+    const card = cards[Math.floor(cards.length / 2)];
+    card.scrollIntoView({ block: "center" });
+    return {
+      entryKey: card.dataset.entryKey,
+      name: card.querySelector("h3")?.textContent.trim() || ""
+    };
+  })()`);
+  await waitForAnimationFrames(client);
+
+  const before = await evaluate(client, `({
+    scrollX: window.scrollX,
+    scrollY: window.scrollY,
+    speciesSearch: document.getElementById("species-input").value,
+    resultCount: document.querySelectorAll("#results .result-card").length
+  })`);
+
+  await evaluate(client, `(() => {
+    const shell = document.querySelector(${JSON.stringify(`#results .result-card[data-entry-key="${target.entryKey}"] .compact-card-shell`)});
+    if (${focusSpeciesInput}) {
+      document.getElementById("species-input").focus({ preventScroll: true });
+      shell.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
+    }
+    shell.click();
+  })()`);
+  await waitFor(client, `document.querySelector(${JSON.stringify(`#results .result-card[data-entry-key="${target.entryKey}"]`)})?.classList.contains("expanded")`, `${name} ${layout} card did not expand`);
+  await waitForAnimationFrames(client);
+  if (focusSpeciesInput) await delay(200);
+
+  const expanded = await evaluate(client, `({
+    scrollX: window.scrollX,
+    scrollY: window.scrollY,
+    speciesSearch: document.getElementById("species-input").value,
+    resultCount: document.querySelectorAll("#results .result-card").length,
+    expandedName: document.querySelector("#results .result-card.expanded h3")?.textContent.trim() || ""
+  })`);
+  assert.ok(Math.abs(expanded.scrollX - before.scrollX) <= 1, `${name} ${layout} expansion changed horizontal scroll position`);
+  assert.ok(Math.abs(expanded.scrollY - before.scrollY) <= 1, `${name} ${layout} expansion changed vertical scroll position`);
+  assert.equal(expanded.speciesSearch, before.speciesSearch, `${name} ${layout} expansion changed the species search`);
+  assert.equal(expanded.resultCount, before.resultCount, `${name} ${layout} expansion removed result cards`);
+  assert.equal(expanded.expandedName, target.name, `${name} ${layout} expanded the wrong card`);
+
+  await evaluate(client, `document.querySelector(${JSON.stringify(`#results .result-card[data-entry-key="${target.entryKey}"] .compact-card-shell`)}).click()`);
+  await waitFor(client, `!document.querySelector(${JSON.stringify(`#results .result-card[data-entry-key="${target.entryKey}"]`)})?.classList.contains("expanded")`, `${name} ${layout} card did not collapse`);
+  await waitForAnimationFrames(client);
+
+  const collapsed = await evaluate(client, `({
+    scrollX: window.scrollX,
+    scrollY: window.scrollY,
+    speciesSearch: document.getElementById("species-input").value,
+    resultCount: document.querySelectorAll("#results .result-card").length
+  })`);
+  assert.ok(Math.abs(collapsed.scrollX - before.scrollX) <= 1, `${name} ${layout} collapse changed horizontal scroll position`);
+  assert.ok(Math.abs(collapsed.scrollY - before.scrollY) <= 1, `${name} ${layout} collapse changed vertical scroll position`);
+  assert.equal(collapsed.speciesSearch, before.speciesSearch, `${name} ${layout} collapse changed the species search`);
+  assert.equal(collapsed.resultCount, before.resultCount, `${name} ${layout} collapse removed result cards`);
+}
+
 async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations, genderSpriteExpectations, squawkabillySpriteExpectations, gourgeistSpriteExpectations, castformSpriteExpectations, castformTypeIconExpectations }) {
   const profile = path.join(temporaryRoot, `asset-browser-${name}-${process.pid}`);
   const screenshot = path.join(temporaryRoot, `champions-assets-${name}.png`);
@@ -611,6 +683,7 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     })()`);
     await waitFor(page, `document.querySelectorAll("#results .result-card").length === 259`, `${name} cards did not restore after cosmetic alias search`);
     await waitFor(page, `[...document.querySelectorAll("#results .pokemon-sprite")].every(image => image.naturalWidth > 0)`, `${name} restored Pokemon images did not finish loading`);
+    await assertCardExpansionPreservesViewport(page, name, "desktop", { focusSpeciesInput: true });
 
     await evaluate(page, `document.getElementById("box-tab").click()`);
     await waitFor(page, `document.querySelectorAll("#box-results .party-card").length === 1`, `${name} saved team did not render`);
@@ -780,6 +853,9 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
 
     await page.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
     await delay(250);
+    await evaluate(page, `document.getElementById("set-tab").click()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 259`, `${name} mobile cards did not restore`);
+    await assertCardExpansionPreservesViewport(page, name, "mobile");
     const mobile = await evaluate(page, `({ viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth })`);
     assert.ok(mobile.viewport >= 390 && mobile.viewport <= 400);
     assert.ok(mobile.scrollWidth <= mobile.viewport);
