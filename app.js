@@ -36,7 +36,9 @@ const state = {
   pendingBoxConfig: null,
   pendingImportConfig: null,
   pendingMoveSlotSelection: null,
-  spriteDiagnostics: []
+  spriteDiagnostics: [],
+  cosmeticFormAliases: {},
+  typeIconUrls: {}
 };
 
 const elements = {
@@ -277,8 +279,45 @@ async function hydrateDatasetSprites(speciesList) {
         isMega: true
       }));
     }
+    const selectableForms = [
+      ...(species.battleForms || []),
+      ...(species.embeddedSelectableForms || [])
+    ];
+    for (const form of selectableForms) {
+      tasks.push(hydratePokemonSprite(form, {
+        species: species.spriteQuery?.species || species.primaryName,
+        nationalDex: species.dexNo,
+        form: form.spriteQuery?.form || form.assetForm || form.id,
+        gender: form.spriteQuery?.gender || form.assetGender || "default",
+        label: form.label || species.primaryName
+      }));
+    }
   }
   await Promise.all(tasks);
+}
+
+async function hydrateCastformTypeIcons() {
+  if (!pokemonAssetClient?.resolveAsset) return;
+  await Promise.all(["Normal", "Fire", "Water", "Ice"].map(async type => {
+    const query = {
+      kind: "type-icon",
+      presentation: "symbol",
+      style: "sv",
+      state: "standard",
+      locale: "und",
+      type
+    };
+    try {
+      const result = await pokemonAssetClient.resolveAsset(query);
+      if (result.status === "ok" && result.url) {
+        state.typeIconUrls[normalizeName(type)] = result.url;
+      } else {
+        state.spriteDiagnostics.push({ ...result, context: `Castform ${type} type icon` });
+      }
+    } catch (error) {
+      state.spriteDiagnostics.push({ status: "unavailable", reason: "asset-resolution-failed", error: error.message, requested: query, context: `Castform ${type} type icon` });
+    }
+  }));
 }
 
 async function hydrateTransformingFormSprites(speciesList) {
@@ -550,9 +589,9 @@ const TRANSFORMING_FORMS = {
   }],
   basculegion: [{
     id: "female",
-    label: "Basculegion Female",
-    shortLabel: "Female",
-    baseLabel: "Male",
+    label: "Basculegion F",
+    shortLabel: "F",
+    baseLabel: "M",
     stats: {
       hp: 120,
       attack: 92,
@@ -562,6 +601,7 @@ const TRANSFORMING_FORMS = {
       speed: 78,
       total: 530
     },
+    assetForm: "female",
     assetGender: "female"
   }]
 };
@@ -974,6 +1014,11 @@ function normalizeName(value) {
     .replace(/['’.\-]/g, "")
     .replace(/\s+/g, "")
     .trim();
+}
+
+function findSpeciesBySlug(slug) {
+  const canonicalSlug = state.cosmeticFormAliases[slug] || slug;
+  return state.dataset.species.find(entry => entry.slug === canonicalSlug);
 }
 
 function escapeHtml(value) {
@@ -1589,6 +1634,9 @@ function getAvailableForms(species) {
     id: "base",
     label: species.primaryName,
     shortLabel: species.baseFormLabel || TRANSFORMING_FORMS[species.slug]?.[0]?.baseLabel || "Base form",
+    segmentLabel: species.baseFormSegmentLabel,
+    segmentOrder: species.baseFormSegmentOrder,
+    segmentType: species.baseFormSegmentType,
     stats: species.baseStats,
     abilities: species.abilities,
     spritePath: species.spritePath,
@@ -1624,6 +1672,8 @@ function getAvailableForms(species) {
         label: form.label || forms[0].label,
         shortLabel: form.shortLabel || forms[0].shortLabel,
         segmentLabel: form.segmentLabel,
+        segmentOrder: form.segmentOrder,
+        segmentType: form.segmentType,
         stats: form.stats || forms[0].stats,
         abilities: form.abilities || forms[0].abilities,
         spritePath: form.spritePath || forms[0].spritePath,
@@ -1639,6 +1689,8 @@ function getAvailableForms(species) {
       label: form.label,
       shortLabel: form.shortLabel || form.label,
       segmentLabel: form.segmentLabel,
+      segmentOrder: form.segmentOrder,
+      segmentType: form.segmentType,
       stats: form.stats,
       abilities: form.abilities || species.abilities,
       spritePath: form.spritePath || species.spritePath,
@@ -1981,7 +2033,7 @@ function renderSpeciesDetailModal() {
     return;
   }
 
-  const species = state.dataset.species.find(entry => entry.slug === state.speciesDetail.speciesSlug);
+  const species = findSpeciesBySlug(state.speciesDetail.speciesSlug);
   if (!species) {
     closeSpeciesDetailModal();
     return;
@@ -2469,6 +2521,13 @@ function formatTypeIcons(typeNames) {
     : `<span class="meta">Unknown type</span>`;
 }
 
+function formatSegmentTypeIcon(typeName) {
+  const source = state.typeIconUrls[normalizeName(typeName)];
+  return source
+    ? `<img class="form-segment-type-icon" src="${withAssetVersion(source)}" alt="" aria-hidden="true">`
+    : "";
+}
+
 function getHeldItemPool() {
   return state.items.filter(item => ["Hold Items", "Berries", "Mega Stone"].includes(item.category));
 }
@@ -2664,21 +2723,27 @@ function getFormToggleButtonText(species) {
 }
 
 function getSegmentedFormControls(species, displayForm) {
-  const segmentOrder = new Map(["S", "M", "L", "J"].map((label, index) => [label, index]));
+  const segmentOrder = new Map(["S", "M", "L", "J", "G", "B", "Y", "W"].map((label, index) => [label, index]));
   const segmentedForms = getAvailableForms(species)
     .filter(form => form.segmentLabel)
-    .sort((left, right) => (segmentOrder.get(left.segmentLabel) ?? 99) - (segmentOrder.get(right.segmentLabel) ?? 99));
+    .sort((left, right) => (left.segmentOrder ?? segmentOrder.get(left.segmentLabel) ?? 99) - (right.segmentOrder ?? segmentOrder.get(right.segmentLabel) ?? 99));
   if (!segmentedForms.length) {
     return "";
   }
+  const hasTypeIcons = segmentedForms.some(form => form.segmentType);
 
   return `
-    <div class="form-segment-control" role="group" aria-label="${species.primaryName} form">
-      ${segmentedForms.map(form => `
-        <button type="button" class="secondary form-segment-button${form.id === displayForm.id ? " active" : ""}" data-form-id="${form.id}" title="${form.shortLabel || form.label}">
-          ${form.segmentLabel}
+    <div class="form-segment-control${hasTypeIcons ? " has-type-icons" : ""}" role="group" aria-label="${species.primaryName} form">
+      ${segmentedForms.map(form => {
+        const typeIcon = form.segmentType ? formatSegmentTypeIcon(form.segmentType) : "";
+        const typeIconClass = form.segmentType ? ` form-segment-type-${normalizeName(form.segmentType)}` : "";
+        const accessibleLabel = `${form.shortLabel || form.label}${form.segmentType ? ` form, ${form.segmentType} type` : ""}`;
+        return `
+        <button type="button" class="secondary form-segment-button${typeIcon ? " has-type-icon" : ""}${typeIconClass}${form.id === displayForm.id ? " active" : ""}" data-form-id="${form.id}" title="${accessibleLabel}" aria-label="${accessibleLabel}" aria-pressed="${form.id === displayForm.id}">
+          ${typeIcon || form.segmentLabel}
         </button>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
   `;
 }
@@ -3407,7 +3472,7 @@ function bindSearchExpanders(container, kind) {
       event.stopPropagation();
       const entryKey = button.dataset.entryKey || "";
       const [slug, formMode = "base"] = entryKey.split(":");
-      const species = state.dataset.species.find(entry => entry.slug === slug);
+      const species = findSpeciesBySlug(slug);
       if (!species) {
         return;
       }
@@ -3618,7 +3683,7 @@ function formatSavedMoveGrid(config) {
 }
 
 function getConfigLearnpoolMoves(config) {
-  const species = state.dataset.species.find(entry => entry.slug === config.species?.slug);
+  const species = findSpeciesBySlug(config.species?.slug);
   return species?.moves || config.moves || [];
 }
 
@@ -3628,7 +3693,7 @@ function getSavedSpeciesMoveOptions(config, selectedMove = "") {
 }
 
 function getSavedAbilityOptions(config) {
-  const species = state.dataset.species.find(entry => entry.slug === config.species?.slug);
+  const species = findSpeciesBySlug(config.species?.slug);
   const form = species
     ? getAvailableForms(species).find(candidate => candidate.id === config.species?.formId) || getAvailableForms(species)[0]
     : null;
@@ -3637,7 +3702,7 @@ function getSavedAbilityOptions(config) {
 }
 
 function getConfigAvailableAbilities(config) {
-  const species = state.dataset.species.find(entry => entry.slug === config.species?.slug);
+  const species = findSpeciesBySlug(config.species?.slug);
   const form = species
     ? getAvailableForms(species).find(candidate => candidate.id === config.species?.formId) || getAvailableForms(species)[0]
     : null;
@@ -4665,7 +4730,7 @@ function handleResultCardShellMouseDown(event, entryKey) {
 }
 
 function toggleForm(slug, entryKey = null) {
-  const species = state.dataset.species.find(entry => entry.slug === slug);
+  const species = findSpeciesBySlug(slug);
   const forms = species ? getAvailableForms(species) : [];
   if (forms.length < 2) {
     return;
@@ -5236,12 +5301,14 @@ async function loadDataset() {
   state.dataset = await datasetResponse.json();
   if (state.dataset.formIdentityMode !== "explicit-records") {
     state.dataset.species = expandSeparateFormCards(state.dataset.species);
-  } else {
-    state.dataset.species = state.dataset.species.filter(species => species.consumerDisplayMode !== "embedded");
   }
+  const cardProjection = ChampionsFormCardProjection.projectChampionFormCards(state.dataset.species);
+  state.dataset.species = ChampionsFormCardProjection.projectGenderBattleForms(cardProjection.species);
+  state.cosmeticFormAliases = cardProjection.aliases;
   await Promise.all([
     hydrateDatasetSprites(state.dataset.species),
     hydrateTransformingFormSprites(state.dataset.species),
+    hydrateCastformTypeIcons(),
     hydrateTitlePokemonSprite()
   ]);
   state.metadata = await metadataResponse.json();

@@ -1466,7 +1466,8 @@ button.secondary {
   flex: 1 1 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   border: 1px solid #334154;
   border-radius: 6px;
   overflow: hidden;
@@ -1489,6 +1490,45 @@ button.secondary {
 .form-segment-button.active {
   background: #2f7ef7;
   color: #ffffff;
+}
+
+.form-segment-button.has-type-icon {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  background: var(--form-segment-type-color);
+}
+
+.form-segment-control.has-type-icons {
+  border: 0;
+}
+
+.form-segment-control.has-type-icons .form-segment-button + .form-segment-button {
+  border-left: 0;
+}
+
+.form-segment-type-normal { --form-segment-type-color: #9fa19f; }
+.form-segment-type-fire { --form-segment-type-color: #e62829; }
+.form-segment-type-water { --form-segment-type-color: #2980ef; }
+.form-segment-type-ice { --form-segment-type-color: #3fd8ff; }
+
+.form-segment-button.has-type-icon .form-segment-type-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  min-height: 0;
+  margin: auto;
+  object-fit: contain;
+}
+
+.form-segment-button.has-type-icon.active::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 2px solid #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
 }
 
 .always-visible-stats {

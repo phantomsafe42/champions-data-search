@@ -59,6 +59,113 @@ async function loadRegionalSpriteExpectations() {
   });
 }
 
+async function loadGenderSpriteExpectations() {
+  const pixelIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "profiles", "pixel", "index.json"), "utf8"));
+  const targets = [
+    { label: "Meowstic M", nationalDex: 678, form: "male" },
+    { label: "Meowstic F", nationalDex: 678, form: "female" },
+    { label: "Indeedee M", nationalDex: 876, form: "male" },
+    { label: "Indeedee F", nationalDex: 876, form: "female" },
+    { label: "Basculegion M", nationalDex: 902, form: "male" },
+    { label: "Basculegion F", nationalDex: 902, form: "female" },
+  ];
+  return targets.map(target => {
+    const matches = Object.values(pixelIndex.appearances || {}).filter(appearance =>
+      Number(appearance.nationalDex) === target.nationalDex
+      && normalizeIdentityToken(appearance.formId) === target.form
+    );
+    assert.equal(matches.length, 1, `${target.label} must have one exact gender appearance`);
+    const variants = matches[0].variants || {};
+    const asset = variants.default?.normalFront || variants[target.form]?.normalFront;
+    assert.ok(asset?.path, `${target.label} must have a front sprite`);
+    return {
+      ...target,
+      alt: `${target.label} sprite`,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
+
+async function loadSquawkabillySpriteExpectations() {
+  const pixelIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "profiles", "pixel", "index.json"), "utf8"));
+  return ["green", "blue", "yellow", "white"].map(form => {
+    const label = `Squawkabilly ${form[0].toUpperCase()}${form.slice(1)}`;
+    const matches = Object.values(pixelIndex.appearances || {}).filter(appearance =>
+      Number(appearance.nationalDex) === 931
+      && normalizeIdentityToken(appearance.formId) === normalizeIdentityToken(`${form}-plumage`)
+    );
+    assert.equal(matches.length, 1, `${label} must have one exact color appearance`);
+    const asset = matches[0].variants?.default?.normalFront;
+    assert.ok(asset?.path, `${label} must have a front sprite`);
+    return {
+      label,
+      alt: `${label} sprite`,
+      form,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
+
+async function loadGourgeistSpriteExpectations() {
+  const pixelIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "profiles", "pixel", "index.json"), "utf8"));
+  const targets = [
+    { label: "Gourgeist Small", formId: "small", form: "small" },
+    { label: "Gourgeist Medium", formId: "base", form: "average" },
+    { label: "Gourgeist Large", formId: "large", form: "large" },
+    { label: "Gourgeist Jumbo", formId: "jumbo", form: "super" },
+  ];
+  return targets.map(target => {
+    const matches = Object.values(pixelIndex.appearances || {}).filter(appearance =>
+      Number(appearance.nationalDex) === 711
+      && normalizeIdentityToken(appearance.formId) === target.form
+    );
+    assert.equal(matches.length, 1, `${target.label} must have one exact size appearance`);
+    const asset = matches[0].variants?.default?.normalFront;
+    assert.ok(asset?.path, `${target.label} must have a front sprite`);
+    return {
+      ...target,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
+
+async function loadCastformSpriteExpectations() {
+  const pixelIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "profiles", "pixel", "index.json"), "utf8"));
+  const targets = [
+    { label: "Castform", formId: "base", form: "base", gatewayForm: null, type: "Normal" },
+    { label: "Castform Sunny", formId: "sunny", form: "sunny", gatewayForm: "sunny", type: "Fire" },
+    { label: "Castform Rainy", formId: "rainy", form: "rainy", gatewayForm: "rainy", type: "Water" },
+    { label: "Castform Snowy", formId: "snowy", form: "snowy", gatewayForm: "snowy", type: "Ice" },
+  ];
+  return targets.map(target => {
+    const matches = Object.values(pixelIndex.appearances || {}).filter(appearance =>
+      Number(appearance.nationalDex) === 351
+      && normalizeIdentityToken(appearance.formId) === target.form
+    );
+    assert.equal(matches.length, 1, `${target.label} must have one exact weather appearance`);
+    const asset = matches[0].variants?.default?.normalFront;
+    assert.ok(asset?.path, `${target.label} must have a front sprite`);
+    return {
+      ...target,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
+
+async function loadCastformTypeIconExpectations() {
+  const typeIconIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "assets", "type-icons", "index.json"), "utf8"));
+  return ["normal", "fire", "water", "ice"].map(type => {
+    const selectorKey = JSON.stringify(["symbol", "sv", "standard", "und", type]);
+    const assetId = typeIconIndex.selectorIndex?.[selectorKey];
+    const asset = typeIconIndex.assets?.[assetId];
+    assert.ok(asset?.path, `${type} must have one Scarlet/Violet symbol icon`);
+    return {
+      type,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
+
 async function availablePort() {
   return new Promise((resolve, reject) => {
     const probe = createNetServer();
@@ -218,7 +325,7 @@ async function pressTab(client) {
   await client.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
 }
 
-async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations }) {
+async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations, genderSpriteExpectations, squawkabillySpriteExpectations, gourgeistSpriteExpectations, castformSpriteExpectations, castformTypeIconExpectations }) {
   const profile = path.join(temporaryRoot, `asset-browser-${name}-${process.pid}`);
   const screenshot = path.join(temporaryRoot, `champions-assets-${name}.png`);
   const debugPort = await availablePort();
@@ -263,11 +370,247 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     }
 
     await page.send("Page.navigate", { url: appUrl });
-    await waitFor(page, `/^289 species \\| 509 moves \\| 216 abilities$/u.test(document.getElementById("status")?.textContent || "")`, `${name} application data did not load`);
+    await waitFor(page, `/^259 species \\| 509 moves \\| 216 abilities$/u.test(document.getElementById("status")?.textContent || "")`, `${name} application data did not load`);
     await waitFor(page, `(() => {
       const images = [...document.querySelectorAll("#results .pokemon-sprite, #speed-table-rows .speed-sprite, #title-pokemon-sprite")];
       return images.length > 500 && images.every(image => image.complete);
     })()`, `${name} Pokemon images did not finish loading`);
+
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Sinistcha Masterpiece";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 1`, `${name} cosmetic alias search did not settle`);
+    assert.equal(await evaluate(page, `document.querySelector("#results .result-card h3")?.textContent.trim()`), "Sinistcha");
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Indeedee Female";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 1`, `${name} legacy gender alias search did not settle`);
+    assert.equal(await evaluate(page, `document.querySelector("#results .result-card h3")?.textContent.trim()`), "Indeedee F");
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Basculegion";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 2`, `${name} Basculegion cards did not settle`);
+    const basculegionCards = await evaluate(page, `(() => [...document.querySelectorAll("#results .result-card")].map(card => ({
+      name: card.querySelector("h3")?.textContent.trim(),
+      src: card.querySelector(".pokemon-sprite")?.src,
+      hasFormControl: Boolean(card.querySelector(".form-toggle-button, .form-segment-control"))
+    })))()`);
+    assert.deepEqual(basculegionCards.map(card => card.name), ["Basculegion F", "Basculegion M"]);
+    assert.equal(basculegionCards.some(card => card.hasFormControl), false);
+    assert.notEqual(basculegionCards[0].src, basculegionCards[1].src, `${name} reused the same sprite for both Basculegion cards`);
+    for (const card of basculegionCards) {
+      const expected = genderSpriteExpectations.find(item => item.label === card.name);
+      assert.ok(expected);
+      const spriteUrl = new URL(card.src);
+      if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(spriteUrl.pathname), expected.localPath);
+      else assert.equal(spriteUrl.searchParams.get("form"), expected.form);
+    }
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Mimikyu";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 1`, `${name} Mimikyu search did not settle`);
+    assert.equal(await evaluate(page, `document.querySelector("#results .result-card h3")?.textContent.trim()`), "Mimikyu");
+    assert.equal(await evaluate(page, `Boolean(document.querySelector("#results .result-card .form-toggle-button, #results .result-card .form-segment-control"))`), false);
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Squawkabilly";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 2`, `${name} Squawkabilly cards did not settle`);
+    const squawkabillyDefaults = await evaluate(page, `(() => [...document.querySelectorAll("#results .result-card")].map(card => ({
+      name: card.querySelector("h3")?.textContent.trim(),
+      src: card.querySelector(".pokemon-sprite")?.src,
+      controlWidth: card.querySelector(".form-segment-control")?.getBoundingClientRect().width,
+      buttonWidths: [...card.querySelectorAll(".form-segment-button")].map(button => button.getBoundingClientRect().width),
+      segments: [...card.querySelectorAll(".form-segment-button")].map(button => ({ label: button.textContent.trim(), active: button.classList.contains("active"), formId: button.dataset.formId, title: button.title }))
+    })))()`);
+    assert.deepEqual(squawkabillyDefaults.map(card => card.name), ["Squawkabilly Green", "Squawkabilly Yellow"]);
+    assert.deepEqual(squawkabillyDefaults[0].segments.map(segment => segment.label), ["G", "B"]);
+    assert.deepEqual(squawkabillyDefaults[1].segments.map(segment => segment.label), ["Y", "W"]);
+    assert.deepEqual(squawkabillyDefaults.map(card => card.segments.filter(segment => segment.active).map(segment => segment.label)), [["G"], ["Y"]]);
+    for (const card of squawkabillyDefaults) {
+      assert.ok(card.buttonWidths.every(width => Math.abs(width - (card.controlWidth / 2)) <= 1), `${name} ${card.name} buttons do not fill the segmented control evenly`);
+      assert.ok(Math.abs(card.buttonWidths.reduce((sum, width) => sum + width, 0) - card.controlWidth) <= 2, `${name} ${card.name} segmented control leaves unused width`);
+    }
+    assert.equal(JSON.stringify(squawkabillyDefaults).includes("Plumage"), false);
+    await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly Green");
+      card.querySelector('[data-form-id="blue"]').click();
+    })()`);
+    await waitFor(page, `[...document.querySelectorAll("#results .result-card h3")].some(heading => heading.textContent.trim() === "Squawkabilly Blue")`, `${name} Squawkabilly Blue did not render`);
+    const squawkabillyBlue = await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly Blue");
+      return card.querySelector(".pokemon-sprite")?.src;
+    })()`);
+    assert.notEqual(squawkabillyBlue, squawkabillyDefaults[0].src, `${name} Squawkabilly Blue reused the Green sprite`);
+    const expectedSquawkabillyBlue = squawkabillySpriteExpectations.find(expected => expected.label === "Squawkabilly Blue");
+    assert.ok(expectedSquawkabillyBlue);
+    const squawkabillyBlueUrl = new URL(squawkabillyBlue);
+    if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(squawkabillyBlueUrl.pathname), expectedSquawkabillyBlue.localPath);
+    else assert.equal(squawkabillyBlueUrl.searchParams.get("form"), "blue");
+    await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly Blue");
+      card.querySelector('[data-form-id="base"]').click();
+    })()`);
+    await waitFor(page, `[...document.querySelectorAll("#results .result-card h3")].some(heading => heading.textContent.trim() === "Squawkabilly Green")`, `${name} Squawkabilly Green did not restore`);
+    await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly Yellow");
+      card.querySelector('[data-form-id="white"]').click();
+    })()`);
+    await waitFor(page, `[...document.querySelectorAll("#results .result-card h3")].some(heading => heading.textContent.trim() === "Squawkabilly White")`, `${name} Squawkabilly White did not render`);
+    const squawkabillyWhite = await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly White");
+      return card.querySelector(".pokemon-sprite")?.src;
+    })()`);
+    assert.notEqual(squawkabillyWhite, squawkabillyDefaults[1].src, `${name} Squawkabilly White reused the Yellow sprite`);
+    const expectedSquawkabillyWhite = squawkabillySpriteExpectations.find(expected => expected.label === "Squawkabilly White");
+    assert.ok(expectedSquawkabillyWhite);
+    const squawkabillyWhiteUrl = new URL(squawkabillyWhite);
+    if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(squawkabillyWhiteUrl.pathname), expectedSquawkabillyWhite.localPath);
+    else assert.equal(squawkabillyWhiteUrl.searchParams.get("form"), "white");
+    await evaluate(page, `(() => {
+      const card = [...document.querySelectorAll("#results .result-card")].find(candidate => candidate.querySelector("h3")?.textContent.trim() === "Squawkabilly White");
+      card.querySelector('[data-form-id="base"]').click();
+    })()`);
+    await waitFor(page, `[...document.querySelectorAll("#results .result-card h3")].some(heading => heading.textContent.trim() === "Squawkabilly Yellow")`, `${name} Squawkabilly Yellow did not restore`);
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Gourgeist";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 1`, `${name} Gourgeist card did not settle`);
+    const gourgeistDefault = await evaluate(page, `(() => {
+      const card = document.querySelector("#results .result-card");
+      const control = card.querySelector(".form-segment-control");
+      return {
+        name: card.querySelector("h3")?.textContent.trim(),
+        segments: [...control.querySelectorAll(".form-segment-button")].map(button => ({ label: button.textContent.trim(), active: button.classList.contains("active"), formId: button.dataset.formId })),
+        controlWidth: control.getBoundingClientRect().width,
+        buttonWidths: [...control.querySelectorAll(".form-segment-button")].map(button => button.getBoundingClientRect().width)
+      };
+    })()`);
+    assert.equal(gourgeistDefault.name, "Gourgeist Medium");
+    assert.deepEqual(gourgeistDefault.segments.map(segment => segment.label), ["S", "M", "L", "J"]);
+    assert.deepEqual(gourgeistDefault.segments.filter(segment => segment.active).map(segment => segment.label), ["M"]);
+    assert.ok(gourgeistDefault.buttonWidths.every(width => Math.abs(width - (gourgeistDefault.controlWidth / 4)) <= 1), `${name} Gourgeist buttons do not fill the segmented control evenly`);
+    for (const expected of [
+      gourgeistSpriteExpectations.find(item => item.formId === "small"),
+      gourgeistSpriteExpectations.find(item => item.formId === "large"),
+      gourgeistSpriteExpectations.find(item => item.formId === "jumbo"),
+      gourgeistSpriteExpectations.find(item => item.formId === "base")
+    ]) {
+      assert.ok(expected);
+      await evaluate(page, `document.querySelector('#results .result-card [data-form-id=${JSON.stringify(expected.formId)}]').click()`);
+      await waitFor(page, `document.querySelector("#results .result-card h3")?.textContent.trim() === ${JSON.stringify(expected.label)}`, `${name} ${expected.label} did not render`);
+      const spriteSource = await evaluate(page, `document.querySelector("#results .result-card .pokemon-sprite")?.src`);
+      const spriteUrl = new URL(spriteSource);
+      if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(spriteUrl.pathname), expected.localPath);
+      else assert.equal(spriteUrl.searchParams.get("form"), expected.form);
+    }
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "Castform";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 1`, `${name} Castform card did not settle`);
+    await waitFor(page, `[...document.querySelectorAll("#results .form-segment-type-icon")].length === 4 && [...document.querySelectorAll("#results .form-segment-type-icon")].every(image => image.naturalWidth > 0)`, `${name} Castform type icons did not load`);
+    const castformDefault = await evaluate(page, `(() => {
+      const card = document.querySelector("#results .result-card");
+      const control = card.querySelector(".form-segment-control");
+      return {
+        name: card.querySelector("h3")?.textContent.trim(),
+        displayedType: card.querySelector(".compact-dex-line .type-icon")?.textContent.trim(),
+        controlWidth: control.getBoundingClientRect().width,
+        controlBorderWidth: getComputedStyle(control).borderLeftWidth,
+        segments: [...control.querySelectorAll(".form-segment-button")].map(button => {
+          const icon = button.querySelector(".form-segment-type-icon");
+          const buttonBox = button.getBoundingClientRect();
+          const iconBox = icon.getBoundingClientRect();
+          return {
+            visibleText: button.textContent.trim(),
+            formId: button.dataset.formId,
+            active: button.classList.contains("active"),
+            pressed: button.getAttribute("aria-pressed"),
+            ariaLabel: button.getAttribute("aria-label"),
+            iconSource: icon.src,
+            iconNaturalWidth: icon.naturalWidth,
+            iconNaturalHeight: icon.naturalHeight,
+            iconObjectFit: getComputedStyle(icon).objectFit,
+            buttonBackground: getComputedStyle(button).backgroundColor,
+            buttonBorderLeftWidth: getComputedStyle(button).borderLeftWidth,
+            activeDecorationContent: getComputedStyle(button, "::after").content,
+            buttonWidth: buttonBox.width,
+            iconWidth: iconBox.width,
+            buttonHeight: buttonBox.height,
+            iconHeight: iconBox.height
+          };
+        })
+      };
+    })()`);
+    assert.equal(castformDefault.name, "Castform");
+    assert.equal(castformDefault.displayedType, "Normal");
+    assert.deepEqual(castformDefault.segments.map(segment => segment.visibleText), ["", "", "", ""], `${name} Castform controls still expose type text`);
+    assert.deepEqual(castformDefault.segments.map(segment => segment.formId), ["base", "sunny", "rainy", "snowy"]);
+    assert.deepEqual(castformDefault.segments.filter(segment => segment.active).map(segment => segment.formId), ["base"]);
+    assert.deepEqual(castformDefault.segments.filter(segment => segment.pressed === "true").map(segment => segment.formId), ["base"]);
+    assert.equal(castformDefault.controlBorderWidth, "0px");
+    assert.equal(new Set(castformDefault.segments.map(segment => segment.iconSource)).size, 4, `${name} Castform form segments do not have four distinct icons`);
+    const expectedBackgrounds = ["rgb(159, 161, 159)", "rgb(230, 40, 41)", "rgb(41, 128, 239)", "rgb(63, 216, 255)"];
+    for (const [index, segment] of castformDefault.segments.entries()) {
+      const expectedIcon = castformTypeIconExpectations[index];
+      assert.ok(Math.abs(segment.buttonWidth - (castformDefault.controlWidth / 4)) <= 1, `${name} Castform ${expectedIcon.type} segment is not one quarter of the control`);
+      assert.equal(segment.iconWidth, 30, `${name} Castform ${expectedIcon.type} icon is not half its 60px source size`);
+      assert.equal(segment.iconHeight, 30, `${name} Castform ${expectedIcon.type} icon is not half its 60px source size`);
+      assert.equal(segment.buttonBackground, expectedBackgrounds[index]);
+      assert.equal(segment.buttonBorderLeftWidth, "0px");
+      assert.equal(segment.activeDecorationContent === "none", !segment.active);
+      assert.equal(segment.iconNaturalWidth, 60);
+      assert.equal(segment.iconNaturalHeight, 60);
+      assert.equal(segment.iconObjectFit, "contain");
+      assert.match(segment.ariaLabel, new RegExp(`${expectedIcon.type} type$`, "iu"));
+      const iconUrl = new URL(segment.iconSource);
+      if (expectedMode === "local-resolver") {
+        assert.equal(decodeURIComponent(iconUrl.pathname), expectedIcon.localPath);
+      } else {
+        assert.equal(iconUrl.searchParams.get("kind"), "type-icon");
+        assert.equal(iconUrl.searchParams.get("presentation"), "symbol");
+        assert.equal(iconUrl.searchParams.get("style"), "sv");
+        assert.equal(iconUrl.searchParams.get("state"), "standard");
+        assert.equal(iconUrl.searchParams.get("locale"), "und");
+        assert.equal(iconUrl.searchParams.get("type")?.toLowerCase(), expectedIcon.type);
+      }
+    }
+    for (const expected of [
+      castformSpriteExpectations.find(item => item.formId === "sunny"),
+      castformSpriteExpectations.find(item => item.formId === "rainy"),
+      castformSpriteExpectations.find(item => item.formId === "snowy"),
+      castformSpriteExpectations.find(item => item.formId === "base")
+    ]) {
+      assert.ok(expected);
+      await evaluate(page, `document.querySelector('#results .result-card [data-form-id=${JSON.stringify(expected.formId)}]').click()`);
+      await waitFor(page, `document.querySelector("#results .result-card h3")?.textContent.trim() === ${JSON.stringify(expected.label)}`, `${name} ${expected.label} did not render`);
+      assert.equal(await evaluate(page, `document.querySelector("#results .result-card .compact-dex-line .type-icon")?.textContent.trim()`), expected.type);
+      assert.equal(await evaluate(page, `document.querySelector('#results .result-card [data-form-id=${JSON.stringify(expected.formId)}]')?.getAttribute("aria-pressed")`), "true");
+      const spriteSource = await evaluate(page, `document.querySelector("#results .result-card .pokemon-sprite")?.src`);
+      const spriteUrl = new URL(spriteSource);
+      if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(spriteUrl.pathname), expected.localPath);
+      else assert.equal(spriteUrl.searchParams.get("form"), expected.gatewayForm);
+    }
+    await evaluate(page, `(() => {
+      const input = document.getElementById("species-input");
+      input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    })()`);
+    await waitFor(page, `document.querySelectorAll("#results .result-card").length === 259`, `${name} cards did not restore after cosmetic alias search`);
+    await waitFor(page, `[...document.querySelectorAll("#results .pokemon-sprite")].every(image => image.naturalWidth > 0)`, `${name} restored Pokemon images did not finish loading`);
 
     await evaluate(page, `document.getElementById("box-tab").click()`);
     await waitFor(page, `document.querySelectorAll("#box-results .party-card").length === 1`, `${name} saved team did not render`);
@@ -297,10 +640,20 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
       return {
         mode: document.documentElement.dataset.pokemonAssetMode,
         cards: document.querySelectorAll("#results .result-card").length,
+        cardNames: [...document.querySelectorAll("#results .result-card h3")].map(heading => heading.textContent.trim()),
+        legacyCosmeticSlugTarget: findSpeciesBySlug("sinistcha-masterpiece")?.slug || "",
+        legacySquawkabillyBlueTarget: findSpeciesBySlug("squawkabilly-blue")?.slug || "",
+        legacySquawkabillyWhiteTarget: findSpeciesBySlug("squawkabilly-white")?.slug || "",
         resultSprites: resultSprites.length,
         resultSpritesLoaded: resultSprites.filter(image => image.naturalWidth > 0).length,
         regionalSprites: resultSprites
           .filter(image => ["Alolan ", "Galarian ", "Hisuian ", "Paldean "].some(prefix => image.alt.startsWith(prefix)))
+          .map(image => ({ alt: image.alt, src: image.src })),
+        genderSprites: speedSprites
+          .filter(image => ${JSON.stringify(["Meowstic M sprite", "Meowstic F sprite", "Indeedee M sprite", "Indeedee F sprite", "Basculegion M sprite", "Basculegion F sprite"])}.includes(image.alt))
+          .map(image => ({ alt: image.alt, src: image.src })),
+        squawkabillySprites: speedSprites
+          .filter(image => ${JSON.stringify(["Squawkabilly Green sprite", "Squawkabilly Blue sprite", "Squawkabilly Yellow sprite", "Squawkabilly White sprite"])}.includes(image.alt))
           .map(image => ({ alt: image.alt, src: image.src })),
         speedSprites: speedSprites.length,
         speedSpritesLoaded: speedSprites.filter(image => image.naturalWidth > 0).length,
@@ -329,8 +682,32 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     })()`);
 
     assert.equal(desktop.mode, expectedMode);
-    assert.equal(desktop.cards, 289);
-    assert.equal(desktop.resultSprites, 289);
+    assert.equal(desktop.cards, 259);
+    assert.equal(desktop.resultSprites, 259);
+    assert.ok(desktop.cardNames.includes("Alcremie"));
+    assert.ok(desktop.cardNames.includes("Sinistcha"));
+    assert.ok(desktop.cardNames.includes("Vivillon"));
+    assert.equal(desktop.cardNames.includes("Alcremie Rainbow Swirl"), false);
+    assert.equal(desktop.cardNames.includes("Sinistcha Masterpiece"), false);
+    assert.equal(desktop.cardNames.includes("Vivillon Fancy"), false);
+    assert.ok(desktop.cardNames.includes("Meowstic M"));
+    assert.ok(desktop.cardNames.includes("Meowstic F"));
+    assert.ok(desktop.cardNames.includes("Indeedee M"));
+    assert.ok(desktop.cardNames.includes("Indeedee F"));
+    assert.ok(desktop.cardNames.includes("Basculegion M"));
+    assert.ok(desktop.cardNames.includes("Basculegion F"));
+    assert.equal(desktop.cardNames.includes("Meowstic Female"), false);
+    assert.equal(desktop.cardNames.includes("Indeedee Male"), false);
+    assert.equal(desktop.cardNames.includes("Indeedee Female"), false);
+    assert.equal(desktop.cardNames.includes("Basculegion"), false);
+    assert.ok(desktop.cardNames.includes("Squawkabilly Green"));
+    assert.ok(desktop.cardNames.includes("Squawkabilly Yellow"));
+    assert.equal(desktop.cardNames.includes("Squawkabilly Blue"), false);
+    assert.equal(desktop.cardNames.includes("Squawkabilly White"), false);
+    assert.equal(desktop.cardNames.some(cardName => /Plumage/iu.test(cardName)), false);
+    assert.equal(desktop.legacyCosmeticSlugTarget, "sinistcha");
+    assert.equal(desktop.legacySquawkabillyBlueTarget, "squawkabilly");
+    assert.equal(desktop.legacySquawkabillyWhiteTarget, "squawkabilly-yellow");
     assert.equal(desktop.resultSpritesLoaded, desktop.resultSprites);
     assert.equal(desktop.regionalSprites.length, regionalSpriteExpectations.length);
     const regionalSpritesByAlt = new Map(desktop.regionalSprites.map(sprite => [sprite.alt, sprite]));
@@ -345,7 +722,33 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
         assert.equal(Number(url.searchParams.get("nationalDex")), expected.nationalDex);
       }
     }
-    assert.ok(desktop.speedSprites > 289);
+    assert.equal(desktop.genderSprites.length, genderSpriteExpectations.length);
+    const genderSpritesByAlt = new Map(desktop.genderSprites.map(sprite => [sprite.alt, sprite]));
+    for (const expected of genderSpriteExpectations) {
+      const actual = genderSpritesByAlt.get(expected.alt);
+      assert.ok(actual, `${name} did not render ${expected.alt}`);
+      const url = new URL(actual.src);
+      if (expectedMode === "local-resolver") {
+        assert.equal(decodeURIComponent(url.pathname), expected.localPath, `${name} resolved the wrong appearance for ${expected.alt}`);
+      } else {
+        assert.equal(url.searchParams.get("form"), expected.form, `${name} omitted the gender form for ${expected.alt}`);
+        assert.equal(Number(url.searchParams.get("nationalDex")), expected.nationalDex);
+      }
+    }
+    for (const [male, female] of [["Meowstic M sprite", "Meowstic F sprite"], ["Indeedee M sprite", "Indeedee F sprite"], ["Basculegion M sprite", "Basculegion F sprite"]]) {
+      assert.notEqual(genderSpritesByAlt.get(male)?.src, genderSpritesByAlt.get(female)?.src, `${name} reused the same sprite for ${male} and ${female}`);
+    }
+    assert.equal(desktop.squawkabillySprites.length, squawkabillySpriteExpectations.length);
+    const squawkabillySpritesByAlt = new Map(desktop.squawkabillySprites.map(sprite => [sprite.alt, sprite]));
+    for (const expected of squawkabillySpriteExpectations) {
+      const actual = squawkabillySpritesByAlt.get(expected.alt);
+      assert.ok(actual, `${name} did not render ${expected.alt}`);
+      const url = new URL(actual.src);
+      if (expectedMode === "local-resolver") assert.equal(decodeURIComponent(url.pathname), expected.localPath);
+      else assert.equal(url.searchParams.get("form"), expected.form);
+    }
+    assert.equal(new Set(desktop.squawkabillySprites.map(sprite => sprite.src)).size, 4, `${name} did not render four distinct Squawkabilly sprites`);
+    assert.ok(desktop.speedSprites > 259);
     assert.equal(desktop.speedSpritesLoaded, desktop.speedSprites);
     assert.equal(desktop.megaSpriteLoaded, true);
     assert.equal(desktop.alternateSpriteLoaded, true);
@@ -419,11 +822,11 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
       assert.ok(localAssetRequests.some(url => /\/profiles\/pixel\/index\.json$/u.test(new URL(url).pathname)));
     } else {
       assert.equal(localAssetRequests.length, 0);
-      assert.ok(gatewayRequests.length >= 289);
+      assert.ok(gatewayRequests.length >= 259);
       for (const requestUrl of gatewayRequests) {
         const url = new URL(requestUrl);
         assert.equal(url.pathname, "/v1/releases/0.7.0-dev.2/asset");
-        assert.equal(url.searchParams.get("kind"), "pokemon-sprite");
+        assert.ok(["pokemon-sprite", "type-icon"].includes(url.searchParams.get("kind")), `unexpected published asset kind in ${requestUrl}`);
         assert.equal(url.searchParams.has("fallbackSpriteTypes"), false);
         assert.equal(url.searchParams.has("path"), false);
         assert.equal(url.searchParams.has("key"), false);
@@ -432,6 +835,8 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
         assert.equal(url.searchParams.has("filename"), false);
         assert.equal(url.searchParams.has("v"), false);
       }
+      const typeIconRequests = gatewayRequests.map(requestUrl => new URL(requestUrl)).filter(url => url.searchParams.get("kind") === "type-icon");
+      assert.deepEqual([...new Set(typeIconRequests.map(url => url.searchParams.get("type")?.toLowerCase()))].sort(), ["fire", "ice", "normal", "water"]);
       assert.equal(gatewayRequests.some(url => new URL(url).searchParams.get("gender") === "female"), true);
       assert.equal(gatewayRequests.some(url => /^mega/u.test(new URL(url).searchParams.get("form") || "")), true);
       assert.equal(gatewayRequests.some(url => {
@@ -454,6 +859,11 @@ let server = null;
 try {
   const seedBox = JSON.parse(await fs.readFile(path.join(projectRoot, "box_data.json"), "utf8"));
   const regionalSpriteExpectations = await loadRegionalSpriteExpectations();
+  const genderSpriteExpectations = await loadGenderSpriteExpectations();
+  const squawkabillySpriteExpectations = await loadSquawkabillySpriteExpectations();
+  const gourgeistSpriteExpectations = await loadGourgeistSpriteExpectations();
+  const castformSpriteExpectations = await loadCastformSpriteExpectations();
+  const castformTypeIconExpectations = await loadCastformTypeIconExpectations();
   const championsDataset = JSON.parse(await fs.readFile(path.join(projectRoot, "dataset", "champions_dataset.json"), "utf8"));
   const savedRegionalSpecies = championsDataset.species.find(species => species.primaryName === "Alolan Raichu");
   assert.ok(savedRegionalSpecies);
@@ -488,6 +898,11 @@ try {
     browserPath,
     seedBox,
     regionalSpriteExpectations,
+    genderSpriteExpectations,
+    squawkabillySpriteExpectations,
+    gourgeistSpriteExpectations,
+    castformSpriteExpectations,
+    castformTypeIconExpectations,
   });
   const published = await runScenario({
     name: "published",
@@ -497,6 +912,11 @@ try {
     browserPath,
     seedBox,
     regionalSpriteExpectations,
+    genderSpriteExpectations,
+    squawkabillySpriteExpectations,
+    gourgeistSpriteExpectations,
+    castformSpriteExpectations,
+    castformTypeIconExpectations,
   });
   console.log(JSON.stringify({ status: "champions-asset-browser-smoke-valid", local, published }, null, 2));
 } finally {
