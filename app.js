@@ -211,6 +211,22 @@ function buildPokemonSpriteQuery({ species, nationalDex, form = "", gender = "de
   return query;
 }
 
+function getRegionalSpriteForm(value) {
+  const form = String(value || "").trim();
+  return /^(?:Alola|Galar|Hisui|Paldea)(?:-|$)/iu.test(form) ? form : "";
+}
+
+function findDatasetRegionalSpriteForm(name, nationalDex) {
+  const requestedName = normalizeName(name);
+  const requestedDex = Number(nationalDex || 0);
+  const match = state.dataset?.species?.find(species => {
+    const form = getRegionalSpriteForm(species.form);
+    if (!form || (requestedDex && Number(species.dexNo) !== requestedDex)) return false;
+    return (species.availableNames || [species.primaryName]).some(candidate => normalizeName(candidate) === requestedName);
+  });
+  return getRegionalSpriteForm(match?.form);
+}
+
 function normalizePokemonSpriteQuery(query, fallback = {}) {
   const form = fallback.isMega
     ? getCanonicalMegaFormId(fallback.label, query?.form || fallback.form)
@@ -246,6 +262,7 @@ async function hydrateDatasetSprites(speciesList) {
     tasks.push(hydratePokemonSprite(species, {
       species: species.primaryName,
       nationalDex: species.dexNo,
+      form: getRegionalSpriteForm(species.form),
       label: species.primaryName
     }));
     const megaForms = Array.isArray(species.megaEvolutions) && species.megaEvolutions.length
@@ -289,7 +306,9 @@ async function hydrateBoxSprites() {
     return hydratePokemonSprite(species, {
       species: species.baseName || species.name,
       nationalDex: species.dexNo,
-      form: species.formId,
+      form: getRegionalSpriteForm(species.formId)
+        || findDatasetRegionalSpriteForm(species.baseName || species.name, species.dexNo)
+        || species.formId,
       label: species.name,
       isMega: String(species.formId || "").startsWith("mega") || /^Mega\s/i.test(species.name || "")
     });
@@ -4273,7 +4292,9 @@ function normalizeBoxData(data) {
         species.spriteQuery = normalizePokemonSpriteQuery(species.spriteQuery, {
           species: species.baseName || species.name,
           nationalDex: species.dexNo,
-          form: species.formId,
+          form: getRegionalSpriteForm(species.formId)
+            || findDatasetRegionalSpriteForm(species.baseName || species.name, species.dexNo)
+            || species.formId,
           label: species.name,
           isMega: String(species.formId || "").startsWith("mega") || /^Mega\s/i.test(species.name || "")
         });
