@@ -26,6 +26,38 @@ const contentTypes = new Map([
   [".webp", "image/webp"],
 ]);
 const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+const regionalFormPattern = /^(Alola|Galar|Hisui|Paldea)(?:-|$)/iu;
+
+function normalizeIdentityToken(value) {
+  return String(value || "").toLowerCase().replace(/[^a-z0-9]+/gu, "");
+}
+
+async function loadRegionalSpriteExpectations() {
+  const dataset = JSON.parse(await fs.readFile(path.join(projectRoot, "dataset", "champions_dataset.json"), "utf8"));
+  const pixelIndex = JSON.parse(await fs.readFile(path.join(assetReleaseRoot, "profiles", "pixel", "index.json"), "utf8"));
+  const regionalSpecies = dataset.species.filter(species => regionalFormPattern.test(String(species.form || "")));
+  assert.equal(regionalSpecies.length, 16);
+  return regionalSpecies.map(species => {
+    const requestedForm = normalizeIdentityToken(species.form);
+    const matches = Object.entries(pixelIndex.appearances || {})
+      .filter(([appearanceId, appearance]) =>
+        Number(appearance.nationalDex) === Number(species.dexNo)
+        && (normalizeIdentityToken(appearance.formId) === requestedForm
+          || normalizeIdentityToken(appearanceId).includes(requestedForm))
+      )
+      .map(([, appearance]) => appearance);
+    assert.equal(matches.length, 1, `${species.primaryName} must have one exact regional appearance`);
+    const variants = matches[0].variants || {};
+    const asset = variants.default?.normalFront || variants.male?.normalFront || variants.female?.normalFront;
+    assert.ok(asset?.path, `${species.primaryName} must have a front sprite`);
+    return {
+      alt: `${species.primaryName} sprite`,
+      form: species.form,
+      nationalDex: species.dexNo,
+      localPath: `/Datasets/Pokemon Assets/release/${asset.path}`,
+    };
+  });
+}
 
 async function availablePort() {
   return new Promise((resolve, reject) => {
@@ -186,7 +218,7 @@ async function pressTab(client) {
   await client.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
 }
 
-async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox }) {
+async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations }) {
   const profile = path.join(temporaryRoot, `asset-browser-${name}-${process.pid}`);
   const screenshot = path.join(temporaryRoot, `champions-assets-${name}.png`);
   const debugPort = await availablePort();
@@ -267,12 +299,16 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
         cards: document.querySelectorAll("#results .result-card").length,
         resultSprites: resultSprites.length,
         resultSpritesLoaded: resultSprites.filter(image => image.naturalWidth > 0).length,
+        regionalSprites: resultSprites
+          .filter(image => ["Alolan ", "Galarian ", "Hisuian ", "Paldean "].some(prefix => image.alt.startsWith(prefix)))
+          .map(image => ({ alt: image.alt, src: image.src })),
         speedSprites: speedSprites.length,
         speedSpritesLoaded: speedSprites.filter(image => image.naturalWidth > 0).length,
         megaSpriteLoaded: speedSprites.some(image => /^Mega /u.test(image.alt) && image.naturalWidth > 0),
         alternateSpriteLoaded: speedSprites.some(image => /Rotom (?:Heat|Wash|Frost|Fan|Mow)|Basculegion/u.test(image.alt) && image.naturalWidth > 0),
         boxSprites: boxSprites.length,
         boxSpritesLoaded: boxSprites.filter(image => image.naturalWidth > 0).length,
+        boxSpriteSources: boxSprites.map(image => ({ alt: image.alt, src: image.src })),
         titleLoaded: title.naturalWidth > 0,
         titleProfile: title.dataset.pokemonAssetProfile,
         titleFallbackOrder: title.dataset.pokemonAssetFallbackOrder,
@@ -281,6 +317,8 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
         storage: {
           setlistFirstName: storedSetlist[0]?.name || "",
           boxFirstTeam: storedBox.configs[0]?.team || "",
+          boxFirstSpeciesName: storedBox.configs[0]?.species?.name || "",
+          boxFirstSpriteForm: storedBox.configs[0]?.species?.spriteQuery?.form || "",
           boxHasSpritePath: Object.hasOwn(storedBox.configs[0]?.species || {}, "spritePath"),
           seedFirstId: storedSeedIds[0] || "",
           legacyKeysPresent: legacyStorageKeys.filter(key => localStorage.getItem(key) !== null),
@@ -294,18 +332,44 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     assert.equal(desktop.cards, 289);
     assert.equal(desktop.resultSprites, 289);
     assert.equal(desktop.resultSpritesLoaded, desktop.resultSprites);
+    assert.equal(desktop.regionalSprites.length, regionalSpriteExpectations.length);
+    const regionalSpritesByAlt = new Map(desktop.regionalSprites.map(sprite => [sprite.alt, sprite]));
+    for (const expected of regionalSpriteExpectations) {
+      const actual = regionalSpritesByAlt.get(expected.alt);
+      assert.ok(actual, `${name} did not render ${expected.alt}`);
+      const url = new URL(actual.src);
+      if (expectedMode === "local-resolver") {
+        assert.equal(decodeURIComponent(url.pathname), expected.localPath, `${name} resolved the wrong appearance for ${expected.alt}`);
+      } else {
+        assert.equal(url.searchParams.get("form"), expected.form, `${name} omitted the regional form for ${expected.alt}`);
+        assert.equal(Number(url.searchParams.get("nationalDex")), expected.nationalDex);
+      }
+    }
     assert.ok(desktop.speedSprites > 289);
     assert.equal(desktop.speedSpritesLoaded, desktop.speedSprites);
     assert.equal(desktop.megaSpriteLoaded, true);
     assert.equal(desktop.alternateSpriteLoaded, true);
     assert.ok(desktop.boxSprites >= 2);
     assert.equal(desktop.boxSpritesLoaded, desktop.boxSprites);
+    assert.equal(desktop.boxSpriteSources.every(sprite => sprite.alt === "Alolan Raichu sprite"), true);
+    const savedRegionalExpectation = regionalSpriteExpectations.find(expected => expected.alt === "Alolan Raichu sprite");
+    assert.ok(savedRegionalExpectation);
+    for (const sprite of desktop.boxSpriteSources) {
+      const url = new URL(sprite.src);
+      if (expectedMode === "local-resolver") {
+        assert.equal(decodeURIComponent(url.pathname), savedRegionalExpectation.localPath);
+      } else {
+        assert.equal(url.searchParams.get("form"), savedRegionalExpectation.form);
+      }
+    }
     assert.equal(desktop.titleLoaded, true);
     assert.equal(desktop.titleFallbackOrder, "g5-animated,g5-static,pixel");
     assert.equal(desktop.titleProfile, failAnimatedTitle ? "g5-static" : "gen5-animated");
     assert.equal(desktop.titleFallbackIndex, failAnimatedTitle ? "1" : "0");
     assert.equal(desktop.storage.setlistFirstName, "Aqua Jet");
     assert.equal(desktop.storage.boxFirstTeam, "Smoke Team");
+    assert.equal(desktop.storage.boxFirstSpeciesName, "Alolan Raichu");
+    assert.equal(desktop.storage.boxFirstSpriteForm, "Alola");
     assert.equal(desktop.storage.boxHasSpritePath, false);
     assert.equal(desktop.storage.seedFirstId, "seed-azumarill-bathtub");
     assert.deepEqual(desktop.storage.legacyKeysPresent, []);
@@ -389,6 +453,27 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
 let server = null;
 try {
   const seedBox = JSON.parse(await fs.readFile(path.join(projectRoot, "box_data.json"), "utf8"));
+  const regionalSpriteExpectations = await loadRegionalSpriteExpectations();
+  const championsDataset = JSON.parse(await fs.readFile(path.join(projectRoot, "dataset", "champions_dataset.json"), "utf8"));
+  const savedRegionalSpecies = championsDataset.species.find(species => species.primaryName === "Alolan Raichu");
+  assert.ok(savedRegionalSpecies);
+  seedBox.configs[0].species = {
+    slug: savedRegionalSpecies.slug,
+    name: savedRegionalSpecies.primaryName,
+    baseName: savedRegionalSpecies.primaryName,
+    dexNo: savedRegionalSpecies.dexNo,
+    formId: "base",
+    spriteQuery: {
+      spriteType: "pixel",
+      species: savedRegionalSpecies.primaryName,
+      nationalDex: savedRegionalSpecies.dexNo,
+      gender: "default",
+      shiny: false,
+      view: "front",
+    },
+    types: savedRegionalSpecies.types,
+    baseStats: savedRegionalSpecies.baseStats,
+  };
   seedBox.configs[0].team = "Smoke Team";
   seedBox.teams = ["Smoke Team"];
   await fs.mkdir(temporaryRoot, { recursive: true });
@@ -402,6 +487,7 @@ try {
     failAnimatedTitle: false,
     browserPath,
     seedBox,
+    regionalSpriteExpectations,
   });
   const published = await runScenario({
     name: "published",
@@ -410,6 +496,7 @@ try {
     failAnimatedTitle: true,
     browserPath,
     seedBox,
+    regionalSpriteExpectations,
   });
   console.log(JSON.stringify({ status: "champions-asset-browser-smoke-valid", local, published }, null, 2));
 } finally {
