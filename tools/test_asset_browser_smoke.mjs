@@ -397,6 +397,81 @@ async function assertCardExpansionPreservesViewport(client, name, layout, { focu
   assert.equal(collapsed.resultCount, before.resultCount, `${name} ${layout} collapse removed result cards`);
 }
 
+async function setSpeciesSearch(client, value, expectedCount, message) {
+  await evaluate(client, `(() => {
+    const input = document.getElementById("species-input");
+    input.value = ${JSON.stringify(value)};
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  })()`);
+  await waitFor(client, `document.querySelectorAll("#results .result-card").length === ${expectedCount}`, message);
+}
+
+async function assertFormAndSpeedLabels(client, name) {
+  const cycles = [
+    {
+      species: "Venusaur",
+      steps: [
+        { button: "Mega Form", heading: "Mega Venusaur" },
+        { button: "Base Form", heading: "Venusaur" },
+      ],
+    },
+    {
+      species: "Charizard",
+      steps: [
+        { button: "Mega X", heading: "Mega Charizard X" },
+        { button: "Mega Y", heading: "Mega Charizard Y" },
+        { button: "Base Form", heading: "Charizard" },
+      ],
+    },
+    {
+      species: "Aegislash",
+      steps: [
+        { button: "Blade Form", heading: "Aegislash Blade" },
+        { button: "Shield Form", heading: "Aegislash" },
+      ],
+    },
+    {
+      species: "Palafin",
+      steps: [
+        { button: "Hero Form", heading: "Palafin Hero" },
+        { button: "Zero Form", heading: "Palafin" },
+      ],
+    },
+    {
+      species: "Morpeko",
+      steps: [
+        { button: "Hangry Form", heading: "Morpeko Hangry" },
+        { button: "Full Belly Form", heading: "Morpeko" },
+      ],
+    },
+  ];
+
+  for (const cycle of cycles) {
+    await setSpeciesSearch(client, cycle.species, 1, `${name} ${cycle.species} label test did not settle`);
+    for (const step of cycle.steps) {
+      const buttonText = await evaluate(client, `document.querySelector("#results .form-toggle-button")?.textContent.trim() || ""`);
+      assert.equal(buttonText, step.button, `${name} ${cycle.species} form target label is incorrect`);
+      await evaluate(client, `document.querySelector("#results .form-toggle-button").click()`);
+      await waitFor(client, `document.querySelector("#results .result-card h3")?.textContent.trim() === ${JSON.stringify(step.heading)}`, `${name} ${cycle.species} did not switch to ${step.heading}`);
+    }
+  }
+
+  await setSpeciesSearch(client, "", 259, `${name} cards did not restore after form label tests`);
+  const speedLabels = await evaluate(client, `(() => {
+    const buttons = [...document.querySelectorAll("#results .speed-graph-button")];
+    return {
+      count: buttons.length,
+      labels: [...new Set(buttons.map(button => button.textContent.trim()))],
+      oldFormLabels: [...document.querySelectorAll("#results .form-toggle-button")]
+        .map(button => button.textContent.trim())
+        .filter(label => /^Show\s/u.test(label))
+    };
+  })()`);
+  assert.equal(speedLabels.count, 259, `${name} is missing Speed Tier buttons`);
+  assert.deepEqual(speedLabels.labels, ["Speed Tier"], `${name} still renders an old Speed Graph label`);
+  assert.deepEqual(speedLabels.oldFormLabels, [], `${name} still renders Show-prefixed form labels`);
+}
+
 async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations, genderSpriteExpectations, squawkabillySpriteExpectations, gourgeistSpriteExpectations, castformSpriteExpectations, castformTypeIconExpectations }) {
   const profile = path.join(temporaryRoot, `asset-browser-${name}-${process.pid}`);
   const screenshot = path.join(temporaryRoot, `champions-assets-${name}.png`);
@@ -683,6 +758,8 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     })()`);
     await waitFor(page, `document.querySelectorAll("#results .result-card").length === 259`, `${name} cards did not restore after cosmetic alias search`);
     await waitFor(page, `[...document.querySelectorAll("#results .pokemon-sprite")].every(image => image.naturalWidth > 0)`, `${name} restored Pokemon images did not finish loading`);
+    await assertFormAndSpeedLabels(page, name);
+    await waitFor(page, `[...document.querySelectorAll("#results .pokemon-sprite")].every(image => image.naturalWidth > 0)`, `${name} Pokemon images did not finish loading after form label tests`);
     await assertCardExpansionPreservesViewport(page, name, "desktop", { focusSpeciesInput: true });
 
     await evaluate(page, `document.getElementById("box-tab").click()`);
