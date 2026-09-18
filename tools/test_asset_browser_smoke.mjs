@@ -472,6 +472,54 @@ async function assertFormAndSpeedLabels(client, name) {
   assert.deepEqual(speedLabels.oldFormLabels, [], `${name} still renders Show-prefixed form labels`);
 }
 
+async function assertNaturalAbilityCardHeights(client, name, layout) {
+  await evaluate(client, `document.getElementById("ability-tab").click()`);
+  await waitFor(client, `document.querySelectorAll("#ability-results .ability-row").length === 216`, `${name} ${layout} ability cards did not render`);
+  await waitForAnimationFrames(client, 3);
+
+  const metrics = await evaluate(client, `(() => {
+    const rows = [...document.querySelectorAll("#ability-results .ability-row")];
+    const heights = rows.map(row => Math.round(row.getBoundingClientRect().height));
+    return {
+      count: rows.length,
+      inlineHeightNames: rows
+        .filter(row => row.style.height || row.style.minHeight)
+        .map(row => row.querySelector(".row-title")?.textContent.trim() || "Unknown"),
+      distinctHeights: [...new Set(heights)].sort((left, right) => left - right),
+      clippedRows: rows
+        .filter(row => row.scrollHeight > row.clientHeight + 1)
+        .map(row => row.querySelector(".row-title")?.textContent.trim() || "Unknown"),
+      buttonOverflowRows: rows
+        .filter(row => {
+          const button = row.querySelector(".send-setlist-button");
+          if (!button) return true;
+          const rowBox = row.getBoundingClientRect();
+          const buttonBox = button.getBoundingClientRect();
+          return buttonBox.top < rowBox.top - 1 || buttonBox.right > rowBox.right + 1 ||
+            buttonBox.bottom > rowBox.bottom + 1 || buttonBox.left < rowBox.left - 1;
+        })
+        .map(row => row.querySelector(".row-title")?.textContent.trim() || "Unknown"),
+      viewport: innerWidth,
+      scrollWidth: document.documentElement.scrollWidth
+    };
+  })()`);
+
+  assert.equal(metrics.count, 216, `${name} ${layout} rendered the wrong number of ability cards`);
+  assert.deepEqual(metrics.inlineHeightNames, [], `${name} ${layout} ability cards still have forced inline heights`);
+  assert.ok(metrics.distinctHeights.length > 1, `${name} ${layout} ability cards are still uniformly sized to the tallest card`);
+  assert.deepEqual(metrics.clippedRows, [], `${name} ${layout} ability card content is clipped`);
+  assert.deepEqual(metrics.buttonOverflowRows, [], `${name} ${layout} ability card buttons overflow their cards`);
+  assert.ok(metrics.scrollWidth <= metrics.viewport, `${name} ${layout} ability cards cause horizontal overflow`);
+
+  await evaluate(client, `document.getElementById("set-tab").click()`);
+  return {
+    count: metrics.count,
+    distinctHeights: metrics.distinctHeights.length,
+    shortestHeight: metrics.distinctHeights[0],
+    tallestHeight: metrics.distinctHeights.at(-1)
+  };
+}
+
 async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, browserPath, seedBox, regionalSpriteExpectations, genderSpriteExpectations, squawkabillySpriteExpectations, gourgeistSpriteExpectations, castformSpriteExpectations, castformTypeIconExpectations }) {
   const profile = path.join(temporaryRoot, `asset-browser-${name}-${process.pid}`);
   const screenshot = path.join(temporaryRoot, `champions-assets-${name}.png`);
@@ -761,6 +809,7 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     await assertFormAndSpeedLabels(page, name);
     await waitFor(page, `[...document.querySelectorAll("#results .pokemon-sprite")].every(image => image.naturalWidth > 0)`, `${name} Pokemon images did not finish loading after form label tests`);
     await assertCardExpansionPreservesViewport(page, name, "desktop", { focusSpeciesInput: true });
+    const desktopAbilityCards = await assertNaturalAbilityCardHeights(page, name, "desktop");
 
     await evaluate(page, `document.getElementById("box-tab").click()`);
     await waitFor(page, `document.querySelectorAll("#box-results .party-card").length === 1`, `${name} saved team did not render`);
@@ -933,7 +982,9 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
     await evaluate(page, `document.getElementById("set-tab").click()`);
     await waitFor(page, `document.querySelectorAll("#results .result-card").length === 259`, `${name} mobile cards did not restore`);
     await assertCardExpansionPreservesViewport(page, name, "mobile");
+    const mobileAbilityCards = await assertNaturalAbilityCardHeights(page, name, "mobile");
     const mobile = await evaluate(page, `({ viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth })`);
+    mobile.abilityCards = mobileAbilityCards;
     assert.ok(mobile.viewport >= 390 && mobile.viewport <= 400);
     assert.ok(mobile.scrollWidth <= mobile.viewport);
 
@@ -1000,6 +1051,7 @@ async function runScenario({ name, appUrl, expectedMode, failAnimatedTitle, brow
       assert.equal(requestedUrls.some(url => /assets\.phantomsafe\.tv\/(?:releases\/|.*(?:index|manifest|asset-index|release-plan)\.json)/iu.test(url)), false);
     }
 
+    desktop.abilityCards = desktopAbilityCards;
     return { name, desktop, mobile, requests: requestedUrls.length, gatewayRequests: gatewayRequests.length, localAssetRequests: localAssetRequests.length, screenshot };
   } finally {
     page?.close();
