@@ -2695,17 +2695,20 @@ function getMegaToggleLabel(form) {
   return "Mega Form";
 }
 
-function getFormToggleButtonText(species) {
-  const forms = getAvailableForms(species);
-  const nextForm = getNextManualForm(species);
-  const alternateForms = forms.filter(form => form.id !== "base");
-  const onlyMegaAlternates = alternateForms.length > 0 && alternateForms.every(form => form.isMega);
-
-  if (nextForm.isMega && onlyMegaAlternates) {
-    return `Show ${getMegaToggleLabel(nextForm)}`;
+function getTargetFormToggleLabel(form) {
+  if (form.isMega) {
+    return getMegaToggleLabel(form);
   }
 
-  return `Show ${nextForm.shortLabel || nextForm.label}`;
+  const label = String(form.shortLabel || form.label || "Base Form").trim();
+  if (/\bforme?$/iu.test(label)) {
+    return label.replace(/\bforme?$/iu, "Form");
+  }
+  return `${label} Form`;
+}
+
+function getFormToggleButtonText(species, displayForm = getDisplayForm(species)) {
+  return getTargetFormToggleLabel(getNextExplicitForm(species, displayForm.id));
 }
 
 function getSegmentedFormControls(species, displayForm) {
@@ -2740,7 +2743,7 @@ function getManualFormControl(species, displayForm) {
     return segmentedControls;
   }
 
-  return `<button type="button" class="secondary form-toggle-button">${getFormToggleButtonText(species)}</button>`;
+  return `<button type="button" class="secondary form-toggle-button">${getFormToggleButtonText(species, displayForm)}</button>`;
 }
 
 function formatMoveList(moves, filters = null) {
@@ -5082,7 +5085,7 @@ function renderResults() {
         </div>
         <div class="result-card-actions">
           ${allowManualToggle ? getManualFormControl(species, displayForm) : ""}
-          <button type="button" class="secondary speed-graph-button">Find on Speed Graph</button>
+          <button type="button" class="secondary speed-graph-button">Speed Tier</button>
         </div>
       </div>
       ${isExpanded ? `
