@@ -427,7 +427,7 @@ async function assertFormAndSpeedLabels(client, name) {
       species: "Aegislash",
       steps: [
         { button: "Blade Form", heading: "Aegislash Blade" },
-        { button: "Shield Form", heading: "Aegislash" },
+        { button: "Shield Form", heading: "Aegislash Shield" },
       ],
     },
     {
@@ -455,6 +455,20 @@ async function assertFormAndSpeedLabels(client, name) {
       await waitFor(client, `document.querySelector("#results .result-card h3")?.textContent.trim() === ${JSON.stringify(step.heading)}`, `${name} ${cycle.species} did not switch to ${step.heading}`);
     }
   }
+
+  const aegislashImports = await evaluate(client, `(() => ["Aegislash", "Aegislash Shield"].map(input => {
+    const match = findSpeciesFormFromShowdownName(input);
+    return {
+      input,
+      slug: match?.species?.slug || "",
+      formId: match?.form?.id || "",
+      label: match?.form?.label || ""
+    };
+  }))()`);
+  assert.deepEqual(aegislashImports, [
+    { input: "Aegislash", slug: "aegislash", formId: "base", label: "Aegislash Shield" },
+    { input: "Aegislash Shield", slug: "aegislash", formId: "base", label: "Aegislash Shield" }
+  ], `${name} Aegislash Shield naming broke Showdown import compatibility`);
 
   await setSpeciesSearch(client, "", 259, `${name} cards did not restore after form label tests`);
   const speedLabels = await evaluate(client, `(() => {

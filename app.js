@@ -606,6 +606,10 @@ const TRANSFORMING_FORMS = {
   }]
 };
 
+const BASE_FORM_DISPLAY_LABELS = {
+  aegislash: "Aegislash Shield"
+};
+
 const SEPARATE_FORM_CARDS = {
   rotom: {
     forms: [{
@@ -1618,7 +1622,7 @@ function getAvailableForms(species) {
   const datasetSelectableForms = Array.isArray(species.embeddedSelectableForms) ? species.embeddedSelectableForms : [];
   const forms = [{
     id: "base",
-    label: species.primaryName,
+    label: BASE_FORM_DISPLAY_LABELS[species.slug] || species.primaryName,
     shortLabel: species.baseFormLabel || TRANSFORMING_FORMS[species.slug]?.[0]?.baseLabel || "Base form",
     segmentLabel: species.baseFormSegmentLabel,
     segmentOrder: species.baseFormSegmentOrder,
