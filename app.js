@@ -3592,35 +3592,8 @@ function renderAbilitySearch() {
   }
   elements.abilityResultCount.textContent = `${matches.length} abilit${matches.length === 1 ? "y" : "ies"}`;
   elements.abilityResults.innerHTML = matches.map(ability => formatAbilitySearchCard(ability)).join("") || `<div class="empty-state">No abilities match the current search.</div>`;
-  syncAbilityRowHeights();
   bindSendButtons(elements.abilityResults);
   bindSearchExpanders(elements.abilityResults, "ability");
-}
-
-function syncAbilityRowHeights() {
-  const rows = [...elements.abilityResults.querySelectorAll(".ability-row.search-expand-shell")];
-  if (!rows.length) {
-    return;
-  }
-
-  for (const row of rows) {
-    row.style.minHeight = "";
-    row.style.height = "";
-  }
-
-  if (elements.abilityPanel.hidden) {
-    return;
-  }
-
-  requestAnimationFrame(() => {
-    const tallestRow = Math.max(...rows.map(row => row.offsetHeight));
-    if (!tallestRow) {
-      return;
-    }
-    for (const row of rows) {
-      row.style.height = `${tallestRow}px`;
-    }
-  });
 }
 
 function getPartyMatches() {
@@ -4542,9 +4515,6 @@ function setActiveTab(tab) {
   if (tab === "move") {
     syncMoveRowHeights();
   }
-  if (tab === "ability") {
-    syncAbilityRowHeights();
-  }
 }
 
 function renderSpeedDrawer() {
@@ -5427,7 +5397,6 @@ elements.promptInput.addEventListener("keydown", event => {
 });
 document.addEventListener("click", collapseExpandedCardOnOutsideClick);
 window.addEventListener("resize", syncMoveRowHeights);
-window.addEventListener("resize", syncAbilityRowHeights);
 
 loadDataset().catch(error => {
   console.error(error);
